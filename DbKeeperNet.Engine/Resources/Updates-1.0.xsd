@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd" elementFormDefault="unqualified" xmlns="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd" xmlns:mstns="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
+  <xs:element name="Updates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Update" type="UpdateType" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="DefaultPreconditions" type="UpdatePreconditionCollectionType" minOccurs="0" />
+      </xs:sequence>
+      <xs:attribute name="AssemblyName" type="UpdateAssemblyNameType" use="required" />
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="UpdateDbStepType">
+    <xs:complexContent>
+      <xs:extension base="UpdateStepBaseType">
+        <xs:sequence>
+          <xs:element name="AlternativeStatement" type="UpdateDbAlternativeStatementType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="UpdateDbAlternativeStatementType">
+    <xs:simpleContent>
+      <xs:extension base="UpdateDbStatementType">
+        <xs:attribute name="Driver" type="xs:string" use="optional" default="all" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="UpdateType">
+    <xs:sequence>
+      <xs:element name="UpdateStep" type="UpdateStepBaseType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="Version" type="UpdateVersionType" use="required" />
+    <xs:attribute name="FriendlyName" type="UpdateFriendlyNameType" />
+  </xs:complexType>
+  <xs:complexType name="CustomUpdateStepType">
+    <xs:complexContent>
+      <xs:extension base="UpdateStepBaseType">
+        <xs:sequence>
+          <xs:element name="Param" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="Type" type="UpdateClassType" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="UpdateStepBaseType" abstract="true">
+    <xs:sequence>
+      <xs:element name="Preconditions" type="UpdatePreconditionCollectionType" />
+    </xs:sequence>
+    <xs:attribute name="Id" type="UpdateStepIdType" use="required" />
+    <xs:attribute name="FriendlyName" type="UpdateFriendlyNameType" use="optional" />
+    <xs:attribute name="MarkAsExecuted" type="xs:boolean" default="true" />
+  </xs:complexType>
+  <xs:complexType name="PreconditionType">
+    <xs:sequence>
+      <xs:element name="Param" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="FriendlyName" type="UpdateFriendlyNameType" />
+    <xs:attribute name="Precondition" type="xs:string" use="optional" default="NotExecuted" />
+  </xs:complexType>
+  <xs:simpleType name="UpdateAssemblyNameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="64" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UpdateVersionType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="32" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UpdateClassType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UpdateStepIdType">
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UpdateDbStatementType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="UpdateFriendlyNameType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="UpdatePreconditionCollectionType">
+    <xs:sequence>
+      <xs:element name="Precondition" type="PreconditionType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

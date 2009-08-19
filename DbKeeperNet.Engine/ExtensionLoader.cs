@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Reflection;
+using System.IO;
+
+namespace DbKeeperNet.Engine
+{
+    /// <summary>
+    /// Helper class which loads and executes Initialize() method of all
+    /// classes implementing IExtension interface. 
+    /// Extension may be located also in external assemblies. In this
+    /// case is path absolute or relative to entry assembly. 
+    /// If entry assembly can't be determined, path is relative to
+    /// this assembly.
+    /// </summary>
+    /// <see cref="IExtension"/>
+    public sealed class ExtensionLoader
+    {
+        /// <summary>
+        /// Load all configured assemblies with extension
+        /// within defined context.
+        /// </summary>
+        /// <param name="context">Context to which may be extensions registered.</param>
+        public static void LoadExtensions(IUpdateContext context)
+        {
+            if (context == null)
+                throw new ArgumentNullException("context");
+
+            foreach (ExtensionConfigurationElement e in DbKeeperNetConfigurationSection.Current.Extensions)
+                LoadExtensionsFromAssembly(context, e.AssemblyPath);
+        }
+
+        private static void LoadExtensionsFromAssembly(IUpdateContext context, string assemblyPath)
+        {
+            if (!Path.IsPathRooted(assemblyPath))
+            {
+                Assembly entryAssembly = Assembly.GetEntryAssembly();
+
+                if (entryAssembly == null)
+                    entryAssembly = Assembly.GetCallingAssembly();
+
+                assemblyPath = Path.Combine(Path.GetDirectoryName(entryAssembly.Location), assemblyPath);
+            }
+
+            Assembly assembly = Assembly.LoadFile(assemblyPath);
+            Type[] assemblyTypes = assembly.GetExportedTypes();
+            Type interfaceType = typeof(IExtension);
+
+            foreach (Type type in assemblyTypes)
+            {
+                if ((interfaceType.IsAssignableFrom(type)) && (!type.IsInterface))
+                {
+                    IExtension extension = (IExtension)Activator.CreateInstance(type);
+                    extension.Initialize(context);
+                }
+            }
+        }
+    }
+}
