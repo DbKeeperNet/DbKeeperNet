@@ -276,6 +276,41 @@ namespace DbKeeperNet.Engine {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd")]
+    public partial class CustomUpdateStepParamType {
+        
+        private string nameField;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd")]
     public partial class UpdateDbAlternativeStatementType {
         
         private string driverField;
@@ -318,13 +353,13 @@ namespace DbKeeperNet.Engine {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd")]
     public partial class CustomUpdateStepType : UpdateStepBaseType {
         
-        private string[] paramField;
+        private CustomUpdateStepParamType[] paramField;
         
         private string typeField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Param", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string[] Param {
+        public CustomUpdateStepParamType[] Param {
             get {
                 return this.paramField;
             }
