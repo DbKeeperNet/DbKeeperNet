@@ -11,6 +11,7 @@ namespace DbKeeperNet.Engine
         public string AssemblyPath
         {
             get { return (string)this["assemblyPath"]; }
+            set { this["assemblyPath"] = value; }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DbKeeperNet.Engine
         public ExtensionConfigurationElementCollection()
         {
             ExtensionConfigurationElement e = new ExtensionConfigurationElement();
-            // e.AssemblyPath = Assembly.GetExecutingAssembly().Location;
+            e.AssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             BaseAdd(e);
         }
