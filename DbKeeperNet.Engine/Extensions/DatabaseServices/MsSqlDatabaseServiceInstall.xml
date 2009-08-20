@@ -7,7 +7,7 @@
     <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
   </DefaultPreconditions>
   <Update Version="1.00">
-    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table app_updater_assembly" Id="1"
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table dbkeepernet_assembly" Id="1"
                 MarkAsExecuted="false">
       <Preconditions>
         <Precondition FriendlyName="Table dbkeepernet_assembly not found" Precondition="DbTableNotFound">
@@ -65,7 +65,7 @@
         )
       </AlternativeStatement>
     </UpdateStep>
-    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create procedure AppUpdaterIsStepExecuted" Id="4"
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create procedure DbKeeperNetIsStepExecuted" Id="4"
                 MarkAsExecuted="false">
       <Preconditions>
         <Precondition FriendlyName="Procedure DbKeeperNetIsStepExecuted not found" Precondition="DbProcedureNotFound">

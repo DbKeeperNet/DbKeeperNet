@@ -5,6 +5,13 @@ using System.Diagnostics;
 
 namespace DbKeeperNet.Engine.Extensions.LoggingServices
 {
+    /// <summary>
+    /// Output is directed thru standard .NET logging service
+    /// implemented by System.Diagnostics.Trace class and
+    /// its static methods.
+    /// 
+    /// Reference name for configuration file is <code>fx</code>.
+    /// </summary>
     public sealed class FxLogger : ILoggingService
     {
         #region ILoggingService Members

@@ -5,14 +5,30 @@ using System.Data.Common;
 
 namespace DbKeeperNet.Engine
 {
+    /// <summary>
+    /// Database service common interface.
+    /// </summary>
     public interface IDatabaseService : IDisposable
     {
         /// <summary>
         /// Direct access to established database connection.
+        /// Connection should be closed when this service
+        /// instance is disposed.
         /// </summary>
         DbConnection Connection { get; }
-
+        /// <summary>
+        /// Verify whether given table name already exists
+        /// in database
+        /// </summary>
+        /// <param name="tableName">Database table name</param>
+        /// <returns>true when exists, false otherwise</returns>
         bool TableExists(string tableName);
+        /// <summary>
+        /// Verify whether given stored procedure already exists
+        /// in database
+        /// </summary>
+        /// <param name="tableName">Stored procedure name</param>
+        /// <returns>true when exists, false otherwise</returns>
         bool StoredProcedureExists(string procedureName);
         bool ViewExists(string viewName);
         bool IndexExists(string indexName);

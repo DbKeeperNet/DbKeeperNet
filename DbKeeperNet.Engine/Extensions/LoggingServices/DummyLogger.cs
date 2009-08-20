@@ -4,6 +4,12 @@ using System.Text;
 
 namespace DbKeeperNet.Engine.Extensions.LoggingServices
 {
+    /// <summary>
+    /// Dummy logging service, which completely ignores logged
+    /// output.
+    /// 
+    /// Reference name for configuration file is <code>dummy</code>.
+    /// </summary>
     public sealed class DummyLogger: ILoggingService
     {
         #region ILoggingService Members
