@@ -10,12 +10,18 @@ namespace DbKeeperNet.Engine
     /// <?xml version="1.0" encoding="utf-8" ?>
     /// <configuration>
     ///   <configSections>
-    ///       <section name="dbkeeper.net" type="DbUpdater.Engine.AppUpdaterConfiguration,DbUpdater.Engine"/>
+    ///     <section name="dbkeeper.net" type="DbKeeperNet.Engine.DbKeeperNetConfigurationSection,DbKeeperNet.Engine"/>
     ///   </configSections>
     ///   <dbkeeper.net loggingService="fx">
     ///       <databaseServiceMappings>
-    ///         <add connectString="mock" type="MockDriver" />
+    ///         <add connectString="mssql" databaseService="MsSql" />
     ///       </databaseServiceMappings>
+    ///       <extensions>
+    ///         <add assemblyPath="DbKeeperNet.dll" />
+    ///       </extensions>
+    ///       <assemblyUpdates>
+    ///         <add assemblyPath="MyAssembly.dll" manifestResource="MyAssembly.Updates.xml" />
+    ///       </assemblyUpdates>
     ///   </dbkeeper.net>
     ///   </configuration>
     /// ]]>

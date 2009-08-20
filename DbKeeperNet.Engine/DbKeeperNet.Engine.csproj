@@ -43,6 +43,18 @@
     <Compile Include="ExtensionLoader.cs" />
     <Compile Include="Extensions\DatabaseServices\DbServicesExtension.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseService.cs" />
+    <Compile Include="Extensions\LoggingServices\DummyLogger.cs" />
+    <Compile Include="Extensions\LoggingServices\FxLogger.cs" />
+    <Compile Include="Extensions\LoggingServices\FxTSLogger.cs" />
+    <Compile Include="Extensions\LoggingServices\LoggingServicesExtension.cs" />
+    <Compile Include="Extensions\Preconditions\DbForeignKeyNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\DbIndexNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\DbProcedureNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\DbTableNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\DbViewNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\ForceExecution.cs" />
+    <Compile Include="Extensions\Preconditions\PreconditionsExtension.cs" />
+    <Compile Include="Extensions\Preconditions\StepNotExecuted.cs" />
     <Compile Include="ICustomUpdateStep.cs" />
     <Compile Include="IDatabaseService.cs" />
     <Compile Include="IExtension.cs" />
@@ -64,11 +76,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Extensions\DatabaseServices\MsSqlDbServiceInstall.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\LoggingServices\" />
-    <Folder Include="Extensions\Preconditions\" />
+    <EmbeddedResource Include="Extensions\DatabaseServices\MsSqlDatabaseServiceInstall.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

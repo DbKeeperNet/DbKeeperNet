@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<upd:Updates xmlns:upd="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd"
+                	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	              xsi:schemaLocation="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd Updates-1.0.xsd"
+                AssemblyName="DbKeeperNet.Engine">
+  <DefaultPreconditions>
+    <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
+  </DefaultPreconditions>
+  <Update Version="1.00">
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table app_updater_assembly" Id="1"
+                MarkAsExecuted="false">
+      <Preconditions>
+        <Precondition FriendlyName="Table dbkeepernet_assembly not found" Precondition="DbTableNotFound">
+          <Param>dbkeepernet_assembly</Param>
+        </Precondition>
+      </Preconditions>
+      <AlternativeStatement Driver="MsSql">
+        CREATE TABLE dbkeepernet_assembly
+        (
+        id int identity(1,1)  NOT NULL,
+        assembly varchar(255) NOT NULL,
+        created datetime not null,
+        CONSTRAINT UQ_dbkeepernet_assembly UNIQUE (assembly),
+        CONSTRAINT PK_dbkeepernet_assembly PRIMARY KEY CLUSTERED (id)
+        )
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table dbkeepernet_version" Id="2"
+                MarkAsExecuted="false">
+      <Preconditions>
+        <Precondition FriendlyName="Table dbkeepernet_version not found" Precondition="DbTableNotFound">
+          <Param>dbkeepernet_version</Param>
+        </Precondition>
+      </Preconditions>
+      <AlternativeStatement Driver="MsSql">
+        CREATE TABLE dbkeepernet_version
+        (
+        id int identity(1,1)  NOT NULL,
+        dbkeepernet_assembly_id int not null,
+        version varchar(32) not null,
+        created datetime not null,
+        CONSTRAINT UQ_dbkeepernet_version UNIQUE (dbkeepernet_assembly_id, version),
+        CONSTRAINT PK_dbkeepernet_version PRIMARY KEY CLUSTERED (id),
+        CONSTRAINT FK_dbknetver_dbknetasm_id FOREIGN KEY (dbkeepernet_assembly_id) REFERENCES dbkeepernet_assembly(id)
+        )
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table dbkeepernet_step" Id="3"
+                MarkAsExecuted="false">
+      <Preconditions>
+        <Precondition FriendlyName="Table dbkeepernet_step not found" Precondition="DbTableNotFound">
+          <Param>dbkeepernet_step</Param>
+        </Precondition>
+      </Preconditions>
+      <AlternativeStatement Driver="MsSql">
+        CREATE TABLE dbkeepernet_step
+        (
+        id int identity(1,1)  NOT NULL,
+        dbkeepernet_version_id int not null,
+        step int not null,
+        created datetime not null,
+        CONSTRAINT UQ_dbkeepernet_step UNIQUE (dbkeepernet_version_id, step),
+        CONSTRAINT PK_dbkeepernet_step PRIMARY KEY CLUSTERED (id),
+        CONSTRAINT FK_dbknetstep_dbknetver_id FOREIGN KEY (dbkeepernet_version_id) REFERENCES dbkeepernet_version(id)
+        )
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create procedure AppUpdaterIsStepExecuted" Id="4"
+                MarkAsExecuted="false">
+      <Preconditions>
+        <Precondition FriendlyName="Procedure DbKeeperNetIsStepExecuted not found" Precondition="DbProcedureNotFound">
+          <Param>DbKeeperNetIsStepExecuted</Param>
+        </Precondition>
+      </Preconditions>
+      <AlternativeStatement Driver="MsSql">
+        <![CDATA[
+        CREATE PROCEDURE DbKeeperNetIsStepExecuted
+        -- Add the parameters for the stored procedure here
+        @assembly varchar(255),
+        @version varchar(32),
+        @step int
+        AS
+        BEGIN
+        -- SET NOCOUNT ON added to prevent extra result sets from
+        -- interfering with SELECT statements.
+        SET NOCOUNT ON;
+
+        declare @result bit;
+
+        -- should be 0 or 1
+        select @result = count(version)  from dbkeepernet_assembly asm
+          join dbkeepernet_version ver on asm.id = ver.dbkeepernet_assembly_id
+          join dbkeepernet_step step on ver.id = step.dbkeepernet_version_id
+		      where step.step = @step 
+                and ver.version = @version and 
+                asm.assembly = @assembly;
+                
+        select @result;
+        END
+        ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create procedure DbKeeperNetSetStepExecuted" Id="5">
+      <AlternativeStatement Driver="MsSql">
+        <![CDATA[
+          CREATE PROCEDURE DbKeeperNetSetStepExecuted
+          -- Add the parameters for the stored procedure here
+          @assembly varchar(255),
+          @version varchar(32),          @step int
+          AS
+          BEGIN
+          -- SET NOCOUNT ON added to prevent extra result sets from
+          -- interfering with SELECT statements.
+          SET NOCOUNT ON;
+
+          declare @assemblyId int;
+          declare @versionId int;
+          declare @stepId int;
+
+          select @assemblyId = id from dbkeepernet_assembly where assembly = @assembly;
+          if (@assemblyId is null)
+          begin
+          insert into dbkeepernet_assembly(assembly, created) values(@assembly, GETUTCDATE());
+          select @assemblyId = @@IDENTITY;
+          end
+
+          select @versionId = id from dbkeepernet_version where dbkeepernet_assembly_id = @assemblyId and version = @version;
+          if (@versionId is null)
+          begin
+          insert into dbkeepernet_version(dbkeepernet_assembly_id, version, created) values(@assemblyId, @version, GETUTCDATE());
+          select @versionId = @@IDENTITY;
+          end
+
+          select @stepId = id from dbkeepernet_step where dbkeepernet_version_id = @versionId and step = @step;
+          if (@stepId is null)
+          begin
+          insert into dbkeepernet_step(dbkeepernet_version_id, step, created) values(@versionId, @step, GETUTCDATE());
+          end
+          END
+
+        ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+  </Update>
+</upd:Updates>
+

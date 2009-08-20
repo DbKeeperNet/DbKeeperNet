@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{B2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Engine", "DbKeeperNet.Engine\DbKeeperNet.Engine.csproj", "{FFCF7DA4-C786-4999-8624-26C392D67315}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Engine.Tests", "DbKeeperNet.Engine.Tests\DbKeeperNet.Engine.Tests.csproj", "{B97FDF3F-710F-41B3-8CD2-F0A5E3C88206}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -30,6 +32,10 @@ Global
 		{FFCF7DA4-C786-4999-8624-26C392D67315}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFCF7DA4-C786-4999-8624-26C392D67315}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFCF7DA4-C786-4999-8624-26C392D67315}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B97FDF3F-710F-41B3-8CD2-F0A5E3C88206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B97FDF3F-710F-41B3-8CD2-F0A5E3C88206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B97FDF3F-710F-41B3-8CD2-F0A5E3C88206}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B97FDF3F-710F-41B3-8CD2-F0A5E3C88206}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
