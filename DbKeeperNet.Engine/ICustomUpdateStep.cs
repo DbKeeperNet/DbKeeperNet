@@ -7,6 +7,12 @@ namespace DbKeeperNet.Engine
     /// <summary>
     /// Defines contract how to implement custom installation
     /// step.
+    /// 
+    /// Custom update steps are the way, how to implement missing
+    /// functionality such as in-code data transformation etc.
+    /// 
+    /// Active database connection and all services (such as logging)
+    /// are available thru the passed context.
     /// </summary>
     public interface ICustomUpdateStep
     {
