@@ -64,7 +64,7 @@ namespace DbKeeperNet.Engine
             _preconditions[precondition.Name] = precondition;
         }
 
-        public bool CheckPrecondition(string name, string[] parameters)
+        public bool CheckPrecondition(string name, PreconditionParamType[] parameters)
         {
             if (String.IsNullOrEmpty(name))
                 throw new ArgumentNullException("name");

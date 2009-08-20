@@ -190,7 +190,7 @@ namespace DbKeeperNet.Engine {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd")]
     public partial class PreconditionType {
         
-        private string[] paramField;
+        private PreconditionParamType[] paramField;
         
         private string friendlyNameField;
         
@@ -202,7 +202,7 @@ namespace DbKeeperNet.Engine {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Param", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string[] Param {
+        public PreconditionParamType[] Param {
             get {
                 return this.paramField;
             }
@@ -231,6 +231,41 @@ namespace DbKeeperNet.Engine {
             }
             set {
                 this.preconditionField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd")]
+    public partial class PreconditionParamType {
+        
+        private string nameField;
+        
+        private string valueField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
             }
         }
     }

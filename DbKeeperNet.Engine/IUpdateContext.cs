@@ -23,7 +23,8 @@ namespace DbKeeperNet.Engine
         /// </summary>
         string CurrentAssemblyName { get; set; }
         /// <summary>
-        /// Database services attached to this execution context.
+        /// Database services attached to this execution context. Database connection
+        /// should be closed during disposing of this context instance.
         /// </summary>
         IDatabaseService DatabaseService { get; }
         /// <summary>
@@ -42,17 +43,48 @@ namespace DbKeeperNet.Engine
         /// <item>false - prevent step from execution.</item>
         /// </list>
         /// </returns>
-        bool CheckPrecondition(string name, string[] parameters);
+        bool CheckPrecondition(string name, PreconditionParamType[] parameters);
         /// <summary>
         /// Method called by extension to register a precondition
         /// plugin.
         /// </summary>
         /// <param name="precondition">Instance of precondition</param>
         void RegisterPrecondition(IPrecondition precondition);
+        /// <summary>
+        /// Method called by extension to register a database service
+        /// plugin.
+        /// </summary>
+        /// <param name="service">Instance of database service</param>
         void RegisterDatabaseService(IDatabaseService service);
+        /// <summary>
+        /// Method called by extension to register a logging service
+        /// plugin.
+        /// </summary>
+        /// <param name="service">Instance of the logging service</param>
         void RegisterLoggingService(ILoggingService service);
-
+        /// <summary>
+        /// Initialize context database service based on given
+        /// connection string name from App.Config.
+        /// 
+        /// Given connection string name must mu correctly mapped in App.Config section:
+        /// <example>
+        /// <![CDATA[
+        /// <dbkeeper.net loggingService="fx">
+        ///   <databaseServiceMappings>
+        ///     <add connectString="mock" databaseService="MsSql" />
+        /// ]]>
+        /// </example>
+        /// </summary>
+        /// <param name="connectionString">Connection string name within App.Config</param>
         void InitializeDatabaseService(string connectionString);
+        /// <summary>
+        /// Force manual logging service initialization based on its name.
+        /// If this method is not called, logging service from App.Config
+        /// should be automatically initialized at the moment it's first time
+        /// used:
+        /// <code><![CDATA[<dbkeeper.net loggingService="fx">]]></code>
+        /// </summary>
+        /// <param name="serviceName">Logging service registration name (such as fx, dummy etc.)</param>
         void InitializeLoggingService(string serviceName);
         /// <summary>
         /// Default preconditions applied to the update step

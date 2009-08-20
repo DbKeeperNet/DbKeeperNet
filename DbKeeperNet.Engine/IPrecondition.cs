@@ -21,13 +21,13 @@ namespace DbKeeperNet.Engine
         /// </summary>
         /// <param name="context">Current update context</param>
         /// <param name="param">Optional parameters which can be passed thru
-        /// installation XML document</param>
+        /// installation XML document. Each parameter can be optionaly named.</param>
         /// <returns>
         /// <list type="bullet">
         /// <item>true - condition was met, step can be executed.</item>
         /// <item>false - prevent step from execution.</item>
         /// </list>
         /// </returns>
-        bool CheckPrecondition(IUpdateContext context, string[] param);
+        bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param);
     }
 }

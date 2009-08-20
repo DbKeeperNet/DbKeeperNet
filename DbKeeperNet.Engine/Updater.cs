@@ -145,7 +145,7 @@ namespace DbKeeperNet.Engine
             _context.Logger.TraceInformation("Finished version with success: {0} [{1}]", update.Version, update.FriendlyName);
         }
 
-        private string DumpParams(string[] param)
+        private string DumpParams(PreconditionParamType[] param)
         {
             StringBuilder builder = new StringBuilder();
 
@@ -153,12 +153,12 @@ namespace DbKeeperNet.Engine
             {
                 bool first = true;
 
-                foreach (string p in param)
+                foreach (PreconditionParamType p in param)
                 {
                     if (!first)
                         builder.Append(',');
 
-                    builder.Append(p);
+                    builder.Append(p.Value);
 
                     first = false;
                 }

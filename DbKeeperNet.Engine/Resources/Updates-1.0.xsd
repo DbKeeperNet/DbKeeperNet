@@ -52,7 +52,7 @@
   </xs:complexType>
   <xs:complexType name="PreconditionType">
     <xs:sequence>
-      <xs:element name="Param" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Param" type="PreconditionParamType" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
     <xs:attribute name="FriendlyName" type="UpdateFriendlyNameType" />
     <xs:attribute name="Precondition" type="xs:string" use="optional" default="NotExecuted" />
@@ -93,5 +93,12 @@
     <xs:sequence>
       <xs:element name="Precondition" type="PreconditionType" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PreconditionParamType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Name" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
   </xs:complexType>
 </xs:schema>

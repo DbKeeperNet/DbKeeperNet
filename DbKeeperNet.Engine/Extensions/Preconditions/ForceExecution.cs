@@ -13,7 +13,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             get { return @"ForceExecution"; }
         }
 
-        public bool CheckPrecondition(IUpdateContext context, string[] param)
+        public bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param)
         {
             return true;
         }

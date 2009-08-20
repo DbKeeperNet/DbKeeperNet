@@ -9,6 +9,15 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// Condition verifies that primary key or
     /// index with given name doesn't exist.
     /// Condition reference name is <value>DbIndexNotFound</value>.
+    /// It has one parameter which should contain tested database
+    /// index or primary key name.
+    /// <example>
+    /// <![CDATA[
+    /// <Precondition FriendlyName="Index UQ_test not found" Precondition="DbIndexNotFound">
+    ///   <Param>UQ_test</Param>
+    /// </Precondition>
+    /// ]]>
+    /// </example>
     /// </summary>
     class DbIndexNotFound: IPrecondition
     {
@@ -19,14 +28,14 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             get { return @"DbIndexNotFound"; }
         }
 
-        public bool CheckPrecondition(IUpdateContext context, string[] param)
+        public bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param)
         {
             if (context == null)
                 throw new ArgumentNullException(@"context");
-            if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0])))
+            if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)))
                 throw new ArgumentNullException(@"param", String.Format("Index or primary key name for condition {0} must be specified", Name));
 
-            bool result = !context.DatabaseService.IndexExists(param[0]);
+            bool result = !context.DatabaseService.IndexExists(param[0].Value);
 
             return result;
         }

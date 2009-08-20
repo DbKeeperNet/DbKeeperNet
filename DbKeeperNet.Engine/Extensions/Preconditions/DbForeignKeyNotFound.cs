@@ -19,14 +19,14 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             get { return @"DbForeignKeyNotFound"; }
         }
 
-        public bool CheckPrecondition(IUpdateContext context, string[] param)
+        public bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param)
         {
             if (context == null)
                 throw new ArgumentNullException(@"context");
-            if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0])))
+            if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)))
                 throw new ArgumentNullException(@"param", String.Format("Foreign key name for condition {0} must be specified", Name));
 
-            bool result = !context.DatabaseService.ForeignKeyExists(param[0]);
+            bool result = !context.DatabaseService.ForeignKeyExists(param[0].Value);
 
             return result;
         }
