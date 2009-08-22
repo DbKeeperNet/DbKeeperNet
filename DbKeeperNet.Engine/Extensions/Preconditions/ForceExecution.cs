@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
-    class ForceExecution: IPrecondition
+    public sealed class ForceExecution : IPrecondition
     {
         #region IPrecondition Members
 

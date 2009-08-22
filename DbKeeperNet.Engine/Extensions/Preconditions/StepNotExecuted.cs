@@ -20,7 +20,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// ]]>
     /// </example>
     /// </summary>
-    class StepNotExecuted: IPrecondition
+    public sealed class StepNotExecuted : IPrecondition
     {
         #region IPrecondition Members
 

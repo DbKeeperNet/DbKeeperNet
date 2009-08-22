@@ -19,7 +19,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// ]]>
     /// </example>
     /// </summary>
-    class DbIndexNotFound: IPrecondition
+    public sealed class DbIndexNotFound: IPrecondition
     {
         #region IPrecondition Members
 

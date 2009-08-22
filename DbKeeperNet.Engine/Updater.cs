@@ -55,15 +55,22 @@ namespace DbKeeperNet.Engine
         void ExecuteStepSql(UpdateDbStepType step)
         {
             UpdateDbAlternativeStatementType usableStatement = null;
+            UpdateDbAlternativeStatementType commonStatement = null;
 
             foreach (UpdateDbAlternativeStatementType statement in step.AlternativeStatement)
             {
-                if ((statement.Driver == "all") || (_context.DatabaseService.Name == statement.Driver))
+                if (statement.Driver == "all")
+                    commonStatement = statement;
+
+                if (_context.DatabaseService.Name == statement.Driver)
                 {
                     usableStatement = statement;
                     break;
                 }
             }
+
+            if (usableStatement == null)
+                usableStatement = commonStatement;
 
             if (usableStatement != null)
             {
@@ -178,24 +185,35 @@ namespace DbKeeperNet.Engine
             if (inputXml == null)
                 throw new ArgumentNullException(@"inputXml");
 
-            XmlSerializer serializer = new XmlSerializer(typeof(Updates));
-
-            Updates updates = (Updates)serializer.Deserialize(inputXml);
-
-            _context.CurrentAssemblyName = updates.AssemblyName;
-
-            if (updates.DefaultPreconditions != null)
-                _context.DefaultPreconditions = updates.DefaultPreconditions;
-
-            _context.Logger.TraceInformation("Executing updates for assembly: {0}", _context.CurrentAssemblyName);
-
-            foreach (UpdateType update in updates.Update)
+            try
             {
-                _context.CurrentVersion = update.Version;
-                ProcessUpdate(update);
-            }
+                XmlSerializer serializer = new XmlSerializer(typeof(Updates));
 
-            _context.Logger.TraceInformation("Updates for assembly executed successfully: {0}", _context.CurrentAssemblyName);
+                Updates updates = (Updates)serializer.Deserialize(inputXml);
+
+                _context.CurrentAssemblyName = updates.AssemblyName;
+
+                if (updates.DefaultPreconditions != null)
+                    _context.DefaultPreconditions = updates.DefaultPreconditions;
+
+                _context.Logger.TraceInformation("Executing updates for assembly: {0}", _context.CurrentAssemblyName);
+
+                foreach (UpdateType update in updates.Update)
+                {
+                    _context.CurrentVersion = update.Version;
+                    ProcessUpdate(update);
+                }
+
+                _context.Logger.TraceInformation("Updates for assembly executed successfully: {0}", _context.CurrentAssemblyName);
+            }
+            catch (DbKeeperNetException e)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                throw new DbKeeperNetException("An error occured during updates execution", e);
+            }
         }
         /// <summary>
         /// Executes all XML updates referenced in App.config file

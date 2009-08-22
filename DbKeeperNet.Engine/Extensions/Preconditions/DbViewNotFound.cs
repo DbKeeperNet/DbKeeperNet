@@ -17,7 +17,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// ]]>
     /// </example>
     /// </summary>
-    class DbViewNotFound: IPrecondition
+    public sealed class DbViewNotFound : IPrecondition
     {
         #region IPrecondition Members
 

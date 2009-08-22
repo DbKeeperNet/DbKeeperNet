@@ -10,7 +10,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// name doesn't exist in database.
     /// Condition reference name is <value>DbForeignKeyNotFound</value>.
     /// </summary>
-    class DbForeignKeyNotFound: IPrecondition
+    public sealed class DbForeignKeyNotFound: IPrecondition
     {
         #region IPrecondition Members
 
