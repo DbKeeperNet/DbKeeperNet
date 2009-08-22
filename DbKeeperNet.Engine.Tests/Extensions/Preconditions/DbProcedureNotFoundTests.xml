@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<upd:Updates xmlns:upd="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd"
+                	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	              xsi:schemaLocation="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd Updates-1.0.xsd"
+                AssemblyName="DbUpdater.Engine">
+  <Update Version="1.00">
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Update engine table setup" Id="1">
+      <Preconditions>
+        <Precondition Precondition="DbProcedureNotFound">
+          <Param>test_proc</Param>
+        </Precondition>
+      </Preconditions>
+      <AlternativeStatement Driver="MockDriver">
+        <![CDATA[query_to_be_executed_on_mock]]>
+      </AlternativeStatement>
+    </UpdateStep>
+  </Update>
+</upd:Updates>

@@ -2,20 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using DbKeeperNet.Engine.Extensions.Preconditions;
 using Rhino.Mocks;
 using System.Reflection;
-using DbKeeperNet.Engine.Extensions.Preconditions;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 {
     [TestFixture]
-    public class StepNotExecutedTests
+    public class DbForeignKeyNotFoundTests
     {
         const string CONNECTION_STRING = "mock";
         const string LOGGER_NAME = "none";
 
         [Test]
-        public void TestStepNotExecutedDefaultPreConditionTrueOnMockDriver()
+        public void TestDbForeignKeyNotFoundPreConditionTrueOnMockDriver()
         {
             MockRepository repository = new MockRepository();
             ILoggingService loggerStub = repository.Stub<ILoggingService>();
@@ -29,7 +29,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                     SetupResult.For(driverMock.Name).Return("MockDriver");
                     SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
 
-                    Expect.Call(driverMock.IsUpdateStepExecuted("DbUpdater.Engine", "1.00", 1)).Return(false);
+                    Expect.Call(driverMock.ForeignKeyExists("FK_test")).Return(false);
                     Expect.Call(delegate { driverMock.ExecuteSql("query_to_be_executed_on_mock"); });
                     Expect.Call(delegate { driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1); });
                 }
@@ -45,15 +45,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.RegisterDatabaseService(driverMock);
                 context.InitializeDatabaseService(CONNECTION_STRING);
 
-                context.RegisterPrecondition(new StepNotExecuted());
+                context.RegisterPrecondition(new DbForeignKeyNotFound());
 
                 Updater update = new Updater(context);
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.StepNotExecutedTests.xml"));
+                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbForeignKeyNotFoundTests.xml"));
             }
             repository.VerifyAll();
         }
         [Test]
-        public void TestStepNotExecutedDefaultPreConditionFalseOnMockDriver()
+        public void TestDbForeignKeyNotFoundPreConditionFalseOnMockDriver()
         {
             MockRepository repository = new MockRepository();
             ILoggingService loggerStub = repository.Stub<ILoggingService>();
@@ -67,7 +67,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                     SetupResult.For(driverMock.Name).Return("MockDriver");
                     SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
 
-                    Expect.Call(driverMock.IsUpdateStepExecuted("DbUpdater.Engine", "1.00", 1)).Return(true);
+                    Expect.Call(driverMock.ForeignKeyExists("FK_test")).Return(true);
                 }
             }
 
@@ -81,10 +81,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.RegisterDatabaseService(driverMock);
                 context.InitializeDatabaseService(CONNECTION_STRING);
 
-                context.RegisterPrecondition(new StepNotExecuted());
+                context.RegisterPrecondition(new DbForeignKeyNotFound());
 
                 Updater update = new Updater(context);
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.StepNotExecutedTests.xml"));
+                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbForeignKeyNotFoundTests.xml"));
             }
             repository.VerifyAll();
         }
