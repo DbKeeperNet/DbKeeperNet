@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data.Common;
+using System.IO;
 
 namespace DbKeeperNet.Engine
 {
@@ -47,5 +48,12 @@ namespace DbKeeperNet.Engine
         /// </summary>
         /// <param name="sql">Valid SQL statement</param>
         void ExecuteSql(string sql);
+        /// <summary>
+        /// Returns database setup XML script, if applicable,
+        /// which will be run as prerequisity before all
+        /// updates.
+        /// </summary>
+        /// <returns>null if not applicable, opened stream otherwise.</returns>
+        Stream GetDatabaseSetupXml();
     }
 }

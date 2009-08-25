@@ -4,6 +4,8 @@ using System.Text;
 using System.Data.Common;
 using System.Configuration;
 using System.Data;
+using System.IO;
+using System.Reflection;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
@@ -192,6 +194,11 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         public IDatabaseService CloneForConnectionString(string connectionString)
         {
             return new MsSqlDatabaseService(connectionString);
+        }
+
+        public Stream GetDatabaseSetupXml()
+        {
+            return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.MsSqlDatabaseServiceInstall.xml");
         }
 
         #endregion

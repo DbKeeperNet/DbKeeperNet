@@ -92,5 +92,11 @@ namespace DbKeeperNet.Engine
         /// are declared.
         /// </summary>
         PreconditionType[] DefaultPreconditions { get; set; }
+        /// <summary>
+        /// Load all necessary extensions and call appropriate
+        /// initialization method to allow services registration
+        /// for them.
+        /// </summary>
+        void LoadExtensions();
     }
 }

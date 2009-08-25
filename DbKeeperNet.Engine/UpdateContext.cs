@@ -200,6 +200,10 @@ namespace DbKeeperNet.Engine
             Logger.TraceInformation("Initialized database service for connection string '{0}'", connectionString);
         }
 
+        public void LoadExtensions()
+        {
+            ExtensionLoader.LoadExtensions(this);
+        }
         #endregion
 
         #region IDisposable Members

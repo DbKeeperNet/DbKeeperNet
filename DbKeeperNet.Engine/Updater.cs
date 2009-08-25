@@ -190,46 +190,71 @@ namespace DbKeeperNet.Engine
 
             try
             {
-                XmlSchemaSet schemaSet = new XmlSchemaSet();
-                schemaSet.Add(@"http://code.google.com/p/dbkeepernet/Updates-1.0.xsd", XmlReader.Create(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd")));
-
-                XmlReaderSettings settings = new XmlReaderSettings();
-                settings.Schemas.Add(schemaSet);
-                settings.IgnoreWhitespace = true;
-                settings.ValidationType = ValidationType.Schema;
-                
-                Updates updates;
-
-                using (XmlReader xmlReader = XmlReader.Create(inputXml, settings))
-                {
-                    XmlSerializer serializer = new XmlSerializer(typeof(Updates));
-
-                    updates = (Updates)serializer.Deserialize(xmlReader);
-                }
-
-                _context.CurrentAssemblyName = updates.AssemblyName;
-
-                if (updates.DefaultPreconditions != null)
-                    _context.DefaultPreconditions = updates.DefaultPreconditions;
-
-                _context.Logger.TraceInformation("Executing updates for assembly: {0}", _context.CurrentAssemblyName);
-
-                foreach (UpdateType update in updates.Update)
-                {
-                    _context.CurrentVersion = update.Version;
-                    ProcessUpdate(update);
-                }
-
-                _context.Logger.TraceInformation("Updates for assembly executed successfully: {0}", _context.CurrentAssemblyName);
+                ExecuteDatabaseSetupXml();
+                ExecuteXmlInternal(inputXml);
             }
             catch (DbKeeperNetException e)
             {
+                _context.Logger.TraceError("An exception caught during update: {0}", e.ToString());
                 throw;
             }
             catch (Exception e)
             {
+                _context.Logger.TraceError("A common exception caught during update, will rethrow: {0}", e.ToString());
                 throw new DbKeeperNetException("An error occured during updates execution", e);
             }
+        }
+
+        private void ExecuteDatabaseSetupXml()
+        {
+            _context.Logger.TraceInformation("Going to check database setup");
+
+            Stream databaseSetup = _context.DatabaseService.GetDatabaseSetupXml();
+
+            if (databaseSetup != null)
+            {
+                _context.Logger.TraceInformation("Database setup script will be executed");
+                ExecuteXmlInternal(databaseSetup);
+                _context.Logger.TraceInformation("Database setup script finished");
+            }
+            else
+                _context.Logger.TraceInformation("No database setup necessary");
+
+        }
+
+        private void ExecuteXmlInternal(Stream inputXml)
+        {
+            XmlSchemaSet schemaSet = new XmlSchemaSet();
+            schemaSet.Add(@"http://code.google.com/p/dbkeepernet/Updates-1.0.xsd", XmlReader.Create(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd")));
+
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.Schemas.Add(schemaSet);
+            settings.IgnoreWhitespace = true;
+            settings.ValidationType = ValidationType.Schema;
+
+            Updates updates;
+
+            using (XmlReader xmlReader = XmlReader.Create(inputXml, settings))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(Updates));
+
+                updates = (Updates)serializer.Deserialize(xmlReader);
+            }
+
+            _context.CurrentAssemblyName = updates.AssemblyName;
+
+            if (updates.DefaultPreconditions != null)
+                _context.DefaultPreconditions = updates.DefaultPreconditions;
+
+            _context.Logger.TraceInformation("Executing updates for assembly: {0}", _context.CurrentAssemblyName);
+
+            foreach (UpdateType update in updates.Update)
+            {
+                _context.CurrentVersion = update.Version;
+                ProcessUpdate(update);
+            }
+
+            _context.Logger.TraceInformation("Updates for assembly executed successfully: {0}", _context.CurrentAssemblyName);
         }
         /// <summary>
         /// Executes all XML updates referenced in App.config file
@@ -237,6 +262,8 @@ namespace DbKeeperNet.Engine
         /// <see cref="UpdaterConfiguration"/>
         public void ExecuteXmlFromConfig()
         {
+            ExecuteDatabaseSetupXml();
+
             foreach (AssemblyUpdateConfigurationElement e in DbKeeperNetConfigurationSection.Current.AssemblyUpdates)
             {
             }

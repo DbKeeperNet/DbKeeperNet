@@ -19,9 +19,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         public void Setup()
         {
             IUpdateContext context = new UpdateContext();
-
-            ExtensionLoader.LoadExtensions(context);
-
+            context.LoadExtensions();
             context.InitializeDatabaseService(CONNECTION_STRING);
 
             Updater updater = new Updater(context);

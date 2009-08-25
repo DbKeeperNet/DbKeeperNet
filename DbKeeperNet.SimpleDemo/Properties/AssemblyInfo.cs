@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DbKeeperNet.Engine")]
+[assembly: AssemblyTitle("DbKeeperNet.SimpleDemo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("DbKeeperNet.Engine")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2009")]
+[assembly: AssemblyCompany("Radiant Systems")]
+[assembly: AssemblyProduct("DbKeeperNet.SimpleDemo")]
+[assembly: AssemblyCopyright("Copyright © Radiant Systems 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ed2f3393-94d2-4010-b11b-508f110898ae")]
+[assembly: Guid("3d266278-c8c7-4830-8639-f79573210090")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,7 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.1.1")]
-[assembly: AssemblyFileVersion("1.0.1.1")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
