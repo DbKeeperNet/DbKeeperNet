@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml.Serialization;
+using System.Xml.Schema;
+using System.Xml;
+using System.Reflection;
 
 namespace DbKeeperNet.Engine
 {
@@ -187,9 +190,22 @@ namespace DbKeeperNet.Engine
 
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Updates));
+                XmlSchemaSet schemaSet = new XmlSchemaSet();
+                schemaSet.Add(@"http://code.google.com/p/dbkeepernet/Updates-1.0.xsd", XmlReader.Create(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd")));
 
-                Updates updates = (Updates)serializer.Deserialize(inputXml);
+                XmlReaderSettings settings = new XmlReaderSettings();
+                settings.Schemas.Add(schemaSet);
+                settings.IgnoreWhitespace = true;
+                settings.ValidationType = ValidationType.Schema;
+                
+                Updates updates;
+
+                using (XmlReader xmlReader = XmlReader.Create(inputXml, settings))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(Updates));
+
+                    updates = (Updates)serializer.Deserialize(xmlReader);
+                }
 
                 _context.CurrentAssemblyName = updates.AssemblyName;
 

@@ -3,8 +3,8 @@
   <xs:element name="Updates">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="Update" type="UpdateType" minOccurs="0" maxOccurs="unbounded" />
         <xs:element name="DefaultPreconditions" type="UpdatePreconditionCollectionType" minOccurs="0" />
+        <xs:element name="Update" type="UpdateType" minOccurs="0" maxOccurs="unbounded" />
       </xs:sequence>
       <xs:attribute name="AssemblyName" type="UpdateAssemblyNameType" use="required" />
     </xs:complexType>
@@ -44,7 +44,7 @@
   </xs:complexType>
   <xs:complexType name="UpdateStepBaseType" abstract="true">
     <xs:sequence>
-      <xs:element name="Preconditions" type="UpdatePreconditionCollectionType" />
+      <xs:element name="Preconditions" type="UpdatePreconditionCollectionType" minOccurs="0" />
     </xs:sequence>
     <xs:attribute name="Id" type="UpdateStepIdType" use="required" />
     <xs:attribute name="FriendlyName" type="UpdateFriendlyNameType" use="optional" />

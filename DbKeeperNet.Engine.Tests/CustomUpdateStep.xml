@@ -4,7 +4,7 @@
 	              xsi:schemaLocation="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd Updates-1.0.xsd"
                 AssemblyName="DbUpdater.Engine">
   <Update Version="1.00">
-    <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="1" Assembly="DbKeeperNet.Engine.Tests" Type="DbKeeperNet.Engine.Tests.CustomUpdateStep,DbKeeperNet.Engine.Tests">
+    <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="1" Type="DbKeeperNet.Engine.Tests.CustomUpdateStep,DbKeeperNet.Engine.Tests">
       
     </UpdateStep>
   </Update>

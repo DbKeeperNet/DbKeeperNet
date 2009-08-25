@@ -69,9 +69,9 @@
     <Compile Include="XmlClasses.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Updates-1.0.xsd">
+    <EmbeddedResource Include="Resources\Updates-1.0.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <None Include="Resources\Updates-1.0.xsx">
       <DependentUpon>Updates-1.0.xsd</DependentUpon>
     </None>
