@@ -27,7 +27,7 @@ namespace DbKeeperNet.Engine.Tests
                     SetupResult.For(loggerMock.Name).Return(LOGGER_NAME);
                     SetupResult.For(driverMock.Name).Return("MockDriver");
                     SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
-                    SetupResult.For(driverMock.GetDatabaseSetupXml()).Return(null);
+                    SetupResult.For(driverMock.DatabaseSetupXml).Return(null);
 
                     Expect.Call(delegate { driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1); });
                 }

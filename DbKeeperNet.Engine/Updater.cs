@@ -209,7 +209,7 @@ namespace DbKeeperNet.Engine
         {
             _context.Logger.TraceInformation("Going to check database setup");
 
-            Stream databaseSetup = _context.DatabaseService.GetDatabaseSetupXml();
+            Stream databaseSetup = _context.DatabaseService.DatabaseSetupXml;
 
             if (databaseSetup != null)
             {

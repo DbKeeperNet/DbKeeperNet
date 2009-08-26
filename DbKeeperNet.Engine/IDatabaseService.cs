@@ -54,6 +54,6 @@ namespace DbKeeperNet.Engine
         /// updates.
         /// </summary>
         /// <returns>null if not applicable, opened stream otherwise.</returns>
-        Stream GetDatabaseSetupXml();
+        Stream DatabaseSetupXml { get; }
     }
 }

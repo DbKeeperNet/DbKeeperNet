@@ -196,9 +196,9 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             return new MsSqlDatabaseService(connectionString);
         }
 
-        public Stream GetDatabaseSetupXml()
+        public Stream DatabaseSetupXml
         {
-            return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.MsSqlDatabaseServiceInstall.xml");
+            get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.MsSqlDatabaseServiceInstall.xml"); }
         }
 
         #endregion
