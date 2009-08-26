@@ -7,11 +7,11 @@ namespace DbKeeperNet.Engine
 {
     public sealed class AssemblyUpdateConfigurationElement : ConfigurationElement
     {
-        [ConfigurationProperty("assemblyPath", IsRequired = true)]
-        public string AssemblyPath
+        [ConfigurationProperty("assembly", IsRequired = true)]
+        public string Assembly
         {
-            get { return (string)this["assemblyPath"]; }
-            set { this["assemblyPath"] = value; }
+            get { return (string)this["assembly"]; }
+            set { this["assembly"] = value; }
         }
         [ConfigurationProperty("manifestResource", IsRequired = true, IsKey = true)]
         public string ManifestResource

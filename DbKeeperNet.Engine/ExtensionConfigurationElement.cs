@@ -7,11 +7,11 @@ namespace DbKeeperNet.Engine
 {
     public sealed class ExtensionConfigurationElement : ConfigurationElement
     {
-        [ConfigurationProperty("assemblyPath", IsKey = true, IsRequired = true)]
-        public string AssemblyPath
+        [ConfigurationProperty("assembly", IsKey = true, IsRequired = true)]
+        public string Assembly
         {
-            get { return (string)this["assemblyPath"]; }
-            set { this["assemblyPath"] = value; }
+            get { return (string)this["assembly"]; }
+            set { this["assembly"] = value; }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DbKeeperNet.Engine
         public ExtensionConfigurationElementCollection()
         {
             ExtensionConfigurationElement e = new ExtensionConfigurationElement();
-            e.AssemblyPath = Assembly.GetExecutingAssembly().Location;
+            e.Assembly = Assembly.GetExecutingAssembly().FullName;
 
             BaseAdd(e);
         }
@@ -23,7 +23,7 @@ namespace DbKeeperNet.Engine
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((ExtensionConfigurationElement)element).AssemblyPath;
+            return ((ExtensionConfigurationElement)element).Assembly;
         }
         public ExtensionConfigurationElement this[int i]
         {

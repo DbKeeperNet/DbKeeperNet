@@ -28,22 +28,12 @@ namespace DbKeeperNet.Engine
                 throw new ArgumentNullException("context");
 
             foreach (ExtensionConfigurationElement e in DbKeeperNetConfigurationSection.Current.Extensions)
-                LoadExtensionsFromAssembly(context, e.AssemblyPath);
+                LoadExtensionsFromAssembly(context, e.Assembly);
         }
 
-        private static void LoadExtensionsFromAssembly(IUpdateContext context, string assemblyPath)
+        private static void LoadExtensionsFromAssembly(IUpdateContext context, string assemblyName)
         {
-            if (!Path.IsPathRooted(assemblyPath))
-            {
-                Assembly entryAssembly = Assembly.GetEntryAssembly();
-
-                if (entryAssembly == null)
-                    entryAssembly = Assembly.GetCallingAssembly();
-
-                assemblyPath = Path.Combine(Path.GetDirectoryName(entryAssembly.Location), assemblyPath);
-            }
-
-            Assembly assembly = Assembly.LoadFile(assemblyPath);
+            Assembly assembly = Assembly.Load(assemblyName);
             Type[] assemblyTypes = assembly.GetExportedTypes();
             Type interfaceType = typeof(IExtension);
 

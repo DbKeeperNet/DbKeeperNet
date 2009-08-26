@@ -266,6 +266,19 @@ namespace DbKeeperNet.Engine
 
             foreach (AssemblyUpdateConfigurationElement e in DbKeeperNetConfigurationSection.Current.AssemblyUpdates)
             {
+                _context.Logger.TraceInformation("Going to execute configurated update '{0}' in assembly '{1}'", e.ManifestResource, e.Assembly);
+                Assembly assembly = Assembly.Load(e.Assembly);
+                Stream updates = assembly.GetManifestResourceStream(e.ManifestResource);
+
+                if (updates == null)
+                {
+                    _context.Logger.TraceError("Manifest resource '{0}' in assembly '{1}' not found", e.ManifestResource, e.Assembly);
+                    throw new DbKeeperNetException(String.Format("Manifest resource '{0}' in assembly '{1}' not found", e.ManifestResource, e.Assembly));
+                }
+
+                ExecuteXmlInternal(updates);
+
+                _context.Logger.TraceInformation("Successfully executed configured update '{0}' in assembly '{1}'", e.ManifestResource, e.Assembly);
             }
         }
         #endregion
