@@ -28,7 +28,7 @@ namespace DbKeeperNet.Engine
     /// </summary>
     public sealed class DbKeeperNetConfigurationSection: ConfigurationSection
     {
-        [ConfigurationProperty("databaseServiceMappings", IsKey = true)]
+        [ConfigurationProperty("databaseServiceMappings")]
         public DatabaseServiceMappingConfigurationElementCollection DatabaseServiceMappings
         {
             get

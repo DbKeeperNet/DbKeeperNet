@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Engine.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.SimpleDemo", "DbKeeperNet.SimpleDemo\DbKeeperNet.SimpleDemo.csproj", "{E72142B7-3269-472D-8978-4604E7A8D165}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.ComplexDemo", "DbKeeperNet.ComplexDemo\DbKeeperNet.ComplexDemo.csproj", "{2594FFE0-2357-4F62-8435-F0547B0406D9}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -43,6 +45,10 @@ Global
 		{E72142B7-3269-472D-8978-4604E7A8D165}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E72142B7-3269-472D-8978-4604E7A8D165}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E72142B7-3269-472D-8978-4604E7A8D165}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2594FFE0-2357-4F62-8435-F0547B0406D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2594FFE0-2357-4F62-8435-F0547B0406D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2594FFE0-2357-4F62-8435-F0547B0406D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2594FFE0-2357-4F62-8435-F0547B0406D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

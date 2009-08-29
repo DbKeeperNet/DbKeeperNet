@@ -4,12 +4,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E72142B7-3269-472D-8978-4604E7A8D165}</ProjectGuid>
+    <ProjectGuid>{2594FFE0-2357-4F62-8435-F0547B0406D9}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DbKeeperNet.SimpleDemo</RootNamespace>
-    <AssemblyName>DbKeeperNet.SimpleDemo</AssemblyName>
-    <PublishUrl>http://localhost/DbKeeperNet.SimpleDemo/</PublishUrl>
+    <RootNamespace>DbKeeperNet.ComplexDemo</RootNamespace>
+    <AssemblyName>DbKeeperNet.ComplexDemo</AssemblyName>
+    <PublishUrl>http://localhost/DbKeeperNet.ComplexDemo/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -47,27 +47,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComplexDemoCustomStep.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DbKeeperNet.Engine\DbKeeperNet.Engine.csproj">
-      <Project>{FFCF7DA4-C786-4999-8624-26C392D67315}</Project>
-      <Name>DbKeeperNet.Engine</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DatabaseSetup.xml" />
-    <Content Include="DbKeeperNetSimpleDemo.mdf">
+    <EmbeddedResource Include="DatabaseSetupPart1.xml" />
+    <EmbeddedResource Include="Another\DatabaseSetupEx.xml" />
+    <Content Include="DbKeeperNetComplexDemo.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="DbKeeperNetSimpleDemo_log.ldf">
+    <Content Include="DbKeeperNetComplexDemo_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>DbKeeperNetSimpleDemo.mdf</DependentUpon>
+      <DependentUpon>DbKeeperNetComplexDemo.mdf</DependentUpon>
     </Content>
+    <EmbeddedResource Include="DatabaseSetupPart2.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -85,6 +79,15 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DbKeeperNet.Engine\DbKeeperNet.Engine.csproj">
+      <Project>{FFCF7DA4-C786-4999-8624-26C392D67315}</Project>
+      <Name>DbKeeperNet.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

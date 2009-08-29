@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DbKeeperNet.Engine;
-using System.Data.Common;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace DbKeeperNet.SimpleDemo
+namespace DbKeeperNet.ComplexDemo
 {
     class Program
     {
@@ -33,6 +32,8 @@ namespace DbKeeperNet.SimpleDemo
                 while (reader.Read())
                     Console.WriteLine("{0}: {1}", reader[0], reader[1]);
             }
+
+            Console.ReadKey();
         }
     }
 }
