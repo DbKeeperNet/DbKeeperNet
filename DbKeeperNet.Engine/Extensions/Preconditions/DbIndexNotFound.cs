@@ -17,7 +17,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     ///   <Param>UQ_test</Param>
     /// </Precondition>
     /// ]]>
-    /// <//code>
+    /// </code>
     /// </summary>
     public sealed class DbIndexNotFound: IPrecondition
     {
