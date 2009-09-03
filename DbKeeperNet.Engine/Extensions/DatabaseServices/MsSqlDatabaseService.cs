@@ -16,6 +16,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     public sealed class MsSqlDatabaseService : IDatabaseService
     {
         DbConnection _connection = null;
+        DbTransaction _transaction = null;
 
         public MsSqlDatabaseService()
         {
@@ -36,7 +37,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             _connection.Open();
         }
 
-        #region IDatabaseDriver Members
+        #region IDatabaseService Members
 
         public DbConnection Connection
         {
@@ -145,6 +146,10 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         public void SetUpdateStepExecuted(string assemblyName, string version, int step)
         {
             DbCommand cmd = Connection.CreateCommand();
+
+            if (HasActiveTransaction)
+                cmd.Transaction = _transaction;
+
             cmd.CommandText = "DbKeeperNetSetStepExecuted";
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -170,6 +175,10 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         public void ExecuteSql(string sql)
         {
             DbCommand cmd = Connection.CreateCommand();
+
+            if (HasActiveTransaction)
+                cmd.Transaction = _transaction;
+
             cmd.CommandText = sql;
             cmd.ExecuteNonQuery();
         }
@@ -200,7 +209,47 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         {
             get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.MsSqlDatabaseServiceInstall.xml"); }
         }
+        public void BeginTransaction()
+        {
+            if (HasActiveTransaction)
+                throw new InvalidOperationException("A transaction is already in progress");
 
+            _transaction = _connection.BeginTransaction();
+        }
+        public void CommitTransaction()
+        {
+            if (!HasActiveTransaction)
+                throw new InvalidOperationException("No transaction in progress, can't execute commit");
+
+            _transaction.Commit();
+            _transaction = null;
+        }
+        public void RollbackTransaction()
+        {
+            if (!HasActiveTransaction)
+                throw new InvalidOperationException("No transaction in progress, can't execute rollback");
+
+            _transaction.Rollback();
+            _transaction = null;
+        }
+        public bool HasActiveTransaction
+        {
+            get { return (_transaction != null); }
+        }
+
+        public bool IsDbType(string dbTypeName)
+        {
+            bool status = false;
+
+            switch (dbTypeName.ToLower())
+            {
+                case "mssql":
+                    status = true;
+                    break;
+            }
+
+            return status;
+        }
         #endregion
 
         #region IDisposable Members

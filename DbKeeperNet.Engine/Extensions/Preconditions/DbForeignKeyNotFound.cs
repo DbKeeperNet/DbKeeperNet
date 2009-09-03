@@ -9,6 +9,13 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// Condition verifies that foreign key with specified
     /// name doesn't exist in database.
     /// Condition reference name is <value>DbForeignKeyNotFound</value>.
+    /// <code>
+    /// <![CDATA[
+    /// <Precondition FriendlyName="Foreign key FK_test not found" Precondition="DbForeignKeyNotFound">
+    ///   <Param>FK_test</Param>
+    /// </Precondition>
+    /// ]]>
+    /// </code>
     /// </summary>
     public sealed class DbForeignKeyNotFound: IPrecondition
     {

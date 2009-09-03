@@ -5,25 +5,29 @@ using System.Text;
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
     /// <summary>
-    /// Condition verifies that view with given name doesn't exist.
-    /// Condition reference name is <value>DbViewNotFound</value>.
+    /// Condition verifies that current database service in current context
+    /// supports DbType defined in the first parameter.
+    /// Condition reference name is <value>DbType</value>.
     /// It has one parameter which should contain tested database
-    /// view name.
+    /// type name.
+    /// 
+    /// The intention of this service is to be used as a precondition
+    /// for custom steps which may depend on database type.
     /// <code>
     /// <![CDATA[
-    /// <Precondition FriendlyName="View testing_view not found" Precondition="DbViewNotFound">
-    ///   <Param>testing_view</Param>
+    /// <Precondition FriendlyName="Database type is MSSQL" Precondition="DbType">
+    ///   <Param>mssql</Param>
     /// </Precondition>
     /// ]]>
     /// </code>
     /// </summary>
-    public sealed class DbViewNotFound : IPrecondition
+    public sealed class DbType: IPrecondition
     {
         #region IPrecondition Members
 
         public string Name
         {
-            get { return @"DbViewNotFound"; }
+            get { return @"DbType"; }
         }
 
         public bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param)
@@ -34,9 +38,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)))
                 throw new ArgumentNullException(@"param", String.Format("View name for condition {0} must be specified", Name));
 
-            bool result = !context.DatabaseService.ViewExists(param[0].Value);
-
-            return result;
+            return context.DatabaseService.IsDbType(param[0].Value);
         }
 
         #endregion

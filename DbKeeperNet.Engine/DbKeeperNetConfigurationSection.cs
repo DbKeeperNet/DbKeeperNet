@@ -6,6 +6,7 @@ using System.Configuration;
 namespace DbKeeperNet.Engine
 {
     /// <summary>
+    /// <code>
     /// <![CDATA[
     /// <?xml version="1.0" encoding="utf-8" ?>
     /// <configuration>
@@ -23,8 +24,9 @@ namespace DbKeeperNet.Engine
     ///         <add assemblyPath="MyAssembly.dll" manifestResource="MyAssembly.Updates.xml" />
     ///       </assemblyUpdates>
     ///   </dbkeeper.net>
-    ///   </configuration>
+    /// </configuration>
     /// ]]>
+    /// </code>
     /// </summary>
     public sealed class DbKeeperNetConfigurationSection: ConfigurationSection
     {

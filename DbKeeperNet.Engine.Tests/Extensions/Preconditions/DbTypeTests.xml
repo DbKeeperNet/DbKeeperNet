@@ -6,8 +6,8 @@
   <Update Version="1.00">
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Update engine table setup" Id="1">
       <Preconditions>
-        <Precondition Precondition="DbViewNotFound">
-          <Param>test_view</Param>
+        <Precondition Precondition="DbType">
+          <Param>dbMock</Param>
         </Precondition>
       </Preconditions>
       <AlternativeStatement DbType="dbMock">

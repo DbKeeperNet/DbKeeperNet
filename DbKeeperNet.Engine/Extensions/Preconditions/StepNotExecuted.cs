@@ -14,11 +14,11 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// 
     /// Condition reference name is <value>StepNotExecuted</value>.
     /// It has no additional parameters.
-    /// <example>
+    /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Step not executed" Precondition="StepNotExecuted" />
     /// ]]>
-    /// </example>
+    /// </code>
     /// </summary>
     public sealed class StepNotExecuted : IPrecondition
     {

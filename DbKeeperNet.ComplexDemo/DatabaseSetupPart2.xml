@@ -11,7 +11,7 @@
 
   <Update Version="3.00">
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="1">
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         <![CDATA[
           insert into DbKeeperNet_SimpleDemo(name) values('Fourth value');
         ]]>

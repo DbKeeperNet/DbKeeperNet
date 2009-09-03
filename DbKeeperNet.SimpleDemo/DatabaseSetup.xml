@@ -11,7 +11,9 @@
   
   <Update Version="1.00">
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table DbKeeperNet_SimpleDemo" Id="1">
-      <AlternativeStatement Driver="MsSql">
+      <!-- DbType attribute may be ommited - it will result in default value all
+           which means all database types -->
+      <AlternativeStatement DbType="MsSql">
         <![CDATA[
           CREATE TABLE DbKeeperNet_SimpleDemo
           (
@@ -23,7 +25,7 @@
       </AlternativeStatement>
     </UpdateStep>
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="2">
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         <![CDATA[
           insert into DbKeeperNet_SimpleDemo(name) values('First value');
           insert into DbKeeperNet_SimpleDemo(name) values('Second value');

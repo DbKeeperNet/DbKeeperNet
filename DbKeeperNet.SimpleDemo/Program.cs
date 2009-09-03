@@ -33,6 +33,8 @@ namespace DbKeeperNet.SimpleDemo
                 while (reader.Read())
                     Console.WriteLine("{0}: {1}", reader[0], reader[1]);
             }
+
+            Console.ReadKey();
         }
     }
 }

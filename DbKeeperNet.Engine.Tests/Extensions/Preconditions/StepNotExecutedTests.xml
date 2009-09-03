@@ -8,7 +8,7 @@
   </DefaultPreconditions>
   <Update Version="1.00">
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Update engine table setup" Id="1">
-      <AlternativeStatement Driver="MockDriver">
+      <AlternativeStatement DbType="dbMock">
         <![CDATA[query_to_be_executed_on_mock]]>
       </AlternativeStatement>
     </UpdateStep>

@@ -20,6 +20,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             context.RegisterPrecondition(new DbIndexNotFound());
             context.RegisterPrecondition(new DbForeignKeyNotFound());
             context.RegisterPrecondition(new DbViewNotFound());
+            context.RegisterPrecondition(new DbType());
         }
 
         #endregion

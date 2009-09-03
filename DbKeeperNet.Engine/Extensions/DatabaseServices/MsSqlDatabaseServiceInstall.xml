@@ -14,7 +14,7 @@
           <Param>dbkeepernet_assembly</Param>
         </Precondition>
       </Preconditions>
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         CREATE TABLE dbkeepernet_assembly
         (
         id int identity(1,1)  NOT NULL,
@@ -32,7 +32,7 @@
           <Param>dbkeepernet_version</Param>
         </Precondition>
       </Preconditions>
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         CREATE TABLE dbkeepernet_version
         (
         id int identity(1,1)  NOT NULL,
@@ -52,7 +52,7 @@
           <Param>dbkeepernet_step</Param>
         </Precondition>
       </Preconditions>
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         CREATE TABLE dbkeepernet_step
         (
         id int identity(1,1)  NOT NULL,
@@ -72,7 +72,7 @@
           <Param>DbKeeperNetIsStepExecuted</Param>
         </Precondition>
       </Preconditions>
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         <![CDATA[
         CREATE PROCEDURE DbKeeperNetIsStepExecuted
         -- Add the parameters for the stored procedure here
@@ -101,7 +101,7 @@
       </AlternativeStatement>
     </UpdateStep>
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create procedure DbKeeperNetSetStepExecuted" Id="5">
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         <![CDATA[
           CREATE PROCEDURE DbKeeperNetSetStepExecuted
           -- Add the parameters for the stored procedure here

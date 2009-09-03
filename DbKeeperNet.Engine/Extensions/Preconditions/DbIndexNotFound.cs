@@ -11,13 +11,13 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// Condition reference name is <value>DbIndexNotFound</value>.
     /// It has one parameter which should contain tested database
     /// index or primary key name.
-    /// <example>
+    /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Index UQ_test not found" Precondition="DbIndexNotFound">
     ///   <Param>UQ_test</Param>
     /// </Precondition>
     /// ]]>
-    /// </example>
+    /// <//code>
     /// </summary>
     public sealed class DbIndexNotFound: IPrecondition
     {

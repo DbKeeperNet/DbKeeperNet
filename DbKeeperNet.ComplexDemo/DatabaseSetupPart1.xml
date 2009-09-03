@@ -11,7 +11,7 @@
 
   <Update Version="1.00">
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table DbKeeperNet_SimpleDemo" Id="1">
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         <![CDATA[
           CREATE TABLE DbKeeperNet_SimpleDemo
           (
@@ -26,7 +26,7 @@
       <Param>Hellow world</Param>
     </UpdateStep>
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="3">
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         <![CDATA[
           insert into DbKeeperNet_SimpleDemo(name) values('First value');
           insert into DbKeeperNet_SimpleDemo(name) values('Second value');
@@ -36,7 +36,7 @@
   </Update>
   <Update Version="2.00">
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="1">
-      <AlternativeStatement Driver="MsSql">
+      <AlternativeStatement DbType="MsSql">
         <![CDATA[
           insert into DbKeeperNet_SimpleDemo(name) values('Third value');
         ]]>

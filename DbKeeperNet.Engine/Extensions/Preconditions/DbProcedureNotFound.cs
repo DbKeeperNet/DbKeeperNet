@@ -9,13 +9,13 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// Condition reference name is <value>DbProcedureNotFound</value>.
     /// It has one parameter which should contain tested database
     /// procedure name.
-    /// <example>
+    /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Procedure testing_proc not found" Precondition="DbProcedureNotFound">
     ///   <Param>testing_proc</Param>
     /// </Precondition>
     /// ]]>
-    /// </example>
+    /// </code>
     /// </summary>
     public sealed class DbProcedureNotFound : IPrecondition
     {

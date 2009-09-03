@@ -69,6 +69,7 @@
     <Compile Include="Extensions\Preconditions\DbIndexNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbProcedureNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbTableNotFoundTests.cs" />
+    <Compile Include="Extensions\Preconditions\DbTypeTests.cs" />
     <Compile Include="Extensions\Preconditions\DbViewNotFoundTest.cs" />
     <Compile Include="Extensions\Preconditions\StepNotExecutedTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +114,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DbKeeperNetNUnit.mdf</DependentUpon>
     </Content>
+    <EmbeddedResource Include="Extensions\Preconditions\DbTypeTests.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

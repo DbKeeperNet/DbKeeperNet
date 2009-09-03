@@ -9,9 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DbKeeperNet.Engine</RootNamespace>
     <AssemblyName>DbKeeperNet.Engine</AssemblyName>
-    <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\DbKeeperNet.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -22,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\DbKeeperNet.Engine.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -56,6 +57,7 @@
     <Compile Include="Extensions\Preconditions\DbIndexNotFound.cs" />
     <Compile Include="Extensions\Preconditions\DbProcedureNotFound.cs" />
     <Compile Include="Extensions\Preconditions\DbTableNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\DbType.cs" />
     <Compile Include="Extensions\Preconditions\DbViewNotFound.cs" />
     <Compile Include="Extensions\Preconditions\ForceExecution.cs" />
     <Compile Include="Extensions\Preconditions\PreconditionsExtension.cs" />

@@ -27,12 +27,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 {
                     SetupResult.For(loggerStub.Name).Return(LOGGER_NAME);
                     SetupResult.For(driverMock.Name).Return("MockDriver");
+                    SetupResult.For(driverMock.IsDbType("dbMock")).Return(true);
                     SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
                     SetupResult.For(driverMock.DatabaseSetupXml).Return(null);
 
                     Expect.Call(driverMock.IsUpdateStepExecuted("DbUpdater.Engine", "1.00", 1)).Return(false);
+                    Expect.Call(delegate { driverMock.BeginTransaction(); });
                     Expect.Call(delegate { driverMock.ExecuteSql("query_to_be_executed_on_mock"); });
                     Expect.Call(delegate { driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1); });
+                    Expect.Call(delegate { driverMock.CommitTransaction(); });
                 }
             }
 

@@ -9,13 +9,13 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// Condition reference name is <value>DbTableNotFound</value>.
     /// It has one parameter which should contain tested database
     /// table name.
-    /// <example>
+    /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Table testing_table not found" Precondition="DbTableNotFound">
     ///   <Param>testing_table</Param>
     /// </Precondition>
     /// ]]>
-    /// </example>
+    /// </code>
     /// </summary>
     public sealed class DbTableNotFound : IPrecondition
     {

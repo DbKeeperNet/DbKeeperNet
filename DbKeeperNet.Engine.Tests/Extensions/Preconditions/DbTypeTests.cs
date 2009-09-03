@@ -9,13 +9,13 @@ using System.Reflection;
 namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 {
     [TestFixture]
-    public class DbIndexNotFoundTests
+    public class DbTypeTests
     {
         const string CONNECTION_STRING = "mock";
         const string LOGGER_NAME = "none";
 
         [Test]
-        public void TestDbIndexNotFoundPreConditionTrueOnMockDriver()
+        public void TestDbTypePreConditionTrueOnMockDriver()
         {
             MockRepository repository = new MockRepository();
             ILoggingService loggerStub = repository.Stub<ILoggingService>();
@@ -31,7 +31,6 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                     SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
                     SetupResult.For(driverMock.DatabaseSetupXml).Return(null);
 
-                    Expect.Call(driverMock.IndexExists("test_index")).Return(false);
                     Expect.Call(delegate { driverMock.BeginTransaction(); });
                     Expect.Call(delegate { driverMock.ExecuteSql("query_to_be_executed_on_mock"); });
                     Expect.Call(delegate { driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1); });
@@ -49,15 +48,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.RegisterDatabaseService(driverMock);
                 context.InitializeDatabaseService(CONNECTION_STRING);
 
-                context.RegisterPrecondition(new DbIndexNotFound());
+                context.RegisterPrecondition(new DbType());
 
                 Updater update = new Updater(context);
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbIndexNotFoundTests.xml"));
+                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTypeTests.xml"));
             }
             repository.VerifyAll();
         }
         [Test]
-        public void TestDbIndexNotFoundPreConditionFalseOnMockDriver()
+        public void TestDbTypePreConditionFalseOnMockDriver()
         {
             MockRepository repository = new MockRepository();
             ILoggingService loggerStub = repository.Stub<ILoggingService>();
@@ -72,7 +71,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                     SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
                     SetupResult.For(driverMock.DatabaseSetupXml).Return(null);
 
-                    Expect.Call(driverMock.IndexExists("test_index")).Return(true);
+                    Expect.Call(driverMock.IsDbType("dbMock")).Return(false);
                 }
             }
 
@@ -86,10 +85,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.RegisterDatabaseService(driverMock);
                 context.InitializeDatabaseService(CONNECTION_STRING);
 
-                context.RegisterPrecondition(new DbIndexNotFound());
+                context.RegisterPrecondition(new DbType());
 
                 Updater update = new Updater(context);
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbIndexNotFoundTests.xml"));
+                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTypeTests.xml"));
             }
             repository.VerifyAll();
         }

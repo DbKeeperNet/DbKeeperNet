@@ -67,13 +67,13 @@ namespace DbKeeperNet.Engine
         /// connection string name from App.Config.
         /// 
         /// Given connection string name must mu correctly mapped in App.Config section:
-        /// <example>
+        /// <code>
         /// <![CDATA[
         /// <dbkeeper.net loggingService="fx">
         ///   <databaseServiceMappings>
         ///     <add connectString="mock" databaseService="MsSql" />
         /// ]]>
-        /// </example>
+        /// </code>
         /// </summary>
         /// <param name="connectionString">Connection string name within App.Config</param>
         void InitializeDatabaseService(string connectionString);

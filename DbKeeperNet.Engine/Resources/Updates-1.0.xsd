@@ -21,7 +21,7 @@
   <xs:complexType name="UpdateDbAlternativeStatementType">
     <xs:simpleContent>
       <xs:extension base="UpdateDbStatementType">
-        <xs:attribute name="Driver" type="xs:string" use="optional" default="all" />
+        <xs:attribute name="DbType" type="xs:string" use="optional" default="all" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
