@@ -9,9 +9,9 @@ using System;
 [assembly: AssemblyTitle("DbKeeperNet.Engine")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("DbKeeperNet")]
 [assembly: AssemblyProduct("DbKeeperNet.Engine")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2009")]
+[assembly: AssemblyCopyright("Copyright © Vladimir Kloz 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

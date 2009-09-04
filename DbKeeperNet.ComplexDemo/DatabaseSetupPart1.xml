@@ -32,6 +32,12 @@
           insert into DbKeeperNet_SimpleDemo(name) values('Second value');
         ]]>
       </AlternativeStatement>
+      <AlternativeStatement DbType="MySql">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('First value');
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value');
+        ]]>
+      </AlternativeStatement>
     </UpdateStep>
   </Update>
   <Update Version="2.00">
