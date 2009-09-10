@@ -31,7 +31,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                     SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
                     SetupResult.For(driverMock.DatabaseSetupXml).Return(null);
 
-                    Expect.Call(driverMock.IndexExists("test_index")).Return(false);
+                    Expect.Call(driverMock.IndexExists("test_index", "table_test_index")).Return(false);
                     Expect.Call(delegate { driverMock.BeginTransaction(); });
                     Expect.Call(delegate { driverMock.ExecuteSql("query_to_be_executed_on_mock"); });
                     Expect.Call(delegate { driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1); });
@@ -72,7 +72,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                     SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
                     SetupResult.For(driverMock.DatabaseSetupXml).Return(null);
 
-                    Expect.Call(driverMock.IndexExists("test_index")).Return(true);
+                    Expect.Call(driverMock.IndexExists("test_index", "table_test_index")).Return(true);
                 }
             }
 

@@ -12,25 +12,36 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     {
         const string CONNECTION_STRING = "mssql";
         #region Private helper methods
-        private bool TestForeignKeyExists(string key)
+        private bool TestForeignKeyExists(string key, string table)
         {
             MsSqlDatabaseService service = new MsSqlDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                result = connectedService.ForeignKeyExists(key);
+                result = connectedService.ForeignKeyExists(key, table);
             }
             return result;
         }
-        private bool TestIndexExists(string index)
+        private bool TestIndexExists(string index, string table)
         {
             MsSqlDatabaseService service = new MsSqlDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                result = connectedService.IndexExists(index);
+                result = connectedService.IndexExists(index, table);
+            }
+            return result;
+        }
+        private bool TestPKExists(string index, string table)
+        {
+            MsSqlDatabaseService service = new MsSqlDatabaseService();
+            bool result = false;
+
+            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                result = connectedService.PrimaryKeyExists(index, table);
             }
             return result;
         }
@@ -236,19 +247,19 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestIndexNotExists()
         {
-            TestIndexExists("asddas");
+            TestIndexExists("asddas", "asddsa");
         }
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestIndexNotExistsNullName()
         {
-            TestIndexExists(null);
+            TestIndexExists(null, null);
         }
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestIndexNotExistsEmptyName()
         {
-            TestIndexExists("");
+            TestIndexExists("", "");
         }
         [Test]
         public void TestIndexExists()
@@ -261,16 +272,16 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 // database failures
                 try
                 {
-                    connectedService.ExecuteSql("create table mssql_testing_pk(id int not null, CONSTRAINT PK_mssql_testing_pk PRIMARY KEY (id))");
+                    connectedService.ExecuteSql("create table mssql_testing_ix(id int not null);CREATE INDEX IX_mssql_testing_ix on mssql_testing_ix (id)");
                 }
                 catch (DbException)
                 {
                 }
-                Assert.That(TestIndexExists("PK_mssql_testing_pk"), Is.True);
+                Assert.That(TestIndexExists("IX_mssql_testing_ix", "mssql_testing_ix"), Is.True);
                 // cleanup procedure
                 try
                 {
-                    connectedService.ExecuteSql("drop table mssql_testing_pk");
+                    connectedService.ExecuteSql("drop table mssql_testing_ix");
                 }
                 catch (DbException)
                 {
@@ -280,19 +291,19 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestForeignKeyNotExists()
         {
-            TestForeignKeyExists("asddas");
+            TestForeignKeyExists("asddas", "asdsa");
         }
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestForeignKeyNotExistsNullName()
         {
-            TestForeignKeyExists(null);
+            TestForeignKeyExists(null, null);
         }
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestForeignKeyNotExistsEmptyName()
         {
-            TestForeignKeyExists("");
+            TestForeignKeyExists("", "");
         }
         [Test]
         public void TestForeignExists()
@@ -310,11 +321,55 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 catch (DbException)
                 {
                 }
-                Assert.That(TestForeignKeyExists("FK_mssql_testing_fk"), Is.True);
+                Assert.That(TestForeignKeyExists("FK_mssql_testing_fk", "mssql_testing_fk"), Is.True);
                 // cleanup procedure
                 try
                 {
                     connectedService.ExecuteSql("drop table mssql_testing_fk");
+                }
+                catch (DbException)
+                {
+                }
+            }
+        }
+        [Test]
+        public void TestPKNotExists()
+        {
+            TestPKExists("asddas", "asddsa");
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestPKNotExistsNullName()
+        {
+            TestPKExists(null, null);
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestPKNotExistsEmptyName()
+        {
+            TestPKExists("", "");
+        }
+        [Test]
+        public void TestPKExists()
+        {
+            MsSqlDatabaseService service = new MsSqlDatabaseService();
+
+            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                // we just need a stored proc to check whether is exists, so don't care about
+                // database failures
+                try
+                {
+                    connectedService.ExecuteSql("create table mssql_testing_pk(id int not null, CONSTRAINT PK_mssql_testing_pk PRIMARY KEY (id))");
+                }
+                catch (DbException)
+                {
+                }
+                Assert.That(TestPKExists("PK_mssql_testing_pk", "mssql_testing_pk"), Is.True);
+                // cleanup procedure
+                try
+                {
+                    connectedService.ExecuteSql("drop table mssql_testing_pk");
                 }
                 catch (DbException)
                 {

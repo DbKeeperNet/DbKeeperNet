@@ -21,6 +21,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             context.RegisterPrecondition(new DbForeignKeyNotFound());
             context.RegisterPrecondition(new DbViewNotFound());
             context.RegisterPrecondition(new DbType());
+            context.RegisterPrecondition(new DbPrimaryKeyNotFound());
         }
 
         #endregion

@@ -8,6 +8,7 @@
       <Preconditions>
         <Precondition Precondition="DbForeignKeyNotFound">
           <Param>FK_test</Param>
+          <Param>table_test_FK</Param>
         </Precondition>
       </Preconditions>
       <AlternativeStatement DbType="dbMock">

@@ -55,6 +55,7 @@
     <Compile Include="Extensions\LoggingServices\LoggingServicesExtension.cs" />
     <Compile Include="Extensions\Preconditions\DbForeignKeyNotFound.cs" />
     <Compile Include="Extensions\Preconditions\DbIndexNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\DbPrimaryKeyNotFound.cs" />
     <Compile Include="Extensions\Preconditions\DbProcedureNotFound.cs" />
     <Compile Include="Extensions\Preconditions\DbTableNotFound.cs" />
     <Compile Include="Extensions\Preconditions\DbType.cs" />

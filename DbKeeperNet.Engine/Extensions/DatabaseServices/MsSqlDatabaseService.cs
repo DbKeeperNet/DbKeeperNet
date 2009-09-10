@@ -82,7 +82,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             return exists;
         }
-        public bool IndexExists(string indexName)
+        public bool IndexExists(string indexName, string table)
         {
             if (String.IsNullOrEmpty(indexName))
                 throw new ArgumentNullException("indexName");
@@ -97,7 +97,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             return exists;
         }
-        public bool ForeignKeyExists(string foreignKeyName)
+        public bool ForeignKeyExists(string foreignKeyName, string table)
         {
             if (String.IsNullOrEmpty(foreignKeyName))
                 throw new ArgumentNullException("foreignKeyName");
@@ -111,6 +111,10 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             bool exists = (schema.Rows.Count != 0);
 
             return exists;
+        }
+        public bool PrimaryKeyExists(string primaryKeyName, string table)
+        {
+            return IndexExists(primaryKeyName, table);
         }
         public string Name
         {

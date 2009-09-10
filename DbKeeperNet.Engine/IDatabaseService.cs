@@ -46,15 +46,25 @@ namespace DbKeeperNet.Engine
         /// in database
         /// </summary>
         /// <param name="indexName">Primary key or index name</param>
+        /// <param name="table">Table on which we are checking index</param>
         /// <returns>true when exists, false otherwise</returns>
-        bool IndexExists(string indexName);
+        bool IndexExists(string indexName, string table);
         /// <summary>
         /// Verify whether given foreign key already exists
         /// in database
         /// </summary>
         /// <param name="foreignKeyName">Foreign key name</param>
+        /// <param name="table">Table on which we are checking foreign key</param>
         /// <returns>true when exists, false otherwise</returns>
-        bool ForeignKeyExists(string foreignKeyName);
+        bool ForeignKeyExists(string foreignKeyName, string table);
+        /// <summary>
+        /// Verify whether given primary key on table already exists
+        /// in database
+        /// </summary>
+        /// <param name="primaryKeyName">Primary key name</param>
+        /// <param name="table">Table on which we are checking primary key</param>
+        /// <returns>true when exists, false otherwise</returns>
+        bool PrimaryKeyExists(string primaryKeyName, string table);
         /// <summary>
         /// Clone this object and establish a database connection
         /// with specified connection string.

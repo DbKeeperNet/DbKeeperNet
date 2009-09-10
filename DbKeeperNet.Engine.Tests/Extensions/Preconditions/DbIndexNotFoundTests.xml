@@ -8,6 +8,7 @@
       <Preconditions>
         <Precondition Precondition="DbIndexNotFound">
           <Param>test_index</Param>
+          <Param>table_test_index</Param>
         </Precondition>
       </Preconditions>
       <AlternativeStatement DbType="dbMock">

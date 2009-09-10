@@ -1,0 +1,11 @@
+Version 1.1.1.1
+ - New precondition DbPrimaryKeyNotFound
+ - DbIndexNotFound precondition must have 2 parameters, second parameter is the table name,
+   shouldn't be used for primary keys
+ - DbForeignKeyNotFound precondition must have 2 parameters, second parameter is the table name
+ - IDatabaseService interface extended for primary keys checking and table parameter added
+   when checking for indexes and foreign keys.
+ 
+ 
+Version 1.0.1.1
+ - Initial release

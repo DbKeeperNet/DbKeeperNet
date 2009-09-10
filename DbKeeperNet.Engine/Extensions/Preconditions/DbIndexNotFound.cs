@@ -6,8 +6,7 @@ using System.Diagnostics;
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
     /// <summary>
-    /// Condition verifies that primary key or
-    /// index with given name doesn't exist.
+    /// Condition verifies that index with given name doesn't exist.
     /// Condition reference name is <value>DbIndexNotFound</value>.
     /// It has one parameter which should contain tested database
     /// index or primary key name.
@@ -15,6 +14,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// <![CDATA[
     /// <Precondition FriendlyName="Index UQ_test not found" Precondition="DbIndexNotFound">
     ///   <Param>UQ_test</Param>
+    ///   <Param>table_test_index</Param>
     /// </Precondition>
     /// ]]>
     /// </code>
@@ -32,10 +32,10 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         {
             if (context == null)
                 throw new ArgumentNullException(@"context");
-            if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)))
-                throw new ArgumentNullException(@"param", String.Format("Index or primary key name for condition {0} must be specified", Name));
+            if ((param == null) || (param.Length < 2) || (String.IsNullOrEmpty(param[0].Value)) || (String.IsNullOrEmpty(param[1].Value)))
+                throw new ArgumentNullException(@"param", String.Format("Index name and table for condition {0} must be specified", Name));
 
-            bool result = !context.DatabaseService.IndexExists(param[0].Value);
+            bool result = !context.DatabaseService.IndexExists(param[0].Value, param[1].Value);
 
             return result;
         }

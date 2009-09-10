@@ -13,6 +13,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// <![CDATA[
     /// <Precondition FriendlyName="Foreign key FK_test not found" Precondition="DbForeignKeyNotFound">
     ///   <Param>FK_test</Param>
+    ///   <Param>table_test_fk</Param>
     /// </Precondition>
     /// ]]>
     /// </code>
@@ -30,10 +31,10 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         {
             if (context == null)
                 throw new ArgumentNullException(@"context");
-            if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)))
+            if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)) || (String.IsNullOrEmpty(param[0].Value)))
                 throw new ArgumentNullException(@"param", String.Format("Foreign key name for condition {0} must be specified", Name));
 
-            bool result = !context.DatabaseService.ForeignKeyExists(param[0].Value);
+            bool result = !context.DatabaseService.ForeignKeyExists(param[0].Value, param[1].Value);
 
             return result;
         }
