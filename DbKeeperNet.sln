@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{B2
 	ProjectSection(SolutionItems) = preProject
 		External\Castle.Core.dll = External\Castle.Core.dll
 		External\Castle.DynamicProxy2.dll = External\Castle.DynamicProxy2.dll
+		External\log4net.dll = External\log4net.dll
 		External\Rhino.Mocks.dll = External\Rhino.Mocks.dll
 	EndProjectSection
 EndProject
@@ -23,6 +24,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.SimpleDemo", "DbKeeperNet.SimpleDemo\DbKeeperNet.SimpleDemo.csproj", "{E72142B7-3269-472D-8978-4604E7A8D165}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.ComplexDemo", "DbKeeperNet.ComplexDemo\DbKeeperNet.ComplexDemo.csproj", "{2594FFE0-2357-4F62-8435-F0547B0406D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Extensions.Log4Net", "DbKeeperNet.Extensions.Log4Net\DbKeeperNet.Extensions.Log4Net.csproj", "{779308F4-01DC-444E-999F-42370513CA42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Log4NetSimpleDemo", "DbKeeperNet.Log4NetSimpleDemo\DbKeeperNet.Log4NetSimpleDemo.csproj", "{ABA03077-BEFA-410A-B4C0-915972A22990}"
+	ProjectSection(ProjectDependencies) = postProject
+		{779308F4-01DC-444E-999F-42370513CA42} = {779308F4-01DC-444E-999F-42370513CA42}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -50,6 +58,14 @@ Global
 		{2594FFE0-2357-4F62-8435-F0547B0406D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2594FFE0-2357-4F62-8435-F0547B0406D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2594FFE0-2357-4F62-8435-F0547B0406D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{779308F4-01DC-444E-999F-42370513CA42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{779308F4-01DC-444E-999F-42370513CA42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{779308F4-01DC-444E-999F-42370513CA42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{779308F4-01DC-444E-999F-42370513CA42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABA03077-BEFA-410A-B4C0-915972A22990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABA03077-BEFA-410A-B4C0-915972A22990}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABA03077-BEFA-410A-B4C0-915972A22990}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABA03077-BEFA-410A-B4C0-915972A22990}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
