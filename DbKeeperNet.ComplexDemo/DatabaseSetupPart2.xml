@@ -13,12 +13,12 @@
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="1">
       <AlternativeStatement DbType="MsSql">
         <![CDATA[
-          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value');
+          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value MS SQL');
         ]]>
       </AlternativeStatement>
       <AlternativeStatement DbType="MySql">
         <![CDATA[
-          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value');
+          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value MySQL');
         ]]>
       </AlternativeStatement>
     </UpdateStep>

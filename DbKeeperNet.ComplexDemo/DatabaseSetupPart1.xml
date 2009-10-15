@@ -21,6 +21,16 @@
           )
         ]]>
       </AlternativeStatement>
+      <AlternativeStatement DbType="MySql">
+        <![CDATA[
+          CREATE TABLE DbKeeperNet_SimpleDemo
+          (
+          id int not null auto_increment,
+          name nvarchar(32),
+          constraint PK_DbKeeperNet_SimpleDemo primary key (id)
+          )
+        ]]>
+      </AlternativeStatement>
     </UpdateStep>
     <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="2" Type="DbKeeperNet.ComplexDemo.ComplexDemoCustomStep,DbKeeperNet.ComplexDemo">
       <Param>Hellow world</Param>
@@ -28,21 +38,21 @@
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="3">
       <AlternativeStatement DbType="MsSql">
         <![CDATA[
-          insert into DbKeeperNet_SimpleDemo(name) values('First value');
-          insert into DbKeeperNet_SimpleDemo(name) values('Second value');
+          insert into DbKeeperNet_SimpleDemo(name) values('First value MS SQL');
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value MS SQL');
         ]]>
       </AlternativeStatement>
       <AlternativeStatement DbType="MySql">
         <![CDATA[
-          insert into DbKeeperNet_SimpleDemo(name) values('First value');
-          insert into DbKeeperNet_SimpleDemo(name) values('Second value');
+          insert into DbKeeperNet_SimpleDemo(name) values('First value MySQL');
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value MySQL');
         ]]>
       </AlternativeStatement>
     </UpdateStep>
   </Update>
   <Update Version="2.00">
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="1">
-      <AlternativeStatement DbType="MsSql">
+      <AlternativeStatement>
         <![CDATA[
           insert into DbKeeperNet_SimpleDemo(name) values('Third value');
         ]]>

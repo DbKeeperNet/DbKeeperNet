@@ -23,9 +23,19 @@
           )
         ]]>
       </AlternativeStatement>
+      <AlternativeStatement DbType="MySql">
+        <![CDATA[
+          CREATE TABLE DbKeeperNet_SimpleDemo
+          (
+          id int not null auto_increment,
+          name nvarchar(32),
+          constraint PK_DbKeeperNet_SimpleDemo primary key (id)
+          )
+        ]]>
+      </AlternativeStatement>
     </UpdateStep>
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="2">
-      <AlternativeStatement DbType="MsSql">
+      <AlternativeStatement>
         <![CDATA[
           insert into DbKeeperNet_SimpleDemo(name) values('First value');
           insert into DbKeeperNet_SimpleDemo(name) values('Second value');

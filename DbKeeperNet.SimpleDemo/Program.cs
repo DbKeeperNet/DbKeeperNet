@@ -12,24 +12,28 @@ namespace DbKeeperNet.SimpleDemo
     {
         static void Main(string[] args)
         {
+            const string connString = "mysql"; // MySql connection over .NET Connector
+            // const string connString = "default"; // MsSql connection
+
             using (UpdateContext context = new UpdateContext())
             {
                 context.LoadExtensions();
-                context.InitializeDatabaseService("default");
+                context.InitializeDatabaseService(connString);
 
                 Updater updater = new Updater(context);
                 updater.ExecuteXmlFromConfig();
             }
 
-            ConnectionStringSettings connectString = ConfigurationManager.ConnectionStrings["default"];
+            ConnectionStringSettings connectString = ConfigurationManager.ConnectionStrings[connString];
 
-            using (SqlConnection connection = new SqlConnection(connectString.ConnectionString))
+            using (DbConnection connection = DbProviderFactories.GetFactory(connectString.ProviderName).CreateConnection())
             {
+                connection.ConnectionString = connectString.ConnectionString;
                 connection.Open();
 
-                SqlCommand cmd = connection.CreateCommand();
+                DbCommand cmd = connection.CreateCommand();
                 cmd.CommandText = "select * from DbKeeperNet_SimpleDemo";
-                SqlDataReader reader = cmd.ExecuteReader();
+                DbDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                     Console.WriteLine("{0}: {1}", reader[0], reader[1]);
             }
