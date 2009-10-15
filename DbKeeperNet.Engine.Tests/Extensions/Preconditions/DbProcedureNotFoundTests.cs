@@ -93,5 +93,42 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
             }
             repository.VerifyAll();
         }
+        [Test]
+        public void TestDbProcedureNotFoundPreConditionNotSupportedOnMockDriver()
+        {
+            MockRepository repository = new MockRepository();
+            ILoggingService loggerStub = repository.Stub<ILoggingService>();
+            IDatabaseService driverMock = repository.StrictMock<IDatabaseService>();
+
+            using (repository.Record())
+            {
+                using (repository.Ordered())
+                {
+                    SetupResult.For(loggerStub.Name).Return(LOGGER_NAME);
+                    SetupResult.For(driverMock.Name).Return("MockDriver");
+                    SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
+                    SetupResult.For(driverMock.DatabaseSetupXml).Return(null);
+
+                    Expect.Call(driverMock.StoredProcedureExists("test_proc")).Throw(new NotSupportedException());
+                }
+            }
+
+            using (repository.Playback())
+            {
+                IUpdateContext context = new UpdateContext();
+
+                context.RegisterLoggingService(loggerStub);
+                context.InitializeLoggingService(LOGGER_NAME);
+
+                context.RegisterDatabaseService(driverMock);
+                context.InitializeDatabaseService(CONNECTION_STRING);
+
+                context.RegisterPrecondition(new DbProcedureNotFound());
+
+                Updater update = new Updater(context);
+                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbProcedureNotFoundTests.xml"));
+            }
+            repository.VerifyAll();
+        }
     }
 }

@@ -6,6 +6,8 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Reflection;
+using DbKeeperNet.Engine.Resources;
+using System.Globalization;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
@@ -15,8 +17,8 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// </summary>
     public sealed class MsSqlDatabaseService : IDatabaseService
     {
-        DbConnection _connection = null;
-        DbTransaction _transaction = null;
+        DbConnection _connection;
+        DbTransaction _transaction;
 
         public MsSqlDatabaseService()
         {
@@ -25,12 +27,12 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         private MsSqlDatabaseService(string connectionString)
         {
             if (String.IsNullOrEmpty(connectionString))
-                throw new ArgumentException("connectionString");
+                throw new ArgumentNullException("connectionString");
 
             ConnectionStringSettings connectString = ConfigurationManager.ConnectionStrings[connectionString];
 
             if (connectionString == null)
-                throw new InvalidOperationException(String.Format("Specified connection string '{0}' not found", connectionString));
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionStringNotFound, connectionString));
 
             _connection = DbProviderFactories.GetFactory(connectString.ProviderName).CreateConnection();
             _connection.ConnectionString = connectString.ConnectionString;
@@ -44,7 +46,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             get
             {
                 if (_connection == null)
-                    throw new InvalidOperationException("This database service object is not connected to database");
+                    throw new InvalidOperationException(DatabaseServiceMessages.NotConnected);
 
                 return _connection;
             }
@@ -121,7 +123,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             get { return @"MsSql"; }
         }
 
-        public bool IsUpdateStepExecuted(string assemblyName, string version, int step)
+        public bool IsUpdateStepExecuted(string assemblyName, string version, int stepNumber)
         {
             DbCommand cmd = Connection.CreateCommand();
             cmd.CommandText = "DbKeeperNetIsStepExecuted";
@@ -139,7 +141,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             param = cmd.CreateParameter();
             param.ParameterName = "@step";
-            param.Value = step;
+            param.Value = stepNumber;
             cmd.Parameters.Add(param);
 
             bool result = (bool)cmd.ExecuteScalar();
@@ -147,7 +149,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             return result;
         }
 
-        public void SetUpdateStepExecuted(string assemblyName, string version, int step)
+        public void SetUpdateStepExecuted(string assemblyName, string version, int stepNumber)
         {
             DbCommand cmd = Connection.CreateCommand();
 
@@ -169,7 +171,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             param = cmd.CreateParameter();
             param.ParameterName = "@step";
-            param.Value = step;
+            param.Value = stepNumber;
             cmd.Parameters.Add(param);
 
             cmd.ExecuteNonQuery();
@@ -216,14 +218,14 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         public void BeginTransaction()
         {
             if (HasActiveTransaction)
-                throw new InvalidOperationException("A transaction is already in progress");
+                throw new InvalidOperationException(DatabaseServiceMessages.TransactionAlreadyInProgress);
 
             _transaction = _connection.BeginTransaction();
         }
         public void CommitTransaction()
         {
             if (!HasActiveTransaction)
-                throw new InvalidOperationException("No transaction in progress, can't execute commit");
+                throw new InvalidOperationException(DatabaseServiceMessages.NoTransactionInProgressCanNotCommit);
 
             _transaction.Commit();
             _transaction = null;
@@ -231,7 +233,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         public void RollbackTransaction()
         {
             if (!HasActiveTransaction)
-                throw new InvalidOperationException("No transaction in progress, can't execute rollback");
+                throw new InvalidOperationException(DatabaseServiceMessages.NoTransactionInProgressCanNotRollback);
 
             _transaction.Rollback();
             _transaction = null;
@@ -245,9 +247,9 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         {
             bool status = false;
 
-            switch (dbTypeName.ToLower())
+            switch (dbTypeName.ToUpperInvariant())
             {
-                case "mssql":
+                case "MSSQL":
                     status = true;
                     break;
             }

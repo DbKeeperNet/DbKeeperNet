@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherFiles", "OtherFiles", "{D523A38F-333A-4257-A25C-1637414AFC72}"
 	ProjectSection(SolutionItems) = preProject
 		Changelog.txt = Changelog.txt
+		DbKeeperNet.FxCop = DbKeeperNet.FxCop
 		DbKeeperNet.snk = DbKeeperNet.snk
 		LICENSE = LICENSE
 		RegenerateClasses.bat = RegenerateClasses.bat

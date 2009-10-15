@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DbKeeperNet.Engine.Resources;
+using System.Globalization;
 
 namespace DbKeeperNet.Engine
 {
@@ -35,7 +37,7 @@ namespace DbKeeperNet.Engine
                     InitializeLoggingService(DbKeeperNetConfigurationSection.Current.LoggingService);
 
                 if (_loggingService == null)
-                    throw new InvalidOperationException("Logging service can't be initialized");
+                    throw new InvalidOperationException(UpdateContextMessages.CanNotInitializeLoggingService);
 
                 return _loggingService;
             }
@@ -45,7 +47,7 @@ namespace DbKeeperNet.Engine
             get
             {
                 if (_databaseService == null)
-                    throw new InvalidOperationException("Database driver is not initialized");
+                    throw new InvalidOperationException(UpdateContextMessages.DatabaseServiceNotInitialized);
 
                 return _databaseService;
             }
@@ -56,10 +58,10 @@ namespace DbKeeperNet.Engine
             if (precondition == null)
                 throw new ArgumentNullException(@"precondition");
             if (String.IsNullOrEmpty(precondition.Name))
-                throw new ArgumentNullException(@"precondition.Name");
+                throw new InvalidOperationException(UpdateContextMessages.PreconditionNameNull);
 
             if (_preconditions.ContainsKey(precondition.Name))
-                throw new InvalidOperationException(String.Format("Precondition '{0}' already registered", precondition.Name));
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.PreconditionAlreadyRegistered, precondition.Name));
 
             _preconditions[precondition.Name] = precondition;
         }
@@ -79,10 +81,10 @@ namespace DbKeeperNet.Engine
             if (service == null)
                 throw new ArgumentNullException("service");
             if (String.IsNullOrEmpty(service.Name))
-                throw new ArgumentNullException("service.Name");
+                throw new InvalidOperationException(UpdateContextMessages.DatabaseServiceNameNull);
 
             if (_databaseServices.ContainsKey(service.Name))
-                throw new InvalidOperationException(String.Format("Database service '{0}' already registered", service.Name));
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.DatabaseServiceAlreadyRegistered, service.Name));
 
             _databaseServices[service.Name] = service;
         }
@@ -92,10 +94,10 @@ namespace DbKeeperNet.Engine
             if (service == null)
                 throw new ArgumentNullException("service");
             if (String.IsNullOrEmpty(service.Name))
-                throw new ArgumentNullException("service.Name");
+                throw new InvalidOperationException(UpdateContextMessages.LoggingServiceNameNull);
 
             if (_loggingServices.ContainsKey(service.Name))
-                throw new InvalidOperationException(String.Format("Logging service '{0}' already registered", service.Name));
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.LoggingServiceAlreadyRegistered, service.Name));
 
             _loggingServices[service.Name] = service;
         }
@@ -163,8 +165,9 @@ namespace DbKeeperNet.Engine
         {
             if (String.IsNullOrEmpty(serviceName))
                 throw new ArgumentNullException("serviceName");
+
             if (!_loggingServices.ContainsKey(serviceName))
-                throw new InvalidOperationException(String.Format("Logging service '{0}' is not registered", serviceName));
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.LoggingServiceNotRegistered, serviceName));
 
             _loggingService = _loggingServices[serviceName];
         }
@@ -176,7 +179,7 @@ namespace DbKeeperNet.Engine
 
             string databaseServiceName = null;
 
-            Logger.TraceInformation("Searching database service for connection string '{0}'", connectionString);
+            Logger.TraceInformation(UpdateContextMessages.SearchingDatabaseService, connectionString);
 
             foreach (DatabaseServiceMappingConfigurationElement e in DbKeeperNetConfigurationSection.Current.DatabaseServiceMappings)
             {
@@ -188,16 +191,16 @@ namespace DbKeeperNet.Engine
             }
 
             if (databaseServiceName == null)
-                throw new InvalidOperationException(String.Format("Database service mapping for connection string '{0}' not found", connectionString));
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.DatabaseServiceMappingNotFound, connectionString));
 
             if (!_databaseServices.ContainsKey(databaseServiceName))
-                throw new InvalidOperationException(String.Format("Database service '{0}' not registered", databaseServiceName));
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.DatabaseServiceNotRegistered, databaseServiceName));
 
-            Logger.TraceInformation(String.Format("For connection string '{0}' found database service '{1}'", connectionString, databaseServiceName));
+            Logger.TraceInformation(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.DatabaseServiceMappingFound, connectionString, databaseServiceName));
 
             _databaseService = _databaseServices[databaseServiceName].CloneForConnectionString(connectionString);
 
-            Logger.TraceInformation("Initialized database service for connection string '{0}'", connectionString);
+            Logger.TraceInformation(UpdateContextMessages.DatabaseServiceInitialized, connectionString);
         }
 
         public void LoadExtensions()

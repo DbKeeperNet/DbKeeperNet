@@ -85,10 +85,10 @@ namespace DbKeeperNet.Engine
         /// </summary>
         /// <param name="assemblyName">Assembly name as it's defined in update XML file.</param>
         /// <param name="version">Current update version.</param>
-        /// <param name="step">Update step within the version.</param>
+        /// <param name="stepNumber">Update step within the version.</param>
         /// <returns>true in the case that step was already executed, false otherwise.</returns>
         /// <see cref="SetUpdateStepExecuted"/>
-        bool IsUpdateStepExecuted(string assemblyName, string version, int step);
+        bool IsUpdateStepExecuted(string assemblyName, string version, int stepNumber);
         /// <summary>
         /// Request marking update step identified by assembly, version
         /// and step as already executed. This function is indented
@@ -97,9 +97,9 @@ namespace DbKeeperNet.Engine
         /// </summary>
         /// <param name="assemblyName">Assembly name as it's defined in update XML file.</param>
         /// <param name="version">Current update version.</param>
-        /// <param name="step">Update step within the version.</param>
+        /// <param name="stepNumber">Update step within the version.</param>
         /// <see cref="IsUpdateStepExecuted"/>
-        void SetUpdateStepExecuted(string assemblyName, string version, int step);
+        void SetUpdateStepExecuted(string assemblyName, string version, int stepNumber);
         /// <summary>
         /// Should execute direct SQL command in parametr
         /// </summary>

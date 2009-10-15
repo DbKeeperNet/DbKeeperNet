@@ -2,13 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DbKeeperNet.Engine;
+using DbKeeperNet.Engine.Resources;
+using System.Globalization;
 
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
     /// <summary>
     /// Condition verifies that foreign key with specified
     /// name doesn't exist in database.
-    /// Condition reference name is <value>DbForeignKeyNotFound</value>.
+    /// </summary>
+    /// <remarks>
+    /// Condition reference name is <c>DbForeignKeyNotFound</c>.
+    /// </remarks>
+    /// <example>
+    /// Following example shows how to reference this condition in the
+    /// update script XML.
     /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Foreign key FK_test not found" Precondition="DbForeignKeyNotFound">
@@ -17,7 +25,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// </Precondition>
     /// ]]>
     /// </code>
-    /// </summary>
+    /// </example>
     public sealed class DbForeignKeyNotFound: IPrecondition
     {
         #region IPrecondition Members
@@ -32,7 +40,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             if (context == null)
                 throw new ArgumentNullException(@"context");
             if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)) || (String.IsNullOrEmpty(param[0].Value)))
-                throw new ArgumentNullException(@"param", String.Format("Foreign key name for condition {0} must be specified", Name));
+                throw new ArgumentNullException(@"param", String.Format(CultureInfo.CurrentCulture, PreconditionMessages.ForeignKeyNameEmpty, Name));
 
             bool result = !context.DatabaseService.ForeignKeyExists(param[0].Value, param[1].Value);
 

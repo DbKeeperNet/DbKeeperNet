@@ -31,6 +31,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\DbKeeperNet.Engine.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -49,6 +51,7 @@
     <Compile Include="ExtensionLoader.cs" />
     <Compile Include="Extensions\DatabaseServices\DbServicesExtension.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseService.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseService.cs" />
     <Compile Include="Extensions\LoggingServices\DummyLogger.cs" />
     <Compile Include="Extensions\LoggingServices\FxLogger.cs" />
     <Compile Include="Extensions\LoggingServices\FxTSLogger.cs" />
@@ -70,6 +73,31 @@
     <Compile Include="IPrecondition.cs" />
     <Compile Include="IUpdateContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\DatabaseServiceMessages.cs-CZ.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseServiceMessages.cs-CZ.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DatabaseServiceMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatabaseServiceMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\PreconditionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreconditionMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UpdateContextMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdateContextMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UpdaterMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdaterMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="UpdateContext.cs" />
     <Compile Include="ExtensionConfigurationElement.cs" />
     <Compile Include="Updater.cs" />
@@ -85,6 +113,43 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Extensions\DatabaseServices\MsSqlDatabaseServiceInstall.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceInstall.xml" />
+    <EmbeddedResource Include="Resources\DatabaseServiceMessages.cs-CZ.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DatabaseServiceMessages.cs-CZ.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatabaseServiceMessages.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DatabaseServiceMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PreconditionMessages.cs-CZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PreconditionMessages.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PreconditionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UpdateContextMessages.cs-CZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UpdateContextMessages.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdateContextMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UpdaterMessages.cs-CZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UpdaterMessages.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdaterMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

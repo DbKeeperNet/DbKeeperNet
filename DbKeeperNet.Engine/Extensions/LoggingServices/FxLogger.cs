@@ -9,9 +9,10 @@ namespace DbKeeperNet.Engine.Extensions.LoggingServices
     /// Output is directed thru standard .NET logging service
     /// implemented by System.Diagnostics.Trace class and
     /// its static methods.
-    /// 
-    /// Reference name for configuration file is <code>fx</code>.
     /// </summary>
+    /// <remarks>
+    /// Reference name for configuration file is <value>fx</value>.
+    /// </remarks>
     public sealed class FxLogger : ILoggingService
     {
         #region ILoggingService Members

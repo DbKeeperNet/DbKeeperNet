@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DbKeeperNet.Engine.Resources;
+using System.Globalization;
 
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
@@ -36,7 +38,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
                 throw new ArgumentNullException(@"context");
 
             if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)))
-                throw new ArgumentNullException(@"param", String.Format("View name for condition {0} must be specified", Name));
+                throw new ArgumentNullException(@"param", String.Format(CultureInfo.CurrentCulture, PreconditionMessages.DatabaseTypeEmpty, Name));
 
             return context.DatabaseService.IsDbType(param[0].Value);
         }

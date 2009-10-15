@@ -19,9 +19,9 @@ namespace DbKeeperNet.Engine
         /// all provided services and new preconditions here.
         /// </summary>
         /// <param name="context">Current update context</param>
-        /// <see cref="IUpdateContext.RegisterPrecondition()"/>
-        /// <see cref="IUpdateContext.RegisterDatabaseService()"/>
-        /// <see cref="IUpdateContext.RegisterLoggingService()"/>
+        /// <see cref="IUpdateContext.RegisterPrecondition"/>
+        /// <see cref="IUpdateContext.RegisterDatabaseService"/>
+        /// <see cref="IUpdateContext.RegisterLoggingService"/>
         void Initialize(IUpdateContext context);
     }
 }

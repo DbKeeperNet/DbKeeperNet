@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using DbKeeperNet.Engine.Resources;
+using System.Globalization;
 
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
@@ -31,7 +33,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             if (context == null)
                 throw new ArgumentNullException(@"context");
             if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)))
-                throw new ArgumentNullException(@"param", String.Format("Stored procedure name for condition {0} must be specified", Name));
+                throw new ArgumentNullException(@"param", String.Format(CultureInfo.CurrentCulture, PreconditionMessages.StoredProcedureNameEmpty, Name));
 
             bool result = !context.DatabaseService.StoredProcedureExists(param[0].Value);
 

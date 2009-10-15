@@ -6,6 +6,8 @@ using System.Xml.Serialization;
 using System.Xml.Schema;
 using System.Xml;
 using System.Reflection;
+using DbKeeperNet.Engine.Resources;
+using System.Globalization;
 
 namespace DbKeeperNet.Engine
 {
@@ -32,18 +34,18 @@ namespace DbKeeperNet.Engine
         #region Private methods
         private void ExecuteDatabaseSetupXml()
         {
-            _context.Logger.TraceInformation("Going to check database setup");
+            _context.Logger.TraceInformation(UpdaterMessages.DatabaseSetupCheck);
 
             Stream databaseSetup = _context.DatabaseService.DatabaseSetupXml;
 
             if (databaseSetup != null)
             {
-                _context.Logger.TraceInformation("Database setup script will be executed");
+                _context.Logger.TraceInformation(UpdaterMessages.DatabaseSetupToBeExecuted);
                 ExecuteXmlInternal(databaseSetup);
-                _context.Logger.TraceInformation("Database setup script finished");
+                _context.Logger.TraceInformation(UpdaterMessages.DatabaseSetupFinished);
             }
             else
-                _context.Logger.TraceInformation("No database setup necessary");
+                _context.Logger.TraceInformation(UpdaterMessages.DatabaseSetupNotNecessary);
         }
 
         private void ExecuteXmlInternal(Stream inputXml)
@@ -70,7 +72,7 @@ namespace DbKeeperNet.Engine
             if (updates.DefaultPreconditions != null)
                 _context.DefaultPreconditions = updates.DefaultPreconditions;
 
-            _context.Logger.TraceInformation("Executing updates for assembly: {0}", _context.CurrentAssemblyName);
+            _context.Logger.TraceInformation(UpdaterMessages.ExecutingUpdatesForAssembly, _context.CurrentAssemblyName);
 
             foreach (UpdateType update in updates.Update)
             {
@@ -78,23 +80,32 @@ namespace DbKeeperNet.Engine
                 ProcessUpdate(update);
             }
 
-            _context.Logger.TraceInformation("Updates for assembly executed successfully: {0}", _context.CurrentAssemblyName);
+            _context.Logger.TraceInformation(UpdaterMessages.ExecutingUpdatesForAssemblyFinished, _context.CurrentAssemblyName);
         }
 
         bool CheckStepPreconditions(PreconditionType[] preconditions)
         {
-            _context.Logger.TraceInformation("Checking step '{0}' preconditions", _context.CurrentStep);
+            _context.Logger.TraceInformation(UpdaterMessages.CheckingStepPreconditions, _context.CurrentStep);
 
             bool result = true;
 
 
             foreach (PreconditionType precondition in preconditions)
             {
-                _context.Logger.TraceInformation("Checking precondition: {0} [{1}] {{{2}}}", precondition.Precondition, precondition.FriendlyName, DumpParams(precondition.Param));
+                _context.Logger.TraceInformation(UpdaterMessages.CheckingStepPrecondition, precondition.Precondition, precondition.FriendlyName, DumpParams(precondition.Param));
 
-                bool currentResult = _context.CheckPrecondition(precondition.Precondition, precondition.Param);
+                bool currentResult = false;
 
-                _context.Logger.TraceInformation("Checking precondition: {0} [result={1}]", precondition.Precondition, currentResult);
+                try
+                {
+                    currentResult = _context.CheckPrecondition(precondition.Precondition, precondition.Param);
+
+                    _context.Logger.TraceInformation(UpdaterMessages.CheckingPreconditionResult, precondition.Precondition, currentResult);
+                }
+                catch (NotSupportedException)
+                {
+                    _context.Logger.TraceWarning(UpdaterMessages.CheckingPreconditionNotSupported, precondition.Precondition, currentResult);
+                }
 
                 result &= currentResult;
 
@@ -102,7 +113,7 @@ namespace DbKeeperNet.Engine
                     break;
             }
 
-            _context.Logger.TraceInformation("Conditions result to: {0}", result);
+            _context.Logger.TraceInformation(UpdaterMessages.CheckingStepPreconditionsResult, result);
 
             return result;
         }
@@ -132,7 +143,7 @@ namespace DbKeeperNet.Engine
             }
             else
             {
-                _context.Logger.TraceWarning("No relevant SQL statement found for driver: {0}", _context.DatabaseService.Name);
+                _context.Logger.TraceWarning(UpdaterMessages.AlternativeSqlStatementNotFound, _context.DatabaseService.Name);
             }
         }
 
@@ -141,7 +152,7 @@ namespace DbKeeperNet.Engine
             Type type = Type.GetType(step.Type);
 
             if (type == null)
-                throw new ArgumentException("Custom step type not found");
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, UpdaterMessages.CustomStepTypeNotFound, step.Type));
 
             ICustomUpdateStep customStep = (ICustomUpdateStep)Activator.CreateInstance(type);
             customStep.ExecuteUpdate(_context, step.Param);
@@ -158,7 +169,7 @@ namespace DbKeeperNet.Engine
                 ExecuteStepCustom((CustomUpdateStepType)step);
             }
             else
-                throw new InvalidOperationException("Unsupported update step type");
+                throw new InvalidOperationException(UpdaterMessages.UnsupportedUpdateStepType);
         }
         void ExecuteStep(UpdateStepBaseType step)
         {
@@ -169,7 +180,7 @@ namespace DbKeeperNet.Engine
 
                 if ((preconditions == null) || (preconditions.Length == 0))
                 {
-                    _context.Logger.TraceInformation("No preconditions declared - using context defaults");
+                    _context.Logger.TraceInformation(UpdaterMessages.UsingDefaultPreconditions);
                     preconditions = _context.DefaultPreconditions;
                 }
 
@@ -177,31 +188,31 @@ namespace DbKeeperNet.Engine
 
                 if (preconditionsResult)
                 {
-                    _context.Logger.TraceInformation("Running step: {0} [{1}]", step.Id, step.FriendlyName);
+                    _context.Logger.TraceInformation(UpdaterMessages.StartingUpdateStep, step.Id, step.FriendlyName);
                     try
                     {
                         _context.DatabaseService.BeginTransaction();
 
                         ExecuteStepBody(step);
-                        _context.Logger.TraceInformation("Finished step: {0} [{1}]", step.Id, step.FriendlyName);
+                        _context.Logger.TraceInformation(UpdaterMessages.FinishedUpdateStep, step.Id, step.FriendlyName);
 
                         if (step.MarkAsExecuted)
                         {
                             _context.DatabaseService.SetUpdateStepExecuted(_context.CurrentAssemblyName, _context.CurrentVersion, _context.CurrentStep);
-                            _context.Logger.TraceInformation("Step executed information saved to database: {0} [{1}]", step.Id, step.FriendlyName);
+                            _context.Logger.TraceInformation(UpdaterMessages.StepMarkedAsExecuted, step.Id, step.FriendlyName);
                         }
 
                         _context.DatabaseService.CommitTransaction();
                     }
                     catch
                     {
-                        _context.Logger.TraceError("An exception catched during update - executing transaction rollback");
+                        _context.Logger.TraceError(UpdaterMessages.StepExceptionRollback);
                         _context.DatabaseService.RollbackTransaction();
                         throw;
                     }
                 }
                 else
-                    _context.Logger.TraceInformation("Skipping step: {0} [{1}]", step.Id, step.FriendlyName);
+                    _context.Logger.TraceInformation(UpdaterMessages.StepSkipped, step.Id, step.FriendlyName);
             }
             finally
             {
@@ -211,15 +222,15 @@ namespace DbKeeperNet.Engine
 
         void ProcessUpdate(UpdateType update)
         {
-            _context.Logger.TraceInformation("Running version: {0} [{1}]", update.Version, update.FriendlyName);
+            _context.Logger.TraceInformation(UpdaterMessages.StartingVersion, update.Version, update.FriendlyName);
 
             foreach (UpdateStepBaseType step in update.UpdateStep)
                 ExecuteStep(step);
 
-            _context.Logger.TraceInformation("Finished version with success: {0} [{1}]", update.Version, update.FriendlyName);
+            _context.Logger.TraceInformation(UpdaterMessages.FinishedVersion, update.Version, update.FriendlyName);
         }
 
-        private string DumpParams(PreconditionParamType[] param)
+        private static string DumpParams(PreconditionParamType[] param)
         {
             StringBuilder builder = new StringBuilder();
 
@@ -259,39 +270,39 @@ namespace DbKeeperNet.Engine
             }
             catch (DbKeeperNetException e)
             {
-                _context.Logger.TraceError("An exception caught during update: {0}", e.ToString());
+                _context.Logger.TraceError(UpdaterMessages.CaughtException, e.ToString());
                 throw;
             }
             catch (Exception e)
             {
-                _context.Logger.TraceError("A common exception caught during update, will rethrow: {0}", e.ToString());
-                throw new DbKeeperNetException("An error occured during updates execution", e);
+                _context.Logger.TraceError(UpdaterMessages.CaughtCommonException, e.ToString());
+                throw new DbKeeperNetException(UpdaterMessages.CommonExceptionMessage, e);
             }
         }
 
         /// <summary>
         /// Executes all XML updates referenced in App.config file
         /// </summary>
-        /// <see cref="UpdaterConfiguration"/>
+        /// <see cref="DbKeeperNetConfigurationSection"/>
         public void ExecuteXmlFromConfig()
         {
             ExecuteDatabaseSetupXml();
 
             foreach (AssemblyUpdateConfigurationElement e in DbKeeperNetConfigurationSection.Current.AssemblyUpdates)
             {
-                _context.Logger.TraceInformation("Going to execute configurated update '{0}' in assembly '{1}'", e.ManifestResource, e.Assembly);
+                _context.Logger.TraceInformation(UpdaterMessages.StartingConfiguredUpdate, e.ManifestResource, e.Assembly);
                 Assembly assembly = Assembly.Load(e.Assembly);
                 Stream updates = assembly.GetManifestResourceStream(e.ManifestResource);
 
                 if (updates == null)
                 {
-                    _context.Logger.TraceError("Manifest resource '{0}' in assembly '{1}' not found", e.ManifestResource, e.Assembly);
-                    throw new DbKeeperNetException(String.Format("Manifest resource '{0}' in assembly '{1}' not found", e.ManifestResource, e.Assembly));
+                    _context.Logger.TraceError(UpdaterMessages.ManifestResourceNotFound, e.ManifestResource, e.Assembly);
+                    throw new DbKeeperNetException(String.Format(CultureInfo.CurrentCulture, UpdaterMessages.ManifestResourceNotFound, e.ManifestResource, e.Assembly));
                 }
 
                 ExecuteXmlInternal(updates);
 
-                _context.Logger.TraceInformation("Successfully executed configured update '{0}' in assembly '{1}'", e.ManifestResource, e.Assembly);
+                _context.Logger.TraceInformation(UpdaterMessages.FinishedConfiguredUpdate, e.ManifestResource, e.Assembly);
             }
         }
         #endregion

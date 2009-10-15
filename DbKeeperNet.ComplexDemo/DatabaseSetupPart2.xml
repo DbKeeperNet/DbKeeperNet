@@ -16,6 +16,11 @@
           insert into DbKeeperNet_SimpleDemo(name) values('Fourth value');
         ]]>
       </AlternativeStatement>
+      <AlternativeStatement DbType="MySql">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value');
+        ]]>
+      </AlternativeStatement>
     </UpdateStep>
   </Update>
 </upd:Updates>

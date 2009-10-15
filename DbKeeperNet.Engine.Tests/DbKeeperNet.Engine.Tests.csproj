@@ -65,6 +65,8 @@
     <Compile Include="CustomUpdateStep.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDbServicesTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesLiveTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesTests.cs" />
     <Compile Include="Extensions\Preconditions\DbForeignKeyNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbIndexNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbProcedureNotFoundTests.cs" />
