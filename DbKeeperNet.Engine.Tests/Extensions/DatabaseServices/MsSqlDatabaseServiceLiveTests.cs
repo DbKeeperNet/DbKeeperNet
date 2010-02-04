@@ -11,6 +11,8 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     /// As prerequisities may be those table created.
     /// </summary>
     [TestFixture]
+    [Explicit]
+    [Category("mssql")]
     public class MsSqlDatabaseServicesLiveTests
     {
         const string CONNECTION_STRING = "mssql";

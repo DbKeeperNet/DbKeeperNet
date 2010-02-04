@@ -8,6 +8,8 @@ using System.Data.Common;
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
     [TestFixture]
+    [Explicit]
+    [Category("mysql")]
     public class MySqlNetConnectorDatabaseServicesTests
     {
         const string CONNECTION_STRING = "mysql";

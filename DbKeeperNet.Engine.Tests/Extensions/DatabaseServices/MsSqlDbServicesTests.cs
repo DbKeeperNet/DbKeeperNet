@@ -8,6 +8,8 @@ using System.Data.Common;
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
     [TestFixture]
+    [Explicit]
+    [Category("mssql")]
     public class MsSqlDatabaseServiceTests
     {
         const string CONNECTION_STRING = "mssql";

@@ -7,6 +7,8 @@ using DbKeeperNet.Engine.Extensions.DatabaseServices;
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
     [TestFixture]
+    [Explicit]
+    [Category("mysql")]
     public class MySqlNetConnectorDatabaseServicesLiveTests
     {
         const string CONNECTION_STRING = "mysql";
