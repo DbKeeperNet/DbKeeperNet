@@ -1,0 +1,7 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SvnBuild>1.1.1.1</SvnBuild>
+    <TmpDir>tmp</TmpDir>
+    <NUnitTool>C:\Program Files\TestDriven.NET 2.0\NUnit\2.5\nunit-console.exe</NUnitTool>
+  </PropertyGroup>
+</Project>

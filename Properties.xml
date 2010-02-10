@@ -1,0 +1,14 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition="exists('UserProperties.xml')" Project="UserProperties.xml" />
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <SvnRepository Condition="'$(SvnRepository)' == ''">https://dbkeepernet.googlecode.com/svn/DbKeeperNet</SvnRepository>
+    <SvnPath Condition="'$(SvnBuild)' != ''">tags/build-$(SvnBuild)</SvnPath>
+    <SvnPath Condition="'$(SvnPath)' == ''">trunk</SvnPath>
+    <SvnTool Condition="'$(SvnTool)' == ''">c:\program files\SlikSVN\bin\svn.exe</SvnTool>
+    <TmpDir Condition="'$(TmpDir)' == ''">$(TMP)</TmpDir>
+    <DestinationDir Condition="'$(DestinationDir)' == ''">.</DestinationDir>
+    <SrcRootDir Condition="'$(SrcRootDir)' == ''">.</SrcRootDir>
+    <NUnitTool Condition="'$(NUnitTool)' == ''">nunit-console.exe</NUnitTool>
+  </PropertyGroup>
+</Project>
