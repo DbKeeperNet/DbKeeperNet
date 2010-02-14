@@ -181,6 +181,14 @@
     <value>Aktualizace pro sestavení {0} byly úspěšně dokončeny</value>
     <comment>Updates for assembly executed successfully: {0}</comment>
   </data>
+  <data name="FileUpdateNotFound" xml:space="preserve">
+    <value>Aktualizační soubor '{0}' nebyl na disku nalezen</value>
+    <comment>Update file '{0}' not found on disk</comment>
+  </data>
+  <data name="FinishedConfiguredFileUpdate" xml:space="preserve">
+    <value>Byla úspěšně dokončena nakonfigurovaná aktualizace '{0}' z disku</value>
+    <comment>Successfully executed configured disk file update '{0}'</comment>
+  </data>
   <data name="FinishedConfiguredUpdate" xml:space="preserve">
     <value>Byla úspěšně dokončena nakonfigurovaná aktualizace '{0}' pro sestavení '{1}'</value>
     <comment>Successfully executed configured update '{0}' in assembly '{1}'</comment>
@@ -196,6 +204,10 @@
   <data name="ManifestResourceNotFound" xml:space="preserve">
     <value>Aktualizační skript '{0}' ze sestavení '{1}' nebyl nalezen</value>
     <comment>Manifest resource '{0}' in assembly '{1}' not found</comment>
+  </data>
+  <data name="StartingConfiguredFileUpdate" xml:space="preserve">
+    <value>Bude spuštěn nakonfigurovaný aktualizační soubor '{0}' z disku</value>
+    <comment>Going to execute configured update '{0}' from disk file</comment>
   </data>
   <data name="StartingConfiguredUpdate" xml:space="preserve">
     <value>Bude spuštěn nakonfigurovaný aktualizační skript '{0}' ze sestavení '{1}'</value>

@@ -30,7 +30,7 @@ namespace DbKeeperNet.Engine
             if (context == null)
                 throw new ArgumentNullException("context");
 
-            foreach (ExtensionConfigurationElement e in DbKeeperNetConfigurationSection.Current.Extensions)
+            foreach (ExtensionConfigurationElement e in context.ConfigurationSection.Extensions)
                 LoadExtensionsFromAssembly(context, e.Assembly);
         }
 

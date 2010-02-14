@@ -17,7 +17,7 @@ namespace DbKeeperNet.Engine.Tests
             context.RegisterPrecondition(null);
         }
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterPreconditionNullName()
         {
             MockRepository repository = new MockRepository();
@@ -35,7 +35,7 @@ namespace DbKeeperNet.Engine.Tests
             }
         }
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterPreconditionEmptyName()
         {
             MockRepository repository = new MockRepository();
@@ -131,7 +131,7 @@ namespace DbKeeperNet.Engine.Tests
             }
         }
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterDatabaseServiceNullName()
         {
             MockRepository repository = new MockRepository();
@@ -149,7 +149,7 @@ namespace DbKeeperNet.Engine.Tests
             }
         }
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterDatabaseServiceEmptyName()
         {
             MockRepository repository = new MockRepository();
@@ -175,7 +175,7 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterLoggingServiceNullName()
         {
             MockRepository repository = new MockRepository();
@@ -193,7 +193,7 @@ namespace DbKeeperNet.Engine.Tests
             }
         }
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterLoggingServiceEmptyName()
         {
             MockRepository repository = new MockRepository();
@@ -226,6 +226,25 @@ namespace DbKeeperNet.Engine.Tests
                 IUpdateContext context = new UpdateContext();
                 context.RegisterLoggingService(mockService);
             }
+        }
+        [Test]
+        public void RegisterScriptExecutionService()
+        {
+            MockRepository repository = new MockRepository();
+            IScriptProviderService mockService = repository.DynamicMock<IScriptProviderService>();
+
+            using (repository.Record())
+            {
+                SetupResult.For(mockService.Name).Return("testingScriptExecition");
+            }
+
+            using (repository.Playback())
+            {
+                IUpdateContext context = new UpdateContext();
+                context.RegisterScriptProviderService(mockService);
+            }
+
+            repository.VerifyAll();
         }
     }
 }

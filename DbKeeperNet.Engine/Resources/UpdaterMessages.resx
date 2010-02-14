@@ -181,6 +181,14 @@
     <value>Updates for assembly executed successfully: {0}</value>
     <comment>Updates for assembly executed successfully: {0}</comment>
   </data>
+  <data name="FileUpdateNotFound" xml:space="preserve">
+    <value>Update file '{0}' not found on disk</value>
+    <comment>Update file '{0}' not found on disk</comment>
+  </data>
+  <data name="FinishedConfiguredFileUpdate" xml:space="preserve">
+    <value>Successfully executed configured disk file update '{0}'</value>
+    <comment>Successfully executed configured disk file update '{0}'</comment>
+  </data>
   <data name="FinishedConfiguredUpdate" xml:space="preserve">
     <value>Successfully executed configured update '{0}' in assembly '{1}'</value>
     <comment>Successfully executed configured update '{0}' in assembly '{1}'</comment>
@@ -196,6 +204,10 @@
   <data name="ManifestResourceNotFound" xml:space="preserve">
     <value>Manifest resource '{0}' in assembly '{1}' not found</value>
     <comment>Manifest resource '{0}' in assembly '{1}' not found</comment>
+  </data>
+  <data name="StartingConfiguredFileUpdate" xml:space="preserve">
+    <value>Going to execute configured update '{0}' from disk file</value>
+    <comment>Going to execute configured update '{0}' from disk file</comment>
   </data>
   <data name="StartingConfiguredUpdate" xml:space="preserve">
     <value>Going to execute configurated update '{0}' in assembly '{1}'</value>

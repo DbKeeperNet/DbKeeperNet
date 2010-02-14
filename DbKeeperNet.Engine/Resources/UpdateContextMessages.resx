@@ -169,6 +169,14 @@
     <value>Precondition property 'Name' must be non-empty</value>
     <comment>Precondition property 'Name' must be non-empty</comment>
   </data>
+  <data name="ScriptExecutionServiceAlreadyRegistered" xml:space="preserve">
+    <value>Script execution service '{0}' already registered</value>
+    <comment>Script execution service '{0}' already registered</comment>
+  </data>
+  <data name="ScriptExecutionServiceNameNull" xml:space="preserve">
+    <value>Script execution service property 'Name' must be non-empty</value>
+    <comment>Script execution service property 'Name' must be non-empty</comment>
+  </data>
   <data name="SearchingDatabaseService" xml:space="preserve">
     <value>Searching database service for connection string '{0}'</value>
     <comment>Searching database service for connection string '{0}'</comment>

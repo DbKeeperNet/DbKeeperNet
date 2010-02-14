@@ -169,6 +169,14 @@
     <value>Položka podmíninky 'Name' musí být neprázdná</value>
     <comment>Precondtion property 'Name' must be non-empty</comment>
   </data>
+  <data name="ScriptExecutionServiceAlreadyRegistered" xml:space="preserve">
+    <value>Služba '{0}' pro spouštění skriptů je již registrována</value>
+    <comment>Script execution service '{0}' already registered</comment>
+  </data>
+  <data name="ScriptExecutionServiceNameNull" xml:space="preserve">
+    <value>Položka 'Name' služby pro spouštění skriptů musí být neprázdná</value>
+    <comment>Script execution service property 'Name' must be non-empty</comment>
+  </data>
   <data name="SearchingDatabaseService" xml:space="preserve">
     <value>Hledám databázovou službu pro přihlašovací řetězec '{0}'</value>
     <comment>Searching database service for connection string '{0}'</comment>

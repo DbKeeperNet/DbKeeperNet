@@ -58,10 +58,12 @@
       <HintPath>..\External\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppConfigTests.cs" />
     <Compile Include="CustomUpdateStep.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDbServicesTests.cs" />
@@ -86,6 +88,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="DiskUpdateTest.Config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestConfiguredValues.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestDefaultValues.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CustomUpdateStep.xml" />
@@ -115,6 +126,9 @@
     <Content Include="DbKeeperNetNUnit_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DbKeeperNetNUnit.mdf</DependentUpon>
+    </Content>
+    <Content Include="Update.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Extensions\Preconditions\DbTypeTests.xml" />
   </ItemGroup>

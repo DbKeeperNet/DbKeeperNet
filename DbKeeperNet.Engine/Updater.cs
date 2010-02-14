@@ -32,6 +32,7 @@ namespace DbKeeperNet.Engine
         }
 
         #region Private methods
+
         private void ExecuteDatabaseSetupXml()
         {
             _context.Logger.TraceInformation(UpdaterMessages.DatabaseSetupCheck);
@@ -281,28 +282,37 @@ namespace DbKeeperNet.Engine
         }
 
         /// <summary>
-        /// Executes all XML updates referenced in App.config file
+        /// Executes all XML updates referenced in App.config file.
         /// </summary>
+        /// <remarks>
+        /// Updates are executed in two phases:
+        /// <list>
+        /// <item>Database setup for DbKeeperNet</item>
+        /// <item>Each configured update in order defined in App.Config</item>
+        /// </list>
+        /// </remarks>
         /// <see cref="DbKeeperNetConfigurationSection"/>
+        /// <exception cref="DbKeeperNetException"/>
         public void ExecuteXmlFromConfig()
         {
-            ExecuteDatabaseSetupXml();
-
-            foreach (AssemblyUpdateConfigurationElement e in DbKeeperNetConfigurationSection.Current.AssemblyUpdates)
+            try
             {
-                _context.Logger.TraceInformation(UpdaterMessages.StartingConfiguredUpdate, e.ManifestResource, e.Assembly);
-                Assembly assembly = Assembly.Load(e.Assembly);
-                Stream updates = assembly.GetManifestResourceStream(e.ManifestResource);
+                ExecuteDatabaseSetupXml();
 
-                if (updates == null)
+                foreach (UpdateScriptConfigurationElement e in _context.ConfigurationSection.UpdateScripts)
                 {
-                    _context.Logger.TraceError(UpdaterMessages.ManifestResourceNotFound, e.ManifestResource, e.Assembly);
-                    throw new DbKeeperNetException(String.Format(CultureInfo.CurrentCulture, UpdaterMessages.ManifestResourceNotFound, e.ManifestResource, e.Assembly));
+
+                    ExecuteXmlInternal(_context.GetScriptFromStreamLocation(e.Provider, e.Location));
                 }
-
-                ExecuteXmlInternal(updates);
-
-                _context.Logger.TraceInformation(UpdaterMessages.FinishedConfiguredUpdate, e.ManifestResource, e.Assembly);
+            }
+            catch (DbKeeperNetException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                _context.Logger.TraceError(UpdaterMessages.CaughtCommonException, e.ToString());
+                throw new DbKeeperNetException(UpdaterMessages.CommonExceptionMessage, e);
             }
         }
         #endregion

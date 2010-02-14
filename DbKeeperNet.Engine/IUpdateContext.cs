@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace DbKeeperNet.Engine
 {
@@ -63,6 +64,12 @@ namespace DbKeeperNet.Engine
         /// <param name="service">Instance of the logging service</param>
         void RegisterLoggingService(ILoggingService service);
         /// <summary>
+        /// Method called by extension to register a script providing service
+        /// plugin.
+        /// </summary>
+        /// <param name="provider">Instance of the script execution provider</param>
+        void RegisterScriptProviderService(IScriptProviderService provider);
+        /// <summary>
         /// Initialize context database service based on given
         /// connection string name from App.Config.
         /// 
@@ -98,5 +105,16 @@ namespace DbKeeperNet.Engine
         /// for them.
         /// </summary>
         void LoadExtensions();
+        /// <summary>
+        /// Configuration section of the DbKeeperNet.
+        /// By default should refer to the App.Config.
+        /// </summary>
+        DbKeeperNetConfigurationSection ConfigurationSection { get; }
+        /// <summary>
+        /// Gets all registered script execution services.
+        /// </summary>
+        /// <param name="provider">Name of the registered provider service</param>
+        /// <param name="location">Location parameter for the service</param>
+        Stream GetScriptFromStreamLocation(string provider, string location);
     }
 }

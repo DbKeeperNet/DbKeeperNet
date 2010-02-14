@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DbKeeperNet.Engine.Resources;
 using System.Globalization;
+using System.IO;
 
 namespace DbKeeperNet.Engine
 {
@@ -13,10 +14,12 @@ namespace DbKeeperNet.Engine
     {
         IDatabaseService _databaseService;
         ILoggingService _loggingService;
+        DbKeeperNetConfigurationSection _configurationSection;
 
         Dictionary<string, ILoggingService> _loggingServices = new Dictionary<string, ILoggingService>();
         Dictionary<string, IPrecondition> _preconditions = new Dictionary<string, IPrecondition>();
         Dictionary<string, IDatabaseService> _databaseServices = new Dictionary<string, IDatabaseService>();
+        Dictionary<string, IScriptProviderService> _scriptProviderServices = new Dictionary<string, IScriptProviderService>();
 
         string _friendlyName;
         string _currentAssemblyName;
@@ -25,7 +28,16 @@ namespace DbKeeperNet.Engine
         PreconditionType[] _defaultPreconditions = { };
 
         public UpdateContext()
+            : this(DbKeeperNetConfigurationSection.Current)
         {
+        }
+
+        public UpdateContext(DbKeeperNetConfigurationSection section)
+        {
+            if (section == null)
+                throw new ArgumentNullException("section");
+
+             _configurationSection = section;
         }
 
         #region IUpdateContext Members
@@ -34,7 +46,7 @@ namespace DbKeeperNet.Engine
             get
             {
                 if (_loggingService == null)
-                    InitializeLoggingService(DbKeeperNetConfigurationSection.Current.LoggingService);
+                    InitializeLoggingService(_configurationSection.LoggingService);
 
                 if (_loggingService == null)
                     throw new InvalidOperationException(UpdateContextMessages.CanNotInitializeLoggingService);
@@ -100,6 +112,19 @@ namespace DbKeeperNet.Engine
                 throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.LoggingServiceAlreadyRegistered, service.Name));
 
             _loggingServices[service.Name] = service;
+        }
+
+        public void RegisterScriptProviderService(IScriptProviderService service)
+        {
+            if (service == null)
+                throw new ArgumentNullException("service");
+            if (String.IsNullOrEmpty(service.Name))
+                throw new InvalidCastException(UpdateContextMessages.ScriptExecutionServiceNameNull);
+
+            if (_loggingServices.ContainsKey(service.Name))
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.LoggingServiceAlreadyRegistered, service.Name));
+
+            _scriptProviderServices[service.Name] = service;
         }
 
         public string CurrentVersion
@@ -181,7 +206,7 @@ namespace DbKeeperNet.Engine
 
             Logger.TraceInformation(UpdateContextMessages.SearchingDatabaseService, connectionString);
 
-            foreach (DatabaseServiceMappingConfigurationElement e in DbKeeperNetConfigurationSection.Current.DatabaseServiceMappings)
+            foreach (DatabaseServiceMappingConfigurationElement e in ConfigurationSection.DatabaseServiceMappings)
             {
                 if (e.ConnectString == connectionString)
                 {
@@ -206,6 +231,26 @@ namespace DbKeeperNet.Engine
         public void LoadExtensions()
         {
             ExtensionLoader.LoadExtensions(this);
+        }
+
+        public DbKeeperNetConfigurationSection ConfigurationSection
+        {
+            get
+            {
+                return _configurationSection;
+            }
+        }
+
+        public Stream GetScriptFromStreamLocation(string provider, string location)
+        {
+            if (String.IsNullOrEmpty(provider))
+                throw new ArgumentNullException("provider");
+            if (String.IsNullOrEmpty(location))
+                throw new ArgumentNullException("location");
+
+            IScriptProviderService service = _scriptProviderServices[provider];
+
+            return service.GetScriptStreamFromLocation(location);
         }
         #endregion
 

@@ -18,11 +18,12 @@ namespace DbKeeperNet.Engine
     ///         <add connectString="mssql" databaseService="MsSql" />
     ///       </databaseServiceMappings>
     ///       <extensions>
-    ///         <add assemblyPath="DbKeeperNet.dll" />
+    ///         <add assembly="DbKeeperNet.dll" />
     ///       </extensions>
-    ///       <assemblyUpdates>
-    ///         <add assemblyPath="MyAssembly.dll" manifestResource="MyAssembly.Updates.xml" />
-    ///       </assemblyUpdates>
+    ///       <updateScripts>
+    ///         <add provider="asm" location="manifestResource="MyAssembly.Updates.xml,MyAssembly.dll" />
+    ///         <add provider="disk" location="update.xml" />
+    ///       </updateScripts>
     ///   </dbkeeper.net>
     /// </configuration>
     /// ]]>
@@ -48,12 +49,11 @@ namespace DbKeeperNet.Engine
         {
             get { return (ExtensionConfigurationElementCollection)this["extensions"]; }
         }
-        [ConfigurationProperty("assemblyUpdates")]
-        public AssemblyUpdateConfigurationElementCollection AssemblyUpdates
+        [ConfigurationProperty("updateScripts")]
+        public UpdateScriptConfigurationElementCollection UpdateScripts
         {
-            get { return (AssemblyUpdateConfigurationElementCollection)this["assemblyUpdates"]; }
+            get { return (UpdateScriptConfigurationElementCollection)this["updateScripts"]; }
         }
-
         public static DbKeeperNetConfigurationSection Current
         {
             get

@@ -41,12 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyUpdateConfigurationElement.cs" />
-    <Compile Include="AssemblyUpdateConfigurationElementCollection.cs" />
     <Compile Include="DatabaseServiceMappingConfigurationElement.cs" />
     <Compile Include="DatabaseServiceMappingConfigurationElementCollection.cs" />
     <Compile Include="DbKeeperNetConfigurationSection.cs" />
     <Compile Include="DbKeeperNetException.cs" />
+    <Compile Include="UpdateScriptConfigurationElement.cs" />
+    <Compile Include="UpdateScriptConfigurationElementCollection.cs" />
     <Compile Include="ExtensionConfigurationElementCollection.cs" />
     <Compile Include="ExtensionLoader.cs" />
     <Compile Include="Extensions\DatabaseServices\DbServicesExtension.cs" />
@@ -66,11 +66,15 @@
     <Compile Include="Extensions\Preconditions\ForceExecution.cs" />
     <Compile Include="Extensions\Preconditions\PreconditionsExtension.cs" />
     <Compile Include="Extensions\Preconditions\StepNotExecuted.cs" />
+    <Compile Include="Extensions\ScriptProviderServices\DiskFileProviderService.cs" />
+    <Compile Include="Extensions\ScriptProviderServices\EmbededResourceProviderService.cs" />
+    <Compile Include="Extensions\ScriptProviderServices\ScriptProviderServicesExtension.cs" />
     <Compile Include="ICustomUpdateStep.cs" />
     <Compile Include="IDatabaseService.cs" />
     <Compile Include="IExtension.cs" />
     <Compile Include="ILoggingService.cs" />
     <Compile Include="IPrecondition.cs" />
+    <Compile Include="IScriptProviderService.cs" />
     <Compile Include="IUpdateContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\DatabaseServiceMessages.cs-CZ.Designer.cs">
