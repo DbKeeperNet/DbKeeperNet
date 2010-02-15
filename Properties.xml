@@ -10,5 +10,6 @@
     <DestinationDir Condition="'$(DestinationDir)' == ''">.</DestinationDir>
     <SrcRootDir Condition="'$(SrcRootDir)' == ''">.</SrcRootDir>
     <NUnitTool Condition="'$(NUnitTool)' == ''">nunit-console.exe</NUnitTool>
+    <XsdTool Condition="'$(XsdTool)' == ''" >xsd.exe</XsdTool>
   </PropertyGroup>
 </Project>

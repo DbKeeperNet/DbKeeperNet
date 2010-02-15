@@ -1,4 +1,4 @@
-if "%1"  "" goto startBuild
+rem if "%1"  "" goto startBuild
 echo Enter a target from build script (SrcZip,Build,BinZip)
 
 :startBuild

@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using System.Reflection;
 using System.Configuration;
-using DbKeeperNet.Engine.Extensions.ScriptExecutionServices;
+using DbKeeperNet.Engine.Extensions.ScriptProviderServices;
 
 namespace DbKeeperNet.Engine.Tests
 {

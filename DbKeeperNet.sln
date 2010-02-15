@@ -11,8 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherFiles", "OtherFiles", 
 		LICENSE = LICENSE
 		packages.bat = packages.bat
 		Properties.xml = Properties.xml
-		RegenerateClasses.bat = RegenerateClasses.bat
-		UserProperties.xml = UserProperties.xml
+		UserProperties.xml.sample = UserProperties.xml.sample
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{B25E3F4D-6EA7-48A5-85AA-79A57516F1DF}"

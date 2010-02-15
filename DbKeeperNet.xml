@@ -4,6 +4,7 @@
   
   <PropertyGroup>
     <Name>DbKeeperNet</Name>
+    <Platform>Any CPU</Platform>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <TargetDirectoryBase>$(Name)-$(SvnBuild)</TargetDirectoryBase>
     
@@ -23,7 +24,12 @@
   <Target Name="TestMySql" DependsOnTargets="Build">
     <Exec Command='"$(NUnitTool)" /labels /include=mysql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
-  
+  <Target Name="RebuildXsd">
+    <Delete Files="DbKeeperNet.Engine\XmlClasses.cs"/>
+    <Copy SourceFiles="DbKeeperNet.Engine\Resources\Updates-1.0.xsd" DestinationFiles="$(TmpDir)\XmlClasses.xsd" />
+    <Exec Command='"$(XsdTool)" "$(TmpDir)\XmlClasses.xsd" /n:DbKeeperNet.Engine /c /l:cs /o:DbKeeperNet.Engine' />
+    
+  </Target>
   <!-- Prepare ZIP file with sources for publication -->
   <Target Name="SrcZip">
     <Delete Files="$(SrcZipPath)" />
@@ -81,7 +87,7 @@
     <CallTarget Targets="TestMySql" />
   </Target>
 
-  <Target Name="Build">
-    <MSBuild Projects="$(SrcRootDir)\DbKeeperNet.sln" Properties="Configuration=$(Configuration)"/>
+  <Target Name="Build" DependsOnTargets="RebuildXsd">
+    <MSBuild Projects="$(SrcRootDir)\DbKeeperNet.sln" Properties='Configuration=$(Configuration);Platform=$(Platform)'/>
   </Target>
 </Project>
