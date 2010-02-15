@@ -161,15 +161,26 @@ namespace DbKeeperNet.Engine
 
         void ExecuteStepBody(UpdateStepBaseType step)
         {
-            if (step is UpdateDbStepType)
+            bool executed = false;
+            UpdateDbStepType dbStep = step as UpdateDbStepType;
+
+            if (dbStep != null)
             {
-                ExecuteStepSql((UpdateDbStepType)step);
+                ExecuteStepSql(dbStep);
+                executed = true;
             }
-            else if (step is CustomUpdateStepType)
+            if (!executed)
             {
-                ExecuteStepCustom((CustomUpdateStepType)step);
+                CustomUpdateStepType customStep = step as CustomUpdateStepType;
+
+                if (customStep != null)
+                {
+                    ExecuteStepCustom(customStep);
+                    executed = true;
+                }
             }
-            else
+            
+            if (!executed)
                 throw new InvalidOperationException(UpdaterMessages.UnsupportedUpdateStepType);
         }
         void ExecuteStep(UpdateStepBaseType step)

@@ -165,8 +165,6 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public void SetUpdateStepExecuted(string assemblyName, string version, int stepNumber)
         {
-            DbCommand cmd = Connection.CreateCommand();
-
             if (HasActiveTransaction)
             {
                 _assemblyInsert.Transaction = _transaction;
@@ -183,7 +181,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (!assemblyId.HasValue)
             {
                 _assemblyInsert.Parameters[0].Value = assemblyName;
-                assemblyId = Convert.ToInt32(_assemblyInsert.ExecuteScalar());
+                assemblyId = Convert.ToInt32(_assemblyInsert.ExecuteScalar(), CultureInfo.InvariantCulture);
             }
 
             _versionSelect.Parameters[0].Value = assemblyId.Value;
@@ -194,7 +192,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             {
                 _versionInsert.Parameters[0].Value = assemblyId.Value;
                 _versionInsert.Parameters[1].Value = version;
-                versionId = Convert.ToInt32(_versionInsert.ExecuteScalar());
+                versionId = Convert.ToInt32(_versionInsert.ExecuteScalar(), CultureInfo.InvariantCulture);
             }
 
             _stepSelect.Parameters[0].Value = versionId.Value;

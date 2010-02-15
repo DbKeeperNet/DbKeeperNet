@@ -5,7 +5,7 @@ using System.IO;
 using DbKeeperNet.Engine.Resources;
 using System.Globalization;
 
-namespace DbKeeperNet.Engine.Extensions.ScriptExecutionServices
+namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
 {
     /// <summary>
     /// Script provider allows to load scripts from disk.

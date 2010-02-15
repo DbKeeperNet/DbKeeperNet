@@ -114,17 +114,17 @@ namespace DbKeeperNet.Engine
             _loggingServices[service.Name] = service;
         }
 
-        public void RegisterScriptProviderService(IScriptProviderService service)
+        public void RegisterScriptProviderService(IScriptProviderService provider)
         {
-            if (service == null)
-                throw new ArgumentNullException("service");
-            if (String.IsNullOrEmpty(service.Name))
+            if (provider == null)
+                throw new ArgumentNullException("provider");
+            if (String.IsNullOrEmpty(provider.Name))
                 throw new InvalidCastException(UpdateContextMessages.ScriptExecutionServiceNameNull);
 
-            if (_loggingServices.ContainsKey(service.Name))
-                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.LoggingServiceAlreadyRegistered, service.Name));
+            if (_loggingServices.ContainsKey(provider.Name))
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.LoggingServiceAlreadyRegistered, provider.Name));
 
-            _scriptProviderServices[service.Name] = service;
+            _scriptProviderServices[provider.Name] = provider;
         }
 
         public string CurrentVersion

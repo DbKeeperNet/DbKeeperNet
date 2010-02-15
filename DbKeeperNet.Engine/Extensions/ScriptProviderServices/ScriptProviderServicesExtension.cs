@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DbKeeperNet.Engine.Extensions.ScriptExecutionServices
+namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
 {
     public class ScriptProviderServicesExtension: IExtension
     {
