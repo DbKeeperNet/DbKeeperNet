@@ -24,6 +24,9 @@
   <Target Name="TestMySql" DependsOnTargets="Build">
     <Exec Command='"$(NUnitTool)" /labels /include=mysql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
+  <Target Name="TestPgSql" DependsOnTargets="Build">
+    <Exec Command='"$(NUnitTool)" /labels /include=mysql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+  </Target>
   <Target Name="RebuildXsd">
     <Delete Files="DbKeeperNet.Engine\XmlClasses.cs"/>
     <Copy SourceFiles="DbKeeperNet.Engine\Resources\Updates-1.0.xsd" DestinationFiles="$(TmpDir)\XmlClasses.xsd" />
@@ -85,6 +88,7 @@
     <CallTarget Targets="Test" />
     <CallTarget Targets="TestMsSql" />
     <CallTarget Targets="TestMySql" />
+    <CallTarget Targets="TestPgSql" />
   </Target>
 
   <Target Name="Build" DependsOnTargets="RebuildXsd">

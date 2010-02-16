@@ -69,6 +69,8 @@
     <Compile Include="Extensions\DatabaseServices\MsSqlDbServicesTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceLiveTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServicesTests.cs" />
     <Compile Include="Extensions\Preconditions\DbForeignKeyNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbIndexNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbProcedureNotFoundTests.cs" />

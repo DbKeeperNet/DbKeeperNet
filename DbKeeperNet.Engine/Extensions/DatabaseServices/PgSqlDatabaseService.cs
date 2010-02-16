@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Data.Common;
-using System.IO;
 using System.Configuration;
+using System.Data.Common;
+using System.Globalization;
+using DbKeeperNet.Engine.Resources;
+using System.IO;
 using System.Data;
 using System.Reflection;
-using DbKeeperNet.Engine.Resources;
-using System.Globalization;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
-    public class MySqlNetConnectorDatabaseService : IDatabaseService
+    public class PgSqlDatabaseService: IDatabaseService
     {
         private DbConnection _connection;
         private DbTransaction _transaction;
@@ -24,7 +24,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         private DbCommand _stepInsert;
         private DbCommand _stepExecutedQuery;
 
-        public MySqlNetConnectorDatabaseService()
+        public PgSqlDatabaseService()
         {
         }
 
@@ -80,21 +80,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (String.IsNullOrEmpty(table))
                 throw new ArgumentNullException("table");
 
-            DataTable schema = Connection.GetSchema("Indexes");
-
-            bool exists = false;
-
-            foreach (DataRow row in schema.Rows)
-            {
-                if (indexName.Equals((string)row[2], StringComparison.OrdinalIgnoreCase)
-                    && table.Equals((string)row[3], StringComparison.OrdinalIgnoreCase))
-                {
-                    exists = true;
-                    break;
-                }
-            }
-
-            return exists;
+            throw new NotSupportedException();
         }
         public bool PrimaryKeyExists(string primaryKeyName, string table)
         {
@@ -103,21 +89,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (String.IsNullOrEmpty(table))
                 throw new ArgumentNullException("table");
 
-            DataTable schema = Connection.GetSchema("Indexes");
-
-            bool exists = false;
-
-            foreach (DataRow row in schema.Rows)
-            {
-                if ("PRIMARY".Equals((string)row[2], StringComparison.OrdinalIgnoreCase)
-                    && table.Equals((string)row[3], StringComparison.OrdinalIgnoreCase))
-                {
-                    exists = true;
-                    break;
-                }
-            }
-
-            return exists;
+            throw new NotSupportedException();
         }
         public bool ForeignKeyExists(string foreignKeyName, string table)
         {
@@ -125,26 +97,12 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 throw new ArgumentNullException("foreignKeyName");
             if (String.IsNullOrEmpty(table))
                 throw new ArgumentNullException("table");
-            
-            DataTable schema = Connection.GetSchema("Indexes");
 
-            bool exists = false;
-
-            foreach (DataRow row in schema.Rows)
-            {
-                if (foreignKeyName.Equals((string)row[2], StringComparison.OrdinalIgnoreCase)
-                    && table.Equals((string)row[3], StringComparison.OrdinalIgnoreCase))
-                {
-                    exists = true;
-                    break;
-                }
-            }
-
-            return exists;
+            throw new NotSupportedException();
         }
         public string Name
         {
-            get { return @"MySqlNet"; }
+            get { return @"PgSql"; }
         }
 
         public bool IsUpdateStepExecuted(string assemblyName, string version, int stepNumber)
@@ -226,12 +184,12 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public IDatabaseService CloneForConnectionString(string connectionString)
         {
-            return new MySqlNetConnectorDatabaseService(connectionString);
+            return new PgSqlDatabaseService(connectionString);
         }
 
         public Stream DatabaseSetupXml
         {
-            get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.MySqlNetConnectorDatabaseServiceInstall.xml"); }
+            get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.PgSqlDatabaseServiceInstall.xml"); }
         }
         public void BeginTransaction()
         {
@@ -267,7 +225,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             switch (dbTypeName.ToUpperInvariant())
             {
-                case "MYSQL":
+                case "PGSQL":
                     status = true;
                     break;
             }
@@ -301,7 +259,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         #endregion
 
         #region Private methods
-        private MySqlNetConnectorDatabaseService(string connectionString)
+        private PgSqlDatabaseService(string connectionString)
         {
             if (String.IsNullOrEmpty(connectionString))
                 throw new ArgumentNullException("connectionString");
@@ -357,20 +315,20 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_assemblySelect == null)
             {
                 _assemblySelect = Connection.CreateCommand();
-                _assemblySelect.CommandText = "select id from dbkeepernet_assembly where assembly = @assembly";
+                _assemblySelect.CommandText = "select id from dbkeepernet_assembly where assembly = :assembly";
 
                 DbParameter assembly = _assemblySelect.CreateParameter();
-                assembly.ParameterName = "@assembly";
+                assembly.ParameterName = ":assembly";
 
                 _assemblySelect.Parameters.Add(assembly);
             }
             if (_assemblyInsert == null)
             {
                 _assemblyInsert = Connection.CreateCommand();
-                _assemblyInsert.CommandText = "insert into dbkeepernet_assembly(assembly, created) values(@assembly, now()); select last_insert_id()";
+                _assemblyInsert.CommandText = "insert into dbkeepernet_assembly(assembly, created) values(:assembly, now()) returning id";
 
                 DbParameter assembly = _assemblySelect.CreateParameter();
-                assembly.ParameterName = "@assembly";
+                assembly.ParameterName = ":assembly";
 
                 _assemblyInsert.Parameters.Add(assembly);
             }
@@ -380,27 +338,27 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_versionSelect == null)
             {
                 _versionSelect = Connection.CreateCommand();
-                _versionSelect.CommandText = "select id from dbkeepernet_version where dbkeepernet_assembly_id = @assemblyId and version = @version";
+                _versionSelect.CommandText = "select id from dbkeepernet_version where dbkeepernet_assembly_id = :assemblyId and version = :version";
 
                 DbParameter assemblyId = _assemblySelect.CreateParameter();
-                assemblyId.ParameterName = "@assemblyId";
+                assemblyId.ParameterName = ":assemblyId";
 
                 DbParameter version = _assemblySelect.CreateParameter();
-                version.ParameterName = "@version";
-
+                version.ParameterName = ":version";
+                
                 _versionSelect.Parameters.Add(assemblyId);
                 _versionSelect.Parameters.Add(version);
             }
             if (_versionInsert == null)
             {
                 _versionInsert = Connection.CreateCommand();
-                _versionInsert.CommandText = "insert into dbkeepernet_version(dbkeepernet_assembly_id, version, created) values(@assemblyId, @version, now()); select last_insert_id() ";
+                _versionInsert.CommandText = "insert into dbkeepernet_version(dbkeepernet_assembly_id, version, created) values(:assemblyId, :version, now()) returning id";
 
                 DbParameter assemblyId = _assemblySelect.CreateParameter();
-                assemblyId.ParameterName = "@assemblyId";
+                assemblyId.ParameterName = ":assemblyId";
 
                 DbParameter version = _assemblySelect.CreateParameter();
-                version.ParameterName = "@version";
+                version.ParameterName = ":version";
 
                 _versionInsert.Parameters.Add(assemblyId);
                 _versionInsert.Parameters.Add(version);
@@ -411,13 +369,13 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_stepSelect == null)
             {
                 _stepSelect = Connection.CreateCommand();
-                _stepSelect.CommandText = "select id from dbkeepernet_step where dbkeepernet_version_id = @versionId and step = @step";
+                _stepSelect.CommandText = "select id from dbkeepernet_step where dbkeepernet_version_id = :versionId and step = :step";
 
                 DbParameter versionId = _assemblySelect.CreateParameter();
-                versionId.ParameterName = "@versionId";
+                versionId.ParameterName = ":versionId";
 
                 DbParameter step = _assemblySelect.CreateParameter();
-                step.ParameterName = "@step";
+                step.ParameterName = ":step";
 
                 _stepSelect.Parameters.Add(versionId);
                 _stepSelect.Parameters.Add(step);
@@ -425,13 +383,13 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_stepInsert == null)
             {
                 _stepInsert = Connection.CreateCommand();
-                _stepInsert.CommandText = "insert into dbkeepernet_step(dbkeepernet_version_id, step, created) values(@versionId, @step, now())";
+                _stepInsert.CommandText = "insert into dbkeepernet_step(dbkeepernet_version_id, step, created) values(:versionId, :step, now())";
 
                 DbParameter versionId = _assemblySelect.CreateParameter();
-                versionId.ParameterName = "@versionId";
+                versionId.ParameterName = ":versionId";
 
                 DbParameter step = _assemblySelect.CreateParameter();
-                step.ParameterName = "@step";
+                step.ParameterName = ":step";
 
                 _stepInsert.Parameters.Add(versionId);
                 _stepInsert.Parameters.Add(step);

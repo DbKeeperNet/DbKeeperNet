@@ -9,14 +9,14 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
     [TestFixture]
     [Explicit]
-    [Category("mysql")]
-    public class MySqlNetConnectorDatabaseServicesTests
+    [Category("pgsql")]
+    public class PgSqlDatabaseServicesTests
     {
-        const string CONNECTION_STRING = "mysql";
+        const string CONNECTION_STRING = "pgsql";
         #region Private helper methods
         private bool TestForeignKeyExists(string key, string table)
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -27,7 +27,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         private bool TestIndexExists(string index, string table)
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -38,7 +38,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         private bool TestPKExists(string index, string table)
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -49,7 +49,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         private bool TestTableExists(string table)
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -60,7 +60,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         private bool TestStoredProcedureExists(string procedure)
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -71,7 +71,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         private bool TestViewExists(string view)
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -84,7 +84,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestTableExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
@@ -92,16 +92,16 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 // database failures
                 try
                 {
-                    connectedService.ExecuteSql("create table mysql_testing_table(c char)");
+                    connectedService.ExecuteSql("create table pgsql_testing_table(c char)");
                 }
                 catch (DbException)
                 {
                 }
-                Assert.That(TestTableExists("mysql_testing_table"), Is.True);
+                Assert.That(TestTableExists("pgsql_testing_table"), Is.True);
                 // cleanup table
                 try
                 {
-                    connectedService.ExecuteSql("drop table mysql_testing_table");
+                    connectedService.ExecuteSql("drop table pgsql_testing_table");
                 }
                 catch (DbException)
                 {
@@ -136,7 +136,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestExecuteSql()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
@@ -146,7 +146,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestExecuteInvalidSqlStatement()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
             bool success = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -183,7 +183,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestViewExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
@@ -191,16 +191,16 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 // database failures
                 try
                 {
-                    connectedService.ExecuteSql("create view mysql_testing_view as select 1 as version");
+                    connectedService.ExecuteSql("create view pgsql_testing_view as select 1 as version");
                 }
                 catch (DbException)
                 {
                 }
-                Assert.That(TestViewExists("mysql_testing_view"), Is.True);
+                Assert.That(TestViewExists("pgsql_testing_view"), Is.True);
                 // cleanup procedure
                 try
                 {
-                    connectedService.ExecuteSql("drop view mysql_testing_view");
+                    connectedService.ExecuteSql("drop view pgsql_testing_view");
                 }
                 catch (DbException)
                 {
@@ -208,6 +208,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             }
         }
         [Test]
+        [ExpectedException(typeof(NotSupportedException))]
         public void TestIndexNotExists()
         {
             TestIndexExists("asddas", "asddsa");
@@ -225,9 +226,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             TestIndexExists("", "");
         }
         [Test]
+        [ExpectedException(typeof(NotSupportedException))]
         public void TestIndexExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
@@ -235,16 +237,16 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 // database failures
                 try
                 {
-                    connectedService.ExecuteSql("create table mysql_testing_ix(id int not null);CREATE INDEX IX_mysql_testing_ix on mysql_testing_ix (id)");
+                    connectedService.ExecuteSql("create table pgsql_testing_ix(id int not null);CREATE INDEX IX_pgsql_testing_ix on pgsql_testing_ix (id)");
                 }
                 catch (DbException)
                 {
                 }
-                Assert.That(TestIndexExists("IX_mysql_testing_ix", "mysql_testing_ix"), Is.True);
+                Assert.That(TestIndexExists("IX_pgsql_testing_ix", "pgsql_testing_ix"), Is.True);
                 // cleanup procedure
                 try
                 {
-                    connectedService.ExecuteSql("drop table mysql_testing_ix");
+                    connectedService.ExecuteSql("drop table pgsql_testing_ix");
                 }
                 catch (DbException)
                 {
@@ -252,6 +254,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             }
         }
         [Test]
+        [ExpectedException(typeof(NotSupportedException))]
         public void TestForeignKeyNotExists()
         {
             TestForeignKeyExists("asddas", "asdsa");
@@ -269,9 +272,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             TestForeignKeyExists("", "");
         }
         [Test]
+        [ExpectedException(typeof(NotSupportedException))]
         public void TestForeignExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
@@ -279,17 +283,17 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 // database failures
                 try
                 {
-                    connectedService.ExecuteSql("create table mysql_testing_fk(id int not null, CONSTRAINT PK_mysql_testing_fk PRIMARY KEY (id))");
-                    connectedService.ExecuteSql("CREATE TABLE mysql_testing_fk2(rec_id int, CONSTRAINT FK_mysql_testing_fk FOREIGN KEY (rec_id) REFERENCES mysql_testing_fk(id))");
+                    connectedService.ExecuteSql("create table pgsql_testing_fk(id int not null, CONSTRAINT PK_pgsql_testing_fk PRIMARY KEY (id))");
+                    connectedService.ExecuteSql("CREATE TABLE pgsql_testing_fk2(rec_id int, CONSTRAINT FK_pgsql_testing_fk FOREIGN KEY (rec_id) REFERENCES pgsql_testing_fk(id))");
                 }
                 catch (DbException)
                 {
                 }
-                Assert.That(TestForeignKeyExists("FK_mysql_testing_fk", "mysql_testing_fk2"), Is.True);
+                Assert.That(TestForeignKeyExists("FK_pgsql_testing_fk", "pgsql_testing_fk2"), Is.True);
                 // cleanup procedure
                 try
                 {
-                    connectedService.ExecuteSql("drop table mysql_testing_fk2; drop table mysql_testing_fk");
+                    connectedService.ExecuteSql("drop table pgsql_testing_fk2; drop table pgsql_testing_fk");
                 }
                 catch (DbException)
                 {
@@ -297,6 +301,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             }
         }
         [Test]
+        [ExpectedException(typeof(NotSupportedException))]
         public void TestPKNotExists()
         {
             TestPKExists("asddas", "asddsa");
@@ -314,9 +319,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             TestPKExists("", "");
         }
         [Test]
+        [ExpectedException(typeof(NotSupportedException))]
         public void TestPKExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
+            PgSqlDatabaseService service = new PgSqlDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
@@ -324,16 +330,16 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 // database failures
                 try
                 {
-                    connectedService.ExecuteSql("create table mysql_testing_pk(id int not null, CONSTRAINT PK_mysql_testing_pk PRIMARY KEY (id))");
+                    connectedService.ExecuteSql("create table pgsql_testing_pk(id int not null, CONSTRAINT PK_pgsql_testing_pk PRIMARY KEY (id))");
                 }
                 catch (DbException)
                 {
                 }
-                Assert.That(TestPKExists("PK_mysql_testing_pk", "mysql_testing_pk"), Is.True);
+                Assert.That(TestPKExists("PK_pgsql_testing_pk", "pgsql_testing_pk"), Is.True);
                 // cleanup procedure
                 try
                 {
-                    connectedService.ExecuteSql("drop table mysql_testing_pk");
+                    connectedService.ExecuteSql("drop table pgsql_testing_pk");
                 }
                 catch (DbException)
                 {

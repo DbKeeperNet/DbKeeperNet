@@ -45,6 +45,7 @@
     <Compile Include="DatabaseServiceMappingConfigurationElementCollection.cs" />
     <Compile Include="DbKeeperNetConfigurationSection.cs" />
     <Compile Include="DbKeeperNetException.cs" />
+    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseService.cs" />
     <Compile Include="UpdateScriptConfigurationElement.cs" />
     <Compile Include="UpdateScriptConfigurationElementCollection.cs" />
     <Compile Include="ExtensionConfigurationElementCollection.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Extensions\DatabaseServices\DbServicesExtension.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseService.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseService.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseService.cs" />
     <Compile Include="Extensions\LoggingServices\DummyLogger.cs" />
     <Compile Include="Extensions\LoggingServices\FxLogger.cs" />
     <Compile Include="Extensions\LoggingServices\FxTSLogger.cs" />
@@ -154,6 +156,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UpdaterMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\PgSqlDatabaseServiceInstall.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

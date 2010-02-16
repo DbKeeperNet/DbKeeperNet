@@ -17,6 +17,8 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             //  Those are not implemented yet
             context.RegisterDatabaseService(new MySqlNetConnectorDatabaseService());
             //  context.RegisterDatabaseService(new OracleDbService());
+
+            context.RegisterDatabaseService(new PgSqlDatabaseService());
         }
 
         #endregion
