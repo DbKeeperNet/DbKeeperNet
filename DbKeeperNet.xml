@@ -25,7 +25,7 @@
     <Exec Command='"$(NUnitTool)" /labels /include=mysql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestPgSql" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /labels /include=mysql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /labels /include=pgsql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="RebuildXsd">
     <Delete Files="DbKeeperNet.Engine\XmlClasses.cs"/>
