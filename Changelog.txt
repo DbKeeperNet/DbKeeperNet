@@ -1,4 +1,6 @@
 Version 1.2.1.1
+ - PostgreSQL database support (missing support for indexes, primary keys and foreign
+   keys as they are not supported by provider)
  - new IScriptProviderService which allows modular script loading
  - XML updates from disk file
  - Section <assemblyUpdates /> replaced by <updateScripts /> which allows extensible
