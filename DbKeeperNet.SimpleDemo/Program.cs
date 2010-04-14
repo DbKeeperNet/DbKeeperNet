@@ -12,6 +12,7 @@ namespace DbKeeperNet.SimpleDemo
     {
         static void Main(string[] args)
         {
+            // const string connString = "pgsql"; // MySql connection over .NET Connector
             // const string connString = "mysql"; // MySql connection over .NET Connector
             const string connString = "default"; // MsSql connection
 

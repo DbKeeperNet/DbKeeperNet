@@ -33,6 +33,16 @@
           )
         ]]>
       </AlternativeStatement>
+      <AlternativeStatement DbType="PgSql">
+        <![CDATA[
+          CREATE TABLE DbKeeperNet_SimpleDemo
+          (
+          id serial not null,
+          name varchar(32),
+          constraint PK_DbKeeperNet_SimpleDemo primary key (id)
+          )
+        ]]>
+      </AlternativeStatement>
     </UpdateStep>
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="2">
       <AlternativeStatement>

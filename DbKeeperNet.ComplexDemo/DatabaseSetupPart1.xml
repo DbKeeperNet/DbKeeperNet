@@ -31,6 +31,16 @@
           )
         ]]>
       </AlternativeStatement>
+      <AlternativeStatement DbType="PgSql">
+        <![CDATA[
+          CREATE TABLE DbKeeperNet_SimpleDemo
+          (
+          id serial not null,
+          name varchar(32),
+          constraint PK_DbKeeperNet_SimpleDemo primary key (id)
+          )
+        ]]>
+      </AlternativeStatement>
     </UpdateStep>
     <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="2" Type="DbKeeperNet.ComplexDemo.ComplexDemoCustomStep,DbKeeperNet.ComplexDemo">
       <Param>Hellow world</Param>
@@ -46,6 +56,12 @@
         <![CDATA[
           insert into DbKeeperNet_SimpleDemo(name) values('First value MySQL');
           insert into DbKeeperNet_SimpleDemo(name) values('Second value MySQL');
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="PgSql">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('First value PostgreSQL');
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value PostgreSQL');
         ]]>
       </AlternativeStatement>
     </UpdateStep>
