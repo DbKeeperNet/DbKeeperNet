@@ -85,6 +85,15 @@
      </Message>
     </Messages>
    </Namespace>
+   <Namespace Name="DbKeeperNet.Engine.Extensions.ScriptProviderServices">
+    <Messages>
+     <Message TypeName="AvoidNamespacesWithFewTypes" Category="Microsoft.Design" CheckId="CA1020" Status="Excluded" Created="2010-04-22 20:25:14Z">
+      <Issue>
+       <Item>DbKeeperNet.Engine.Extensions.ScriptProviderServices</Item>
+      </Issue>
+     </Message>
+    </Messages>
+   </Namespace>
   </Namespaces>
   <Targets>
    <Target Name="$(ProjectDir)/DbKeeperNet.Engine/bin/Debug/DbKeeperNet.Engine.dll">
@@ -93,16 +102,6 @@
       <Namespaces>
        <Namespace Name="DbKeeperNet.Engine">
         <Types>
-         <Type Name="AssemblyUpdateConfigurationElementCollection">
-          <Messages>
-           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2009-09-22 14:42:58Z">
-            <Issue>
-             <Item>'AssemblyUpdateConfigurationElementCollection'</Item>
-             <Item>ICollection</Item>
-            </Issue>
-           </Message>
-          </Messages>
-         </Type>
          <Type Name="CustomUpdateStepType">
           <Members>
            <Member Name="#Param">
@@ -138,7 +137,7 @@
          </Type>
          <Type Name="DatabaseServiceMappingConfigurationElementCollection">
           <Messages>
-           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2009-09-22 14:42:58Z">
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Status="Excluded" Created="2009-09-22 14:42:58Z">
             <Issue>
              <Item>'DatabaseServiceMappingConfigurationElementCollection'</Item>
              <Item>ICollection</Item>
@@ -148,7 +147,7 @@
          </Type>
          <Type Name="ExtensionConfigurationElementCollection">
           <Messages>
-           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Created="2009-09-22 14:42:58Z">
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Status="Excluded" Created="2009-09-22 14:42:58Z">
             <Issue>
              <Item>'ExtensionConfigurationElementCollection'</Item>
              <Item>ICollection</Item>
@@ -160,7 +159,7 @@
           <Members>
            <Member Name="#DefaultPreconditions">
             <Messages>
-             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Created="2009-09-22 14:42:58Z">
+             <Message TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819" Status="Excluded" Created="2009-09-22 14:42:58Z">
               <Issue>
                <Item>'IUpdateContext.DefaultPreconditions'</Item>
               </Issue>
@@ -205,28 +204,6 @@
            </Member>
           </Members>
          </Type>
-         <Type Name="Updater">
-          <Members>
-           <Member Name="#ExecuteStepBody(DbKeeperNet.Engine.UpdateStepBaseType)">
-            <Messages>
-             <Message TypeName="DoNotCastUnnecessarily" Category="Microsoft.Performance" CheckId="CA1800" Created="2009-09-22 14:42:58Z">
-              <Issue Name="Parameter">
-               <Item>'step'</Item>
-               <Item>'CustomUpdateStepType'</Item>
-               <Item>'Updater.ExecuteStepBody(UpdateStepBaseType)'</Item>
-               <Item>castclass</Item>
-              </Issue>
-              <Issue Name="Parameter">
-               <Item>'step'</Item>
-               <Item>'UpdateDbStepType'</Item>
-               <Item>'Updater.ExecuteStepBody(UpdateStepBaseType)'</Item>
-               <Item>castclass</Item>
-              </Issue>
-             </Message>
-            </Messages>
-           </Member>
-          </Members>
-         </Type>
          <Type Name="Updates">
           <Members>
            <Member Name="#DefaultPreconditions">
@@ -258,6 +235,16 @@
             </Messages>
            </Member>
           </Members>
+         </Type>
+         <Type Name="UpdateScriptConfigurationElementCollection">
+          <Messages>
+           <Message TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010" Status="Excluded" Created="2010-04-22 20:25:14Z">
+            <Issue>
+             <Item>'UpdateScriptConfigurationElementCollection'</Item>
+             <Item>ICollection</Item>
+            </Issue>
+           </Message>
+          </Messages>
          </Type>
          <Type Name="UpdateStepBaseType">
           <Messages>
@@ -331,9 +318,6 @@
    </Rule>
    <Rule TypeName="CollectionsShouldImplementGenericInterface" Category="Microsoft.Design" CheckId="CA1010">
     <Resolution Name="Default">{0} appears to be a non-generic, strongly typed collection. Add an implementation to the instance of {1}&lt;T&gt; where T is the underlying element type of {0}.</Resolution>
-   </Rule>
-   <Rule TypeName="DoNotCastUnnecessarily" Category="Microsoft.Performance" CheckId="CA1800">
-    <Resolution Name="Parameter">{0}, a parameter, is cast to type {1} multiple times in method {2}. Cache the result of the 'as' operator or direct cast in order to eliminate the redundant {3} instruction.</Resolution>
    </Rule>
    <Rule TypeName="PropertiesShouldNotReturnArrays" Category="Microsoft.Performance" CheckId="CA1819">
     <Resolution Name="Default">Change {0} to return a collection or make it a method.</Resolution>

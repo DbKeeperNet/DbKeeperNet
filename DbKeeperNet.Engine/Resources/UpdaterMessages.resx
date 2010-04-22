@@ -150,8 +150,8 @@
     <comment>Conditions result to: {0}</comment>
   </data>
   <data name="CommonExceptionMessage" xml:space="preserve">
-    <value>An error occured during updates execution</value>
-    <comment>An error occured during updates execution</comment>
+    <value>An error detected during updates execution</value>
+    <comment>An error detected during updates execution</comment>
   </data>
   <data name="CustomStepTypeNotFound" xml:space="preserve">
     <value>Custom step type '{0}' not found</value>
@@ -210,8 +210,8 @@
     <comment>Going to execute configured update '{0}' from disk file</comment>
   </data>
   <data name="StartingConfiguredUpdate" xml:space="preserve">
-    <value>Going to execute configurated update '{0}' in assembly '{1}'</value>
-    <comment>Going to execute configurated update '{0}' in assembly '{1}'</comment>
+    <value>Going to execute configured update '{0}' in assembly '{1}'</value>
+    <comment>Going to execute configured update '{0}' in assembly '{1}'</comment>
   </data>
   <data name="StartingUpdateStep" xml:space="preserve">
     <value>Running step: {0} [{1}]</value>
@@ -222,8 +222,8 @@
     <comment>Running version: {0} [{1}]</comment>
   </data>
   <data name="StepExceptionRollback" xml:space="preserve">
-    <value>An exception catched during update - executing transaction rollback</value>
-    <comment>An exception catched during update - executing transaction rollback</comment>
+    <value>An exception caught during update - executing transaction rollback</value>
+    <comment>An exception caught during update - executing transaction rollback</comment>
   </data>
   <data name="StepMarkedAsExecuted" xml:space="preserve">
     <value>Step executed information saved to database: {0} [{1}]</value>

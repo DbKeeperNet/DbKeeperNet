@@ -19,6 +19,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             //  context.RegisterDatabaseService(new OracleDbService());
 
             context.RegisterDatabaseService(new PgSqlDatabaseService());
+            context.RegisterDatabaseService(new SQLiteDatabaseService());
         }
 
         #endregion

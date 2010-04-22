@@ -151,7 +151,7 @@
   </data>
   <data name="CommonExceptionMessage" xml:space="preserve">
     <value>Během spouštění aktualizací došlo k obecné chybě</value>
-    <comment>An error occured during updates execution</comment>
+    <comment>An error detected during updates execution</comment>
   </data>
   <data name="CustomStepTypeNotFound" xml:space="preserve">
     <value>Datový typ '{0}' implementující uživatelský krok nebyl nalezen</value>
@@ -211,7 +211,7 @@
   </data>
   <data name="StartingConfiguredUpdate" xml:space="preserve">
     <value>Bude spuštěn nakonfigurovaný aktualizační skript '{0}' ze sestavení '{1}'</value>
-    <comment>Going to execute configurated update '{0}' in assembly '{1}'</comment>
+    <comment>Going to execute configured update '{0}' in assembly '{1}'</comment>
   </data>
   <data name="StartingUpdateStep" xml:space="preserve">
     <value>Spouštím krok: {0} [{1}]</value>
@@ -223,7 +223,7 @@
   </data>
   <data name="StepExceptionRollback" xml:space="preserve">
     <value>Během provádění aktualizace došlo k vyjímce - bude proveden rollback transakce</value>
-    <comment>An exception catched during update - executing transaction rollback</comment>
+    <comment>An exception caught during update - executing transaction rollback</comment>
   </data>
   <data name="StepMarkedAsExecuted" xml:space="preserve">
     <value>Do databáze byly uloženy informace o provedení kroku: {0} [{1}]</value>

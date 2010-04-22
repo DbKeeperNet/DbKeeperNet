@@ -133,7 +133,7 @@ namespace DbKeeperNet.Engine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occured during updates execution.
+        ///   Looks up a localized string similar to An error detected during updates execution.
         /// </summary>
         internal static string CommonExceptionMessage {
             get {
@@ -268,7 +268,7 @@ namespace DbKeeperNet.Engine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Going to execute configurated update &apos;{0}&apos; in assembly &apos;{1}&apos;.
+        ///   Looks up a localized string similar to Going to execute configured update &apos;{0}&apos; in assembly &apos;{1}&apos;.
         /// </summary>
         internal static string StartingConfiguredUpdate {
             get {
@@ -295,7 +295,7 @@ namespace DbKeeperNet.Engine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An exception catched during update - executing transaction rollback.
+        ///   Looks up a localized string similar to An exception caught during update - executing transaction rollback.
         /// </summary>
         internal static string StepExceptionRollback {
             get {
