@@ -15,7 +15,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// Database services for SQLite 3 with ADO.NET provider.
     /// Service name for configuration file: SQLite
     /// </summary>
-    /// <remarks>Available from SourceForge: <see cref="http://sourceforge.net/projects/sqlite-dotnet2/"/></remarks>
+    /// <remarks>Available from SourceForge: http://sourceforge.net/projects/sqlite-dotnet2/</remarks>
     public sealed class SQLiteDatabaseService: IDatabaseService
     {
         public SQLiteDatabaseService()
