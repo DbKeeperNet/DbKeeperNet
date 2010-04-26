@@ -29,8 +29,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.2.1.1")]
-[assembly: AssemblyFileVersion("1.2.1.1")]
+[assembly: AssemblyVersion("1.3.1.1")]
+[assembly: AssemblyFileVersion("1.3.1.1")]
 
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
