@@ -1,3 +1,9 @@
+Version 1.4.1.1
+ - Oracle support (tested on version 10g)
+ - New precondition DbTriggerNotFound (supported only on Oracle and MsSQL)
+ - New Oracle specific precondition OraDbSequenceNotFound
+ - IDatabaseService interface extended by TriggerExists() method contract
+ 
 Version 1.3.1.1
  - SQLite ADO.NET 2.0 support (missing support for procedures which are not
    supported by SQLite engine)
@@ -5,7 +11,7 @@ Version 1.3.1.1
  - Updated schema definition (DbType attribute defined as union of xs:string
    and enum). Schema is fully compatible with previous version
 
-Version 1.3.1.1
+Version 1.2.1.1
  - PostgreSQL database support (missing support for indexes, primary keys 
    and foreign keys as they are not supported by provider)
  - new IScriptProviderService which allows modular script loading
@@ -27,3 +33,4 @@ Version 1.1.1.1
   
 Version 1.0.1.1
  - Initial release
+ 

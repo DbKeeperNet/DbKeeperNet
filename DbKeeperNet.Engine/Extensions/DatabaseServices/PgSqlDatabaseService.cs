@@ -91,6 +91,12 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             throw new NotSupportedException();
         }
+
+        public bool TriggerExists(string triggerName)
+        {
+            throw new NotSupportedException();
+        }
+
         public bool ForeignKeyExists(string foreignKeyName, string table)
         {
             if (String.IsNullOrEmpty(foreignKeyName))

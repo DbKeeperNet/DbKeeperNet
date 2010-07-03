@@ -119,6 +119,10 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             return exists;
         }
+        public bool TriggerExists(string triggerName)
+        {
+            throw new NotSupportedException();
+        }
         public bool ForeignKeyExists(string foreignKeyName, string table)
         {
             if (String.IsNullOrEmpty(foreignKeyName))
@@ -369,7 +373,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 _assemblyInsert = Connection.CreateCommand();
                 _assemblyInsert.CommandText = "insert into dbkeepernet_assembly(assembly, created) values(@assembly, now()); select last_insert_id()";
 
-                DbParameter assembly = _assemblySelect.CreateParameter();
+                DbParameter assembly = _assemblyInsert.CreateParameter();
                 assembly.ParameterName = "@assembly";
 
                 _assemblyInsert.Parameters.Add(assembly);
@@ -382,10 +386,10 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 _versionSelect = Connection.CreateCommand();
                 _versionSelect.CommandText = "select id from dbkeepernet_version where dbkeepernet_assembly_id = @assemblyId and version = @version";
 
-                DbParameter assemblyId = _assemblySelect.CreateParameter();
+                DbParameter assemblyId = _versionSelect.CreateParameter();
                 assemblyId.ParameterName = "@assemblyId";
 
-                DbParameter version = _assemblySelect.CreateParameter();
+                DbParameter version = _versionSelect.CreateParameter();
                 version.ParameterName = "@version";
 
                 _versionSelect.Parameters.Add(assemblyId);
@@ -396,10 +400,10 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 _versionInsert = Connection.CreateCommand();
                 _versionInsert.CommandText = "insert into dbkeepernet_version(dbkeepernet_assembly_id, version, created) values(@assemblyId, @version, now()); select last_insert_id() ";
 
-                DbParameter assemblyId = _assemblySelect.CreateParameter();
+                DbParameter assemblyId = _versionInsert.CreateParameter();
                 assemblyId.ParameterName = "@assemblyId";
 
-                DbParameter version = _assemblySelect.CreateParameter();
+                DbParameter version = _versionInsert.CreateParameter();
                 version.ParameterName = "@version";
 
                 _versionInsert.Parameters.Add(assemblyId);
@@ -413,10 +417,10 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 _stepSelect = Connection.CreateCommand();
                 _stepSelect.CommandText = "select id from dbkeepernet_step where dbkeepernet_version_id = @versionId and step = @step";
 
-                DbParameter versionId = _assemblySelect.CreateParameter();
+                DbParameter versionId = _stepSelect.CreateParameter();
                 versionId.ParameterName = "@versionId";
 
-                DbParameter step = _assemblySelect.CreateParameter();
+                DbParameter step = _stepSelect.CreateParameter();
                 step.ParameterName = "@step";
 
                 _stepSelect.Parameters.Add(versionId);
@@ -427,10 +431,10 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 _stepInsert = Connection.CreateCommand();
                 _stepInsert.CommandText = "insert into dbkeepernet_step(dbkeepernet_version_id, step, created) values(@versionId, @step, now())";
 
-                DbParameter versionId = _assemblySelect.CreateParameter();
+                DbParameter versionId = _stepInsert.CreateParameter();
                 versionId.ParameterName = "@versionId";
 
-                DbParameter step = _assemblySelect.CreateParameter();
+                DbParameter step = _stepInsert.CreateParameter();
                 step.ParameterName = "@step";
 
                 _stepInsert.Parameters.Add(versionId);

@@ -129,9 +129,17 @@
     <value>Index name and table for condition {0} must be specified</value>
     <comment>Index name and table for condition {0} must be specified</comment>
   </data>
+  <data name="OnlyOracleSupport" xml:space="preserve">
+    <value>Condition {0} is supported only for Oracle</value>
+    <comment>Condition {0} is supported only for Oracle</comment>
+  </data>
   <data name="PrimaryKeyNameOrTableEmpty" xml:space="preserve">
     <value>Primary key name and table for condition {0} must be specified</value>
     <comment>Primary key name and table for condition {0} must be specified</comment>
+  </data>
+  <data name="SequenceNameEmpty" xml:space="preserve">
+    <value>Sequence name for condition {0} must be specified</value>
+    <comment>Sequence name for condition {0} must be specified</comment>
   </data>
   <data name="StoredProcedureNameEmpty" xml:space="preserve">
     <value>Stored procedure name for condition {0} must be specified</value>
@@ -140,6 +148,10 @@
   <data name="TableNameEmpty" xml:space="preserve">
     <value>Table name for condition {0} must be specified</value>
     <comment>Table name for condition {0} must be specified</comment>
+  </data>
+  <data name="TriggerNameEmpty" xml:space="preserve">
+    <value>Trigger name for condition{0} must be specified</value>
+    <comment>Trigger name for condition {0} must be specified</comment>
   </data>
   <data name="ViewNameEmpty" xml:space="preserve">
     <value>View name for condition {0} must be specified</value>

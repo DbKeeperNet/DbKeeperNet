@@ -22,6 +22,8 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             context.RegisterPrecondition(new DbViewNotFound());
             context.RegisterPrecondition(new DbType());
             context.RegisterPrecondition(new DbPrimaryKeyNotFound());
+            context.RegisterPrecondition(new DbTriggerNotFound());
+            context.RegisterPrecondition(new OraDbSequenceNotFound());
         }
 
         #endregion

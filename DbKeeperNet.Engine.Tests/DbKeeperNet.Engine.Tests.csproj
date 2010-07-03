@@ -66,9 +66,11 @@
     <Compile Include="AppConfigTests.cs" />
     <Compile Include="CustomUpdateStep.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDbServicesTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceLiveTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServicesTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceLiveTests.cs" />

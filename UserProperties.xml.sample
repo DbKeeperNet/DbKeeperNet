@@ -1,7 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <!-- You can override any properties from Properties.xml here -->
-<!--    <SvnBuild>1.3.1.1</SvnBuild> -->
+<!--    <SvnBuild>1.4.1.1</SvnBuild> -->
     <TmpDir>tmp</TmpDir>
     <NUnitTool>C:\Program Files (x86)\TestDriven.NET 2.0\NUnit\2.5\nunit-console.exe</NUnitTool>
     <XsdTool>C:\Program Files (x86)\Microsoft Visual Studio 8\SDK\v2.0\Bin\xsd.exe</XsdTool>

@@ -30,6 +30,9 @@
   <Target Name="TestSQLite" DependsOnTargets="Build">
     <Exec Command='"$(NUnitTool)" /labels /include=sqlite "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
+  <Target Name="TestOracle" DependsOnTargets="Build">
+    <Exec Command='"$(NUnitTool)" /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+  </Target>
   <Target Name="RebuildXsd">
     <Delete Files="DbKeeperNet.Engine\XmlClasses.cs"/>
     <Copy SourceFiles="DbKeeperNet.Engine\Resources\Updates-1.0.xsd" DestinationFiles="$(TmpDir)\XmlClasses.xsd" />
@@ -63,6 +66,7 @@
     <!-- list of files which are part of binary package -->
     <ItemGroup>
         <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Engine\bin\$(Configuration)\**\*.dll" />
+        <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Engine\bin\$(Configuration)\**\*.pdb" />
         <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\*.dll" />
     </ItemGroup>
 
@@ -93,6 +97,7 @@
     <CallTarget Targets="TestMySql" />
     <CallTarget Targets="TestPgSql" />
     <CallTarget Targets="TestSQLite" />
+    <CallTarget Targets="TestOracle" />
   </Target>
 
   <Target Name="Build" DependsOnTargets="RebuildXsd">

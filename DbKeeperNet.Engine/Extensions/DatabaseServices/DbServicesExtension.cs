@@ -16,7 +16,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             context.RegisterDatabaseService(new MsSqlDatabaseService());
             //  Those are not implemented yet
             context.RegisterDatabaseService(new MySqlNetConnectorDatabaseService());
-            //  context.RegisterDatabaseService(new OracleDbService());
+            context.RegisterDatabaseService(new OracleDatabaseService());
 
             context.RegisterDatabaseService(new PgSqlDatabaseService());
             context.RegisterDatabaseService(new SQLiteDatabaseService());

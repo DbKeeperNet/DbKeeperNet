@@ -129,9 +129,17 @@
     <value>Název indexu a tabulky pro podmínku {0} musí být definován</value>
     <comment>Index name and table for condition {0} must be specified</comment>
   </data>
+  <data name="OnlyOracleSupported" xml:space="preserve">
+    <value>Podmínka {0} je podporována pouze pro databáze Oracle</value>
+    <comment>Condition {0} is supported only for Oracle</comment>
+  </data>
   <data name="PrimaryKeyNameOrTableEmpty" xml:space="preserve">
     <value>Název primárního klíče a tabulky pro podmínku {0} musí být definován</value>
     <comment>Primary key name and table for condition {0} must be specified</comment>
+  </data>
+  <data name="SequenceNameEmpty" xml:space="preserve">
+    <value>Název sekvence pro podmínku {0} musí být definován</value>
+    <comment>Sequence name for condition {0} must be specified</comment>
   </data>
   <data name="StoredProcedureNameEmpty" xml:space="preserve">
     <value>Název uložené procedury pro podmínku {0} musí být definován</value>
@@ -140,6 +148,10 @@
   <data name="TableNameEmpty" xml:space="preserve">
     <value>Název tabulky pro podmínku {0} musí být definován</value>
     <comment>Table name for condition {0} must be specified</comment>
+  </data>
+  <data name="TriggerNameEmpty" xml:space="preserve">
+    <value>Název trigeru pro podmínku {0} musí být definován</value>
+    <comment>Trigger name for condition {0} must be specified</comment>
   </data>
   <data name="ViewNameEmpty" xml:space="preserve">
     <value>Název pohledu pro podmínku {0} musí být definován</value>

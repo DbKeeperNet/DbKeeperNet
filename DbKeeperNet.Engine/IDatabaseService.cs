@@ -66,6 +66,13 @@ namespace DbKeeperNet.Engine
         /// <returns>true when exists, false otherwise</returns>
         bool PrimaryKeyExists(string primaryKeyName, string table);
         /// <summary>
+        /// Verify whether given trigger already exists
+        /// in database
+        /// </summary>
+        /// <param name="triggerName">Trigger name</param>
+        /// <returns>true when exists, false otherwise</returns>
+        bool TriggerExists(string triggerName);
+        /// <summary>
         /// Clone this object and establish a database connection
         /// with specified connection string.
         /// </summary>

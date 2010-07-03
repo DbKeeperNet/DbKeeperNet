@@ -47,6 +47,8 @@
     <Compile Include="DbKeeperNetException.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseService.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseService.cs" />
+    <Compile Include="Extensions\Preconditions\DbTriggerNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\OraDbSequenceNotFound.cs" />
     <Compile Include="UpdateScriptConfigurationElement.cs" />
     <Compile Include="UpdateScriptConfigurationElementCollection.cs" />
     <Compile Include="ExtensionConfigurationElementCollection.cs" />
@@ -163,6 +165,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Extensions\DatabaseServices\SQLiteDatabaseServiceInstall.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\OracleDatabaseServiceInstall.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

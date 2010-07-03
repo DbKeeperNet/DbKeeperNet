@@ -4,6 +4,7 @@ using System.Text;
 using NUnit.Framework;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
 using System.Data.Common;
+using System.Diagnostics;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
@@ -14,6 +15,28 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     {
         const string CONNECTION_STRING = "mssql";
         #region Private helper methods
+        private static void LocalExecuteSQL(IDatabaseService service, string sql)
+        {
+            try
+            {
+                service.ExecuteSql(sql);
+            }
+            catch (DbException)
+            {
+                // Debug.WriteLine("Ignored DbException: ", e.ToString());
+            }
+        }
+        private bool TestTriggerExists(string trigger)
+        {
+            MsSqlDatabaseService service = new MsSqlDatabaseService();
+            bool result = false;
+
+            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                result = connectedService.TriggerExists(trigger);
+            }
+            return result;
+        }
         private bool TestForeignKeyExists(string key, string table)
         {
             MsSqlDatabaseService service = new MsSqlDatabaseService();
@@ -81,6 +104,21 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             return result;
         }
         #endregion
+        public void Cleanup()
+        {
+            MsSqlDatabaseService service = new MsSqlDatabaseService();
+
+            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                LocalExecuteSQL(connectedService, "drop table mssql_testing_table");
+                LocalExecuteSQL(connectedService, "drop procedure mssql_testing_proc");
+                LocalExecuteSQL(connectedService, "drop view mssql_testing_view");
+                LocalExecuteSQL(connectedService, "drop table mssql_testing_ix");
+                LocalExecuteSQL(connectedService, "drop table mssql_testing_fk");
+                LocalExecuteSQL(connectedService, "drop table mssql_testing_pk");
+                LocalExecuteSQL(connectedService, "drop table mssql_testing_tr");
+            }
+        }
         [Test]
         public void TestTableExists()
         {
@@ -88,24 +126,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a table to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table mssql_testing_table(c varchar)");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create table mssql_testing_table(c varchar)");
+                
                 Assert.That(TestTableExists("mssql_testing_table"), Is.True);
-                // cleanup table
-                try
-                {
-                    connectedService.ExecuteSql("drop table mssql_testing_table");
-                }
-                catch (DbException)
-                {
-                }
             }
 
         }
@@ -151,24 +174,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create procedure mssql_testing_proc as select 1");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create procedure mssql_testing_proc as select 1");
+               
                 Assert.That(TestStoredProcedureExists("mssql_testing_proc"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop procedure mssql_testing_proc");
-                }
-                catch (DbException)
-                {
-                }
             }
 
         }
@@ -226,24 +234,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create view mssql_testing_view as select 1 as version");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create view mssql_testing_view as select 1 as version");
+
                 Assert.That(TestViewExists("mssql_testing_view"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop view mssql_testing_view");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -270,24 +263,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table mssql_testing_ix(id int not null);CREATE INDEX IX_mssql_testing_ix on mssql_testing_ix (id)");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create table mssql_testing_ix(id int not null);CREATE INDEX IX_mssql_testing_ix on mssql_testing_ix (id)");
+                
                 Assert.That(TestIndexExists("IX_mssql_testing_ix", "mssql_testing_ix"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table mssql_testing_ix");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -314,24 +292,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table mssql_testing_fk(id int not null, rec_id int, CONSTRAINT PK_mssql_testing_fk PRIMARY KEY (id), CONSTRAINT FK_mssql_testing_fk FOREIGN KEY (rec_id) REFERENCES mssql_testing_fk(id))");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create table mssql_testing_fk(id int not null, rec_id int, CONSTRAINT PK_mssql_testing_fk PRIMARY KEY (id), CONSTRAINT FK_mssql_testing_fk FOREIGN KEY (rec_id) REFERENCES mssql_testing_fk(id))");
+
                 Assert.That(TestForeignKeyExists("FK_mssql_testing_fk", "mssql_testing_fk"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table mssql_testing_fk");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -358,24 +321,44 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table mssql_testing_pk(id int not null, CONSTRAINT PK_mssql_testing_pk PRIMARY KEY (id))");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create table mssql_testing_pk(id int not null, CONSTRAINT PK_mssql_testing_pk PRIMARY KEY (id))");
+                
                 Assert.That(TestPKExists("PK_mssql_testing_pk", "mssql_testing_pk"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table mssql_testing_pk");
-                }
-                catch (DbException)
-                {
-                }
+            }
+        }
+
+        [Test]
+        public void TestTriggerNotExists()
+        {
+            TestTriggerExists("asddas");
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestTriggerNotExistsNullName()
+        {
+            TestTriggerExists(null);
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestTriggerNotExistsEmptyName()
+        {
+            TestTriggerExists("");
+        }
+        [Test]
+        public void TestTriggerExists()
+        {
+            MsSqlDatabaseService service = new MsSqlDatabaseService();
+
+            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                LocalExecuteSQL(connectedService, "create table mssql_testing_tr (id numeric(9,0) not null, id2 numeric(9,0))");
+
+                LocalExecuteSQL(connectedService, @"create trigger TR_mssql_testing_tr on mssql_testing_tr after insert               
+            		  as
+			            update mssql_testing_tr set id2 = id"
+                    );
+
+                Assert.That(TestTriggerExists("TR_mssql_testing_Tr"), Is.True);
             }
         }
     }

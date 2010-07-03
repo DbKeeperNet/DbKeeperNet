@@ -156,6 +156,11 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             
             return result;
         }
+        
+        public bool TriggerExists(string triggerName)
+        {
+            throw new NotSupportedException();
+        }
 
         public IDatabaseService CloneForConnectionString(string connectionString)
         {

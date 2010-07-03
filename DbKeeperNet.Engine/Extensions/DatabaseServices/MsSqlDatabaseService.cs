@@ -118,6 +118,18 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         {
             return IndexExists(primaryKeyName, table);
         }
+        public bool TriggerExists(string triggerName)
+        {
+            if (String.IsNullOrEmpty(triggerName))
+                throw new ArgumentNullException(@"triggerName");
+
+            DbCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = String.Format(CultureInfo.InvariantCulture, @"select count(*) from sysobjects A where A.xtype='TR' and A.name = '{0}'", triggerName);
+
+            bool exists = (Convert.ToInt64(cmd.ExecuteScalar(), CultureInfo.InvariantCulture) != 0);
+
+            return exists;
+        }
         public string Name
         {
             get { return @"MsSql"; }

@@ -2,21 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
-using System.Data.Common;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
+using System.Data.Common;
+using System.Diagnostics;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
     [TestFixture]
     [Explicit]
-    [Category("sqlite")]
-    public class SQLiteDatabaseServiceTests
+    [Category("oracle")]
+    public class OracleDatabaseServiceTests
     {
-        const string CONNECTION_STRING = "sqlite";
+        const string CONNECTION_STRING = "oracle";
         #region Private helper methods
+
+        private static void LocalExecuteSQL(IDatabaseService service, string sql)
+        {
+            try
+            {
+                service.ExecuteSql(sql);
+            }
+            catch (DbException)
+            {
+            //    Debug.WriteLine("Ignored DbException: ", e.ToString());
+            }
+        }
         private bool TestForeignKeyExists(string key, string table)
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -27,7 +40,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         private bool TestIndexExists(string index, string table)
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -38,7 +51,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         private bool TestPKExists(string index, string table)
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -47,9 +60,31 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             }
             return result;
         }
+        private bool TestTriggerExists(string trigger)
+        {
+            OracleDatabaseService service = new OracleDatabaseService();
+            bool result = false;
+
+            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                result = connectedService.TriggerExists(trigger);
+            }
+            return result;
+        }
+        private bool TestSequenceExists(string sequence)
+        {
+            OracleDatabaseService service = new OracleDatabaseService();
+            bool result = false;
+
+            using (OracleDatabaseService connectedService = (OracleDatabaseService) service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                result = connectedService.SequenceExists(sequence);
+            }
+            return result;
+        }
         private bool TestTableExists(string table)
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -60,7 +95,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         private bool TestStoredProcedureExists(string procedure)
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -71,7 +106,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         private bool TestViewExists(string view)
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
             bool result = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -81,31 +116,38 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             return result;
         }
         #endregion
-        [Test]
-        public void TestTableExists()
+        [TearDown]
+        public void Cleanup()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a table to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table dbk_tst(c text)");
-                }
-                catch (DbException)
-                {
-                }
-                Assert.That(TestTableExists("dbk_tst"), Is.True);
-                // cleanup table
-                try
-                {
-                    connectedService.ExecuteSql("drop table dbk_tst");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "drop table \"ora_testing_table\"");
+                LocalExecuteSQL(connectedService, "drop procedure \"ora_testing_proc\"");
+
+                LocalExecuteSQL(connectedService, "drop table \"ora_testing_tv\"");
+                LocalExecuteSQL(connectedService, "drop view \"ora_testing_view\"");
+
+                LocalExecuteSQL(connectedService, "drop table ora_testing_ix");
+
+                LocalExecuteSQL(connectedService, "drop table \"ora_testing_fk\"");
+                LocalExecuteSQL(connectedService, "drop table \"ora_testing_pk\"");
+                LocalExecuteSQL(connectedService, "drop table \"ora_testing_tr\"");
+
+                LocalExecuteSQL(connectedService, "drop sequence \"ora_testing_seq\"");
+            }
+        }
+        [Test]
+        public void TestTableExists()
+        {
+            OracleDatabaseService service = new OracleDatabaseService();
+
+            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                LocalExecuteSQL(connectedService, "create table \"ora_testing_table\"(c varchar(2))");
+                
+                Assert.That(TestTableExists("ora_testing_table"), Is.True);
             }
 
         }
@@ -128,7 +170,6 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(NotSupportedException))]
         public void TestProcedureNotExists()
         {
             TestStoredProcedureExists("asddas");
@@ -146,48 +187,31 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             TestStoredProcedureExists("");
         }
         [Test]
-        [ExpectedException(typeof(NotSupportedException))]
         public void TestStoredProcedureExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create procedure sqlite_testing_proc as select 1");
-                }
-                catch (DbException)
-                {
-                }
-                Assert.That(TestStoredProcedureExists("sqlite_testing_proc"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop procedure sqlite_testing_proc");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create procedure \"ora_testing_proc\" as select 1");
+                
+                Assert.That(TestStoredProcedureExists("ora_testing_proc"), Is.True);
             }
-
         }
         [Test]
         public void TestExecuteSql()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                connectedService.ExecuteSql("select 1");
+                connectedService.ExecuteSql("select sysdate from dual");
             }
         }
         [Test]
         public void TestExecuteInvalidSqlStatement()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
             bool success = false;
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
@@ -224,28 +248,14 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestViewExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create view testing_view as select 1 as version");
-                }
-                catch (DbException)
-                {
-                }
-                Assert.That(TestViewExists("testing_view"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop view testing_view");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create table \"ora_testing_tv\" (c varchar(2))");
+                LocalExecuteSQL(connectedService, "create view \"ora_testing_view\" as select * from \"ora_testing_tv\"");
+                
+                Assert.That(TestViewExists("ora_testing_view"), Is.True);
             }
         }
         [Test]
@@ -268,28 +278,14 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestIndexExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table testing_ix(id int not null);CREATE INDEX IX_testing_ix on testing_ix (id)");
-                }
-                catch (DbException)
-                {
-                }
-                Assert.That(TestIndexExists("IX_testing_ix", "testing_ix"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table testing_ix");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create table \"ora_testing_ix\"(id int not null)");
+                LocalExecuteSQL(connectedService, "CREATE INDEX \"IX_ora_testing_ix\" on \"ora_testing_ix\" (id)");
+                
+                Assert.That(TestIndexExists("IX_ora_testing_ix", "ora_testing_ix"), Is.True);
             }
         }
         [Test]
@@ -312,28 +308,13 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestForeignExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table testing_fk(id integer not null, rec_id int, CONSTRAINT PK_testing_fk PRIMARY KEY (id), CONSTRAINT FK_testing_fk FOREIGN KEY (rec_id) REFERENCES testing_fk(id))");
-                }
-                catch (DbException)
-                {
-                }
-                Assert.That(TestForeignKeyExists("FK_testing_fk", "testing_fk"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table testing_fk");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create table \"ora_testing_fk\"(id numeric(9,0) not null, rec_id numeric(9,0), CONSTRAINT \"PK_ora_testing_fk\" PRIMARY KEY (id), CONSTRAINT \"FK_ora_testing_fk\" FOREIGN KEY (rec_id) REFERENCES \"ora_testing_fk\"(id))");
+                
+                Assert.That(TestForeignKeyExists("FK_ora_testing_fk", "ora_testing_fk"), Is.True);
             }
         }
         [Test]
@@ -356,28 +337,78 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestPKExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
+            OracleDatabaseService service = new OracleDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table testing_pk(id integer not null, CONSTRAINT PK_testing_pk PRIMARY KEY (id))");
-                }
-                catch (DbException)
-                {
-                }
-                Assert.That(TestPKExists("PK_testing_pk", "testing_pk"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table testing_pk");
-                }
-                catch (DbException)
-                {
-                }
+                LocalExecuteSQL(connectedService, "create table \"ora_testing_pk\"(id numeric(9,0) not null, CONSTRAINT \"PK_ora_testing_pk\" PRIMARY KEY (id))");
+
+                Assert.That(TestPKExists("PK_ora_testing_pk", "ora_testing_pk"), Is.True);
+            }
+        }
+        [Test]
+        public void TestTriggerNotExists()
+        {
+            TestTriggerExists("asddas");
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestTriggerNotExistsNullName()
+        {
+            TestTriggerExists(null);
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestTriggerNotExistsEmptyName()
+        {
+            TestTriggerExists("");
+        }
+        [Test]
+        public void TestTriggerExists()
+        {
+            OracleDatabaseService service = new OracleDatabaseService();
+
+            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                LocalExecuteSQL(connectedService, "create table \"ora_testing_tr\"(id numeric(9,0) not null, id2 numeric(9,0))");
+
+                LocalExecuteSQL(connectedService, @"create trigger ""TR_ora_testing_tr"" before insert on ""ora_testing_tr""              
+            		  for each row 
+			            begin  
+                            select :NEW.ID into :NEW.ID2 from dual;
+			            end;"
+                    );
+
+                Assert.That(TestTriggerExists("TR_ora_testing_tr"), Is.True);
+            }
+        }
+        [Test]
+        public void TestSequenceNotExists()
+        {
+            TestSequenceExists("asddas");
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestSequenceNotExistsNullName()
+        {
+            TestSequenceExists(null);
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestSequenceNotExistsEmptyName()
+        {
+            TestSequenceExists("");
+        }
+        [Test]
+        public void TestSequenceExists()
+        {
+            OracleDatabaseService service = new OracleDatabaseService();
+
+            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            {
+                LocalExecuteSQL(connectedService, "create sequence \"ora_testing_seq\"");
+                
+                Assert.That(TestSequenceExists("ora_testing_seq"), Is.True);
             }
         }
     }
