@@ -51,11 +51,36 @@
           )
         ]]>
       </AlternativeStatement>
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[
+        CREATE TABLE "DBKEEPERNET_SIMPLEDEMO"
+        (
+        "ID"         NUMBER(10,0) NOT NULL,
+        "NAME"       VARCHAR2(32),
+        CONSTRAINT "PK_DBKEEPERNET_SIMPLEDEMO" PRIMARY KEY ("ID")
+        )
+        ]]>
+      </AlternativeStatement>
     </UpdateStep>
-    <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="2" Type="DbKeeperNet.ComplexDemo.ComplexDemoCustomStep,DbKeeperNet.ComplexDemo">
+    <UpdateStep xsi:type="upd:UpdateDbStepType" Id="2" FriendlyName="Create sequence generator DBKEEPERNET_SIMPLEDEMO_SEQ">
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[CREATE sequence "DBKEEPERNET_SIMPLEDEMO_SEQ" ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" Id="3" FriendlyName="Create identity trigger BI_DBKEEPERNET_SIMPLEDEMO">
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[CREATE trigger "BI_DBKEEPERNET_SIMPLEDEMO" 
+		      before insert on "DBKEEPERNET_SIMPLEDEMO"
+		      for each row 
+			    begin  
+				    select "DBKEEPERNET_SIMPLEDEMO_SEQ".nextval into :NEW.ID from dual;
+			    end;]]>
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="4" Type="DbKeeperNet.ComplexDemo.ComplexDemoCustomStep,DbKeeperNet.ComplexDemo">
       <Param>Hellow world</Param>
     </UpdateStep>
-    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="3">
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="5">
       <AlternativeStatement DbType="MsSql">
         <![CDATA[
           insert into DbKeeperNet_SimpleDemo(name) values('First value MS SQL');
@@ -80,13 +105,25 @@
           insert into DbKeeperNet_SimpleDemo(name) values('Second value SQLite');
         ]]>
       </AlternativeStatement>
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('First value Oracle')
+        ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" Id="6">
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value Oracle')
+        ]]>
+      </AlternativeStatement>
     </UpdateStep>
   </Update>
   <Update Version="2.00">
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="1">
       <AlternativeStatement>
         <![CDATA[
-          insert into DbKeeperNet_SimpleDemo(name) values('Third value');
+          insert into DbKeeperNet_SimpleDemo(name) values('Third value')
         ]]>
       </AlternativeStatement>
     </UpdateStep>

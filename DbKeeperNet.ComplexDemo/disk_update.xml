@@ -13,7 +13,7 @@
     <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="1">
       <AlternativeStatement>
         <![CDATA[
-          insert into DbKeeperNet_SimpleDemo(name) values('Value from disk stored file');
+          insert into DbKeeperNet_SimpleDemo(name) values('Value from disk stored file')
         ]]>
       </AlternativeStatement>
     </UpdateStep>

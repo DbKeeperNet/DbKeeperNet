@@ -15,7 +15,8 @@ namespace DbKeeperNet.ComplexDemo
             // const string connString = "pgsql"; // PostgreSql connection over .NET Connector
             // const string connString = "mysql"; // MySql connection over .NET Connector
             // const string connString = "sqlite"; // SQLite connection over .NET Connector
-            const string connString = "default"; // MsSql connection
+            const string connString = "default"; // MsSql connection\
+            // const string connString = "oracle"; // Oracle connection
 
             using (UpdateContext context = new UpdateContext())
             {

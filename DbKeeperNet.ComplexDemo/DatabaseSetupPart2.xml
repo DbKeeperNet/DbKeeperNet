@@ -31,6 +31,12 @@
           insert into DbKeeperNet_SimpleDemo(name) values('Fourth value SQLite');
         ]]>
       </AlternativeStatement>
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value Oracle')
+        ]]>
+      </AlternativeStatement>
+
     </UpdateStep>
   </Update>
 </upd:Updates>
