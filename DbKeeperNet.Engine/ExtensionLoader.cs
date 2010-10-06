@@ -15,11 +15,8 @@ namespace DbKeeperNet.Engine
     /// this assembly.
     /// </summary>
     /// <see cref="IExtension"/>
-    public sealed class ExtensionLoader
+    public static class ExtensionLoader
     {
-        private ExtensionLoader()
-        {
-        }
         /// <summary>
         /// Load all configured assemblies with extension
         /// within defined context.
