@@ -6,9 +6,12 @@ using log4net;
 
 namespace DbKeeperNet.Extensions.Log4Net
 {
+    /// <summary>
+    /// Logging service for Log4Net library
+    /// </summary>
     public sealed class Log4NetLoggingService: ILoggingService
     {
-        private static ILog _logger = LogManager.GetLogger("DbKeeperNet");
+        private static readonly ILog _logger = LogManager.GetLogger("DbKeeperNet");
 
 
         #region ILoggingService Members
