@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="AppConfigTests.cs" />
     <Compile Include="CustomUpdateStep.cs" />
+    <Compile Include="Extensions\DatabaseServices\DatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesLiveTests.cs" />

@@ -9,11 +9,13 @@ namespace DbKeeperNet.Engine
     /// <summary>
     /// Helper class which loads and executes Initialize() method of all
     /// classes implementing IExtension interface. 
+    /// </summary>
+    /// <remarks>
     /// Extension may be located also in external assemblies. In this
     /// case is path absolute or relative to entry assembly. 
     /// If entry assembly can't be determined, path is relative to
     /// this assembly.
-    /// </summary>
+    /// </remarks>
     /// <see cref="IExtension"/>
     public static class ExtensionLoader
     {

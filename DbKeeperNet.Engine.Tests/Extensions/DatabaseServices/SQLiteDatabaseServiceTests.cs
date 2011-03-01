@@ -10,102 +10,49 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [TestFixture]
     [Explicit]
     [Category("sqlite")]
-    public class SQLiteDatabaseServiceTests
+    public class SQLiteDatabaseServiceTests: DatabaseServiceTests<SQLiteDatabaseService>
     {
-        const string CONNECTION_STRING = "sqlite";
-        #region Private helper methods
-        private bool TestForeignKeyExists(string key, string table)
+        protected override string ConnectionString
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.ForeignKeyExists(key, table);
-            }
-            return result;
+            get { return @"sqlite"; }
         }
-        private bool TestIndexExists(string index, string table)
+
+        [SetUp]
+        public void Startup()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.IndexExists(index, table);
-            }
-            return result;
+            CleanupDatabase();
         }
-        private bool TestPKExists(string index, string table)
+
+        [TearDown]
+        public void Shutdown()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.PrimaryKeyExists(index, table);
-            }
-            return result;
+            CleanupDatabase();
         }
-        private bool TestTableExists(string table)
+
+
+        private void CleanupDatabase()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                result = connectedService.TableExists(table);
+                ExecuteSQLAndIgnoreException(connectedService, "drop table dbk_tst");
+                ExecuteSQLAndIgnoreException(connectedService, "drop procedure sqlite_testing_proc");
+                ExecuteSQLAndIgnoreException(connectedService, "drop view testing_view");
+                ExecuteSQLAndIgnoreException(connectedService, "drop table testing_ix");
+                ExecuteSQLAndIgnoreException(connectedService, "drop table testing_pk");
+                ExecuteSQLAndIgnoreException(connectedService, "drop table testing_fk");
             }
-            return result;
         }
-        private bool TestStoredProcedureExists(string procedure)
-        {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-            bool result = false;
 
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.StoredProcedureExists(procedure);
-            }
-            return result;
-        }
-        private bool TestViewExists(string view)
-        {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.ViewExists(view);
-            }
-            return result;
-        }
-        #endregion
         [Test]
         public void TestTableExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
                 // we just need a table to check whether is exists, so don't care about
                 // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table dbk_tst(c text)");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table dbk_tst(c text)");
+                
                 Assert.That(TestTableExists("dbk_tst"), Is.True);
-                // cleanup table
-                try
-                {
-                    connectedService.ExecuteSql("drop table dbk_tst");
-                }
-                catch (DbException)
-                {
-                }
             }
 
         }
@@ -149,37 +96,18 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [ExpectedException(typeof(NotSupportedException))]
         public void TestStoredProcedureExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create procedure sqlite_testing_proc as select 1");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create procedure sqlite_testing_proc as select 1");
+                
                 Assert.That(TestStoredProcedureExists("sqlite_testing_proc"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop procedure sqlite_testing_proc");
-                }
-                catch (DbException)
-                {
-                }
             }
 
         }
         [Test]
         public void TestExecuteSql()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
                 connectedService.ExecuteSql("select 1");
             }
@@ -187,10 +115,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestExecuteInvalidSqlStatement()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
             bool success = false;
 
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
                 try
                 {
@@ -224,28 +151,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestViewExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create view testing_view as select 1 as version");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create view testing_view as select 1 as version");
+                
                 Assert.That(TestViewExists("testing_view"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop view testing_view");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -268,28 +178,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestIndexExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table testing_ix(id int not null);CREATE INDEX IX_testing_ix on testing_ix (id)");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table testing_ix(id int not null);CREATE INDEX IX_testing_ix on testing_ix (id)");
+                
                 Assert.That(TestIndexExists("IX_testing_ix", "testing_ix"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table testing_ix");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -312,28 +205,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestForeignExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table testing_fk(id integer not null, rec_id int, CONSTRAINT PK_testing_fk PRIMARY KEY (id), CONSTRAINT FK_testing_fk FOREIGN KEY (rec_id) REFERENCES testing_fk(id))");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table testing_fk(id integer not null, rec_id int, CONSTRAINT PK_testing_fk PRIMARY KEY (id), CONSTRAINT FK_testing_fk FOREIGN KEY (rec_id) REFERENCES testing_fk(id))");
+                
                 Assert.That(TestForeignKeyExists("FK_testing_fk", "testing_fk"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table testing_fk");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -356,28 +232,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestPKExists()
         {
-            SQLiteDatabaseService service = new SQLiteDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table testing_pk(id integer not null, CONSTRAINT PK_testing_pk PRIMARY KEY (id))");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table testing_pk(id integer not null, CONSTRAINT PK_testing_pk PRIMARY KEY (id))");
+                
                 Assert.That(TestPKExists("PK_testing_pk", "testing_pk"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table testing_pk");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
     }

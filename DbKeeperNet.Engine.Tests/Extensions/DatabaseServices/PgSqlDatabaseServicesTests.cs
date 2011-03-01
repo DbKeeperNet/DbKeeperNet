@@ -10,102 +10,43 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [TestFixture]
     [Explicit]
     [Category("pgsql")]
-    public class PgSqlDatabaseServicesTests
+    public class PgSqlDatabaseServicesTests : DatabaseServiceTests<PgSqlDatabaseService>
     {
-        const string CONNECTION_STRING = "pgsql";
-        #region Private helper methods
-        private bool TestForeignKeyExists(string key, string table)
+        protected override string ConnectionString
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.ForeignKeyExists(key, table);
-            }
-            return result;
+            get { return @"pgsql"; }
         }
-        private bool TestIndexExists(string index, string table)
+
+        [SetUp]
+        public void Startup()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.IndexExists(index, table);
-            }
-            return result;
+            CleanupDatabase();
         }
-        private bool TestPKExists(string index, string table)
+
+        [TearDown]
+        public void Shutdown()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.PrimaryKeyExists(index, table);
-            }
-            return result;
+            CleanupDatabase();
         }
-        private bool TestTableExists(string table)
+
+        private void CleanupDatabase()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                result = connectedService.TableExists(table);
+                ExecuteSQLAndIgnoreException(connectedService, "drop table pgsql_testing_table");
+                ExecuteSQLAndIgnoreException(connectedService, "drop view pgsql_testing_view");
+                ExecuteSQLAndIgnoreException(connectedService, "drop table pgsql_testing_ix");
+                ExecuteSQLAndIgnoreException(connectedService, "drop table pgsql_testing_pk");
+                ExecuteSQLAndIgnoreException(connectedService, "drop table pgsql_testing_fk2; drop table pgsql_testing_fk");
             }
-            return result;
         }
-        private bool TestStoredProcedureExists(string procedure)
-        {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.StoredProcedureExists(procedure);
-            }
-            return result;
-        }
-        private bool TestViewExists(string view)
-        {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.ViewExists(view);
-            }
-            return result;
-        }
-        #endregion
         [Test]
         public void TestTableExists()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a table to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table pgsql_testing_table(c char)");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table pgsql_testing_table(c char)");
                 Assert.That(TestTableExists("pgsql_testing_table"), Is.True);
-                // cleanup table
-                try
-                {
-                    connectedService.ExecuteSql("drop table pgsql_testing_table");
-                }
-                catch (DbException)
-                {
-                }
             }
 
         }
@@ -136,9 +77,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestExecuteSql()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
                 connectedService.ExecuteSql("select 1");
             }
@@ -146,10 +85,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestExecuteInvalidSqlStatement()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
             bool success = false;
 
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
                 try
                 {
@@ -183,28 +121,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestViewExists()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create view pgsql_testing_view as select 1 as version");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create view pgsql_testing_view as select 1 as version");
+
                 Assert.That(TestViewExists("pgsql_testing_view"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop view pgsql_testing_view");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -229,28 +150,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [ExpectedException(typeof(NotSupportedException))]
         public void TestIndexExists()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table pgsql_testing_ix(id int not null);CREATE INDEX IX_pgsql_testing_ix on pgsql_testing_ix (id)");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table pgsql_testing_ix(id int not null);CREATE INDEX IX_pgsql_testing_ix on pgsql_testing_ix (id)");
+
                 Assert.That(TestIndexExists("IX_pgsql_testing_ix", "pgsql_testing_ix"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table pgsql_testing_ix");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -275,29 +179,12 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [ExpectedException(typeof(NotSupportedException))]
         public void TestForeignExists()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table pgsql_testing_fk(id int not null, CONSTRAINT PK_pgsql_testing_fk PRIMARY KEY (id))");
-                    connectedService.ExecuteSql("CREATE TABLE pgsql_testing_fk2(rec_id int, CONSTRAINT FK_pgsql_testing_fk FOREIGN KEY (rec_id) REFERENCES pgsql_testing_fk(id))");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table pgsql_testing_fk(id int not null, CONSTRAINT PK_pgsql_testing_fk PRIMARY KEY (id))");
+                ExecuteSQLAndIgnoreException(connectedService, "CREATE TABLE pgsql_testing_fk2(rec_id int, CONSTRAINT FK_pgsql_testing_fk FOREIGN KEY (rec_id) REFERENCES pgsql_testing_fk(id))");
+
                 Assert.That(TestForeignKeyExists("FK_pgsql_testing_fk", "pgsql_testing_fk2"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table pgsql_testing_fk2; drop table pgsql_testing_fk");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -322,28 +209,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [ExpectedException(typeof(NotSupportedException))]
         public void TestPKExists()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table pgsql_testing_pk(id int not null, CONSTRAINT PK_pgsql_testing_pk PRIMARY KEY (id))");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table pgsql_testing_pk(id int not null, CONSTRAINT PK_pgsql_testing_pk PRIMARY KEY (id))");
+
                 Assert.That(TestPKExists("PK_pgsql_testing_pk", "pgsql_testing_pk"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table pgsql_testing_pk");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
     }

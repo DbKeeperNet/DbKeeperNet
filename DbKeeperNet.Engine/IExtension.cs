@@ -6,12 +6,13 @@ namespace DbKeeperNet.Engine
 {
     /// <summary>
     /// Extension bootstrap and marking interface.
-    /// 
+    /// </summary>
+    /// <remarks>
     /// When an extension assembly is loaded, this interfaces
     /// allows registration of all provided services.
     /// 
     /// For examples look on built-in services.
-    /// </summary>
+    /// </remarks>
     public interface IExtension
     {
         /// <summary>

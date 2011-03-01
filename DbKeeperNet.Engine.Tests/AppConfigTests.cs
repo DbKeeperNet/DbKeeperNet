@@ -12,11 +12,7 @@ namespace DbKeeperNet.Engine.Tests
         [Test]
         public void TestDefaultValues()
         {
-            ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap();
-            fileMap.ExeConfigFilename = "TestDefaultValues.config";
-            Configuration config = ConfigurationManager.OpenMappedExeConfiguration(fileMap,
-                                    ConfigurationUserLevel.None);
-            DbKeeperNetConfigurationSection section = (DbKeeperNetConfigurationSection)config.GetSection("dbkeeper.net");
+            DbKeeperNetConfigurationSection section = LoadConfigurationWithDefaultValues();
 
             Assert.That(section.LoggingService, Is.EqualTo("dummy"));
 
@@ -26,14 +22,20 @@ namespace DbKeeperNet.Engine.Tests
             Assert.That(section.UpdateScripts.Count, Is.EqualTo(0));
         }
 
-        [Test]
-        public void TestReadingConfig()
+        private static DbKeeperNetConfigurationSection LoadConfigurationWithDefaultValues()
         {
             ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap();
-            fileMap.ExeConfigFilename = "TestConfiguredValues.config";
+            fileMap.ExeConfigFilename = "TestDefaultValues.config";
             Configuration config = ConfigurationManager.OpenMappedExeConfiguration(fileMap,
                                     ConfigurationUserLevel.None);
             DbKeeperNetConfigurationSection section = (DbKeeperNetConfigurationSection)config.GetSection("dbkeeper.net");
+            return section;
+        }
+
+        [Test]
+        public void TestReadingConfig()
+        {
+            DbKeeperNetConfigurationSection section = LoadConfiguration();
 
             Assert.That(section.LoggingService, Is.EqualTo("fx"));
 
@@ -52,6 +54,16 @@ namespace DbKeeperNet.Engine.Tests
             Assert.That(section.UpdateScripts[0].Location, Is.EqualTo("asm1.xml"));
             Assert.That(section.UpdateScripts[1].Provider, Is.EqualTo("svc"));
             Assert.That(section.UpdateScripts[1].Location, Is.EqualTo("asm2.xml"));
+        }
+
+        private static DbKeeperNetConfigurationSection LoadConfiguration()
+        {
+            ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap();
+            fileMap.ExeConfigFilename = "TestConfiguredValues.config";
+            Configuration config = ConfigurationManager.OpenMappedExeConfiguration(fileMap,
+                                    ConfigurationUserLevel.None);
+            DbKeeperNetConfigurationSection section = (DbKeeperNetConfigurationSection)config.GetSection("dbkeeper.net");
+            return section;
         }
     }
 }

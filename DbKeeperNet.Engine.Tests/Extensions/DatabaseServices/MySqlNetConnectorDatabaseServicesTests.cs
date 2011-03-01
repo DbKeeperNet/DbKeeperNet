@@ -10,104 +10,45 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [TestFixture]
     [Explicit]
     [Category("mysql")]
-    public class MySqlNetConnectorDatabaseServicesTests
+    public class MySqlNetConnectorDatabaseServicesTests: DatabaseServiceTests<MySqlNetConnectorDatabaseService>
     {
-        const string CONNECTION_STRING = "mysql";
-        #region Private helper methods
-        private bool TestForeignKeyExists(string key, string table)
+        protected override string ConnectionString
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.ForeignKeyExists(key, table);
-            }
-            return result;
+            get { return @"mysql"; }
         }
-        private bool TestIndexExists(string index, string table)
+
+        [SetUp]
+        public void Startup()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.IndexExists(index, table);
-            }
-            return result;
+            CleanupDatabase();
         }
-        private bool TestPKExists(string index, string table)
+
+        [TearDown]
+        public void Shutdown()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.PrimaryKeyExists(index, table);
-            }
-            return result;
+            CleanupDatabase();
         }
-        private bool TestTableExists(string table)
+
+        private void CleanupDatabase()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                result = connectedService.TableExists(table);
+                ExecuteSQLAndIgnoreException(connectedService, "drop table mysql_testing_table");
+                ExecuteSQLAndIgnoreException(connectedService, "drop view mysql_testing_view");
+                ExecuteSQLAndIgnoreException(connectedService, "drop table mysql_testing_ix");
+                ExecuteSQLAndIgnoreException(connectedService, "drop table mysql_testing_pk");
+                ExecuteSQLAndIgnoreException(connectedService, "drop table mysql_testing_fk2; drop table mysql_testing_fk");
             }
-            return result;
         }
-        private bool TestStoredProcedureExists(string procedure)
-        {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-            bool result = false;
 
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.StoredProcedureExists(procedure);
-            }
-            return result;
-        }
-        private bool TestViewExists(string view)
-        {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-            bool result = false;
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
-            {
-                result = connectedService.ViewExists(view);
-            }
-            return result;
-        }
-        #endregion
         [Test]
         public void TestTableExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a table to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table mysql_testing_table(c char)");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table mysql_testing_table(c char)");
                 Assert.That(TestTableExists("mysql_testing_table"), Is.True);
-                // cleanup table
-                try
-                {
-                    connectedService.ExecuteSql("drop table mysql_testing_table");
-                }
-                catch (DbException)
-                {
-                }
             }
-
         }
         [Test]
         public void TestTableNotExists()
@@ -136,9 +77,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestExecuteSql()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
                 connectedService.ExecuteSql("select 1");
             }
@@ -146,10 +85,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestExecuteInvalidSqlStatement()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
             bool success = false;
 
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
                 try
                 {
@@ -183,28 +121,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestViewExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create view mysql_testing_view as select 1 as version");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create view mysql_testing_view as select 1 as version");
+                
                 Assert.That(TestViewExists("mysql_testing_view"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop view mysql_testing_view");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -227,28 +148,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestIndexExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table mysql_testing_ix(id int not null);CREATE INDEX IX_mysql_testing_ix on mysql_testing_ix (id)");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table mysql_testing_ix(id int not null);CREATE INDEX IX_mysql_testing_ix on mysql_testing_ix (id)");
+                
                 Assert.That(TestIndexExists("IX_mysql_testing_ix", "mysql_testing_ix"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table mysql_testing_ix");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -271,29 +175,12 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestForeignExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table mysql_testing_fk(id int not null, CONSTRAINT PK_mysql_testing_fk PRIMARY KEY (id))");
-                    connectedService.ExecuteSql("CREATE TABLE mysql_testing_fk2(rec_id int, CONSTRAINT FK_mysql_testing_fk FOREIGN KEY (rec_id) REFERENCES mysql_testing_fk(id))");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table mysql_testing_fk(id int not null, CONSTRAINT PK_mysql_testing_fk PRIMARY KEY (id))");
+                ExecuteSQLAndIgnoreException(connectedService, "CREATE TABLE mysql_testing_fk2(rec_id int, CONSTRAINT FK_mysql_testing_fk FOREIGN KEY (rec_id) REFERENCES mysql_testing_fk(id))");
+                
                 Assert.That(TestForeignKeyExists("FK_mysql_testing_fk", "mysql_testing_fk2"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table mysql_testing_fk2; drop table mysql_testing_fk");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
         [Test]
@@ -316,28 +203,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestPKExists()
         {
-            MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
-
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                // we just need a stored proc to check whether is exists, so don't care about
-                // database failures
-                try
-                {
-                    connectedService.ExecuteSql("create table mysql_testing_pk(id int not null, CONSTRAINT PK_mysql_testing_pk PRIMARY KEY (id))");
-                }
-                catch (DbException)
-                {
-                }
+                ExecuteSQLAndIgnoreException(connectedService, "create table mysql_testing_pk(id int not null, CONSTRAINT PK_mysql_testing_pk PRIMARY KEY (id))");
+                
                 Assert.That(TestPKExists("PK_mysql_testing_pk", "mysql_testing_pk"), Is.True);
-                // cleanup procedure
-                try
-                {
-                    connectedService.ExecuteSql("drop table mysql_testing_pk");
-                }
-                catch (DbException)
-                {
-                }
             }
         }
     }
