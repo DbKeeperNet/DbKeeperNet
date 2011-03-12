@@ -12,9 +12,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [Category("mysql")]
     public class MySqlNetConnectorDatabaseServicesTests: DatabaseServiceTests<MySqlNetConnectorDatabaseService>
     {
-        protected override string ConnectionString
+
+        public MySqlNetConnectorDatabaseServicesTests()
+            : base(@"mysql")
         {
-            get { return @"mysql"; }
         }
 
         [SetUp]
@@ -42,38 +43,12 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        public void TestTableExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                ExecuteSQLAndIgnoreException(connectedService, "create table mysql_testing_table(c char)");
-                Assert.That(TestTableExists("mysql_testing_table"), Is.True);
-            }
-        }
-        [Test]
-        public void TestTableNotExists()
-        {
-            Assert.That(TestTableExists("testing_table"), Is.False);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestTableExistsNullName()
-        {
-            TestTableExists(null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestTableExistsEmptyName()
-        {
-            TestTableExists("");
-        }
-
-        [Test]
         [ExpectedException(typeof(NotSupportedException))]
         public void TestProcedureNotExistsNullName()
         {
             TestStoredProcedureExists(null);
         }
+
         [Test]
         public void TestExecuteSql()
         {
@@ -101,60 +76,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             Assert.That(success, Is.True);
         }
-        [Test]
-        public void TestViewNotExists()
-        {
-            TestViewExists("asddas");
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestViewNotExistsNullName()
-        {
-            TestViewExists(null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestViewNotExistsEmptyName()
-        {
-            TestViewExists("");
-        }
-        [Test]
-        public void TestViewExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                ExecuteSQLAndIgnoreException(connectedService, "create view mysql_testing_view as select 1 as version");
-                
-                Assert.That(TestViewExists("mysql_testing_view"), Is.True);
-            }
-        }
-        [Test]
-        public void TestIndexNotExists()
-        {
-            TestIndexExists("asddas", "asddsa");
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestIndexNotExistsNullName()
-        {
-            TestIndexExists(null, null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestIndexNotExistsEmptyName()
-        {
-            TestIndexExists("", "");
-        }
-        [Test]
-        public void TestIndexExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                ExecuteSQLAndIgnoreException(connectedService, "create table mysql_testing_ix(id int not null);CREATE INDEX IX_mysql_testing_ix on mysql_testing_ix (id)");
-                
-                Assert.That(TestIndexExists("IX_mysql_testing_ix", "mysql_testing_ix"), Is.True);
-            }
-        }
+
         [Test]
         public void TestForeignKeyNotExists()
         {

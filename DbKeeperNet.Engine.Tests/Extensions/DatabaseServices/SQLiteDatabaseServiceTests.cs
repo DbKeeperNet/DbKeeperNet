@@ -12,9 +12,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [Category("sqlite")]
     public class SQLiteDatabaseServiceTests: DatabaseServiceTests<SQLiteDatabaseService>
     {
-        protected override string ConnectionString
+        public SQLiteDatabaseServiceTests()
+            : base(@"sqlite")
         {
-            get { return @"sqlite"; }
         }
 
         [SetUp]
@@ -41,37 +41,6 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 ExecuteSQLAndIgnoreException(connectedService, "drop table testing_pk");
                 ExecuteSQLAndIgnoreException(connectedService, "drop table testing_fk");
             }
-        }
-
-        [Test]
-        public void TestTableExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                // we just need a table to check whether is exists, so don't care about
-                // database failures
-                ExecuteSQLAndIgnoreException(connectedService, "create table dbk_tst(c text)");
-                
-                Assert.That(TestTableExists("dbk_tst"), Is.True);
-            }
-
-        }
-        [Test]
-        public void TestTableNotExists()
-        {
-            Assert.That(TestTableExists("testing_table"), Is.False);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestTableExistsNullName()
-        {
-            TestTableExists(null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestTableExistsEmptyName()
-        {
-            TestTableExists("");
         }
 
         [Test]

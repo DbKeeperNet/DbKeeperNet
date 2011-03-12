@@ -12,9 +12,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [Category("pgsql")]
     public class PgSqlDatabaseServicesTests : DatabaseServiceTests<PgSqlDatabaseService>
     {
-        protected override string ConnectionString
+        public PgSqlDatabaseServicesTests()
+            : base(@"pgsql")
         {
-            get { return @"pgsql"; }
         }
 
         [SetUp]
@@ -40,6 +40,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 ExecuteSQLAndIgnoreException(connectedService, "drop table pgsql_testing_fk2; drop table pgsql_testing_fk");
             }
         }
+        /*
         [Test]
         public void TestTableExists()
         {
@@ -49,25 +50,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 Assert.That(TestTableExists("pgsql_testing_table"), Is.True);
             }
 
-        }
-        [Test]
-        public void TestTableNotExists()
-        {
-            Assert.That(TestTableExists("testing_table"), Is.False);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestTableExistsNullName()
-        {
-            TestTableExists(null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestTableExistsEmptyName()
-        {
-            TestTableExists("");
-        }
-
+        }*/
         [Test]
         [ExpectedException(typeof(NotSupportedException))]
         public void TestProcedureNotExistsNullName()

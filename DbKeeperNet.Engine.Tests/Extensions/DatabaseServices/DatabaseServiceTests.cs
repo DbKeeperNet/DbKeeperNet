@@ -2,24 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data.Common;
+using NUnit.Framework;
+using System.Globalization;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
     public abstract class DatabaseServiceTests<T>
         where T: IDatabaseService, new()
     {
+        protected DatabaseServiceTests(string connectString)
+        {
+            Assert.That(connectString, Is.Not.Empty);
+
+            _connectionString = connectString;
+        }
+
+        private readonly string _connectionString;
+
         protected T CreateConnectedDbService()
         {
             T service = new T();
 
-            return (T) service.CloneForConnectionString(ConnectionString);
+            return (T)service.CloneForConnectionString(_connectionString);
         }
 
-        protected static void ExecuteSQLAndIgnoreException(IDatabaseService service, string sql)
+        protected static void ExecuteSQLAndIgnoreException(IDatabaseService service, string sql, params object[] args)
         {
             try
             {
-                service.ExecuteSql(sql);
+                string command = String.Format(CultureInfo.InvariantCulture, sql, args);
+
+                service.ExecuteSql(command);
             }
             catch (DbException)
             {
@@ -69,16 +82,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             return result;
         }
 
-        protected bool TestTableExists(string table)
-        {
-            bool result = false;
-
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                result = connectedService.TableExists(table);
-            }
-            return result;
-        }
+        
         protected bool TestStoredProcedureExists(string procedure)
         {
             bool result = false;
@@ -101,7 +105,5 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             return result;
         }
         #endregion
-
-        protected abstract string ConnectionString { get; }
     }
 }

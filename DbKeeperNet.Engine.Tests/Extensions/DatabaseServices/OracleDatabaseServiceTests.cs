@@ -13,6 +13,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [Category("oracle")]
     public class OracleDatabaseServiceTests: DatabaseServiceTests<OracleDatabaseService>
     {
+        public OracleDatabaseServiceTests()
+            : base(@"oracle")
+        {
+        }
         #region Private helpers
         protected bool TestSequenceExists(string sequence)
         {
@@ -25,13 +29,6 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             return result;
         }
         #endregion
-        protected override string ConnectionString
-        {
-            get
-            {
-                return @"oracle";
-            }
-        }
 
         [SetUp]
         public void Startup()
@@ -65,40 +62,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 ExecuteSQLAndIgnoreException(connectedService, "drop sequence \"ora_testing_seq\"");
             }
         }
-        [Test]
-        public void TestTableExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateTable(connectedService);
-                
-                Assert.That(TestTableExists("ora_testing_table"), Is.True);
-            }
-
-        }
 
         private static void CreateTable(IDatabaseService connectedService)
         {
             ExecuteSQLAndIgnoreException(connectedService, "create table \"ora_testing_table\"(c varchar(2))");
         }
-        [Test]
-        public void TestTableNotExists()
-        {
-            Assert.That(TestTableExists("testing_table"), Is.False);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestTableExistsNullName()
-        {
-            TestTableExists(null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestTableExistsEmptyName()
-        {
-            TestTableExists("");
-        }
-
         [Test]
         public void TestProcedureNotExists()
         {
