@@ -97,7 +97,6 @@
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceIndexTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceStoredProcedureTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceTableTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceViewTests.cs" />

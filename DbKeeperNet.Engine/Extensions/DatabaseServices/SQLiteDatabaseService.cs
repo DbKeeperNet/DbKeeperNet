@@ -65,9 +65,6 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public bool StoredProcedureExists(string procedureName)
         {
-            if (String.IsNullOrEmpty(procedureName))
-                throw new ArgumentNullException("procedureName");
-
             throw new NotSupportedException();
         }
 

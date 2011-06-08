@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 using System.Data.Common;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
@@ -15,6 +13,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         public SQLiteDatabaseServiceTests()
             : base(@"sqlite")
         {
+        }
+        [Test]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void StoredProcedureExistsShouldThrowNotSupportedException()
+        {
+            using (IDatabaseService connectedService = CreateConnectedDbService())
+            {
+                connectedService.StoredProcedureExists(string.Empty);
+            }
         }
 
         [Test]
