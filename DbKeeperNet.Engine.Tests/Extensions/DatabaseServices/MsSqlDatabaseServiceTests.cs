@@ -13,37 +13,12 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [Category("mssql")]
     public class MsSqlDatabaseServiceTests: DatabaseServiceTests<MsSqlDatabaseService>
     {
+        private const string APP_CONFIG_CONNECT_STRING = @"mssql";
+
         public MsSqlDatabaseServiceTests()
-            : base(@"mssql")
+            : base(APP_CONFIG_CONNECT_STRING)
         {
-        }
-
-        [SetUp]
-        public void Startup()
-        {
-            CleanupDatabase();
-        }
-
-        [TearDown]
-        public void Shutdown()
-        {
-            CleanupDatabase();
-        }
-
-        private void CleanupDatabase()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                ExecuteSQLAndIgnoreException(connectedService, "drop table mssql_testing_table");
-                ExecuteSQLAndIgnoreException(connectedService, "drop procedure mssql_testing_proc");
-                ExecuteSQLAndIgnoreException(connectedService, "drop view mssql_testing_view");
-                ExecuteSQLAndIgnoreException(connectedService, "drop table mssql_testing_ix");
-                ExecuteSQLAndIgnoreException(connectedService, "drop table mssql_testing_fk");
-                ExecuteSQLAndIgnoreException(connectedService, "drop table mssql_testing_pk");
-                ExecuteSQLAndIgnoreException(connectedService, "drop table mssql_testing_tr");
-            }
-        }
-        
+        }    
         
         [Test]
         public void TestExecuteSql()

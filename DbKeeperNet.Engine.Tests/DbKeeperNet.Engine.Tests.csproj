@@ -82,6 +82,8 @@
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceTriggerTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceViewTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceForeignKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlDatabaseServiceForeignKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlDatabaseServicePrimaryKeyTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesIndexTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesTests.cs" />

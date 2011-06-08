@@ -7,6 +7,8 @@ using DbKeeperNet.Engine.Extensions.DatabaseServices;
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
     [TestFixture]
+    [Explicit]
+    [Category("mssql")]
     public class MsSqlDatabaseServiceTableTests: DatabaseServiceTableTests<MsSqlDatabaseService>
     {
         private const string APP_CONFIG_CONNECT_STRING = @"mssql";
