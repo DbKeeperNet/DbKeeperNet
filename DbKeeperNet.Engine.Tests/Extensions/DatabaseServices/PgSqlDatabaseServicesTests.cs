@@ -36,21 +36,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 ExecuteSQLAndIgnoreException(connectedService, "drop table pgsql_testing_table");
                 ExecuteSQLAndIgnoreException(connectedService, "drop view pgsql_testing_view");
                 ExecuteSQLAndIgnoreException(connectedService, "drop table pgsql_testing_ix");
-                ExecuteSQLAndIgnoreException(connectedService, "drop table pgsql_testing_pk");
                 ExecuteSQLAndIgnoreException(connectedService, "drop table pgsql_testing_fk2; drop table pgsql_testing_fk");
             }
         }
-        /*
-        [Test]
-        public void TestTableExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                ExecuteSQLAndIgnoreException(connectedService, "create table pgsql_testing_table(c char)");
-                Assert.That(TestTableExists("pgsql_testing_table"), Is.True);
-            }
-
-        }*/
         [Test]
         [ExpectedException(typeof(NotSupportedException))]
         public void TestProcedureNotExistsNullName()
