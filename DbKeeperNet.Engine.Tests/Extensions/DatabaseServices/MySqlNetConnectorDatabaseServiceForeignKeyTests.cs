@@ -9,11 +9,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [TestFixture]
     [Explicit]
     [Category("mysql")]
-    public class MySqlDatabaseServiceForeignKeyTests : DatabaseServiceForeignKeyTests<MySqlNetConnectorDatabaseService>
+    public class MySqlNetConnectorDatabaseServiceForeignKeyTests : DatabaseServiceForeignKeyTests<MySqlNetConnectorDatabaseService>
     {
         private const string APP_CONFIG_CONNECT_STRING = @"mysql";
 
-        public MySqlDatabaseServiceForeignKeyTests()
+        public MySqlNetConnectorDatabaseServiceForeignKeyTests()
             : base(APP_CONFIG_CONNECT_STRING)
         {
         }

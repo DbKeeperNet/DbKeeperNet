@@ -82,8 +82,8 @@
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceTriggerTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceViewTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceForeignKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlDatabaseServiceForeignKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlDatabaseServicePrimaryKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceForeignKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicePrimaryKeyTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesIndexTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesTests.cs" />
@@ -93,9 +93,14 @@
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServicesTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceForeignKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceIndexTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceLiveTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServicePrimaryKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceStoredProcedureTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceTableTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceViewTests.cs" />
     <Compile Include="Extensions\Preconditions\DbForeignKeyNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbIndexNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbProcedureNotFoundTests.cs" />
