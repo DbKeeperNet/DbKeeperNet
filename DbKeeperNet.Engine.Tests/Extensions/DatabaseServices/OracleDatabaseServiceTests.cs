@@ -67,38 +67,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             ExecuteSQLAndIgnoreException(connectedService, "create table \"ora_testing_table\"(c varchar(2))");
         }
-        [Test]
-        public void TestProcedureNotExists()
-        {
-            TestStoredProcedureExists("asddas");
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestProcedureNotExistsNullName()
-        {
-            TestStoredProcedureExists(null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestProcedureNotExistsEmptyName()
-        {
-            TestStoredProcedureExists("");
-        }
-        [Test]
-        public void TestStoredProcedureExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateStoredProcedure(connectedService);
-                
-                Assert.That(TestStoredProcedureExists("ora_testing_proc"), Is.True);
-            }
-        }
 
-        private static void CreateStoredProcedure(IDatabaseService connectedService)
-        {
-            ExecuteSQLAndIgnoreException(connectedService, "create procedure \"ora_testing_proc\" as select 1");
-        }
         [Test]
         public void TestExecuteSql()
         {
@@ -160,38 +129,6 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             ExecuteSQLAndIgnoreException(connectedService, "create view \"ora_testing_view\" as select * from \"ora_testing_tv\"");
         }
 
-        [Test]
-        public void TestPKNotExists()
-        {
-            TestPKExists("asddas", "asddsa");
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestPKNotExistsNullName()
-        {
-            TestPKExists(null, null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestPKNotExistsEmptyName()
-        {
-            TestPKExists("", "");
-        }
-        [Test]
-        public void TestPKExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateNamedPrimaryKey(connectedService);
-
-                Assert.That(TestPKExists("PK_ora_testing_pk", "ora_testing_pk"), Is.True);
-            }
-        }
-
-        private static void CreateNamedPrimaryKey(IDatabaseService connectedService)
-        {
-            ExecuteSQLAndIgnoreException(connectedService, "create table \"ora_testing_pk\"(id numeric(9,0) not null, CONSTRAINT \"PK_ora_testing_pk\" PRIMARY KEY (id))");
-        }
         [Test]
         public void TestTriggerNotExists()
         {
