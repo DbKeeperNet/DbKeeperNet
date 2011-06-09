@@ -73,33 +73,6 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             Assert.That(success, Is.True);
         }
         [Test]
-        public void TestViewNotExists()
-        {
-            TestViewExists("asddas");
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestViewNotExistsNullName()
-        {
-            TestViewExists(null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestViewNotExistsEmptyName()
-        {
-            TestViewExists("");
-        }
-        [Test]
-        public void TestViewExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                ExecuteSQLAndIgnoreException(connectedService, "create view pgsql_testing_view as select 1 as version");
-
-                Assert.That(TestViewExists("pgsql_testing_view"), Is.True);
-            }
-        }
-        [Test]
         [ExpectedException(typeof(NotSupportedException))]
         public void TestIndexNotExists()
         {

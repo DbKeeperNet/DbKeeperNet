@@ -96,6 +96,7 @@
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServicesTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceTableTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceViewTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceForeignKeyTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceIndexTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceLiveTests.cs" />
