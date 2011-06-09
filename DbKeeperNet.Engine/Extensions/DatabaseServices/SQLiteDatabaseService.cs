@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Configuration;
 using System.Data.Common;
 using System.Globalization;
 using DbKeeperNet.Engine.Resources;
 using System.Reflection;
 using System.Data;
-using System.Diagnostics;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
@@ -42,7 +39,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         #region IDatabaseService Members
 
-        public System.Data.Common.DbConnection Connection
+        public DbConnection Connection
         {
             get { return _connection; }
         }

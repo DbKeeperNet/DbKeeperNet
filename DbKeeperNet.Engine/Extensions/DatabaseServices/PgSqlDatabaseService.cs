@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Configuration;
 using System.Data.Common;
 using System.Globalization;
@@ -75,20 +73,10 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         }
         public bool IndexExists(string indexName, string table)
         {
-            if (String.IsNullOrEmpty(indexName))
-                throw new ArgumentNullException("indexName");
-            if (String.IsNullOrEmpty(table))
-                throw new ArgumentNullException("table");
-
             throw new NotSupportedException();
         }
         public bool PrimaryKeyExists(string primaryKeyName, string table)
         {
-            if (String.IsNullOrEmpty(primaryKeyName))
-                throw new ArgumentNullException("primaryKeyName");
-            if (String.IsNullOrEmpty(table))
-                throw new ArgumentNullException("table");
-
             throw new NotSupportedException();
         }
 
@@ -99,11 +87,6 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public bool ForeignKeyExists(string foreignKeyName, string table)
         {
-            if (String.IsNullOrEmpty(foreignKeyName))
-                throw new ArgumentNullException("foreignKeyName");
-            if (String.IsNullOrEmpty(table))
-                throw new ArgumentNullException("table");
-
             throw new NotSupportedException();
         }
         public string Name

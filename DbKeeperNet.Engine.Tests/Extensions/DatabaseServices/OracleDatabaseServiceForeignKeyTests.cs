@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
 using NUnit.Framework;
 
@@ -20,12 +17,12 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         protected override void CreateNamedForeignKey(IDatabaseService connectedService, string tableName, string foreignKeyName)
         {
-            ExecuteSQLAndIgnoreException(connectedService, "create table \"{0}\"(id numeric(9,0) not null, rec_id numeric(9,0), CONSTRAINT \"PK_ora_testing_fk\" PRIMARY KEY (id), CONSTRAINT \"{1}\" FOREIGN KEY (rec_id) REFERENCES \"{0}\"(id))", tableName, foreignKeyName);
+            ExecuteSqlAndIgnoreException(connectedService, "create table \"{0}\"(id numeric(9,0) not null, rec_id numeric(9,0), CONSTRAINT \"PK_ora_testing_fk\" PRIMARY KEY (id), CONSTRAINT \"{1}\" FOREIGN KEY (rec_id) REFERENCES \"{0}\"(id))", tableName, foreignKeyName);
         }
 
         protected override void DropNamedForeignKey(IDatabaseService connectedService, string tableName, string foreignKeyName)
         {
-            ExecuteSQLAndIgnoreException(connectedService, "drop table \"{0}\"", tableName);
+            ExecuteSqlAndIgnoreException(connectedService, "drop table \"{0}\"", tableName);
         }
     }
 }

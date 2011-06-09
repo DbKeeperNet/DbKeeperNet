@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
 
@@ -20,12 +17,12 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         protected override void CreateNamedPrimaryKey(IDatabaseService connectedService, string tableName, string primaryKeyName)
         {
-            ExecuteSQLAndIgnoreException(connectedService, "create table {0}(id int not null, CONSTRAINT {1} PRIMARY KEY (id))", tableName, primaryKeyName);
+            ExecuteSqlAndIgnoreException(connectedService, "create table {0}(id int not null, CONSTRAINT {1} PRIMARY KEY (id))", tableName, primaryKeyName);
         }
 
         protected override void DropNamedPrimaryKey(IDatabaseService connectedService, string tableName, string primaryKeyName)
         {
-            ExecuteSQLAndIgnoreException(connectedService, "drop table {0}", tableName);
+            ExecuteSqlAndIgnoreException(connectedService, "drop table {0}", tableName);
         }
     }
 }

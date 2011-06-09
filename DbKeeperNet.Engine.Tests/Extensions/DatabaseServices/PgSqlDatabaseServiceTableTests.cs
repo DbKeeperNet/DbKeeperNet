@@ -19,12 +19,12 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         protected override void CreateTable(IDatabaseService connectedService, string tableName)
         {
-            ExecuteSQLAndIgnoreException(connectedService, "create table {0}(c char)", tableName);
+            ExecuteSqlAndIgnoreException(connectedService, "create table {0}(c char)", tableName);
         }
 
         protected override void DropTable(IDatabaseService connectedService, string tableName)
         {
-            ExecuteSQLAndIgnoreException(connectedService, "drop table {0}", tableName);
+            ExecuteSqlAndIgnoreException(connectedService, "drop table {0}", tableName);
         }
     }
 }

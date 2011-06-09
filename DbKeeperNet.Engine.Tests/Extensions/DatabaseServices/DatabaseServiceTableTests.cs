@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
@@ -17,7 +15,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         private bool TestTableExists(string table)
         {
-            bool result = false;
+            bool result;
 
             using (IDatabaseService connectedService = CreateConnectedDbService())
             {

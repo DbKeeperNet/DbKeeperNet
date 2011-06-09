@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 
 namespace DbKeeperNet.Engine
@@ -34,7 +32,7 @@ namespace DbKeeperNet.Engine
         ILoggingService Logger { get; }
         /// <summary>
         /// Verify precondition identified by <paramref name="name"/>
-        /// with optional parameter <paramref name="param"/>.
+        /// with optional parameter <paramref name="parameters"/>.
         /// </summary>
         /// <param name="name">Precondition identifier.</param>
         /// <param name="parameters">Optional parameter</param>

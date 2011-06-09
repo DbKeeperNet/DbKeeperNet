@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Engine.Tests
 {
     public sealed class CustomUpdateStep: ICustomUpdateStep
     {
-        public static bool Executed = false;
+        public static bool Executed;
 
         public CustomUpdateStep()
         {

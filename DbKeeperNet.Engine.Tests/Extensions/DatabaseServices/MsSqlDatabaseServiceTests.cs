@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
 using System.Data.Common;
-using System.Diagnostics;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
@@ -47,7 +43,5 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             Assert.That(success, Is.True);
         }
-
-        
     }
 }

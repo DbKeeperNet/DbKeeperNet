@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
@@ -17,6 +15,18 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         protected abstract void CreateView(IDatabaseService connectedService, string viewName);
         protected abstract void DropView(IDatabaseService connectedService, string viewName);
+
+
+        protected bool TestViewExists(string view)
+        {
+            bool result;
+
+            using (IDatabaseService connectedService = CreateConnectedDbService())
+            {
+                result = connectedService.ViewExists(view);
+            }
+            return result;
+        }
 
         [SetUp]
         public void SetUp()

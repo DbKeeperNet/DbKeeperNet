@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using DbKeeperNet.Engine.Tests.Extensions.DatabaseServices;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
@@ -38,39 +35,34 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        public void TestPKNotExists()
+        public void TestPrimaryKeyDoesNotExists()
         {
-            TestPKExists(TABLE_NAME, PRIMARY_KEY_NAME);
+            TestPrimaryKeyExists(TABLE_NAME, PRIMARY_KEY_NAME);
         }
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void TestPKNotExistsNullName()
+        public void TestPrimaryKeyNotExistsNullName()
         {
-            TestPKExists(null, null);
+            TestPrimaryKeyExists(null, null);
         }
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void TestPKNotExistsEmptyName()
+        public void TestPrimaryKeyNotExistsEmptyName()
         {
-            TestPKExists("", "");
+            TestPrimaryKeyExists("", "");
         }
         [Test]
-        public void TestPKExists()
+        public void TestPrimaryKeyExists()
         {
             using (IDatabaseService connectedService = CreateConnectedDbService())
             {
                 CreateNamedPrimaryKey(connectedService, TABLE_NAME, PRIMARY_KEY_NAME);
                 
-                Assert.That(TestPKExists(PRIMARY_KEY_NAME, TABLE_NAME), Is.True);
+                Assert.That(TestPrimaryKeyExists(PRIMARY_KEY_NAME, TABLE_NAME), Is.True);
             }
         }
 
         protected abstract void CreateNamedPrimaryKey(IDatabaseService connectedService, string tableName, string primaryKeyName);
         protected abstract void DropNamedPrimaryKey(IDatabaseService connectedService, string tableName, string primaryKeyName);
-        /*
-        {
-            ExecuteSQLAndIgnoreException(connectedService, "create table mssql_testing_pk(id int not null, CONSTRAINT PK_mssql_testing_pk PRIMARY KEY (id))");
-        }
-        */
     }
 }

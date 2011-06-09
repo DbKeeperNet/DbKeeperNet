@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
 using System.Data.Common;
-using System.Diagnostics;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
@@ -13,15 +10,17 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [Category("oracle")]
     public class OracleDatabaseServiceTests: DatabaseServiceTests<OracleDatabaseService>
     {
+        private const string APP_CONFIG_CONNECT_STRING = @"oracle";
+
         public OracleDatabaseServiceTests()
-            : base(@"oracle")
+            : base(APP_CONFIG_CONNECT_STRING)
         {
         }
 
         #region Private helpers
         protected bool TestSequenceExists(string sequence)
         {
-            bool result = false;
+            bool result;
 
             using (OracleDatabaseService connectedService = CreateConnectedDbService())
             {
@@ -48,7 +47,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                ExecuteSQLAndIgnoreException(connectedService, "drop sequence \"ora_testing_seq\"");
+                ExecuteSqlAndIgnoreException(connectedService, "drop sequence \"ora_testing_seq\"");
             }
         }
 
@@ -110,7 +109,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         private static void CreateSequence(IDatabaseService connectedService)
         {
-            ExecuteSQLAndIgnoreException(connectedService, "create sequence \"ora_testing_seq\"");
+            ExecuteSqlAndIgnoreException(connectedService, "create sequence \"ora_testing_seq\"");
         }
     }
 }

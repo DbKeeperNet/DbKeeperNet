@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
 using NUnit.Framework;
 
@@ -21,8 +18,8 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         protected override void CreateDatabaseTrigger(IDatabaseService connectedService, string triggerName)
         {
-            ExecuteSQLAndIgnoreException(connectedService, @"create table {0} (id numeric(9,0) not null, id2 numeric(9,0))", TESTING_TABLE);
-            ExecuteSQLAndIgnoreException(connectedService, @"create trigger {0} on {1} after insert               
+            ExecuteSqlAndIgnoreException(connectedService, @"create table {0} (id numeric(9,0) not null, id2 numeric(9,0))", TESTING_TABLE);
+            ExecuteSqlAndIgnoreException(connectedService, @"create trigger {0} on {1} after insert               
         		  as
 		            update mssql_testing_tr set id2 = id", triggerName, TESTING_TABLE
                 );
@@ -30,7 +27,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         protected override void DropDatabaseTrigger(IDatabaseService connectedService, string triggerName)
         {
-            ExecuteSQLAndIgnoreException(connectedService, @"drop table {0}", TESTING_TABLE);
+            ExecuteSqlAndIgnoreException(connectedService, @"drop table {0}", TESTING_TABLE);
         }
     }
 }

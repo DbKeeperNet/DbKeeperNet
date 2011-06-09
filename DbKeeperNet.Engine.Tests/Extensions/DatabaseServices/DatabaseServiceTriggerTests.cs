@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
@@ -65,5 +63,16 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         protected abstract void CreateDatabaseTrigger(IDatabaseService connectedService, string triggerName);
         protected abstract void DropDatabaseTrigger(IDatabaseService connectedService, string triggerName);
+
+        protected bool TestTriggerExists(string trigger)
+        {
+            bool result;
+
+            using (IDatabaseService connectedService = CreateConnectedDbService())
+            {
+                result = connectedService.TriggerExists(trigger);
+            }
+            return result;
+        }
     }
 }

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace DbKeeperNet.Engine.Extensions.LoggingServices
 {
     public sealed class LoggingServicesExtension: IExtension

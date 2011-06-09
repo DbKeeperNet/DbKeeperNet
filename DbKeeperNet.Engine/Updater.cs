@@ -84,7 +84,7 @@ namespace DbKeeperNet.Engine
             _context.Logger.TraceInformation(UpdaterMessages.ExecutingUpdatesForAssemblyFinished, _context.CurrentAssemblyName);
         }
 
-        bool CheckStepPreconditions(PreconditionType[] preconditions)
+        bool CheckStepPreconditions(IEnumerable<PreconditionType> preconditions)
         {
             _context.Logger.TraceInformation(UpdaterMessages.CheckingStepPreconditions, _context.CurrentStep);
 
@@ -242,7 +242,7 @@ namespace DbKeeperNet.Engine
             _context.Logger.TraceInformation(UpdaterMessages.FinishedVersion, update.Version, update.FriendlyName);
         }
 
-        private static string DumpParams(PreconditionParamType[] param)
+        private static string DumpParams(IEnumerable<PreconditionParamType> param)
         {
             StringBuilder builder = new StringBuilder();
 

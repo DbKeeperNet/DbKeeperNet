@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Data.Common;
 using NUnit.Framework;
 using System.Globalization;
@@ -26,7 +24,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             return (T)service.CloneForConnectionString(_connectionString);
         }
 
-        protected static void ExecuteSQLAndIgnoreException(IDatabaseService service, string sql, params object[] args)
+        protected static void ExecuteSqlAndIgnoreException(IDatabaseService service, string sql, params object[] args)
         {
             try
             {
@@ -43,7 +41,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         #region Private helper methods
         protected bool TestForeignKeyExists(string key, string table)
         {
-            bool result = false;
+            bool result;
 
             using (IDatabaseService connectedService = CreateConnectedDbService())
             {
@@ -53,7 +51,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
         protected bool TestIndexExists(string index, string table)
         {
-            bool result = false;
+            bool result;
 
             using (IDatabaseService connectedService = CreateConnectedDbService())
             {
@@ -61,9 +59,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             }
             return result;
         }
-        protected bool TestPKExists(string index, string table)
+        protected bool TestPrimaryKeyExists(string index, string table)
         {
-            bool result = false;
+            bool result;
 
             using (IDatabaseService connectedService = CreateConnectedDbService())
             {
@@ -71,36 +69,14 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             }
             return result;
         }
-        protected bool TestTriggerExists(string trigger)
-        {
-            bool result = false;
-
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                result = connectedService.TriggerExists(trigger);
-            }
-            return result;
-        }
-
         
         protected bool TestStoredProcedureExists(string procedure)
         {
-            bool result = false;
+            bool result;
 
             using (IDatabaseService connectedService = CreateConnectedDbService())
             {
                 result = connectedService.StoredProcedureExists(procedure);
-            }
-            return result;
-        }
-
-        protected bool TestViewExists(string view)
-        {
-            bool result = false;
-
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                result = connectedService.ViewExists(view);
             }
             return result;
         }
