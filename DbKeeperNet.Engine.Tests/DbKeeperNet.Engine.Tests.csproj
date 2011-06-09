@@ -94,7 +94,10 @@
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServicePrimaryKeyTests.cs" />
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceStoredProcedureTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTableTests.cs" />
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTriggerTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceViewTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServicesTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceTableTests.cs" />
