@@ -159,71 +159,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             ExecuteSQLAndIgnoreException(connectedService, "create table \"ora_testing_tv\" (c varchar(2))");
             ExecuteSQLAndIgnoreException(connectedService, "create view \"ora_testing_view\" as select * from \"ora_testing_tv\"");
         }
-        [Test]
-        public void TestIndexNotExists()
-        {
-            TestIndexExists("asddas", "asddsa");
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestIndexNotExistsNullName()
-        {
-            TestIndexExists(null, null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestIndexNotExistsEmptyName()
-        {
-            TestIndexExists("", "");
-        }
-        [Test]
-        public void TestIndexExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateTableWithNamedIndex(connectedService);
-                
-                Assert.That(TestIndexExists("IX_ora_testing_ix", "ora_testing_ix"), Is.True);
-            }
-        }
 
-        private static void CreateTableWithNamedIndex(IDatabaseService connectedService)
-        {
-            ExecuteSQLAndIgnoreException(connectedService, "create table \"ora_testing_ix\"(id int not null)");
-            ExecuteSQLAndIgnoreException(connectedService, "CREATE INDEX \"IX_ora_testing_ix\" on \"ora_testing_ix\" (id)");
-        }
-        [Test]
-        public void TestForeignKeyNotExists()
-        {
-            TestForeignKeyExists("asddas", "asdsa");
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestForeignKeyNotExistsNullName()
-        {
-            TestForeignKeyExists(null, null);
-        }
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void TestForeignKeyNotExistsEmptyName()
-        {
-            TestForeignKeyExists("", "");
-        }
-        [Test]
-        public void TestForeignExists()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateNamedForeignKey(connectedService);
-                
-                Assert.That(TestForeignKeyExists("FK_ora_testing_fk", "ora_testing_fk"), Is.True);
-            }
-        }
-
-        private static void CreateNamedForeignKey(IDatabaseService connectedService)
-        {
-            ExecuteSQLAndIgnoreException(connectedService, "create table \"ora_testing_fk\"(id numeric(9,0) not null, rec_id numeric(9,0), CONSTRAINT \"PK_ora_testing_fk\" PRIMARY KEY (id), CONSTRAINT \"FK_ora_testing_fk\" FOREIGN KEY (rec_id) REFERENCES \"ora_testing_fk\"(id))");
-        }
         [Test]
         public void TestPKNotExists()
         {

@@ -89,6 +89,8 @@
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceTableTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceViewTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceForeignKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceIndexTests.cs" />
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceLiveTests.cs" />
