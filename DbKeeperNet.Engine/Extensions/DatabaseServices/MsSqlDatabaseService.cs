@@ -15,9 +15,12 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// </summary>
     public sealed class MsSqlDatabaseService : IDatabaseService
     {
-        DbConnection _connection;
-        DbTransaction _transaction;
+        #region Private member variables
+        private DbConnection _connection;
+        private DbTransaction _transaction;
+        #endregion
 
+        #region Constructors
         public MsSqlDatabaseService()
         {
         }
@@ -36,6 +39,8 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             _connection.ConnectionString = connectString.ConnectionString;
             _connection.Open();
         }
+
+        #endregion
 
         #region IDatabaseService Members
 

@@ -9,8 +9,13 @@ using System.Globalization;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
+    /// <summary>
+    /// Database services for MySQL servers connected via MySQLNetConnector.
+    /// Service name for configuration file: MySqlNet
+    /// </summary>
     public class MySqlNetConnectorDatabaseService : IDatabaseService
     {
+        #region Private member variables
         private DbConnection _connection;
         private DbTransaction _transaction;
         private DbProviderFactory _factory;
@@ -20,11 +25,34 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         private DbCommand _versionInsert;
         private DbCommand _stepSelect;
         private DbCommand _stepInsert;
-        private DbCommand _stepExecutedQuery;
+        private DbCommand _stepExecutedQuery; 
+        #endregion
 
+        #region Constructors
         public MySqlNetConnectorDatabaseService()
         {
         }
+        private MySqlNetConnectorDatabaseService(string connectionString)
+        {
+            if (String.IsNullOrEmpty(connectionString))
+                throw new ArgumentNullException("connectionString");
+
+            ConnectionStringSettings connectString = ConfigurationManager.ConnectionStrings[connectionString];
+
+            if (connectString == null)
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionStringNotFound, connectionString));
+
+            _factory = DbProviderFactories.GetFactory(connectString.ProviderName);
+            if (_factory == null)
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionStringNotFound, connectString.ProviderName));
+
+            _connection = _factory.CreateConnection();
+            _connection.ConnectionString = connectString.ConnectionString;
+            _connection.Open();
+
+            SetupDbCommands();
+        } 
+        #endregion
 
         #region IDatabaseService Members
 
@@ -303,27 +331,6 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         #endregion
 
         #region Private methods
-        private MySqlNetConnectorDatabaseService(string connectionString)
-        {
-            if (String.IsNullOrEmpty(connectionString))
-                throw new ArgumentNullException("connectionString");
-
-            ConnectionStringSettings connectString = ConfigurationManager.ConnectionStrings[connectionString];
-
-            if (connectString == null)
-                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionStringNotFound, connectionString));
-
-            _factory = DbProviderFactories.GetFactory(connectString.ProviderName);
-            if (_factory == null)
-                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionStringNotFound, connectString.ProviderName));
-
-            _connection = _factory.CreateConnection();
-            _connection.ConnectionString = connectString.ConnectionString;
-            _connection.Open();
-
-            SetupDbCommands();
-        }
-
         private void SetupDbCommands()
         {
             SetupAssemblyDbCommands();

@@ -9,23 +9,26 @@ using System.Reflection;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
-/// <summary>
+    /// <summary>
     /// Database services for Oracle .NET provider.
     /// Service name for configuration file: Oracle
     /// </summary>
     public sealed class OracleDatabaseService : IDatabaseService
     {
+        #region Private member variables
         private DbConnection _connection;
         private DbTransaction _transaction;
-        
+
         private DbCommand _assemblySelect;
         private DbCommand _assemblyInsert;
         private DbCommand _versionSelect;
         private DbCommand _versionInsert;
         private DbCommand _stepSelect;
         private DbCommand _stepInsert;
-        private DbCommand _stepExecutedQuery;
+        private DbCommand _stepExecutedQuery; 
+        #endregion
 
+        #region Constructors
         public OracleDatabaseService()
         {
         }
@@ -45,7 +48,8 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             _connection.Open();
 
             SetupDbCommands();
-        }
+        } 
+        #endregion
 
         public bool SequenceExists(string name)
         {

@@ -12,7 +12,6 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 throw new ArgumentNullException("context");
 
             context.RegisterDatabaseService(new MsSqlDatabaseService());
-            //  Those are not implemented yet
             context.RegisterDatabaseService(new MySqlNetConnectorDatabaseService());
             context.RegisterDatabaseService(new OracleDatabaseService());
 
