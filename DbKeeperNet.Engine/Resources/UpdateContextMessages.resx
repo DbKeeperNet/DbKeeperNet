@@ -149,6 +149,10 @@
     <value>Database service '{0}' not registered</value>
     <comment>Database service '{0}' not registered</comment>
   </data>
+  <data name="InitializedUsingInstantiatedDatabaseService" xml:space="preserve">
+    <value>Context initialized using database service instance '{0}'</value>
+    <comment>Context initialized using database service instance '{0}'</comment>
+  </data>
   <data name="LoggingServiceAlreadyRegistered" xml:space="preserve">
     <value>Logging service '{0}' already registered</value>
     <comment>Logging service '{0}' already registered</comment>

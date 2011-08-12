@@ -26,6 +26,23 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         {
         }
 
+        /// <summary>
+        /// Initialize instanace of database service using given database
+        /// connection
+        /// </summary>
+        /// <remarks>Database connection must be opened and is released automatically</remarks>
+        /// <param name="databaseConnection"></param>
+        public PgSqlDatabaseService(DbConnection databaseConnection)
+        {
+            if (databaseConnection == null)
+                throw new ArgumentNullException(@"databaseConnection");
+
+            if (databaseConnection.State != ConnectionState.Open)
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionMustBeOpened, databaseConnection.State));
+
+            _connection = databaseConnection;
+        }
+
         #region IDatabaseService Members
 
         public DbConnection Connection

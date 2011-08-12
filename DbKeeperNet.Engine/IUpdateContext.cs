@@ -83,6 +83,11 @@ namespace DbKeeperNet.Engine
         /// <param name="connectionString">Connection string name within App.Config</param>
         void InitializeDatabaseService(string connectionString);
         /// <summary>
+        /// Initialize database service by passing an instance of <see cref="IDatabaseService"/>.
+        /// </summary>
+        /// <param name="databaseService">Instance of database service.</param>
+        void InitializeDatabaseService(IDatabaseService databaseService);
+        /// <summary>
         /// Force manual logging service initialization based on its name.
         /// If this method is not called, logging service from App.Config
         /// should be automatically initialized at the moment it's first time

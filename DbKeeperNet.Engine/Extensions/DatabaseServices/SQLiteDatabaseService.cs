@@ -15,8 +15,26 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// <remarks>Available from SourceForge: http://sourceforge.net/projects/sqlite-dotnet2/</remarks>
     public sealed class SQLiteDatabaseService: IDatabaseService
     {
+        #region Constructors
         public SQLiteDatabaseService()
         {
+        }
+
+        /// <summary>
+        /// Initialize instanace of database service using given database
+        /// connection
+        /// </summary>
+        /// <remarks>Database connection must be opened and is released automatically</remarks>
+        /// <param name="databaseConnection"></param>
+        public SQLiteDatabaseService(DbConnection databaseConnection)
+        {
+            if (databaseConnection == null)
+                throw new ArgumentNullException(@"databaseConnection");
+
+            if (databaseConnection.State != ConnectionState.Open)
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionMustBeOpened, databaseConnection.State));
+
+            _connection = databaseConnection;
         }
 
         private SQLiteDatabaseService(string connectionString)
@@ -36,6 +54,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             SetupDbCommands();
         }
 
+        #endregion
 
         #region IDatabaseService Members
 

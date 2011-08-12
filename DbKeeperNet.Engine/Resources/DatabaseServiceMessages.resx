@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConnectionMustBeOpened" xml:space="preserve">
+    <value>Database connection must be in open state but its state is {0}</value>
+    <comment>Database connection must be in open state but its state is {0}</comment>
+  </data>
   <data name="ConnectionStringNotFound" xml:space="preserve">
     <value>Specified connection string '{0}' not found</value>
     <comment>Specified connection string '{0}' not found</comment>

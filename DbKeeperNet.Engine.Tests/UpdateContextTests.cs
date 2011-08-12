@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DbKeeperNet.Engine.Extensions.DatabaseServices;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -224,6 +225,28 @@ namespace DbKeeperNet.Engine.Tests
             {
                 IUpdateContext context = new UpdateContext();
                 context.RegisterLoggingService(mockService);
+            }
+        }
+        [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void InitializeDatabaseServiceUsingDatabaseServiceShouldThrowExceptionForNullArgument()
+        {
+            using(IUpdateContext context = new UpdateContext())
+            {
+                context.InitializeDatabaseService((IDatabaseService)null);
+            }
+        }
+        [Test]
+        public void InitializeDatabaseServiceUsingDatabaseServiceShouldWork()
+        {
+            MockRepository mockRepository = new MockRepository();
+            IDatabaseService databaseService = mockRepository.DynamicMock<IDatabaseService>();
+
+            using (IUpdateContext context = new UpdateContext())
+            {
+                context.LoadExtensions();
+                context.InitializeLoggingService(@"dummy");
+                context.InitializeDatabaseService(databaseService);
             }
         }
         [Test]

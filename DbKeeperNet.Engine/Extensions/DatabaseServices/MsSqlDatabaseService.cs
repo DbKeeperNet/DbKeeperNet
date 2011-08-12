@@ -2,6 +2,7 @@ using System;
 using System.Data.Common;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
 using DbKeeperNet.Engine.Resources;
@@ -23,6 +24,22 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         #region Constructors
         public MsSqlDatabaseService()
         {
+        }
+        /// <summary>
+        /// Initialize instanace of database service using given database
+        /// connection
+        /// </summary>
+        /// <remarks>Database connection must be opened and is released automatically</remarks>
+        /// <param name="databaseConnection"></param>
+        public MsSqlDatabaseService(SqlConnection databaseConnection)
+        {
+            if (databaseConnection == null)
+                throw new ArgumentNullException(@"databaseConnection");
+
+            if (databaseConnection.State != ConnectionState.Open)
+                throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionMustBeOpened, databaseConnection.State));
+
+            _connection = databaseConnection;
         }
 
         private MsSqlDatabaseService(string connectionString)

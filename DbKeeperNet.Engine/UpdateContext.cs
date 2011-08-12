@@ -13,12 +13,12 @@ namespace DbKeeperNet.Engine
     {
         IDatabaseService _databaseService;
         ILoggingService _loggingService;
-        DbKeeperNetConfigurationSection _configurationSection;
+        readonly DbKeeperNetConfigurationSection _configurationSection;
 
-        Dictionary<string, ILoggingService> _loggingServices = new Dictionary<string, ILoggingService>();
-        Dictionary<string, IPrecondition> _preconditions = new Dictionary<string, IPrecondition>();
-        Dictionary<string, IDatabaseService> _databaseServices = new Dictionary<string, IDatabaseService>();
-        Dictionary<string, IScriptProviderService> _scriptProviderServices = new Dictionary<string, IScriptProviderService>();
+        readonly Dictionary<string, ILoggingService> _loggingServices = new Dictionary<string, ILoggingService>();
+        readonly Dictionary<string, IPrecondition> _preconditions = new Dictionary<string, IPrecondition>();
+        readonly Dictionary<string, IDatabaseService> _databaseServices = new Dictionary<string, IDatabaseService>();
+        readonly Dictionary<string, IScriptProviderService> _scriptProviderServices = new Dictionary<string, IScriptProviderService>();
 
         string _friendlyName;
         string _currentAssemblyName;
@@ -196,6 +196,20 @@ namespace DbKeeperNet.Engine
             _loggingService = _loggingServices[serviceName];
         }
 
+        /// <summary>
+        /// Initialize context database service based on given
+        /// connection string name from App.Config.
+        /// 
+        /// Given connection string name must mu correctly mapped in App.Config section:
+        /// <code>
+        /// <![CDATA[
+        /// <dbkeeper.net loggingService="fx">
+        ///   <databaseServiceMappings>
+        ///     <add connectString="mock" databaseService="MsSql" />
+        /// ]]>
+        /// </code>
+        /// </summary>
+        /// <param name="connectionString">Connection string name within App.Config</param>
         public void InitializeDatabaseService(string connectionString)
         {
             if (String.IsNullOrEmpty(connectionString))
@@ -225,6 +239,20 @@ namespace DbKeeperNet.Engine
             _databaseService = _databaseServices[databaseServiceName].CloneForConnectionString(connectionString);
 
             Logger.TraceInformation(UpdateContextMessages.DatabaseServiceInitialized, connectionString);
+        }
+
+        /// <summary>
+        /// Initialize database service by passing an instance of <see cref="IDatabaseService"/>.
+        /// </summary>
+        /// <param name="databaseService">Instance of database service.</param>
+        public void InitializeDatabaseService(IDatabaseService databaseService)
+        {
+            if (databaseService == null)
+                throw new ArgumentNullException(@"databaseService");
+
+            _databaseService = databaseService;
+
+            Logger.TraceInformation(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.InitializedUsingInstantiatedDatabaseService, databaseService));
         }
 
         public void LoadExtensions()
