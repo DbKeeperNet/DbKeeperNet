@@ -45,6 +45,7 @@
     <Compile Include="DatabaseServiceMappingConfigurationElementCollection.cs" />
     <Compile Include="DbKeeperNetConfigurationSection.cs" />
     <Compile Include="DbKeeperNetException.cs" />
+    <Compile Include="DisposableObject.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseService.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseService.cs" />
     <Compile Include="Extensions\Preconditions\DbTriggerNotFound.cs" />

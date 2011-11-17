@@ -13,7 +13,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// Database services for Oracle .NET provider.
     /// Service name for configuration file: Oracle
     /// </summary>
-    public sealed class OracleDatabaseService : IDatabaseService
+    public sealed class OracleDatabaseService : DisposableObject, IDatabaseService
     {
         #region Private member variables
         private DbConnection _connection;
@@ -312,27 +312,33 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         }
         #endregion
 
-        #region IDisposable Members
-
-        public void Dispose()
+        /// <summary>
+        /// Invoked from <seealso cref="DisposableObject.Dispose()"/> method
+        /// and finalizer.
+        /// </summary>
+        /// <param name="disposing">Indicates, whether this has been invoked from finalizer or <seealso cref="IDisposable.Dispose"/>.</param>
+        protected override void Dispose(bool disposing)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
+            try
             {
-                // we must release database connection
-                if (_connection != null)
+                if (!IsDisposed)
                 {
-                    _connection.Dispose();
-                    _connection = null;
+                    if (disposing)
+                    {
+                        // we must release database connection
+                        if (_connection != null)
+                        {
+                            _connection.Dispose();
+                            _connection = null;
+                        }
+                    }
                 }
             }
-        }
-        #endregion
+            finally
+            {
+                base.Dispose(disposing);
+            }
+    }
 
         #region Private members
         private void SetupDbCommands()

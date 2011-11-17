@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
-    public class PgSqlDatabaseService: IDatabaseService
+    public class PgSqlDatabaseService: DisposableObject, IDatabaseService
     {
         private DbConnection _connection;
         private DbTransaction _transaction;
@@ -240,29 +240,36 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         }
         #endregion
 
-        #region IDisposable Members
-
-        public void Dispose()
+        /// <summary>
+        /// Invoked from <seealso cref="DisposableObject.Dispose()"/> method
+        /// and finalizer.
+        /// </summary>
+        /// <param name="disposing">Indicates, whether this has been invoked from finalizer or <seealso cref="IDisposable.Dispose"/>.</param>
+        protected override void Dispose(bool disposing)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
+            try
             {
-                _factory = null;
-
-                // we must release database connection
-                if (_connection != null)
+                if (!IsDisposed)
                 {
-                    _connection.Dispose();
-                    _connection = null;
+                    if (disposing)
+                    {
+                        _factory = null;
+
+                        // we must release database connection
+                        if (_connection != null)
+                        {
+                            _connection.Dispose();
+                            _connection = null;
+                        }
+                    }
                 }
             }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
-        #endregion
+        
 
         #region Private methods
         private PgSqlDatabaseService(string connectionString)

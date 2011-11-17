@@ -13,7 +13,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// Database services for MySQL servers connected via MySQLNetConnector.
     /// Service name for configuration file: MySqlNet
     /// </summary>
-    public class MySqlNetConnectorDatabaseService : IDatabaseService
+    public class MySqlNetConnectorDatabaseService : DisposableObject, IDatabaseService
     {
         #region Private member variables
         private DbConnection _connection;
@@ -322,29 +322,35 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         }
         #endregion
 
-        #region IDisposable Members
-
-        public void Dispose()
+        /// <summary>
+        /// Invoked from <seealso cref="DisposableObject.Dispose()"/> method
+        /// and finalizer.
+        /// </summary>
+        /// <param name="disposing">Indicates, whether this has been invoked from finalizer or <seealso cref="IDisposable.Dispose"/>.</param>
+        protected override void Dispose(bool disposing)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
+            try
             {
-                _factory = null;
-
-                // we must release database connection
-                if (_connection != null)
+                if (!IsDisposed)
                 {
-                    _connection.Dispose();
-                    _connection = null;
+                    if (disposing)
+                    {
+                        _factory = null;
+
+                        // we must release database connection
+                        if (_connection != null)
+                        {
+                            _connection.Dispose();
+                            _connection = null;
+                        }
+                    }
                 }
             }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
-        #endregion
 
         #region Private methods
         private void SetupDbCommands()

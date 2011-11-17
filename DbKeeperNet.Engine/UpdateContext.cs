@@ -9,7 +9,7 @@ namespace DbKeeperNet.Engine
     /// <summary>
     /// Default IUpdateContext interface implementation.
     /// </summary>
-    public class UpdateContext : IUpdateContext
+    public class UpdateContext : DisposableObject, IUpdateContext
     {
         IDatabaseService _databaseService;
         ILoggingService _loggingService;
@@ -24,6 +24,7 @@ namespace DbKeeperNet.Engine
         string _currentAssemblyName;
         string _currentVersion;
         int _currentStep;
+
         PreconditionType[] _defaultPreconditions = { };
 
         public UpdateContext()
@@ -281,25 +282,31 @@ namespace DbKeeperNet.Engine
         }
         #endregion
 
-        #region IDisposable Members
-
-        public void Dispose()
+        /// <summary>
+        /// Invoked from <seealso cref="DisposableObject.Dispose()"/> method
+        /// and finalizer.
+        /// </summary>
+        /// <param name="disposing">Indicates, whether this has been invoked from finalizer or <seealso cref="IDisposable.Dispose"/>.</param>
+        protected override void Dispose(bool disposing)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
+            try
             {
-                if (_databaseService != null)
+                if (!IsDisposed)
                 {
-                    _databaseService.Dispose();
-                    _databaseService = null;
+                    if (disposing)
+                    {
+                        if (_databaseService != null)
+                        {
+                            _databaseService.Dispose();
+                            _databaseService = null;
+                        }
+                    }
                 }
             }
+            finally
+            {
+                base.Dispose(true);
+            }
         }
-        #endregion
     }
 }
