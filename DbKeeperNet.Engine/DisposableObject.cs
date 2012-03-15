@@ -21,11 +21,6 @@ namespace DbKeeperNet.Engine
             GC.SuppressFinalize(this);
         }
 
-        ~DisposableObject()
-        {
-            Dispose(false);
-        }
-
         /// <summary>
         /// Indidication whether this class has been already disposed or not.
         /// </summary>

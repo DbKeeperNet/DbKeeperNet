@@ -295,11 +295,7 @@ namespace DbKeeperNet.Engine
                 {
                     if (disposing)
                     {
-                        if (_databaseService != null)
-                        {
-                            _databaseService.Dispose();
-                            _databaseService = null;
-                        }
+                        _databaseService.Dispose();
                     }
                 }
             }

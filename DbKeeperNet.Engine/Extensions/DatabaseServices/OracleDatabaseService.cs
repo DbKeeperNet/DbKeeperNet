@@ -325,12 +325,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 {
                     if (disposing)
                     {
-                        // we must release database connection
-                        if (_connection != null)
-                        {
-                            _connection.Dispose();
-                            _connection = null;
-                        }
+                        _connection.Dispose();
                     }
                 }
             }
