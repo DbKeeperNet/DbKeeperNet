@@ -125,7 +125,7 @@ namespace DbKeeperNet.Engine
 
             foreach (UpdateDbAlternativeStatementType statement in step.AlternativeStatement)
             {
-                if (statement.DbType == "all")
+                if (statement.DbType.Equals(@"all", StringComparison.Ordinal))
                     commonStatement = statement;
 
                 if (_context.DatabaseService.IsDbType(statement.DbType))

@@ -129,7 +129,7 @@
     <value>Název indexu a tabulky pro podmínku {0} musí být definován</value>
     <comment>Index name and table for condition {0} must be specified</comment>
   </data>
-  <data name="OnlyOracleSupported" xml:space="preserve">
+  <data name="OnlyOracleSupport" xml:space="preserve">
     <value>Podmínka {0} je podporována pouze pro databáze Oracle</value>
     <comment>Condition {0} is supported only for Oracle</comment>
   </data>

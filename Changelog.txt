@@ -1,6 +1,10 @@
-Verssion x.x.x.x
+Version 1.5.1.1
  - Unit tests cleanup
- - 
+ - Solution migration to VS 2010
+ - Added support for manual database connection initialization
+ - Small fixes in international support
+ - Several small code improvements
+ - Log4Net plugin .PDB file is part of distribution .ZIP file
 
 Version 1.4.1.1
  - Oracle support (tested on version 10g)

@@ -15,10 +15,10 @@ namespace DbKeeperNet.Engine
         ILoggingService _loggingService;
         readonly DbKeeperNetConfigurationSection _configurationSection;
 
-        readonly Dictionary<string, ILoggingService> _loggingServices = new Dictionary<string, ILoggingService>();
-        readonly Dictionary<string, IPrecondition> _preconditions = new Dictionary<string, IPrecondition>();
-        readonly Dictionary<string, IDatabaseService> _databaseServices = new Dictionary<string, IDatabaseService>();
-        readonly Dictionary<string, IScriptProviderService> _scriptProviderServices = new Dictionary<string, IScriptProviderService>();
+        readonly Dictionary<string, ILoggingService> _loggingServices = new Dictionary<string, ILoggingService>(StringComparer.Ordinal);
+		readonly Dictionary<string, IPrecondition> _preconditions = new Dictionary<string, IPrecondition>(StringComparer.Ordinal);
+		readonly Dictionary<string, IDatabaseService> _databaseServices = new Dictionary<string, IDatabaseService>(StringComparer.Ordinal);
+		readonly Dictionary<string, IScriptProviderService> _scriptProviderServices = new Dictionary<string, IScriptProviderService>(StringComparer.Ordinal);
 
         string _friendlyName;
         string _currentAssemblyName;
@@ -222,7 +222,7 @@ namespace DbKeeperNet.Engine
 
             foreach (DatabaseServiceMappingConfigurationElement e in ConfigurationSection.DatabaseServiceMappings)
             {
-                if (e.ConnectString == connectionString)
+				if (connectionString.Equals(e.ConnectString, StringComparison.Ordinal))
                 {
                     databaseServiceName = e.DatabaseService;
                     break;

@@ -136,4 +136,8 @@
   <data name="TransactionAlreadyInProgress" xml:space="preserve">
     <value>Již je aktivní databázová transakce</value>
   </data>
+  <data name="ConnectionMustBeOpened" xml:space="preserve">
+    <value>Připojení k databází by mělo být otevřeno, ale jeho stav je {0}</value>
+    <comment>Database connection must be in open state but its state is {0}</comment>
+  </data>
 </root>
