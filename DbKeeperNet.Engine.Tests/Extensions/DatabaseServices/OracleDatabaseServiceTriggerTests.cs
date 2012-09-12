@@ -30,8 +30,8 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         protected override void DropDatabaseTrigger(IDatabaseService connectedService, string triggerName)
         {
-            ExecuteSqlAndIgnoreException(connectedService, @"drop trigger {0}", triggerName);
-            ExecuteSqlAndIgnoreException(connectedService, @"drop table {0}", TESTING_TABLE);
+            ExecuteSqlAndIgnoreException(connectedService, @"drop trigger ""{0}""", triggerName);
+            ExecuteSqlAndIgnoreException(connectedService, @"drop table ""{0}""", TESTING_TABLE);
         }
     }
 }

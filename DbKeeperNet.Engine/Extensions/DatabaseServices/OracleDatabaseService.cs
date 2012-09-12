@@ -112,10 +112,9 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 throw new ArgumentNullException(@"triggerName");
 
             DbCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = String.Format(CultureInfo.InvariantCulture, @"select count(*) from dba_triggers where trigger_name = '{0}'", triggerName);
+            cmd.CommandText = String.Format(CultureInfo.InvariantCulture, @"select count(*) from all_triggers where trigger_name = '{0}'", triggerName);
 
             bool exists = (Convert.ToInt64(cmd.ExecuteScalar(), CultureInfo.InvariantCulture) != 0);
-
             return exists;
         }
         public bool ViewExists(string viewName)
