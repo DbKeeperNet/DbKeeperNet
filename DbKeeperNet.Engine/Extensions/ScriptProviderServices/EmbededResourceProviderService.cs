@@ -8,11 +8,13 @@ namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
 {
     /// <summary>
     /// Script provider allows to load scripts assembly embeded resource.
-    /// Script name and assembly name are separated by comma.
-    /// Order is: EmbededResource,Assembly
     /// </summary>
     /// <remarks>
-    /// Provider reference name is <c>asm</c>.
+    /// <para>Provider reference name is <c>asm</c>.</para>
+    /// <para>
+    /// Script name and assembly name are separated by comma in order: 
+    /// <c>EmbededResource,Assembly</c>
+    /// </para>
     /// </remarks>
     /// <example>
     /// Following example shows how to reference this script provider

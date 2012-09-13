@@ -2,6 +2,21 @@ using System;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
+    /// <summary>
+    /// Registration entry point for built-in database services
+    /// </summary>
+    /// <remarks>
+    /// <list type="bullet">
+    /// <listheader>Registers support for following databases:</listheader>
+    /// <item><see cref="MsSqlDatabaseService">Microsoft SQL Server</see></item>
+    /// <item><see cref="MySqlNetConnectorDatabaseService">MySQL</see></item>
+    /// <item><see cref="OracleDatabaseService">Oracle</see></item>
+    /// <item><see cref="PgSqlDatabaseService">PostgreSQL</see></item>
+    /// <item><see cref="SQLiteDatabaseService">SQLite</see></item>
+    /// </list>
+    ///
+    /// All providers implement interface <see cref="IDatabaseService"/>
+    /// </remarks>
     public sealed class DbServicesExtension : IExtension
     {
         #region IExtension Members

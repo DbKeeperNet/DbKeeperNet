@@ -7,9 +7,24 @@ namespace DbKeeperNet.Engine.Extensions.LoggingServices
     /// implemented by System.Diagnostics.Trace class and
     /// its static methods.
     /// </summary>
-    /// <remarks>
-    /// Reference name for configuration file is <c>fx</c>.
-    /// </remarks>
+    /// <example>
+    /// Reference name for App.Config file is <c>fx</c>. App.Config extract below writes output
+    /// to file <c>dbkeepernet.log</c>.
+    /// <code>
+    /// <![CDATA[
+    /// <dbkeeper.net loggingService="fx">
+    /// ...
+    /// </dbkeeper.net>
+    /// <system.diagnostics>
+    ///   <trace autoflush="true">
+    ///     <listeners>
+    ///       <add name="file" initializeData="dbkeepernet.log" type="System.Diagnostics.TextWriterTraceListener" />
+    ///     </listeners>
+    ///   </trace>
+    /// </system.diagnostics>
+    /// ]]>
+    /// </code>
+    /// </example>
     public sealed class FxLogger : ILoggingService
     {
         #region ILoggingService Members

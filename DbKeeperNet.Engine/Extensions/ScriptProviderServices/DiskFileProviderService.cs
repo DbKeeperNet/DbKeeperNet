@@ -7,11 +7,11 @@ namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
 {
     /// <summary>
     /// Script provider allows to load scripts from disk.
-    /// Location parameter can contain relative or absolute
-    /// path to the executed script.
     /// </summary>
     /// <remarks>
-    /// Provider reference name is <c>disk</c>.
+    /// <para>Provider reference name is <c>disk</c>.</para>
+    /// <para>Location parameter can contain relative or absolute
+    /// path to the executed script.</para>
     /// </remarks>
     /// <example>
     /// Following example shows how to reference this script provider

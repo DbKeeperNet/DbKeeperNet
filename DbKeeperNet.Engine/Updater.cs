@@ -15,6 +15,53 @@ namespace DbKeeperNet.Engine
     /// Main class responsible for invocation of updates in XML
     /// definition file.
     /// </summary>
+    /// <remarks>
+    /// <example>
+    /// Prepare App.Config file. Following example is for execution of one embeded resource script followed
+    /// by a disk fil on MSSQL server.
+    /// <code>
+    /// <![CDATA[
+    /// <?xml version="1.0" encoding="utf-8" ?>
+    /// <configuration>
+    /// <configSections>
+    /// <section name="dbkeeper.net" 
+    ///     type="DbKeeperNet.Engine.DbKeeperNetConfigurationSection,DbKeeperNet.Engine"/>
+    ///   </configSections>
+    ///   <dbkeeper.net loggingService="fx">
+    ///     <updateScripts>
+    ///       <add provider="asm" location="DbKeeperNet.SimpleDemo.DatabaseSetup.xml,DbKeeperNet.SimpleDemo" />
+    ///       <add provider="disk" location="c:\diskpath\DatabaseSetup.xml" />
+    ///     </updateScripts>
+    ///     <databaseServiceMappings>
+    ///       <add connectString="default" databaseService="MsSql" />
+    ///     </databaseServiceMappings>
+    ///   </dbkeeper.net>
+    ///   <connectionStrings>
+    ///     <add name="default" 
+    ///             connectionString="Data Source=.\SQLEXPRESS;
+    ///             AttachDbFilename='|DataDirectory|\DbKeeperNetSimpleDemo.mdf';
+    ///             Integrated Security=True;Connect Timeout=30;User Instance=True" 
+    ///             providerName="System.Data.SqlClient"/>
+    ///   </connectionStrings>
+    /// </configuration>
+    /// ]]>
+    /// </code>
+    /// </example>
+    /// 
+    /// <example>
+    /// Add the code which will run the scripts from App.Config:
+    /// <code>
+    /// using (UpdateContext context = new UpdateContext())
+    /// {
+    ///     context.LoadExtensions();
+    ///     context.InitializeDatabaseService("default");
+    ///  
+    ///     Updater updater = new Updater(context);
+    ///     updater.ExecuteXmlFromConfig();
+    /// }
+    /// </code>
+    /// </example>
+    /// </remarks>
     public class Updater : IDisposable
     {
         IUpdateContext _context;

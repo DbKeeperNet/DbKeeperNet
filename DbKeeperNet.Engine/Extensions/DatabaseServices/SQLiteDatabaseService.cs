@@ -10,9 +10,28 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
     /// <summary>
     /// Database services for SQLite 3 with ADO.NET provider.
-    /// Service name for configuration file: SQLite
     /// </summary>
-    /// <remarks>Available from SourceForge: http://sourceforge.net/projects/sqlite-dotnet2/</remarks>
+    /// <example>
+    /// Mapping of connection string to database service in App.Config file:
+    /// <code>
+    /// <![CDATA[
+    /// <add connectString="default" databaseService="SQLite" />
+    /// ]]>
+    /// </code>
+    /// </example>
+    /// 
+    /// <example>
+    /// Usage in database upgrade script for conditional behavior - case insensitive comparison of value <c>SQLITE</c>.
+    /// For details see <see cref="IsDbType"/>.
+    /// <code>
+    /// <![CDATA[
+    /// <AlternativeStatement DbType="SQLITE">
+    /// SELECT 1
+    /// </AlternativeStatement>
+    /// ]]>
+    /// </code>
+    /// </example>
+    /// <remarks>SQLite is available on URL: http://sourceforge.net/projects/sqlite-dotnet2 </remarks>
     public sealed class SQLiteDatabaseService: DisposableObject, IDatabaseService
     {
         #region Constructors
@@ -291,13 +310,26 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             get { return (_transaction != null); }
         }
 
+
+        /// <summary>
+        /// Checks whether the given <paramref name="dbTypeName"/>
+        /// is supported by this database service.
+        /// </summary>
+        /// <param name="dbTypeName">Database type as it is used in XML update definition.</param>
+        /// <returns><c>true</c> - this database service supports the given database type, <c>false</c> - doesn't support.</returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <listheader>Following <paramref name="dbTypeName"/> values are case insensitively recognized as database type SQLite:</listheader>
+        /// <item>SQLITE</item>
+        /// </list>
+        /// </remarks>
         public bool IsDbType(string dbTypeName)
         {
             bool status = false;
 
             switch (dbTypeName.ToUpperInvariant())
             {
-                case "SQLITE":
+                case @"SQLITE":
                     status = true;
                     break;
             }

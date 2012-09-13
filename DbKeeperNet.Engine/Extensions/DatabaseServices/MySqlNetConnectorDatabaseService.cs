@@ -11,8 +11,27 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
     /// <summary>
     /// Database services for MySQL servers connected via MySQLNetConnector.
-    /// Service name for configuration file: MySqlNet
     /// </summary>
+    /// <example>
+    /// Mapping of connection string to database service in App.Config file:
+    /// <code>
+    /// <![CDATA[
+    /// <add connectString="default" databaseService="MySqlNet" />
+    /// ]]>
+    /// </code>
+    /// </example>
+    /// 
+    /// <example>
+    /// Usage in database upgrade script for conditional behavior - case insensitive comparison of value <c>MYSQL</c>.
+    /// For details see <see cref="IsDbType"/>.
+    /// <code>
+    /// <![CDATA[
+    /// <AlternativeStatement DbType="MySql">
+    /// SELECT 1
+    /// </AlternativeStatement>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class MySqlNetConnectorDatabaseService : DisposableObject, IDatabaseService
     {
         #region Private member variables
@@ -307,13 +326,25 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             get { return (_transaction != null); }
         }
 
+        /// <summary>
+        /// Checks whether the given <paramref name="dbTypeName"/>
+        /// is supported by this database service.
+        /// </summary>
+        /// <param name="dbTypeName">Database type as it is used in XML update definition.</param>
+        /// <returns><c>true</c> - this database service supports the given database type, <c>false</c> - doesn't support.</returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <listheader>Following <paramref name="dbTypeName"/> values are case insensitively recognized as database type MySQL Server:</listheader>
+        /// <item><c>MYSQL</c></item>
+        /// </list>
+        /// </remarks>
         public bool IsDbType(string dbTypeName)
         {
             bool status = false;
 
             switch (dbTypeName.ToUpperInvariant())
             {
-                case "MYSQL":
+                case @"MYSQL":
                     status = true;
                     break;
             }

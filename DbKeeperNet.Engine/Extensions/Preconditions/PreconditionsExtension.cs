@@ -2,6 +2,26 @@ using System;
 
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
+    /// <summary>
+    /// Registration entry point for built-in preconditions
+    /// </summary>
+    /// <remarks>
+    /// <list type="bullet">
+    /// <listheader>Registers support for following preconditions:</listheader>
+    /// <item><see cref="DbForeignKeyNotFound">Foreign key does not exists</see></item>
+    /// <item><see cref="DbIndexNotFound">Database index does not exists</see></item>
+    /// <item><see cref="DbPrimaryKeyNotFound">Primary key does not exists</see></item>
+    /// <item><see cref="DbProcedureNotFound">Stored procedure does not exists</see></item>
+    /// <item><see cref="DbTableNotFound">Table does not exists</see></item>
+    /// <item><see cref="DbType">Database is of expected type</see></item>
+    /// <item><see cref="DbViewNotFound">View does not exists</see></item>
+    /// <item><see cref="ForceExecution">Always execute</see></item>
+    /// <item><see cref="OraDbSequenceNotFound">Oracle database sequence does not exists</see></item>
+    /// <item><see cref="StepNotExecuted">Upgrade step with given identifiers wasn't yet executed</see></item>
+    /// </list>
+    /// 
+    /// All providers implement interface <see cref="IPrecondition"/>
+    /// </remarks>
     public sealed class PreconditionsExtension : IExtension
     {
         #region IExtension Members

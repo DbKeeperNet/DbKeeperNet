@@ -3,9 +3,17 @@ namespace DbKeeperNet.Engine.Extensions.LoggingServices
     /// <summary>
     /// Dummy logging service, which completely ignores logged
     /// output.
-    /// 
-    /// Reference name for configuration file is <code>dummy</code>.
     /// </summary>
+    /// <example>
+    /// Reference name for App.Config file is <c>dummy</c>.
+    /// <code>
+    /// <![CDATA[
+    /// <dbkeeper.net loggingService="dummy">
+    /// ...
+    /// </dbkeeper.net>
+    /// ]]>
+    /// </code>
+    /// </example>
     public sealed class DummyLogger: ILoggingService
     {
         #region ILoggingService Members

@@ -12,8 +12,27 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
     /// <summary>
     /// Database services for MsSQL server 2000 or higher.
-    /// Service name for configuration file: MsSql
     /// </summary>
+    /// <example>
+    /// Mapping of connection string to database service in App.Config file:
+    /// <code>
+    /// <![CDATA[
+    /// <add connectString="default" databaseService="MsSql" />
+    /// ]]>
+    /// </code>
+    /// </example>
+    /// 
+    /// <example>
+    /// Usage in database upgrade script for conditional behavior - case insensitive comparison of value <c>MSSQL</c>.
+    /// For details see <see cref="IsDbType"/>.
+    /// <code>
+    /// <![CDATA[
+    /// <AlternativeStatement DbType="MsSql">
+    /// SELECT 1
+    /// </AlternativeStatement>
+    /// ]]>
+    /// </code>
+    /// </example>
     public sealed class MsSqlDatabaseService : DisposableObject, IDatabaseService
     {
         #region Private member variables
@@ -283,7 +302,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         /// <returns><c>true</c> - this database service supports the given database type, <c>false</c> - doesn't support.</returns>
         /// <remarks>
         /// <list type="bullet">
-        /// <listheader>Following <paramref name="dbTypeName"/> values are recognized as database type Microsoft SQL Server:</listheader>
+        /// <listheader>Following <paramref name="dbTypeName"/> values are case insensitively recognized as database type Microsoft SQL Server:</listheader>
         /// <item>MSSQL</item>
         /// </list>
         /// </remarks>

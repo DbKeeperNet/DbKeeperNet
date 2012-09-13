@@ -11,8 +11,28 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
     /// <summary>
     /// Database services for Oracle .NET provider.
-    /// Service name for configuration file: Oracle
     /// </summary>
+    /// <example>
+    /// Mapping of connection string to database service in App.Config file:
+    /// <code>
+    /// <![CDATA[
+    /// <add connectString="default" databaseService="Oracle" />
+    /// ]]>
+    /// </code>
+    /// </example>
+    /// 
+    /// <example>
+    /// Usage in database upgrade script for conditional behavior - case insensitive comparison of value <c>ORACLE</c>.
+    /// For details see <see cref="IsDbType"/>.
+    /// <code>
+    /// <![CDATA[
+    /// <AlternativeStatement DbType="Oracle">
+    /// SELECT 1
+    /// </AlternativeStatement>
+    /// ]]>
+    /// </code>
+    /// </example>
+
     public sealed class OracleDatabaseService : DisposableObject, IDatabaseService
     {
         #region Private member variables
@@ -296,13 +316,25 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             get { return (_transaction != null); }
         }
 
+        /// <summary>
+        /// Checks whether the given <paramref name="dbTypeName"/>
+        /// is supported by this database service.
+        /// </summary>
+        /// <param name="dbTypeName">Database type as it is used in XML update definition.</param>
+        /// <returns><c>true</c> - this database service supports the given database type, <c>false</c> - doesn't support.</returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <listheader>Following <paramref name="dbTypeName"/> values are case insensitively recognized as database type Oracle:</listheader>
+        /// <item>ORACLE</item>
+        /// </list>
+        /// </remarks>
         public bool IsDbType(string dbTypeName)
         {
             bool status = false;
 
             switch (dbTypeName.ToUpperInvariant())
             {
-                case "ORACLE":
+                case @"ORACLE":
                     status = true;
                     break;
             }

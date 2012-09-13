@@ -9,6 +9,29 @@ using System.Reflection;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
+    /// <summary>
+    /// Database services for PostgreSQL .NET Connector
+    /// </summary>
+    /// <example>
+    /// Mapping of connection string to database service in App.Config file:
+    /// <code>
+    /// <![CDATA[
+    /// <add connectString="default" databaseService="PgSql" />
+    /// ]]>
+    /// </code>
+    /// </example>
+    /// 
+    /// <example>
+    /// Usage in database upgrade script for conditional behavior - case insensitive comparison of value <c>PGSQL</c>.
+    /// For details see <see cref="IsDbType"/>.
+    /// <code>
+    /// <![CDATA[
+    /// <AlternativeStatement DbType="PGSQL">
+    /// SELECT 1
+    /// </AlternativeStatement>
+    /// ]]>
+    /// </code>
+    /// </example>
     public class PgSqlDatabaseService: DisposableObject, IDatabaseService
     {
         private DbConnection _connection;
@@ -225,13 +248,25 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             get { return (_transaction != null); }
         }
 
+        /// <summary>
+        /// Checks whether the given <paramref name="dbTypeName"/>
+        /// is supported by this database service.
+        /// </summary>
+        /// <param name="dbTypeName">Database type as it is used in XML update definition.</param>
+        /// <returns><c>true</c> - this database service supports the given database type, <c>false</c> - doesn't support.</returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <listheader>Following <paramref name="dbTypeName"/> values are case insensitively recognized as database type PostgreSQL:</listheader>
+        /// <item>PGSQL</item>
+        /// </list>
+        /// </remarks>
         public bool IsDbType(string dbTypeName)
         {
             bool status = false;
 
             switch (dbTypeName.ToUpperInvariant())
             {
-                case "PGSQL":
+                case @"PGSQL":
                     status = true;
                     break;
             }
