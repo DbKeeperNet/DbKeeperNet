@@ -8,8 +8,17 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// <summary>
     /// Condition verifies that Oracle sequence with specified
     /// name doesn't exist in database.
-    /// Condition reference name is <value>OraDbSequenceNotFound</value>.
-    /// This is Oracle specific.
+    /// </summary>
+    /// <remarks>
+    /// Condition reference name is <c>OraDbSequenceNotFound</c>.
+    /// This is Oracle specific (see <see cref="OracleDatabaseService"/>).
+    /// 
+    /// It has one parameter which should contain tested database
+    /// sequence name.
+    /// </remarks>
+    /// <example>
+    /// Following example shows how to reference this condition in the
+    /// update script XML.
     /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Sequence SEQ_for_me not found" Precondition="OraDbSequenceNotFound">
@@ -17,7 +26,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// </Precondition>
     /// ]]>
     /// </code>
-    /// </summary>
+    /// </example>
     public sealed class OraDbSequenceNotFound: IPrecondition
     {
         #region IPrecondition Members

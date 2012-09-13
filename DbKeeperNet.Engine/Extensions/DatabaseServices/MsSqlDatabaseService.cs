@@ -275,13 +275,25 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             get { return (_transaction != null); }
         }
 
+        /// <summary>
+        /// Checks whether the given <paramref name="dbTypeName"/>
+        /// is supported by this database service.
+        /// </summary>
+        /// <param name="dbTypeName">Database type as it is used in XML update definition.</param>
+        /// <returns><c>true</c> - this database service supports the given database type, <c>false</c> - doesn't support.</returns>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <listheader>Following <paramref name="dbTypeName"/> values are recognized as database type Microsoft SQL Server:</listheader>
+        /// <item>MSSQL</item>
+        /// </list>
+        /// </remarks>
         public bool IsDbType(string dbTypeName)
         {
             bool status = false;
 
             switch (dbTypeName.ToUpperInvariant())
             {
-                case "MSSQL":
+                case @"MSSQL":
                     status = true;
                     break;
             }

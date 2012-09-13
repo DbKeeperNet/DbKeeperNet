@@ -2,7 +2,8 @@ using System.Configuration;
 
 namespace DbKeeperNet.Engine
 {
-    /// <summary>
+    /// <summary>Configuration section for .NET App.Config and Web.Config files</summary>
+    /// <remarks>
     /// <code>
     /// <![CDATA[
     /// <?xml version="1.0" encoding="utf-8" ?>
@@ -25,7 +26,7 @@ namespace DbKeeperNet.Engine
     /// </configuration>
     /// ]]>
     /// </code>
-    /// </summary>
+    /// </remarks>
     public sealed class DbKeeperNetConfigurationSection: ConfigurationSection
     {
         [ConfigurationProperty("databaseServiceMappings")]

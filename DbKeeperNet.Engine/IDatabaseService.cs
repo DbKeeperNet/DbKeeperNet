@@ -131,7 +131,7 @@ namespace DbKeeperNet.Engine
         /// </summary>
         void RollbackTransaction();
         /// <summary>
-        /// Returns true in the case that there is an already
+        /// Returns <c>true</c> in the case that there is an already
         /// active database transaction for this connection.
         /// </summary>
         bool HasActiveTransaction { get; }
@@ -140,7 +140,7 @@ namespace DbKeeperNet.Engine
         /// is supported by this database service.
         /// </summary>
         /// <param name="dbTypeName">Database type as it is used in XML update definition.</param>
-        /// <returns>true - this database service supports the given database type, false - doesn't support.</returns>
+        /// <returns><c>true</c> - this database service supports the given database type, <c>false</c> - doesn't support.</returns>
         bool IsDbType(string dbTypeName);
     }
 }

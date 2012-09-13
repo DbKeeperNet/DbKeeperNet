@@ -297,7 +297,7 @@ namespace DbKeeperNet.Engine
         /// </summary>
         /// <remarks>
         /// Updates are executed in two phases:
-        /// <list>
+        /// <list type="number">
         /// <item>Database setup for DbKeeperNet</item>
         /// <item>Each configured update in order defined in App.Config</item>
         /// </list>

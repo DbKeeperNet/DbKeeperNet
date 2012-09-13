@@ -6,8 +6,16 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
     /// <summary>
     /// Condition verifies that trigger with specified
-    /// name and table doesn't exist in database.
-    /// Condition reference name is <value>DbTriggerNotFound</value>.
+    /// name and doesn't exist in database.
+    /// </summary>
+    /// <remarks>
+    /// Condition reference name is <c>DbTriggerNotFound</c>.
+    /// It has one parameter which should contain tested database
+    /// trigger name.
+    /// </remarks>
+    /// <example>
+    /// Following example shows how to reference this condition in the
+    /// update script XML.
     /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Trigger TR_Update_Primary not found" Precondition="DbTriggerNotFound">
@@ -15,7 +23,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// </Precondition>
     /// ]]>
     /// </code>
-    /// </summary>
+    /// </example>
     public sealed class DbTriggerNotFound : IPrecondition
     {
         #region IPrecondition Members

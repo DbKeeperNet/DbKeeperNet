@@ -11,5 +11,6 @@
     <SrcRootDir Condition="'$(SrcRootDir)' == ''">.</SrcRootDir>
     <NUnitTool Condition="'$(NUnitTool)' == ''">nunit-console.exe</NUnitTool>
     <XsdTool Condition="'$(XsdTool)' == ''" >xsd.exe</XsdTool>
+    <NDocTool Condition="'$(XsdTool)' == ''" >ndoc3console.exe</NDocTool>
   </PropertyGroup>
 </Project>

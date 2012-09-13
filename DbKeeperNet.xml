@@ -10,11 +10,22 @@
     
     <BinaryDirectory>$(TmpDir)\$(TargetDirectoryBase)</BinaryDirectory>
     <SrcDirectory>$(TmpDir)\$(TargetDirectoryBase)-src</SrcDirectory>
+    <DocDirectory>$(TmpDir)\Doc</DocDirectory>
+
+    <ChmPath>$(TmpDir)\Doc\DBKeeperNet.chm</ChmPath>
     
     <BinZipPath>$(DestinationDir)\$(Name)-$(SvnBuild).zip</BinZipPath>
     <SrcZipPath>$(DestinationDir)\$(Name)-$(SvnBuild)-src.zip</SrcZipPath>
+    <DocZipPath>$(DestinationDir)\$(Name)-$(SvnBuild)-doc.zip</DocZipPath>
   </PropertyGroup>
 
+  <Target Name="Doc" DependsOnTargets="Build">
+    <RemoveDir Directories="$(DocDirectory)" />
+    <MakeDir Directories="$(DocDirectory)" />
+    
+    <Exec Command='"$(NDocTool)" -project=DBKeeperNet.ndoc' />
+  </Target>
+  
   <Target Name="Test" DependsOnTargets="Build">
     <Exec Command='"$(NUnitTool)" /labels "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
@@ -52,8 +63,13 @@
     <Zip Files="@(SrcZipFiles)"  ZipFileName="$(SrcZipPath)" ZipLevel="9" WorkingDirectory="$(TmpDir)" />
     <RemoveDir Directories="$(SrcDirectory)"/>
   </Target>
-  
-  
+
+  <Target Name="DocZip" DependsOnTargets="Doc">
+    <Delete Files="$(DocZipPath)" />
+    <Zip Files="$(ChmPath)"  ZipFileName="$(DocZipPath)" ZipLevel="9" WorkingDirectory="$(DocDirectory)" />
+  </Target>
+
+
   <Target Name="BinZip" DependsOnTargets="Build">
     <RemoveDir Directories="$(BinaryDirectory)" Condition="Exists('$(BinaryDirectory)')" />
     
@@ -87,9 +103,11 @@
   <Target Name="Packages">
     <CallTarget Targets="SrcZip" />
     <CallTarget Targets="BinZip" />
+    <CallTarget Targets="DocZip" />
     
     <Message Text="New source package: $(SrcZipPath)" Importance="high" />
     <Message Text="New binary package: $(BinZipPath)" Importance="high" />
+    <Message Text="New binary package: $(DocZipPath)" Importance="high" />
   </Target>
   
   <Target Name="Tests">

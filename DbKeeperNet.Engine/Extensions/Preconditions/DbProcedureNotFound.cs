@@ -6,9 +6,15 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
     /// <summary>
     /// Condition verifies that procedure with given name doesn't exist.
-    /// Condition reference name is <value>DbProcedureNotFound</value>.
+    /// </summary>
+    /// <remarks>
+    /// Condition reference name is <c>DbProcedureNotFound</c>.
     /// It has one parameter which should contain tested database
     /// procedure name.
+    /// </remarks>
+    /// <example>
+    /// Following example shows how to reference this condition in the
+    /// update script XML.
     /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Procedure testing_proc not found" Precondition="DbProcedureNotFound">
@@ -16,7 +22,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// </Precondition>
     /// ]]>
     /// </code>
-    /// </summary>
+    /// </example>
     public sealed class DbProcedureNotFound : IPrecondition
     {
         #region IPrecondition Members

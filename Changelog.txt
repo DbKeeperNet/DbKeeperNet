@@ -5,6 +5,12 @@ Version 1.5.1.1
  - Small fixes in international support
  - Several small code improvements
  - Log4Net plugin .PDB file is part of distribution .ZIP file
+ - Tested with databases:
+   - Oracle XE 11g
+   - Microsoft SQL Server Express 2008 R2
+   - MySQL 5.5.27 + MySQL Connector/NET 6.5.4
+   - PostgreSQL 9.2 + Npgsql 2.0.12.0
+   - SQLite for .NET 1.0.66.0
 
 Version 1.4.1.1
  - Oracle support (tested on version 10g)

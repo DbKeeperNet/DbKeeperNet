@@ -6,9 +6,15 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
     /// <summary>
     /// Condition verifies that view with given name doesn't exist.
-    /// Condition reference name is <value>DbViewNotFound</value>.
+    /// </summary>
+    /// <remarks>
+    /// Condition reference name is <c>DbViewNotFound</c>.
     /// It has one parameter which should contain tested database
     /// view name.
+    /// </remarks>
+    /// <example>
+    /// Following example shows how to reference this condition in the
+    /// update script XML.
     /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="View testing_view not found" Precondition="DbViewNotFound">
@@ -16,7 +22,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// </Precondition>
     /// ]]>
     /// </code>
-    /// </summary>
+    /// </example>
     public sealed class DbViewNotFound : IPrecondition
     {
         #region IPrecondition Members

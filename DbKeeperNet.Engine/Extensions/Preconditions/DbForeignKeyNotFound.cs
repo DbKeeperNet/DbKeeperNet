@@ -6,10 +6,12 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
     /// <summary>
     /// Condition verifies that foreign key with specified
-    /// name doesn't exist in database.
+    /// name doesn't exist for table in database.
     /// </summary>
     /// <remarks>
     /// Condition reference name is <c>DbForeignKeyNotFound</c>.
+    /// It has two parameters which should contain tested database
+    /// foreign key name and table name.
     /// </remarks>
     /// <example>
     /// Following example shows how to reference this condition in the
@@ -36,7 +38,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         {
             if (context == null)
                 throw new ArgumentNullException(@"context");
-            if ((param == null) || (param.Length == 0) || (String.IsNullOrEmpty(param[0].Value)) || (String.IsNullOrEmpty(param[0].Value)))
+            if ((param == null) || (param.Length != 2) || (String.IsNullOrEmpty(param[0].Value)) || (String.IsNullOrEmpty(param[1].Value)))
                 throw new ArgumentNullException(@"param", String.Format(CultureInfo.CurrentCulture, PreconditionMessages.ForeignKeyNameEmpty, Name));
 
             bool result = !context.DatabaseService.ForeignKeyExists(param[0].Value, param[1].Value);

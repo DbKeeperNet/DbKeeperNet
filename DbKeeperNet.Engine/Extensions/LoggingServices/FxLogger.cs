@@ -8,7 +8,7 @@ namespace DbKeeperNet.Engine.Extensions.LoggingServices
     /// its static methods.
     /// </summary>
     /// <remarks>
-    /// Reference name for configuration file is <value>fx</value>.
+    /// Reference name for configuration file is <c>fx</c>.
     /// </remarks>
     public sealed class FxLogger : ILoggingService
     {

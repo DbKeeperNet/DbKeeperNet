@@ -7,12 +7,18 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// <summary>
     /// Condition verifies that current database service in current context
     /// supports DbType defined in the first parameter.
-    /// Condition reference name is <value>DbType</value>.
+    /// </summary>
+    /// <remarks>
+    /// Condition reference name is <c>DbType</c>.
     /// It has one parameter which should contain tested database
-    /// type name.
+    /// type name as evaluated via <see cref="IDatabaseService.IsDbType"/>.
     /// 
     /// The intention of this service is to be used as a precondition
     /// for custom steps which may depend on database type.
+    /// </remarks>
+    /// <example>
+    /// Following example shows how to reference this condition in the
+    /// update script XML.
     /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Database type is MSSQL" Precondition="DbType">
@@ -20,7 +26,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// </Precondition>
     /// ]]>
     /// </code>
-    /// </summary>
+    /// </example>
     public sealed class DbType: IPrecondition
     {
         #region IPrecondition Members

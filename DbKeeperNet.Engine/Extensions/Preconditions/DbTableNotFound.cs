@@ -6,9 +6,15 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
     /// <summary>
     /// Condition verifies that table with given name doesn't exist.
-    /// Condition reference name is <value>DbTableNotFound</value>.
+    /// </summary>
+    /// <remarks>
+    /// Condition reference name is <c>DbTableNotFound</c>.
     /// It has one parameter which should contain tested database
     /// table name.
+    /// </remarks>
+    /// <example>
+    /// Following example shows how to reference this condition in the
+    /// update script XML.
     /// <code>
     /// <![CDATA[
     /// <Precondition FriendlyName="Table testing_table not found" Precondition="DbTableNotFound">
@@ -16,7 +22,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// </Precondition>
     /// ]]>
     /// </code>
-    /// </summary>
+    /// </example>
     public sealed class DbTableNotFound : IPrecondition
     {
         #region IPrecondition Members

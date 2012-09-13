@@ -20,8 +20,8 @@ namespace DbKeeperNet.Engine
         /// installation XML document. Each parameter can be optionaly named.</param>
         /// <returns>
         /// <list type="bullet">
-        /// <item>true - condition was met, step can be executed.</item>
-        /// <item>false - prevent step from execution.</item>
+        /// <item><c>true</c> - condition was met, step can be executed.</item>
+        /// <item><c>false</c> - prevent step from execution.</item>
         /// </list>
         /// </returns>
         bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param);

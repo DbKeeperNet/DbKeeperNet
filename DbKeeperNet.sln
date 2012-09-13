@@ -5,6 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherFiles", "OtherFiles", 
 	ProjectSection(SolutionItems) = preProject
 		Changelog.txt = Changelog.txt
 		DbKeeperNet.FxCop = DbKeeperNet.FxCop
+		DbKeeperNet.ndoc = DbKeeperNet.ndoc
 		DbKeeperNet.snk = DbKeeperNet.snk
 		DbKeeperNet.xml = DbKeeperNet.xml
 		LICENSE = LICENSE
