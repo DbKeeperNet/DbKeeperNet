@@ -12,6 +12,19 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// <summary>
     /// Database services for Oracle .NET provider.
     /// </summary>
+    /// <remarks>
+    /// Supported preconditions:
+    /// <list type="bullet">
+    /// <item><see cref="Preconditions.DbForeignKeyNotFound"/></item>
+    /// <item><see cref="Preconditions.DbIndexNotFound"/></item>
+    /// <item><see cref="Preconditions.DbPrimaryKeyNotFound"/></item>
+    /// <item><see cref="Preconditions.DbProcedureNotFound"/></item>
+    /// <item><see cref="Preconditions.DbTableNotFound"/></item>
+    /// <item><see cref="Preconditions.DbTriggerNotFound"/></item>
+    /// <item><see cref="Preconditions.DbViewNotFound"/></item>
+    /// <item><see cref="Preconditions.OraDbSequenceNotFound"/></item>
+    /// </list>
+    /// </remarks>
     /// <example>
     /// Mapping of connection string to database service in App.Config file:
     /// <code>

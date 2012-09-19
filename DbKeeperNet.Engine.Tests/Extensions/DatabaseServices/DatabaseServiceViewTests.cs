@@ -7,60 +7,39 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         where T : IDatabaseService, new()
     {
         private const string VIEW_NAME = @"testing_view_name";
+		private const string NONEXISTING_VIEW_NAME = @"unknown_testing_view_name";
 
         protected DatabaseServiceViewTests(string connectString)
             : base(connectString)
         {
         }
-
-        protected abstract void CreateView(IDatabaseService connectedService, string viewName);
-        protected abstract void DropView(IDatabaseService connectedService, string viewName);
-
-
-        protected bool TestViewExists(string view)
-        {
-            bool result;
-
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                result = connectedService.ViewExists(view);
-            }
-            return result;
-        }
-
+		
         [SetUp]
         public void SetUp()
         {
             Cleanup();
         }
+
         [TearDown]
         public void Shutdown()
         {
             Cleanup();
         }
 
-        private void Cleanup()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                DropView(connectedService, VIEW_NAME);
-            }
-        }
         [Test]
         public void TestViewExists()
         {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateView(connectedService, VIEW_NAME);
+        	CreateTestViewInDatabase();
 
-                Assert.That(TestViewExists(VIEW_NAME), Is.True);
-            }
+        	Assert.That(TestViewExists(VIEW_NAME), Is.True);
         }
-
-        [Test]
+		
+    	[Test]
         public void TestViewNotExists()
         {
-            Assert.That(TestViewExists(VIEW_NAME), Is.False);
+			CreateTestViewInDatabase();
+
+			Assert.That(TestViewExists(NONEXISTING_VIEW_NAME), Is.False);
         }
 
         [Test]
@@ -76,5 +55,36 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             TestViewExists(String.Empty);
         }
+
+		protected abstract void CreateView(IDatabaseService connectedService, string viewName);
+		protected abstract void DropView(IDatabaseService connectedService, string viewName);
+
+		private bool TestViewExists(string view)
+		{
+			bool result;
+
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				result = connectedService.ViewExists(view);
+			}
+			return result;
+		}
+
+		private void CreateTestViewInDatabase()
+		{
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				CreateView(connectedService, VIEW_NAME);
+			}
+		}
+
+		private void Cleanup()
+		{
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				DropView(connectedService, VIEW_NAME);
+			}
+		}
+
     }
 }

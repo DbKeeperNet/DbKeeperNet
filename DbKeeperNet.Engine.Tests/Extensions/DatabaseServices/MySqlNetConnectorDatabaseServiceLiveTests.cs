@@ -6,7 +6,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [TestFixture]
     [Explicit]
     [Category("mysql")]
-    public class MySqlNetConnectorDatabaseServicesLiveTests
+    public class MySqlNetConnectorDatabaseServiceLiveTests
     {
         const string CONNECTION_STRING = "mysql";
 

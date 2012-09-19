@@ -4,6 +4,7 @@ using System.IO;
 using System.Configuration;
 using System.Data;
 using System.Reflection;
+using DbKeeperNet.Engine.Extensions.Preconditions;
 using DbKeeperNet.Engine.Resources;
 using System.Globalization;
 
@@ -12,6 +13,17 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// <summary>
     /// Database services for MySQL servers connected via MySQLNetConnector.
     /// </summary>
+    /// <remarks>
+    /// Supported preconditions:
+    /// <list type="bullet">
+    /// <listheader>Supported preconditions:</listheader>
+    /// <item><see cref="DbForeignKeyNotFound"/></item>
+    /// <item><see cref="DbIndexNotFound"/></item>
+    /// <item><see cref="DbPrimaryKeyNotFound"/></item>
+    /// <item><see cref="DbTableNotFound"/></item>
+    /// <item><see cref="DbViewNotFound"/></item>
+    /// </list>
+    /// </remarks>
     /// <example>
     /// Mapping of connection string to database service in App.Config file:
     /// <code>

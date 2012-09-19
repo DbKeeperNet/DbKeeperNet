@@ -6,11 +6,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [TestFixture]
     [Explicit]
     [Category("mysql")]
-    public class MySqlNetConnectorDatabaseServicesIndexTests: DatabaseServiceIndexTests<MySqlNetConnectorDatabaseService>
+    public class MySqlNetConnectorDatabaseServiceIndexTests: DatabaseServiceIndexTests<MySqlNetConnectorDatabaseService>
     {
         private const string APP_CONFIG_CONNECT_STRING = @"mysql";
 
-        public MySqlNetConnectorDatabaseServicesIndexTests()
+        public MySqlNetConnectorDatabaseServiceIndexTests()
             : base(APP_CONFIG_CONNECT_STRING)
         {
         }

@@ -94,9 +94,9 @@
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceForeignKeyTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceForeignKeyTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesIndexTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicesTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceIndexTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceLiveTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceTableTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceViewTests.cs" />
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceForeignKeyTests.cs" />
@@ -108,8 +108,11 @@
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTriggerTests.cs" />
     <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceViewTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceForeignKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceIndexTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServicesTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServicePrimaryKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceTableTests.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceViewTests.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceForeignKeyTests.cs" />

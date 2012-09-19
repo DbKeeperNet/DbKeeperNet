@@ -10,25 +10,14 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [Category("oracle")]
     public class OracleDatabaseServiceTests: DatabaseServiceTests<OracleDatabaseService>
     {
-        private const string APP_CONFIG_CONNECT_STRING = @"oracle";
+		private const string UNKNOWN_SEQUENCE_NAME = "ora_testing_unknown_seq";
+		private const string SEQUENCE_NAME = "ora_testing_seq";
+    	private const string APP_CONFIG_CONNECT_STRING = @"oracle";
 
         public OracleDatabaseServiceTests()
             : base(APP_CONFIG_CONNECT_STRING)
         {
         }
-
-        #region Private helpers
-        protected bool TestSequenceExists(string sequence)
-        {
-            bool result;
-
-            using (OracleDatabaseService connectedService = CreateConnectedDbService())
-            {
-                result = connectedService.SequenceExists(sequence);
-            }
-            return result;
-        }
-        #endregion
 
         [SetUp]
         public void Startup()
@@ -41,16 +30,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             CleanupDatabase();
         }
-
-
-        private void CleanupDatabase()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                ExecuteSqlAndIgnoreException(connectedService, "drop sequence \"ora_testing_seq\"");
-            }
-        }
-
+		
         [Test]
         public void TestExecuteSql()
         {
@@ -59,6 +39,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 connectedService.ExecuteSql("select sysdate from dual");
             }
         }
+
         [Test]
         public void TestExecuteInvalidSqlStatement()
         {
@@ -82,34 +63,67 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         [Test]
         public void TestSequenceNotExists()
         {
-            TestSequenceExists("asddas");
+			CreateTestSequenceInDatabase();
+
+            Assert.That(TestSequenceExists(UNKNOWN_SEQUENCE_NAME), Is.False);
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestSequenceNotExistsNullName()
         {
             TestSequenceExists(null);
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestSequenceNotExistsEmptyName()
         {
             TestSequenceExists("");
         }
+
         [Test]
         public void TestSequenceExists()
         {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateSequence(connectedService);
-                
-                Assert.That(TestSequenceExists("ora_testing_seq"), Is.True);
-            }
+        	CreateTestSequenceInDatabase();
+
+        	Assert.That(TestSequenceExists(SEQUENCE_NAME), Is.True);
         }
 
-        private static void CreateSequence(IDatabaseService connectedService)
+		#region Private helpers
+
+		private void CreateTestSequenceInDatabase()
+    	{
+    		using (IDatabaseService connectedService = CreateConnectedDbService())
+    		{
+    			CreateSequence(connectedService);
+    		}
+    	}
+
+    	private static void CreateSequence(IDatabaseService connectedService)
         {
-            ExecuteSqlAndIgnoreException(connectedService, "create sequence \"ora_testing_seq\"");
+            ExecuteSqlAndIgnoreException(connectedService, "create sequence \"{0}\"", SEQUENCE_NAME);
         }
+
+		private bool TestSequenceExists(string sequence)
+		{
+			bool result;
+
+			using (OracleDatabaseService connectedService = CreateConnectedDbService())
+			{
+				result = connectedService.SequenceExists(sequence);
+			}
+			return result;
+		}
+
+		private void CleanupDatabase()
+		{
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				ExecuteSqlAndIgnoreException(connectedService, "drop sequence \"{0}\"", SEQUENCE_NAME);
+			}
+		}
+
+		#endregion
     }
 }

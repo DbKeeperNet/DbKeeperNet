@@ -9,9 +9,10 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// name doesn't exist for table in database.
     /// </summary>
     /// <remarks>
-    /// Condition reference name is <c>DbForeignKeyNotFound</c>.
+    /// <para>Condition reference name is <c>DbForeignKeyNotFound</c>.
     /// It has two parameters which should contain tested database
     /// foreign key name and table name.
+    /// </para>
     /// </remarks>
     /// <example>
     /// Following example shows how to reference this condition in the

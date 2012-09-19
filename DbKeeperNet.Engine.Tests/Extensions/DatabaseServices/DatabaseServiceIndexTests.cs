@@ -8,6 +8,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     {
         private const string TABLE_NAME = "testing_table_ix";
         private const string INDEX_NAME = "IX_testing_table_ix";
+		private const string UNKNOWN_INDEX_NAME = "IX_testing_table_unknown_ix";
 
         protected DatabaseServiceIndexTests(string connectionString)
             : base(connectionString)
@@ -20,49 +21,70 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             Cleanup();
         }
 
+		private void Cleanup()
+		{
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				DropNamedIndex(connectedService, TABLE_NAME, INDEX_NAME);
+			}
+		}
+
         [TearDown]
         public void Shutdown()
         {
             Cleanup();
         }
-
-        private void Cleanup()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                DropNamedIndex(connectedService, TABLE_NAME, INDEX_NAME);
-            }
-        }
-
+		
         [Test]
         public void TestIndexNotExists()
         {
-            TestIndexExists("asddas", "asddsa");
+        	CreateTestIndexInDatabase();
+
+            TestIndexExists(UNKNOWN_INDEX_NAME, TABLE_NAME);
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestIndexNotExistsNullName()
         {
             TestIndexExists(null, null);
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestIndexNotExistsEmptyName()
         {
             TestIndexExists("", "");
         }
+
         [Test]
         public void TestIndexExists()
         {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateNamedIndex(connectedService, TABLE_NAME, INDEX_NAME);
+        	CreateTestIndexInDatabase();
 
-                Assert.That(TestIndexExists(INDEX_NAME, TABLE_NAME), Is.True);
-            }
+        	Assert.That(TestIndexExists(INDEX_NAME, TABLE_NAME), Is.True);
         }
 
-        protected abstract void CreateNamedIndex(IDatabaseService connectedService, string tableName, string indexName);
+    	private void CreateTestIndexInDatabase()
+    	{
+    		using (IDatabaseService connectedService = CreateConnectedDbService())
+    		{
+    			CreateNamedIndex(connectedService, TABLE_NAME, INDEX_NAME);
+    		}
+    	}
+
+		protected bool TestIndexExists(string index, string table)
+		{
+			bool result;
+
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				result = connectedService.IndexExists(index, table);
+			}
+			return result;
+		}
+
+    	protected abstract void CreateNamedIndex(IDatabaseService connectedService, string tableName, string indexName);
         protected abstract void DropNamedIndex(IDatabaseService connectedService, string tableName, string indexName);
     }
 }

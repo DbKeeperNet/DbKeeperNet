@@ -6,7 +6,8 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     public abstract class DatabaseServiceTriggerTests<T>: DatabaseServiceTests<T>
         where T: IDatabaseService, new()
     {
-        private const string TRIGGER_NAME = @"TR_some_testing";
+    	private const string UNKNOWN_TRIGGER_NAME = @"TR_some_unknown_testing";
+    	private const string TRIGGER_NAME = @"TR_some_testing";
 
         protected DatabaseServiceTriggerTests(string connectionString)
             : base(connectionString)
@@ -24,47 +25,50 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             Cleanup();
         }
-
-        private void Cleanup()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                DropDatabaseTrigger(connectedService, TRIGGER_NAME);
-            }
-        }
-
+		
         [Test]
         public void TestTriggerNotExists()
         {
-            TestTriggerExists("asddas");
+			CreateTestTriggerInDatabase();
+
+            Assert.That(TestTriggerExists(UNKNOWN_TRIGGER_NAME), Is.False);
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestTriggerNotExistsNullName()
         {
             TestTriggerExists(null);
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestTriggerNotExistsEmptyName()
         {
             TestTriggerExists("");
         }
+
         [Test]
         public void TestTriggerExists()
         {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateDatabaseTrigger(connectedService, TRIGGER_NAME);
+        	CreateTestTriggerInDatabase();
 
-                Assert.That(TestTriggerExists(TRIGGER_NAME), Is.True);
-            }
+        	Assert.That(TestTriggerExists(TRIGGER_NAME), Is.True);
         }
 
-        protected abstract void CreateDatabaseTrigger(IDatabaseService connectedService, string triggerName);
+    	protected abstract void CreateDatabaseTrigger(IDatabaseService connectedService, string triggerName);
         protected abstract void DropDatabaseTrigger(IDatabaseService connectedService, string triggerName);
 
-        protected bool TestTriggerExists(string trigger)
+
+		private void CreateTestTriggerInDatabase()
+		{
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				CreateDatabaseTrigger(connectedService, TRIGGER_NAME);
+			}
+		}
+
+    	private bool TestTriggerExists(string trigger)
         {
             bool result;
 
@@ -74,5 +78,13 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             }
             return result;
         }
+		
+		private void Cleanup()
+		{
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				DropDatabaseTrigger(connectedService, TRIGGER_NAME);
+			}
+		}
     }
 }

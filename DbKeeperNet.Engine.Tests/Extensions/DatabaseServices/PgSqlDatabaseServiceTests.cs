@@ -7,14 +7,34 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
     [TestFixture]
     [Explicit]
-    [Category("mysql")]
-    public class MySqlNetConnectorDatabaseServicesTests: DatabaseServiceTests<MySqlNetConnectorDatabaseService>
+    [Category("pgsql")]
+    public class PgSqlDatabaseServiceTests : DatabaseServiceTests<PgSqlDatabaseService>
     {
-        private const string APP_CONFIG_CONNECT_STRING = @"mysql";
+        private const string APP_CONFIG_CONNECT_STRING = @"pgsql";
 
-        public MySqlNetConnectorDatabaseServicesTests()
+        public PgSqlDatabaseServiceTests()
             : base(APP_CONFIG_CONNECT_STRING)
         {
+        }
+
+        [SetUp]
+        public void Startup()
+        {
+            CleanupDatabase();
+        }
+
+        [TearDown]
+        public void Shutdown()
+        {
+            CleanupDatabase();
+        }
+
+        private void CleanupDatabase()
+        {
+            using (IDatabaseService connectedService = CreateConnectedDbService())
+            {
+                ExecuteSqlAndIgnoreException(connectedService, "drop table pgsql_testing_table");
+            }
         }
 
         [Test]
@@ -32,6 +52,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 connectedService.ExecuteSql("select 1");
             }
         }
+
         [Test]
         public void TestExecuteInvalidSqlStatement()
         {

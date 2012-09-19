@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
+using DbKeeperNet.Engine.Extensions.Preconditions;
 using DbKeeperNet.Engine.Resources;
 using System.Globalization;
 
@@ -13,6 +14,18 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// <summary>
     /// Database services for MsSQL server 2000 or higher.
     /// </summary>
+    /// <remarks>
+    /// Supported preconditions:
+    /// <list type="bullet">
+    /// <item><see cref="DbForeignKeyNotFound"/></item>
+    /// <item><see cref="DbIndexNotFound"/></item>
+    /// <item><see cref="DbPrimaryKeyNotFound"/></item>
+    /// <item><see cref="DbProcedureNotFound"/></item>
+    /// <item><see cref="DbTableNotFound"/></item>
+    /// <item><see cref="DbTriggerNotFound"/></item>
+    /// <item><see cref="DbViewNotFound"/></item>
+    /// </list>
+    /// </remarks>
     /// <example>
     /// Mapping of connection string to database service in App.Config file:
     /// <code>

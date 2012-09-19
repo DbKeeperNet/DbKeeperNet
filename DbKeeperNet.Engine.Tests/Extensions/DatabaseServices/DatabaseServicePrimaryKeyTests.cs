@@ -8,6 +8,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     {
         private const string TABLE_NAME = @"testing_table_for_pk";
         private const string PRIMARY_KEY_NAME = @"PK_testing_table_for_pk";
+		private const string UNKNOWN_PRIMARY_KEY_NAME = @"PK_testing_table_for_unknown_pk";
 
         protected DatabaseServicePrimaryKeyTests(string connectString)
             : base(connectString)
@@ -26,43 +27,66 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             Cleanup();
         }
 
-        private void Cleanup()
-        {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                DropNamedPrimaryKey(connectedService, TABLE_NAME, PRIMARY_KEY_NAME);
-            }
-        }
-
         [Test]
         public void TestPrimaryKeyDoesNotExists()
         {
-            TestPrimaryKeyExists(TABLE_NAME, PRIMARY_KEY_NAME);
+			CreateTestPrimaryKeyInDatabase();
+
+			Assert.That(TestPrimaryKeyExists(TABLE_NAME, UNKNOWN_PRIMARY_KEY_NAME), Is.False);
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestPrimaryKeyNotExistsNullName()
         {
             TestPrimaryKeyExists(null, null);
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void TestPrimaryKeyNotExistsEmptyName()
         {
             TestPrimaryKeyExists("", "");
         }
+
         [Test]
         public void TestPrimaryKeyExists()
         {
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                CreateNamedPrimaryKey(connectedService, TABLE_NAME, PRIMARY_KEY_NAME);
-                
-                Assert.That(TestPrimaryKeyExists(PRIMARY_KEY_NAME, TABLE_NAME), Is.True);
-            }
+        	CreateTestPrimaryKeyInDatabase();
+
+        	Assert.That(TestPrimaryKeyExists(PRIMARY_KEY_NAME, TABLE_NAME), Is.True);
         }
 
-        protected abstract void CreateNamedPrimaryKey(IDatabaseService connectedService, string tableName, string primaryKeyName);
+    	private void CreateTestPrimaryKeyInDatabase()
+    	{
+    		using (IDatabaseService connectedService = CreateConnectedDbService())
+    		{
+    			CreateNamedPrimaryKey(connectedService, TABLE_NAME, PRIMARY_KEY_NAME);
+    		}
+    	}
+
+    	protected abstract void CreateNamedPrimaryKey(IDatabaseService connectedService, string tableName, string primaryKeyName);
         protected abstract void DropNamedPrimaryKey(IDatabaseService connectedService, string tableName, string primaryKeyName);
+
+    	private bool TestPrimaryKeyExists(string index, string table)
+		{
+			bool result;
+
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				result = connectedService.PrimaryKeyExists(index, table);
+			}
+			return result;
+		}
+
+
+		private void Cleanup()
+		{
+			using (IDatabaseService connectedService = CreateConnectedDbService())
+			{
+				DropNamedPrimaryKey(connectedService, TABLE_NAME, PRIMARY_KEY_NAME);
+			}
+		}
+
     }
 }

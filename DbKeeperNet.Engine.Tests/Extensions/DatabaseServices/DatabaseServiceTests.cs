@@ -39,36 +39,6 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         #region Private helper methods
-        protected bool TestForeignKeyExists(string key, string table)
-        {
-            bool result;
-
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                result = connectedService.ForeignKeyExists(key, table);
-            }
-            return result;
-        }
-        protected bool TestIndexExists(string index, string table)
-        {
-            bool result;
-
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                result = connectedService.IndexExists(index, table);
-            }
-            return result;
-        }
-        protected bool TestPrimaryKeyExists(string index, string table)
-        {
-            bool result;
-
-            using (IDatabaseService connectedService = CreateConnectedDbService())
-            {
-                result = connectedService.PrimaryKeyExists(index, table);
-            }
-            return result;
-        }
         
         protected bool TestStoredProcedureExists(string procedure)
         {

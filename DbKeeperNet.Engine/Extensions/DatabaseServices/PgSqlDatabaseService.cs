@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Data.Common;
 using System.Globalization;
+using DbKeeperNet.Engine.Extensions.Preconditions;
 using DbKeeperNet.Engine.Resources;
 using System.IO;
 using System.Data;
@@ -12,6 +13,16 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// <summary>
     /// Database services for PostgreSQL .NET Connector
     /// </summary>
+    /// <remarks>
+    /// Supported preconditions:
+    /// <list type="bullet">
+    /// <item><see cref="DbForeignKeyNotFound"/></item>
+    /// <item><see cref="DbIndexNotFound"/></item>
+    /// <item><see cref="DbPrimaryKeyNotFound"/></item>
+    /// <item><see cref="DbTableNotFound"/></item>
+    /// <item><see cref="DbViewNotFound"/></item>
+    /// </list>
+    /// </remarks>
     /// <example>
     /// Mapping of connection string to database service in App.Config file:
     /// <code>
@@ -89,11 +100,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             restrictions[2] = tableName;
             restrictions[3] = "BASE TABLE";
 
-            DataTable schema = Connection.GetSchema("Tables", restrictions);
-
-            bool exists = (schema.Rows.Count != 0);
-
-            return exists;
+			return RetrieveSchemaInformationAndReturnTrueIfRowExists(@"Tables", restrictions);
         }
 
         public bool ViewExists(string viewName)
@@ -105,19 +112,27 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             restrictions[2] = viewName;
 
-            DataTable schema = Connection.GetSchema("Views", restrictions);
-
-            bool exists = (schema.Rows.Count != 0);
-
-            return exists;
+			return RetrieveSchemaInformationAndReturnTrueIfRowExists(@"Views", restrictions);
         }
-        public bool IndexExists(string indexName, string table)
+        
+		public bool IndexExists(string indexName, string table)
         {
-            throw new NotSupportedException();
+			if (String.IsNullOrEmpty(indexName))
+				throw new ArgumentNullException("indexName");
+			if (String.IsNullOrEmpty(table))
+				throw new ArgumentNullException("table");
+
+			string[] restrictions = new string[4];
+
+			restrictions[2] = table;
+			restrictions[3] = indexName;
+
+			return RetrieveSchemaInformationAndReturnTrueIfRowExists(@"Indexes", restrictions);
         }
+
         public bool PrimaryKeyExists(string primaryKeyName, string table)
         {
-            throw new NotSupportedException();
+        	return IndexExists(primaryKeyName, table);
         }
 
         public bool TriggerExists(string triggerName)
@@ -127,9 +142,27 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public bool ForeignKeyExists(string foreignKeyName, string table)
         {
-            throw new NotSupportedException();
+			if (String.IsNullOrEmpty(foreignKeyName))
+				throw new ArgumentNullException("foreignKeyName");
+			if (String.IsNullOrEmpty(table))
+				throw new ArgumentNullException("table");
+
+			string[] restrictions = new string[4];
+
+			restrictions[2] = table;
+			restrictions[3] = foreignKeyName;
+
+			return RetrieveSchemaInformationAndReturnTrueIfRowExists(@"ForeignKeys", restrictions);
         }
-        public string Name
+
+    	private bool RetrieveSchemaInformationAndReturnTrueIfRowExists(string schemaCollectionName, string[] restrictions)
+    	{
+			DataTable schema = Connection.GetSchema(schemaCollectionName, restrictions);
+
+    		return (schema.Rows.Count != 0);
+    	}
+
+    	public string Name
         {
             get { return @"PgSql"; }
         }
@@ -220,6 +253,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         {
             get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.PgSqlDatabaseServiceInstall.xml"); }
         }
+
         public void BeginTransaction()
         {
             if (HasActiveTransaction)
@@ -227,6 +261,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             _transaction = _connection.BeginTransaction();
         }
+
         public void CommitTransaction()
         {
             if (!HasActiveTransaction)
@@ -235,6 +270,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             _transaction.Commit();
             _transaction = null;
         }
+
         public void RollbackTransaction()
         {
             if (!HasActiveTransaction)
@@ -243,6 +279,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             _transaction.Rollback();
             _transaction = null;
         }
+
         public bool HasActiveTransaction
         {
             get { return (_transaction != null); }

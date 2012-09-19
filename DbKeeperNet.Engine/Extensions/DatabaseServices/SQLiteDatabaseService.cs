@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Data.Common;
 using System.Globalization;
+using DbKeeperNet.Engine.Extensions.Preconditions;
 using DbKeeperNet.Engine.Resources;
 using System.Reflection;
 using System.Data;
@@ -11,6 +12,17 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// <summary>
     /// Database services for SQLite 3 with ADO.NET provider.
     /// </summary>
+    /// <remarks>
+    /// Supported preconditions:
+    /// <list type="bullet">
+    /// <item><see cref="DbForeignKeyNotFound"/></item>
+    /// <item><see cref="DbIndexNotFound"/></item>
+    /// <item><see cref="DbPrimaryKeyNotFound"/></item>
+    /// <item><see cref="DbProcedureNotFound"/></item>
+    /// <item><see cref="DbTableNotFound"/></item>
+    /// <item><see cref="DbViewNotFound"/></item>
+    /// </list>
+    /// </remarks>
     /// <example>
     /// Mapping of connection string to database service in App.Config file:
     /// <code>
