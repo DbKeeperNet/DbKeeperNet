@@ -110,6 +110,7 @@ Each element is intended to be used as a database schema version.</xs:documentat
 			<xs:enumeration value="PgSql"/>
 			<xs:enumeration value="SQLite"/>
 			<xs:enumeration value="Oracle"/>
+      <xs:enumeration value="FB"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="UpdateStepIdType">

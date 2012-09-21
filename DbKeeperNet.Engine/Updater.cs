@@ -65,17 +65,30 @@ namespace DbKeeperNet.Engine
     public class Updater : IDisposable
     {
         IUpdateContext _context;
+        readonly ISqlScriptSplitter _scriptSplitter;
 
         /// <summary>
         /// Class construction. Requires initialized update context.
         /// </summary>
         /// <param name="context">Update context instance with all required information prepared</param>
-        public Updater(IUpdateContext context)
+        public Updater(IUpdateContext context) : this(context,  new SqlScriptSplitter())
+        {
+        }
+
+        /// <summary>
+        /// Class construction. Requires initialized update context.
+        /// </summary>
+        /// <param name="context">Update context instance with all required information prepared</param>
+        /// <param name="scriptSplitter">Script splitter dependency injection (intended for unit testing)</param>
+        public Updater(IUpdateContext context, ISqlScriptSplitter scriptSplitter)
         {
             if (context == null)
                 throw new ArgumentNullException(@"context");
+            if (scriptSplitter == null)
+                throw new ArgumentNullException(@"scriptSplitter");
 
             _context = context;
+            _scriptSplitter = scriptSplitter;
         }
 
         #region Private methods
@@ -187,7 +200,14 @@ namespace DbKeeperNet.Engine
 
             if (usableStatement != null)
             {
-                _context.DatabaseService.ExecuteSql(usableStatement.Value);
+                var stepCount = 0;
+
+                foreach (var statement in _scriptSplitter.SplitScript(usableStatement.Value))
+                {
+                    _context.Logger.TraceInformation(UpdaterMessages.ExecutingCommandPart, ++stepCount);
+                    _context.DatabaseService.ExecuteSql(statement);
+                    _context.Logger.TraceInformation(UpdaterMessages.FinishedCommandPart, stepCount);
+                }
             }
             else
             {

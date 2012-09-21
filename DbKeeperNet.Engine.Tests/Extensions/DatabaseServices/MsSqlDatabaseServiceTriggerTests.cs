@@ -21,7 +21,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             ExecuteSqlAndIgnoreException(connectedService, @"create table {0} (id numeric(9,0) not null, id2 numeric(9,0))", TESTING_TABLE);
             ExecuteSqlAndIgnoreException(connectedService, @"create trigger {0} on {1} after insert               
         		  as
-		            update mssql_testing_tr set id2 = id", triggerName, TESTING_TABLE
+		            update {1} set id2 = id", triggerName, TESTING_TABLE
                 );
         }
 

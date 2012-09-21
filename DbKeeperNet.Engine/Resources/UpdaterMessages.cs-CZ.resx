@@ -173,6 +173,10 @@
     <value>Bude spuštěn skript pro přípravu databáze</value>
     <comment>Database setup script will be executed</comment>
   </data>
+  <data name="ExecutingCommandPart" xml:space="preserve">
+    <value>Spouštím část {0} příkazu</value>
+    <comment>Running part {0} of the command</comment>
+  </data>
   <data name="ExecutingUpdatesForAssembly" xml:space="preserve">
     <value>Spouštím aktualizace pro sestavení: {0}</value>
     <comment>Executing updates for assembly: {0}</comment>
@@ -184,6 +188,10 @@
   <data name="FileUpdateNotFound" xml:space="preserve">
     <value>Aktualizační soubor '{0}' nebyl na disku nalezen</value>
     <comment>Update file '{0}' not found on disk</comment>
+  </data>
+  <data name="FinishedCommandPart" xml:space="preserve">
+    <value>Úspěšně dokončena část {0} příkazu</value>
+    <comment>Finished part {0} of the command</comment>
   </data>
   <data name="FinishedConfiguredFileUpdate" xml:space="preserve">
     <value>Byla úspěšně dokončena nakonfigurovaná aktualizace '{0}' z disku</value>

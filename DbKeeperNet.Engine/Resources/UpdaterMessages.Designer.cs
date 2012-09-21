@@ -187,6 +187,15 @@ namespace DbKeeperNet.Engine.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Running part {0} of the command.
+        /// </summary>
+        internal static string ExecutingCommandPart {
+            get {
+                return ResourceManager.GetString("ExecutingCommandPart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Executing updates for assembly: {0}.
         /// </summary>
         internal static string ExecutingUpdatesForAssembly {
@@ -210,6 +219,15 @@ namespace DbKeeperNet.Engine.Resources {
         internal static string FileUpdateNotFound {
             get {
                 return ResourceManager.GetString("FileUpdateNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished part {0} of the command.
+        /// </summary>
+        internal static string FinishedCommandPart {
+            get {
+                return ResourceManager.GetString("FinishedCommandPart", resourceCulture);
             }
         }
         

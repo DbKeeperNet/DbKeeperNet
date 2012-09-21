@@ -69,10 +69,13 @@
     <Compile Include="DbKeeperNetConfigurationSection.cs" />
     <Compile Include="DbKeeperNetException.cs" />
     <Compile Include="DisposableObject.cs" />
+    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseService.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseService.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseService.cs" />
     <Compile Include="Extensions\Preconditions\DbTriggerNotFound.cs" />
     <Compile Include="Extensions\Preconditions\OraDbSequenceNotFound.cs" />
+    <Compile Include="ISqlScriptSplitter.cs" />
+    <Compile Include="SqlScriptSplitter.cs" />
     <Compile Include="UpdateScriptConfigurationElement.cs" />
     <Compile Include="UpdateScriptConfigurationElementCollection.cs" />
     <Compile Include="ExtensionConfigurationElementCollection.cs" />
@@ -209,6 +212,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\FirebirdDatabaseServiceInstall.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

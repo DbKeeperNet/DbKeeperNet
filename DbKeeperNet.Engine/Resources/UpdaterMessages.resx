@@ -173,6 +173,10 @@
     <value>Database setup script will be executed</value>
     <comment>Database setup script will be executed</comment>
   </data>
+  <data name="ExecutingCommandPart" xml:space="preserve">
+    <value>Running part {0} of the command</value>
+    <comment>Running part {0} of the command</comment>
+  </data>
   <data name="ExecutingUpdatesForAssembly" xml:space="preserve">
     <value>Executing updates for assembly: {0}</value>
     <comment>Executing updates for assembly: {0}</comment>
@@ -184,6 +188,10 @@
   <data name="FileUpdateNotFound" xml:space="preserve">
     <value>Update file '{0}' not found on disk</value>
     <comment>Update file '{0}' not found on disk</comment>
+  </data>
+  <data name="FinishedCommandPart" xml:space="preserve">
+    <value>Finished part {0} of the command</value>
+    <comment>Finished part {0} of the command</comment>
   </data>
   <data name="FinishedConfiguredFileUpdate" xml:space="preserve">
     <value>Successfully executed configured disk file update '{0}'</value>

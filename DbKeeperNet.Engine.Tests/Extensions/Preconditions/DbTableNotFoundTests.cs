@@ -48,7 +48,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
                 context.RegisterPrecondition(new DbTableNotFound());
 
-                Updater update = new Updater(context);
+                Updater update = new Updater(context, new NonSplittingSqlScriptSplitter());
                 update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTableNotFoundTests.xml"));
             }
             repository.VerifyAll();
@@ -85,7 +85,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
                 context.RegisterPrecondition(new DbTableNotFound());
 
-                Updater update = new Updater(context);
+                Updater update = new Updater(context, new NonSplittingSqlScriptSplitter());
                 update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTableNotFoundTests.xml"));
             }
             repository.VerifyAll();

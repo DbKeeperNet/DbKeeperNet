@@ -13,6 +13,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// <item><see cref="OracleDatabaseService">Oracle</see></item>
     /// <item><see cref="PgSqlDatabaseService">PostgreSQL</see></item>
     /// <item><see cref="SQLiteDatabaseService">SQLite</see></item>
+    /// <item><see cref="FirebirdDatabaseService">Firebird</see></item>
     /// </list>
     ///
     /// All providers implement interface <see cref="IDatabaseService"/>
@@ -32,6 +33,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             context.RegisterDatabaseService(new PgSqlDatabaseService());
             context.RegisterDatabaseService(new SQLiteDatabaseService());
+            context.RegisterDatabaseService(new FirebirdDatabaseService());
         }
 
         #endregion

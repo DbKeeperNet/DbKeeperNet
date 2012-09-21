@@ -45,9 +45,9 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     /// </example>
     public class PgSqlDatabaseService: DisposableObject, IDatabaseService
     {
-        private DbConnection _connection;
+        private readonly DbConnection _connection;
         private DbTransaction _transaction;
-        private DbProviderFactory _factory;
+        private readonly DbProviderFactory _factory;
         private DbCommand _assemblySelect;
         private DbCommand _assemblyInsert;
         private DbCommand _versionSelect;
@@ -393,20 +393,20 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_assemblySelect == null)
             {
                 _assemblySelect = Connection.CreateCommand();
-                _assemblySelect.CommandText = "select id from dbkeepernet_assembly where assembly = :assembly";
+                _assemblySelect.CommandText = "select id from dbkeepernet_assembly where assembly = @assembly";
 
                 DbParameter assembly = _assemblySelect.CreateParameter();
-                assembly.ParameterName = ":assembly";
+                assembly.ParameterName = "@assembly";
 
                 _assemblySelect.Parameters.Add(assembly);
             }
             if (_assemblyInsert == null)
             {
                 _assemblyInsert = Connection.CreateCommand();
-                _assemblyInsert.CommandText = "insert into dbkeepernet_assembly(assembly, created) values(:assembly, now()) returning id";
+                _assemblyInsert.CommandText = "insert into dbkeepernet_assembly(assembly, created) values(@assembly, now()) returning id";
 
                 DbParameter assembly = _assemblySelect.CreateParameter();
-                assembly.ParameterName = ":assembly";
+                assembly.ParameterName = "@assembly";
 
                 _assemblyInsert.Parameters.Add(assembly);
             }
@@ -416,13 +416,13 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_versionSelect == null)
             {
                 _versionSelect = Connection.CreateCommand();
-                _versionSelect.CommandText = "select id from dbkeepernet_version where dbkeepernet_assembly_id = :assemblyId and version = :version";
+                _versionSelect.CommandText = "select id from dbkeepernet_version where dbkeepernet_assembly_id = @assemblyId and version = @version";
 
                 DbParameter assemblyId = _assemblySelect.CreateParameter();
-                assemblyId.ParameterName = ":assemblyId";
+                assemblyId.ParameterName = "@assemblyId";
 
                 DbParameter version = _assemblySelect.CreateParameter();
-                version.ParameterName = ":version";
+                version.ParameterName = "@version";
                 
                 _versionSelect.Parameters.Add(assemblyId);
                 _versionSelect.Parameters.Add(version);
@@ -430,13 +430,13 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_versionInsert == null)
             {
                 _versionInsert = Connection.CreateCommand();
-                _versionInsert.CommandText = "insert into dbkeepernet_version(dbkeepernet_assembly_id, version, created) values(:assemblyId, :version, now()) returning id";
+                _versionInsert.CommandText = "insert into dbkeepernet_version(dbkeepernet_assembly_id, version, created) values(@assemblyId, @version, now()) returning id";
 
                 DbParameter assemblyId = _assemblySelect.CreateParameter();
-                assemblyId.ParameterName = ":assemblyId";
+                assemblyId.ParameterName = "@assemblyId";
 
                 DbParameter version = _assemblySelect.CreateParameter();
-                version.ParameterName = ":version";
+                version.ParameterName = "@version";
 
                 _versionInsert.Parameters.Add(assemblyId);
                 _versionInsert.Parameters.Add(version);
@@ -447,13 +447,13 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_stepSelect == null)
             {
                 _stepSelect = Connection.CreateCommand();
-                _stepSelect.CommandText = "select id from dbkeepernet_step where dbkeepernet_version_id = :versionId and step = :step";
+                _stepSelect.CommandText = "select id from dbkeepernet_step where dbkeepernet_version_id = @versionId and step = @step";
 
                 DbParameter versionId = _assemblySelect.CreateParameter();
-                versionId.ParameterName = ":versionId";
+                versionId.ParameterName = "@versionId";
 
                 DbParameter step = _assemblySelect.CreateParameter();
-                step.ParameterName = ":step";
+                step.ParameterName = "@step";
 
                 _stepSelect.Parameters.Add(versionId);
                 _stepSelect.Parameters.Add(step);
@@ -461,13 +461,13 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_stepInsert == null)
             {
                 _stepInsert = Connection.CreateCommand();
-                _stepInsert.CommandText = "insert into dbkeepernet_step(dbkeepernet_version_id, step, created) values(:versionId, :step, now())";
+                _stepInsert.CommandText = "insert into dbkeepernet_step(dbkeepernet_version_id, step, created) values(@versionId, @step, now())";
 
                 DbParameter versionId = _assemblySelect.CreateParameter();
-                versionId.ParameterName = ":versionId";
+                versionId.ParameterName = "@versionId";
 
                 DbParameter step = _assemblySelect.CreateParameter();
-                step.ParameterName = ":step";
+                step.ParameterName = "@step";
 
                 _stepInsert.Parameters.Add(versionId);
                 _stepInsert.Parameters.Add(step);

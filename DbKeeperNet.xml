@@ -44,6 +44,9 @@
   <Target Name="TestOracle" DependsOnTargets="Build">
     <Exec Command='"$(NUnitTool)" /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
+  <Target Name="TestFirebird" DependsOnTargets="Build">
+    <Exec Command='"$(NUnitTool)" /labels /include=firebird "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+  </Target>
   <Target Name="RebuildXsd">
     <Delete Files="DbKeeperNet.Engine\XmlClasses.cs"/>
     <Copy SourceFiles="DbKeeperNet.Engine\Resources\Updates-1.0.xsd" DestinationFiles="$(TmpDir)\XmlClasses.xsd" />
@@ -117,6 +120,7 @@
     <CallTarget Targets="TestPgSql" />
     <CallTarget Targets="TestSQLite" />
     <CallTarget Targets="TestOracle" />
+    <CallTarget Targets="TestFirebird" />
   </Target>
 
   <Target Name="Build" DependsOnTargets="RebuildXsd">

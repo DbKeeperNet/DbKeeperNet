@@ -1,14 +1,18 @@
-using NUnit.Framework;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
+using NUnit.Framework;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 {
+    /// <summary>
+    /// Tests which requires configured Firebird database.
+    /// As prerequisities may be those table created.
+    /// </summary>
     [TestFixture]
     [Explicit]
-    [Category("pgsql")]
-    public class PgSqlDatabaseServiceLiveTests
+    [Category("firebird")]
+    public class FirebirdDatabaseServiceLiveTests
     {
-        const string CONNECTION_STRING = "pgsql";
+        const string CONNECTION_STRING = @"firebird";
 
         [SetUp]
         public void Setup()
@@ -18,23 +22,24 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             context.InitializeDatabaseService(CONNECTION_STRING);
 
             Updater updater = new Updater(context);
-            updater.ExecuteXml(typeof(DbServicesExtension).Assembly.GetManifestResourceStream("DbKeeperNet.Engine.Extensions.DatabaseServices.PgSqlDatabaseServiceInstall.xml"));
+            updater.ExecuteXml(typeof(DbServicesExtension).Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.FirebirdDatabaseServiceInstall.xml"));
         }
 
         [Test]
         public void TestIsUpdateStepExecutedFalse()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
+            FirebirdDatabaseService service = new FirebirdDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
                 Assert.That(connectedService.IsUpdateStepExecuted("MyTestingAssembly", "x.x99", 222), Is.False);
             }
         }
+
         [Test]
         public void TestSetUpdateStepExecuted()
         {
-            PgSqlDatabaseService service = new PgSqlDatabaseService();
+            FirebirdDatabaseService service = new FirebirdDatabaseService();
 
             using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
             {
@@ -42,5 +47,6 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
                 Assert.That(connectedService.IsUpdateStepExecuted("MyTestingAssembly.TestSetUpdateStepExecuted", "1.00", 1), Is.True);
             }
         }
+
     }
 }
