@@ -2,6 +2,8 @@ Version 1.5.1.1
  - Unit tests cleanup
  - Solution migration to VS 2010
  - Added support for manual database connection initialization
+ - Added support for Firebird database
+ - Extended support of PostgreSQL
  - Small fixes in international support
  - Several small code improvements
  - Log4Net plugin .PDB file is part of distribution .ZIP file
@@ -10,7 +12,8 @@ Version 1.5.1.1
    - Microsoft SQL Server Express 2008 R2
    - MySQL 5.5.27 + MySQL Connector/NET 6.5.4
    - PostgreSQL 9.2 + Npgsql 2.0.12.0
-   - SQLite for .NET 1.0.66.0
+   - SQLite 3 for .NET 1.0.66.0
+   - Firebird 2.5 + Firebird ADO.NET Data Provider 2.7.7
 
 Version 1.4.1.1
  - Oracle support (tested on version 10g)

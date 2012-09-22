@@ -3,6 +3,10 @@
         <assembly location=".\DbKeeperNet.Engine\bin\Release\DbKeeperNet.Engine.dll" documentation=".\DbKeeperNet.Engine\bin\Release\DbKeeperNet.Engine.xml" />
     </assemblies>
     <namespaces>
+	<namespace name="DbKeeperNet.Engine">
+	<para>Contains all the basic classes for database upgrade.</para>
+	<para>To get started see <a href="DbKeeperNet.Engine~DbKeeperNet.Engine.Updater.html">Updater</a>.</para>
+	</namespace>
         <namespace name="DbKeeperNet.Engine.Extensions.DatabaseServices">Contain all the built-in database services</namespace>
         <namespace name="DbKeeperNet.Engine.Extensions.LoggingServices">Contain all the built-in logging services</namespace>
         <namespace name="DbKeeperNet.Engine.Extensions.Preconditions">Contain all the built-in preconditions</namespace>
