@@ -10,19 +10,31 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
     [TestFixture]
     [Explicit]
     [Category("firebird")]
-    public class FirebirdDatabaseServiceLiveTests
+    public class FirebirdDatabaseServiceLiveTests: DatabaseServiceTests<FirebirdDatabaseService>
     {
         const string CONNECTION_STRING = @"firebird";
+
+        public FirebirdDatabaseServiceLiveTests() : base(CONNECTION_STRING)
+        {
+        }
 
         [SetUp]
         public void Setup()
         {
+            Cleanup();
+
             IUpdateContext context = new UpdateContext();
             context.LoadExtensions();
             context.InitializeDatabaseService(CONNECTION_STRING);
 
             Updater updater = new Updater(context);
             updater.ExecuteXml(typeof(DbServicesExtension).Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.FirebirdDatabaseServiceInstall.xml"));
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            Cleanup();
         }
 
         [Test]
@@ -48,5 +60,23 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             }
         }
 
+        private void Cleanup()
+        {
+            using (var service = CreateConnectedDbService())
+            {
+                ExecuteSqlAndIgnoreException(service, @"DROP TRIGGER ""TR_dbkeepernet_step""");
+                ExecuteSqlAndIgnoreException(service, @"DROP TRIGGER ""TR_dbkeepernet_version""");
+                ExecuteSqlAndIgnoreException(service, @"DROP TRIGGER ""TR_dbkeepernet_assembly""");
+
+                ExecuteSqlAndIgnoreException(service, @"DROP GENERATOR ""GEN_dbkeepernet_step_id""");
+                ExecuteSqlAndIgnoreException(service, @"DROP GENERATOR ""GEN_dbkeepernet_version_id""");
+                ExecuteSqlAndIgnoreException(service, @"DROP GENERATOR ""GEN_dbkeepernet_assembly_id""");
+
+
+                ExecuteSqlAndIgnoreException(service, @"DROP TABLE ""dbkeepernet_step""");
+                ExecuteSqlAndIgnoreException(service, @"DROP TABLE ""dbkeepernet_version""");
+                ExecuteSqlAndIgnoreException(service, @"DROP TABLE ""dbkeepernet_assembly""");
+            }
+        }
     }
 }
