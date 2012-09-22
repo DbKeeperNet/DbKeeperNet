@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using DbKeeperNet.Engine.Extensions.DatabaseServices;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -16,6 +15,7 @@ namespace DbKeeperNet.Engine.Tests
             IUpdateContext context = new UpdateContext();
             context.RegisterPrecondition(null);
         }
+
         [Test]
         [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterPreconditionNullName()
@@ -34,6 +34,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.RegisterPrecondition(mockPrec);
             }
         }
+
         [Test]
         [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterPreconditionEmptyName()
@@ -52,6 +53,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.RegisterPrecondition(mockPrec);
             }
         }
+
         [Test]
         public void RegisterPrecondition()
         {
@@ -69,6 +71,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.RegisterPrecondition(mockPrec);
             }
         }
+
         [Test]
         [ExpectedException(typeof(KeyNotFoundException))]
         public void CheckNonExistingPrecondition()
@@ -88,6 +91,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.CheckPrecondition("xxx", null);
             }
         }
+
         [Test]
         public void CheckPrecondition()
         {
@@ -130,6 +134,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.RegisterDatabaseService(mockService);
             }
         }
+
         [Test]
         [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterDatabaseServiceNullName()
@@ -148,6 +153,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.RegisterDatabaseService(mockService);
             }
         }
+
         [Test]
         [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterDatabaseServiceEmptyName()
@@ -166,6 +172,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.RegisterDatabaseService(mockService);
             }
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void RegisterDatabaseServiceNull()
@@ -192,6 +199,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.RegisterLoggingService(mockService);
             }
         }
+
         [Test]
         [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterLoggingServiceEmptyName()
@@ -210,6 +218,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.RegisterLoggingService(mockService);
             }
         }
+
         [Test]
         public void RegisterLoggingService()
         {
@@ -227,28 +236,29 @@ namespace DbKeeperNet.Engine.Tests
                 context.RegisterLoggingService(mockService);
             }
         }
+
         [Test]
         [ExpectedException(typeof(ArgumentNullException))]
         public void InitializeDatabaseServiceUsingDatabaseServiceShouldThrowExceptionForNullArgument()
         {
             using(IUpdateContext context = new UpdateContext())
             {
-                context.InitializeDatabaseService((IDatabaseService)null);
+                context.InitializeDatabaseService((IDatabaseService)null, false);
             }
         }
+
         [Test]
         public void InitializeDatabaseServiceUsingDatabaseServiceShouldWork()
         {
             MockRepository mockRepository = new MockRepository();
             IDatabaseService databaseService = mockRepository.DynamicMock<IDatabaseService>();
 
-            using (IUpdateContext context = new UpdateContext())
+            using (IUpdateContext context = CreateAContext())
             {
-                context.LoadExtensions();
-                context.InitializeLoggingService(@"dummy");
-                context.InitializeDatabaseService(databaseService);
+                context.InitializeDatabaseService(databaseService, false);
             }
         }
+
         [Test]
         public void RegisterScriptExecutionService()
         {
@@ -267,6 +277,57 @@ namespace DbKeeperNet.Engine.Tests
             }
 
             repository.VerifyAll();
+        }
+
+        [Test]
+        public void InitializeServiceWithADatabaseServiceAndDisposeServiceTrueShouldDisposeServiceDuringContextDispose()
+        {
+            var repository = new MockRepository();
+            var databaseService = repository.DynamicMock<IDatabaseService>();
+
+            using(repository.Record())
+            {
+                Expect.Call(databaseService.Dispose);
+            }
+
+            using (repository.Playback())
+            {
+                var context = CreateAContext();
+
+                context.InitializeDatabaseService(databaseService, true);
+
+                context.Dispose();
+            }
+        }
+
+        [Test]
+        public void InitializeServiceWithADatabaseServiceAndDisposeServiceFalseShouldNotDisposeServiceDuringContextDispose()
+        {
+            var repository = new MockRepository();
+            var databaseService = repository.DynamicMock<IDatabaseService>();
+
+            using (repository.Record())
+            {
+                DoNotExpect.Call(databaseService.Dispose);
+            }
+
+            using (repository.Playback())
+            {
+                var context = CreateAContext();
+
+                context.InitializeDatabaseService(databaseService, false);
+
+                context.Dispose();
+            }
+        }
+
+        private static UpdateContext CreateAContext()
+        {
+            var context = new UpdateContext();
+
+            context.LoadExtensions();
+            context.InitializeLoggingService(@"dummy");
+            return context;
         }
     }
 }

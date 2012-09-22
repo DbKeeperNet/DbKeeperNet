@@ -26,6 +26,7 @@ namespace DbKeeperNet.Engine
         int _currentStep;
 
         PreconditionType[] _defaultPreconditions = { };
+        private bool _databaseServiceOwner;
 
         public UpdateContext()
             : this(DbKeeperNetConfigurationSection.Current)
@@ -238,6 +239,7 @@ namespace DbKeeperNet.Engine
             Logger.TraceInformation(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.DatabaseServiceMappingFound, connectionString, databaseServiceName));
 
             _databaseService = _databaseServices[databaseServiceName].CloneForConnectionString(connectionString);
+            _databaseServiceOwner = true;
 
             Logger.TraceInformation(UpdateContextMessages.DatabaseServiceInitialized, connectionString);
         }
@@ -245,13 +247,16 @@ namespace DbKeeperNet.Engine
         /// <summary>
         /// Initialize database service by passing an instance of <see cref="IDatabaseService"/>.
         /// </summary>
+        /// <remarks>Database service is not considered as owned </remarks>
         /// <param name="databaseService">Instance of database service.</param>
-        public void InitializeDatabaseService(IDatabaseService databaseService)
+        /// <param name="disposeService"><c>true</c> if database service should be disposed when the context is disposed.</param>
+        public void InitializeDatabaseService(IDatabaseService databaseService, bool disposeService)
         {
             if (databaseService == null)
                 throw new ArgumentNullException(@"databaseService");
 
             _databaseService = databaseService;
+            _databaseServiceOwner = disposeService;
 
             Logger.TraceInformation(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.InitializedUsingInstantiatedDatabaseService, databaseService));
         }
@@ -295,7 +300,7 @@ namespace DbKeeperNet.Engine
                 {
                     if (disposing)
                     {
-                        if (_databaseService != null)
+                        if ((_databaseService != null) && (_databaseServiceOwner))
                             _databaseService.Dispose();
                     }
                 }
