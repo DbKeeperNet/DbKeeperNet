@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DbKeeperNet.Extensions.Log4Net</id>
+    <version>1.5.1.2</version>
+    <authors>Vladimir Kloz</authors>
+    <owners>Vladimir Kloz</owners>
+    <licenseUrl>http://code.google.com/p/dbkeepernet/wiki/LICENSE</licenseUrl>
+    <projectUrl>http://code.google.com/p/dbkeepernet</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This is an extension for DbKeeperNet allowing usage of log4net 1.2.10 as a logger</description>
+    <releaseNotes>
+Version 1.5.1.2
+- Initial package upload
+    </releaseNotes>
+    <copyright>Copyright 2013 Vladimir Kloz</copyright>
+    <tags>Oracle MSSQL MYSQL FireBird PostgreSQL SQLite Database Deployment Log4Net</tags>
+    <dependencies>
+       <dependency id="DbKeeperNet" version="[1.5.1.2]" />
+    </dependencies>
+  </metadata>
+    <files>
+      <file src="DbKeeperNet.Extensions.Log4Net.dll" target="lib\net20" />
+      <file src="Log4Net.dll" target="lib\net20" />
+      <file src="DbKeeperNet.Extensions.Log4Net.pdb" target="lib\net20" />
+    </files>
+</package>
