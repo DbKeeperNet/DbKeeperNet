@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DbKeeperNet</id>
+    <version>1.5.1.2</version>
+    <authors>Vladimir Kloz</authors>
+    <owners>Vladimir Kloz</owners>
+    <licenseUrl>http://code.google.com/p/dbkeepernet/wiki/LICENSE</licenseUrl>
+    <projectUrl>http://code.google.com/p/dbkeepernet</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>DbKeeperNet is a handy component simplifying deployment of database schema changes working with various RDBMS systems.</description>
+    <releaseNotes>
+Version 1.5.1.2
+- NuGet package update
+
+Version 1.5.1.1
+
+- Unit tests cleanup
+- Solution migration to VS 2010
+- Added support for manual database connection initialization
+- Added support for Firebird database
+- Extended support of PostgreSQL
+- Small fixes in international support
+- Several small code improvements
+- Log4Net plugin .PDB file is part of distribution .ZIP file
+- Tested with databases:
+  - Oracle XE 11g
+  - Microsoft SQL Server Express 2008 R2
+  - MySQL 5.5.27 + MySQL Connector/NET 6.5.4
+  - PostgreSQL 9.2 + Npgsql 2.0.12.0
+  - SQLite 3 for .NET 1.0.66.0
+  - Firebird 2.5 + Firebird ADO.NET Data Provider 2.7.7
+    </releaseNotes>
+    <copyright>Copyright 2013 Vladimir Kloz</copyright>
+    <tags>Oracle MSSQL MYSQL FireBird PostgreSQL SQLite Database Deployment</tags>
+  </metadata>
+    <files>
+      <file src="DbKeeperNet.Engine.dll" target="lib\net20" />
+      <file src="DbKeeperNet.Engine.pdb" target="lib\net20" />
+      <file src="cs-CZ\DbKeeperNet.Engine.resources.dll" target="lib\net20\cs-CZ" />
+    </files>
+</package>
