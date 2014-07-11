@@ -20,7 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{B2
 	ProjectSection(SolutionItems) = preProject
 		External\Castle.Core.dll = External\Castle.Core.dll
 		External\Castle.DynamicProxy2.dll = External\Castle.DynamicProxy2.dll
-		External\log4net.dll = External\log4net.dll
 		External\Rhino.Mocks.dll = External\Rhino.Mocks.dll
 	EndProjectSection
 EndProject
