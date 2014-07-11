@@ -5,7 +5,7 @@
     <Name>DbKeeperNet</Name>
     <Platform>Any CPU</Platform>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <TargetDirectoryBase>$(Name)-$(SvnBuild)</TargetDirectoryBase>
+    <TargetDirectoryBase>$(Name)-$(GitBuild)</TargetDirectoryBase>
     
     <BinaryDirectory>$(TmpDir)\$(TargetDirectoryBase)</BinaryDirectory>
     <SrcDirectory>$(TmpDir)\$(TargetDirectoryBase)-src</SrcDirectory>
@@ -58,7 +58,7 @@
     <RemoveDir Directories="$(SrcDirectory)"/>
     
     <Exec Command='$(GitTool) clone $(GitRepository) $(SrcDirectory)'/>
-    <Exec Command='$(GitTool) archive -9 -o "..\..\$(SrcZipPath)" build-$(GitBuild)' WorkingDirectory='$(SrcDirectory)'/>
+    <Exec Command='$(GitTool) archive -9 -o "..\..\$(SrcZipPath)" --prefix="DbKeeperNet-$(GitBuild)-src/" build-$(GitBuild)' WorkingDirectory='$(SrcDirectory)'/>
     <RemoveDir Directories="$(SrcDirectory)"/>
   </Target>
 
