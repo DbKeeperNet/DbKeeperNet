@@ -5,6 +5,9 @@
 packages
 !packages/repositories.config
 
+#Build
+UserProperties.xml
+
 # User-specific files
 *.suo
 *.user

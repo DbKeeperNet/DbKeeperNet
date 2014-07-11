@@ -6,6 +6,8 @@
     <SvnPath Condition="'$(SvnBuild)' != ''">tags/build-$(SvnBuild)</SvnPath>
     <SvnPath Condition="'$(SvnPath)' == ''">trunk</SvnPath>
     <SvnTool Condition="'$(SvnTool)' == ''">c:\program files\SlikSVN\bin\svn.exe</SvnTool>
+    <GitTool Condition="'$(GitTool)' == ''">git</GitTool>
+    <GitRepository Condition="'$(GitRepository)' == ''">https://github.com/voloda/DbKeeperNet.git</GitRepository>
     <TmpDir Condition="'$(TmpDir)' == ''">$(TMP)</TmpDir>
     <DestinationDir Condition="'$(DestinationDir)' == ''">.</DestinationDir>
     <SrcRootDir Condition="'$(SrcRootDir)' == ''">.</SrcRootDir>

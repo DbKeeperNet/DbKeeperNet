@@ -1,6 +1,5 @@
 <Project ToolsVersion="2.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="Properties.xml" />
-  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
   
   <PropertyGroup>
     <Name>DbKeeperNet</Name>
@@ -14,9 +13,9 @@
 
     <ChmPath>$(TmpDir)\Doc\DBKeeperNet.chm</ChmPath>
     
-    <BinZipPath>$(DestinationDir)\$(Name)-$(SvnBuild).zip</BinZipPath>
-    <SrcZipPath>$(DestinationDir)\$(Name)-$(SvnBuild)-src.zip</SrcZipPath>
-    <DocZipPath>$(DestinationDir)\$(Name)-$(SvnBuild)-doc.zip</DocZipPath>
+    <BinZipPath>$(DestinationDir)\$(Name)-$(GitBuild).zip</BinZipPath>
+    <SrcZipPath>$(DestinationDir)\$(Name)-$(GitBuild)-src.zip</SrcZipPath>
+    <DocZipPath>$(DestinationDir)\$(Name)-$(GitBuild)-doc.zip</DocZipPath>
   </PropertyGroup>
 
   <Target Name="Doc" DependsOnTargets="Build">
@@ -56,14 +55,10 @@
   <!-- Prepare ZIP file with sources for publication -->
   <Target Name="SrcZip">
     <Delete Files="$(SrcZipPath)" />
-    
     <RemoveDir Directories="$(SrcDirectory)"/>
     
-    <Exec Command='"$(SvnTool)" export "$(SvnRepository)/$(SvnPath)" $(SrcDirectory)'/>
-    <ItemGroup>
-      <SrcZipFiles Include="$(SrcDirectory)\**" />
-    </ItemGroup>
-    <Zip Files="@(SrcZipFiles)"  ZipFileName="$(SrcZipPath)" ZipLevel="9" WorkingDirectory="$(TmpDir)" />
+    <Exec Command='$(GitTool) clone $(GitRepository) $(SrcDirectory)'/>
+    <Exec Command='$(GitTool) archive -9 -o "..\..\$(SrcZipPath)" build-$(GitBuild)' WorkingDirectory='$(SrcDirectory)'/>
     <RemoveDir Directories="$(SrcDirectory)"/>
   </Target>
 
