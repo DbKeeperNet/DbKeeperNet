@@ -3,6 +3,7 @@
 
 #NuGet
 packages
+.build
 !packages/repositories.config
 
 #Build

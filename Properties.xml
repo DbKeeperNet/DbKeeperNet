@@ -14,5 +14,6 @@
     <NUnitTool Condition="'$(NUnitTool)' == ''">nunit-console.exe</NUnitTool>
     <XsdTool Condition="'$(XsdTool)' == ''" >xsd.exe</XsdTool>
     <NDocTool Condition="'$(XsdTool)' == ''" >ndoc3console.exe</NDocTool>
+    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build\</MSBuildCommunityTasksPath>
   </PropertyGroup>
 </Project>

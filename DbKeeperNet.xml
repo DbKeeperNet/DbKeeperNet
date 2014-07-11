@@ -1,6 +1,7 @@
 <Project ToolsVersion="2.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="Properties.xml" />
-  
+  <Import Project=".build\MSBuild.Community.Tasks.Targets"/>  
+
   <PropertyGroup>
     <Name>DbKeeperNet</Name>
     <Platform>Any CPU</Platform>
@@ -75,7 +76,6 @@
     
     <Copy DestinationFolder="$(BinaryDirectory)" SourceFiles="$(SrcRootDir)\Changelog.txt" />
     <Copy DestinationFolder="$(BinaryDirectory)" SourceFiles="$(SrcRootDir)\LICENSE" />
-    <Copy DestinationFolder="$(BinaryDirectory)" SourceFiles="$(SrcRootDir)\External\Log4Net.dll" />
 
     <!-- list of files which are part of binary package -->
     <ItemGroup>
