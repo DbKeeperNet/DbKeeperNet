@@ -1,5 +1,6 @@
 Version 1.5.1.3
  - Log4Net referenced as Nuget package 2.0.0
+ - Log4Net nuget package has Log4Net as a dependency
 
 Version 1.5.1.1
  - Unit tests cleanup

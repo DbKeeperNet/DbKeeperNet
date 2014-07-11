@@ -10,6 +10,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>DbKeeperNet is a handy component simplifying deployment of database schema changes working with various RDBMS systems.</description>
     <releaseNotes>
+Version 1.5.1.3
+ - Log4Net referenced as Nuget package 2.0.0
+ - Log4Net nuget package has Log4Net as a dependency
+
 Version 1.5.1.2
 - NuGet package update
 
