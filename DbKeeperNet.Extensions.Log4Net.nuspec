@@ -23,8 +23,4 @@ Version 1.5.1.2
        <dependency id="log4net" version="2.0.0" />
     </dependencies>
   </metadata>
-<!--    <files>
-      <file src="DbKeeperNet.Extensions.Log4Net.dll" target="lib\net20" />
-      <file src="DbKeeperNet.Extensions.Log4Net.pdb" target="lib\net20" />
-    </files> -->
 </package>
