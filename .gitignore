@@ -8,6 +8,9 @@ packages
 
 #Build
 UserProperties.xml
+/*.zip
+/*.nupkg
+/tmp
 
 # User-specific files
 *.suo

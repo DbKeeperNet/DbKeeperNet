@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>DbKeeperNet</id>
-    <version>1.5.1.2</version>
+    <version>1.5.1.3</version>
     <authors>Vladimir Kloz</authors>
     <owners>Vladimir Kloz</owners>
     <licenseUrl>http://code.google.com/p/dbkeepernet/wiki/LICENSE</licenseUrl>
@@ -38,9 +38,4 @@ Version 1.5.1.1
     <copyright>Copyright 2013 Vladimir Kloz</copyright>
     <tags>Oracle MSSQL MYSQL FireBird PostgreSQL SQLite Database Deployment</tags>
   </metadata>
-    <files>
-      <file src="DbKeeperNet.Engine.dll" target="lib\net20" />
-      <file src="DbKeeperNet.Engine.pdb" target="lib\net20" />
-      <file src="cs-CZ\DbKeeperNet.Engine.resources.dll" target="lib\net20\cs-CZ" />
-    </files>
 </package>
