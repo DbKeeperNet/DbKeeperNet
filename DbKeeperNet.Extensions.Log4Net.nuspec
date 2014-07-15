@@ -19,7 +19,7 @@ Version 1.5.1.2
     <copyright>Copyright 2013 Vladimir Kloz</copyright>
     <tags>Oracle MSSQL MYSQL FireBird PostgreSQL SQLite Database Deployment Log4Net</tags>
     <dependencies>
-       <dependency id="DbKeeperNet" version="[1.5.1.2]" />
+       <dependency id="DbKeeperNet" version="[1.5.1.3]" />
        <dependency id="log4net" version="2.0.0" />
     </dependencies>
   </metadata>
