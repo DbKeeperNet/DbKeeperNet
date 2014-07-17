@@ -7,7 +7,7 @@
     <TmpDir Condition="'$(TmpDir)' == ''">$(TMP)</TmpDir>
     <DestinationDir Condition="'$(DestinationDir)' == ''">.</DestinationDir>
     <SrcRootDir Condition="'$(SrcRootDir)' == ''">.</SrcRootDir>
-    <NUnitTool Condition="'$(NUnitTool)' == ''">nunit-console.exe</NUnitTool>
+    <NUnitTool Condition="'$(NUnitTool)' == ''">packages\NUnit.Runners.2.6.3\tools\nunit-console.exe</NUnitTool>
     <XsdTool Condition="'$(XsdTool)' == ''" >xsd.exe</XsdTool>
     <NDocTool Condition="'$(NDocTool)' == ''" >ndoc3console.exe</NDocTool>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build\</MSBuildCommunityTasksPath>
