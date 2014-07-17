@@ -5,6 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherFiles", "OtherFiles", 
 	ProjectSection(SolutionItems) = preProject
 		Changelog.txt = Changelog.txt
 		DbKeeperNet.Extensions.Log4Net.nuspec = DbKeeperNet.Extensions.Log4Net.nuspec
+		DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec = DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec
 		DbKeeperNet.FxCop = DbKeeperNet.FxCop
 		DbKeeperNet.ndoc = DbKeeperNet.ndoc
 		DbKeeperNet.nuspec = DbKeeperNet.nuspec
@@ -43,6 +44,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ED3B00
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup", "DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.csproj", "{CF414579-2BB6-48D1-BDDD-BA586373C881}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +76,10 @@ Global
 		{ABA03077-BEFA-410A-B4C0-915972A22990}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABA03077-BEFA-410A-B4C0-915972A22990}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABA03077-BEFA-410A-B4C0-915972A22990}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF414579-2BB6-48D1-BDDD-BA586373C881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF414579-2BB6-48D1-BDDD-BA586373C881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF414579-2BB6-48D1-BDDD-BA586373C881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF414579-2BB6-48D1-BDDD-BA586373C881}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

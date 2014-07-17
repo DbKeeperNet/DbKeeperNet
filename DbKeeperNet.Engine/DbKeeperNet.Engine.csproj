@@ -61,9 +61,12 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspNetMembershipAdapter.cs" />
+    <Compile Include="CustomUpdateSteps\MsSqlStepWithoutExplicitTransaction.cs" />
     <Compile Include="DatabaseServiceMappingConfigurationElement.cs" />
     <Compile Include="DatabaseServiceMappingConfigurationElementCollection.cs" />
     <Compile Include="DbKeeperNetConfigurationSection.cs" />
@@ -74,7 +77,11 @@
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseService.cs" />
     <Compile Include="Extensions\Preconditions\DbTriggerNotFound.cs" />
     <Compile Include="Extensions\Preconditions\OraDbSequenceNotFound.cs" />
+    <Compile Include="IAspNetMembershipAdapter.cs" />
     <Compile Include="ISqlScriptSplitter.cs" />
+    <Compile Include="IUpdateStepVisitor.cs" />
+    <Compile Include="IVisitableUpdateStep.cs" />
+    <Compile Include="MsSqlScriptSplitter.cs" />
     <Compile Include="SqlScriptSplitter.cs" />
     <Compile Include="UpdateScriptConfigurationElement.cs" />
     <Compile Include="UpdateScriptConfigurationElementCollection.cs" />
@@ -137,7 +144,9 @@
     <Compile Include="UpdateContext.cs" />
     <Compile Include="ExtensionConfigurationElement.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="UpdateStepVisitor.cs" />
     <Compile Include="XmlClasses.cs" />
+    <Compile Include="XmlClasses.Partial.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Updates-1.0.xsd">

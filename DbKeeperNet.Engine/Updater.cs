@@ -7,7 +7,6 @@ using System.Xml.Schema;
 using System.Xml;
 using System.Reflection;
 using DbKeeperNet.Engine.Resources;
-using System.Globalization;
 
 namespace DbKeeperNet.Engine
 {
@@ -175,14 +174,18 @@ namespace DbKeeperNet.Engine
     /// </remarks>
     public class Updater : IDisposable
     {
-        IUpdateContext _context;
-        readonly ISqlScriptSplitter _scriptSplitter;
+        #region Private fields
+
+        private IUpdateContext _context;
+        private readonly IUpdateStepVisitor _updateStepVisitor;
+
+        #endregion
 
         /// <summary>
         /// Class construction. Requires initialized update context.
         /// </summary>
         /// <param name="context">Update context instance with all required information prepared</param>
-        public Updater(IUpdateContext context) : this(context,  new SqlScriptSplitter())
+        public Updater(IUpdateContext context) : this(context,  new UpdateStepVisitor(context, new SqlScriptSplitter(), new AspNetMembershipAdapter()))
         {
         }
 
@@ -190,16 +193,16 @@ namespace DbKeeperNet.Engine
         /// Class construction. Requires initialized update context.
         /// </summary>
         /// <param name="context">Update context instance with all required information prepared</param>
-        /// <param name="scriptSplitter">Script splitter dependency injection (intended for unit testing)</param>
-        public Updater(IUpdateContext context, ISqlScriptSplitter scriptSplitter)
+        /// <param name="updateStepVisitor">Update script visitor</param>
+        public Updater(IUpdateContext context, IUpdateStepVisitor updateStepVisitor)
         {
             if (context == null)
                 throw new ArgumentNullException(@"context");
-            if (scriptSplitter == null)
-                throw new ArgumentNullException(@"scriptSplitter");
+            if (updateStepVisitor == null)
+                throw new ArgumentNullException(@"updateStepVisitor");
 
             _context = context;
-            _scriptSplitter = scriptSplitter;
+            _updateStepVisitor = updateStepVisitor;
         }
 
         #region Private methods
@@ -289,78 +292,7 @@ namespace DbKeeperNet.Engine
 
             return result;
         }
-        void ExecuteStepSql(UpdateDbStepType step)
-        {
-            UpdateDbAlternativeStatementType usableStatement = null;
-            UpdateDbAlternativeStatementType commonStatement = null;
 
-            foreach (UpdateDbAlternativeStatementType statement in step.AlternativeStatement)
-            {
-                if (statement.DbType.Equals(@"all", StringComparison.Ordinal))
-                    commonStatement = statement;
-
-                if (_context.DatabaseService.IsDbType(statement.DbType))
-                {
-                    usableStatement = statement;
-                    break;
-                }
-            }
-
-            if (usableStatement == null)
-                usableStatement = commonStatement;
-
-            if (usableStatement != null)
-            {
-                var stepCount = 0;
-
-                foreach (var statement in _scriptSplitter.SplitScript(usableStatement.Value))
-                {
-                    _context.Logger.TraceInformation(UpdaterMessages.ExecutingCommandPart, ++stepCount);
-                    _context.DatabaseService.ExecuteSql(statement);
-                    _context.Logger.TraceInformation(UpdaterMessages.FinishedCommandPart, stepCount);
-                }
-            }
-            else
-            {
-                _context.Logger.TraceWarning(UpdaterMessages.AlternativeSqlStatementNotFound, _context.DatabaseService.Name);
-            }
-        }
-
-        void ExecuteStepCustom(CustomUpdateStepType step)
-        {
-            Type type = Type.GetType(step.Type);
-
-            if (type == null)
-                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, UpdaterMessages.CustomStepTypeNotFound, step.Type));
-
-            ICustomUpdateStep customStep = (ICustomUpdateStep)Activator.CreateInstance(type);
-            customStep.ExecuteUpdate(_context, step.Param);
-        }
-
-        void ExecuteStepBody(UpdateStepBaseType step)
-        {
-            bool executed = false;
-            UpdateDbStepType dbStep = step as UpdateDbStepType;
-
-            if (dbStep != null)
-            {
-                ExecuteStepSql(dbStep);
-                executed = true;
-            }
-            if (!executed)
-            {
-                CustomUpdateStepType customStep = step as CustomUpdateStepType;
-
-                if (customStep != null)
-                {
-                    ExecuteStepCustom(customStep);
-                    executed = true;
-                }
-            }
-            
-            if (!executed)
-                throw new InvalidOperationException(UpdaterMessages.UnsupportedUpdateStepType);
-        }
         void ExecuteStep(UpdateStepBaseType step)
         {
             try
@@ -383,7 +315,8 @@ namespace DbKeeperNet.Engine
                     {
                         _context.DatabaseService.BeginTransaction();
 
-                        ExecuteStepBody(step);
+                        step.Accept(_updateStepVisitor);
+
                         _context.Logger.TraceInformation(UpdaterMessages.FinishedUpdateStep, step.Id, step.FriendlyName);
 
                         if (step.MarkAsExecuted)
@@ -441,6 +374,7 @@ namespace DbKeeperNet.Engine
             return builder.ToString();
         }
         #endregion
+
         #region Public methods
         /// <summary>
         /// Thru this method is executed each XML batch. Single object
@@ -518,10 +452,7 @@ namespace DbKeeperNet.Engine
         {
             if (disposing)
             {
-                if (_context != null)
-                {
-                    _context = null;
-                }
+                _context = null;
             }
         }
         #endregion
