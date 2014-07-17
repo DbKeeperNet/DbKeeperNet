@@ -75,6 +75,8 @@
     <Compile Include="Extensions\Preconditions\DbTriggerNotFound.cs" />
     <Compile Include="Extensions\Preconditions\OraDbSequenceNotFound.cs" />
     <Compile Include="ISqlScriptSplitter.cs" />
+    <Compile Include="IUpdateStepVisitor.cs" />
+    <Compile Include="IVisitableUpdateStep.cs" />
     <Compile Include="SqlScriptSplitter.cs" />
     <Compile Include="UpdateScriptConfigurationElement.cs" />
     <Compile Include="UpdateScriptConfigurationElementCollection.cs" />
@@ -137,7 +139,9 @@
     <Compile Include="UpdateContext.cs" />
     <Compile Include="ExtensionConfigurationElement.cs" />
     <Compile Include="Updater.cs" />
+    <Compile Include="UpdateStepVisitor.cs" />
     <Compile Include="XmlClasses.cs" />
+    <Compile Include="XmlClasses.Partial.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Updates-1.0.xsd">

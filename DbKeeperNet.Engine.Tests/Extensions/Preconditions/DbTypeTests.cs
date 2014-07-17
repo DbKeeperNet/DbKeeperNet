@@ -47,7 +47,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
                 context.RegisterPrecondition(new DbType());
 
-                Updater update = new Updater(context, new NonSplittingSqlScriptSplitter());
+                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter()));
                 update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTypeTests.xml"));
             }
             repository.VerifyAll();
@@ -84,7 +84,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
                 context.RegisterPrecondition(new DbType());
 
-                Updater update = new Updater(context, new NonSplittingSqlScriptSplitter());
+                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter()));
                 update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTypeTests.xml"));
             }
             repository.VerifyAll();

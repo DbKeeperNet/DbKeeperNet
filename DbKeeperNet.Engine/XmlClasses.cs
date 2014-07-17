@@ -229,6 +229,7 @@ namespace DbKeeperNet.Engine {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AspNetAccountCreateUpdateStepType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CustomUpdateStepType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(UpdateDbStepType))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
@@ -293,6 +294,67 @@ namespace DbKeeperNet.Engine {
             }
             set {
                 this.markAsExecutedField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd")]
+    public partial class AspNetAccountCreateUpdateStepType : UpdateStepBaseType {
+        
+        private string userNameField;
+        
+        private string passwordField;
+        
+        private string[] roleField;
+        
+        private string typeField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string UserName {
+            get {
+                return this.userNameField;
+            }
+            set {
+                this.userNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string Password {
+            get {
+                return this.passwordField;
+            }
+            set {
+                this.passwordField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("Role", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string[] Role {
+            get {
+                return this.roleField;
+            }
+            set {
+                this.roleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
             }
         }
     }
