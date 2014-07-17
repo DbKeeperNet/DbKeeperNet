@@ -185,7 +185,7 @@ namespace DbKeeperNet.Engine
         /// Class construction. Requires initialized update context.
         /// </summary>
         /// <param name="context">Update context instance with all required information prepared</param>
-        public Updater(IUpdateContext context) : this(context,  new UpdateStepVisitor(context, new SqlScriptSplitter()))
+        public Updater(IUpdateContext context) : this(context,  new UpdateStepVisitor(context, new SqlScriptSplitter(), new AspNetMembershipAdapter()))
         {
         }
 

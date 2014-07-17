@@ -306,35 +306,15 @@ namespace DbKeeperNet.Engine {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd")]
     public partial class AspNetAccountCreateUpdateStepType : UpdateStepBaseType {
         
-        private string userNameField;
-        
-        private string passwordField;
-        
         private string[] roleField;
         
         private string typeField;
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string UserName {
-            get {
-                return this.userNameField;
-            }
-            set {
-                this.userNameField = value;
-            }
-        }
+        private string userNameField;
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public string Password {
-            get {
-                return this.passwordField;
-            }
-            set {
-                this.passwordField = value;
-            }
-        }
+        private string passwordField;
+        
+        private string mailField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Role", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -355,6 +335,39 @@ namespace DbKeeperNet.Engine {
             }
             set {
                 this.typeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string UserName {
+            get {
+                return this.userNameField;
+            }
+            set {
+                this.userNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Password {
+            get {
+                return this.passwordField;
+            }
+            set {
+                this.passwordField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Mail {
+            get {
+                return this.mailField;
+            }
+            set {
+                this.mailField = value;
             }
         }
     }

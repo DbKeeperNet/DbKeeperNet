@@ -15,19 +15,21 @@ namespace DbKeeperNet.Engine
 
         private readonly IUpdateContext _context;
         private readonly ISqlScriptSplitter _scriptSplitter;
+        private readonly IAspNetMembershipAdapter _aspNetMembershipAdapter;
 
         #endregion
-
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context">An instance of the update context</param>
         /// <param name="scriptSplitter">Associtated script splitter instance</param>
-        public UpdateStepVisitor(IUpdateContext context, ISqlScriptSplitter scriptSplitter)
+        /// <param name="aspNetMembershipAdapter">ASP.NET member ship adapter</param>
+        public UpdateStepVisitor(IUpdateContext context, ISqlScriptSplitter scriptSplitter, IAspNetMembershipAdapter aspNetMembershipAdapter)
         {
             _context = context;
             _scriptSplitter = scriptSplitter;
+            _aspNetMembershipAdapter = aspNetMembershipAdapter;
         }
 
         /// <summary>
@@ -36,7 +38,18 @@ namespace DbKeeperNet.Engine
         /// <param name="step">Step parameters</param>
         public void Visit(AspNetAccountCreateUpdateStepType step)
         {
-            throw new NotImplementedException();
+            _context.Logger.TraceInformation("Going to use adapter {0}", _aspNetMembershipAdapter);
+
+            _context.Logger.TraceInformation("Adding user {0}", step.UserName);
+            _aspNetMembershipAdapter.CreateUser(step.UserName, step.Password, step.Mail);
+            _context.Logger.TraceInformation("Added user {0}", step.UserName);
+
+            if (step.Role != null && step.Role.Length != 0)
+            {
+                _context.Logger.TraceInformation("Adding user {0} to roles {1}", step.UserName, string.Join(@",", step.Role));
+                _aspNetMembershipAdapter.AddUserToRoles(step.UserName, step.Role);
+                _context.Logger.TraceInformation("User {0} added to requested roles", step.UserName);
+            }
         }
 
         /// <summary>

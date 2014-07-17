@@ -48,7 +48,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
                 context.RegisterPrecondition(new DbForeignKeyNotFound());
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter()));
+                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
                 update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbForeignKeyNotFoundTests.xml"));
             }
             repository.VerifyAll();

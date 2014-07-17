@@ -48,7 +48,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
                 context.RegisterPrecondition(new DbViewNotFound());
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter()));
+                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
                 update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbViewNotFoundTests.xml"));
             }
             repository.VerifyAll();
@@ -85,7 +85,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
                 context.RegisterPrecondition(new DbViewNotFound());
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter()));
+                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
                 update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbViewNotFoundTests.xml"));
             }
             repository.VerifyAll();
