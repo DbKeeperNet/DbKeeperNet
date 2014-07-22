@@ -65,6 +65,18 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
+        public void DeleteUserShouldWorkCorrectly()
+        {
+            var adapter = new AspNetMembershipAdapter();
+
+            adapter.CreateUser(UserName, Password, null);
+            Assert.IsTrue(Membership.Provider.ValidateUser(UserName, Password));
+
+            Assert.IsTrue(adapter.DeleteUser(UserName));
+            Assert.IsFalse(adapter.DeleteUser(UserName));
+        }
+
+        [Test]
         public void AddUserToRolesShouldWorkCorrectly()
         {
             var adapter = new AspNetMembershipAdapter();

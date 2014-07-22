@@ -11,6 +11,14 @@ namespace DbKeeperNet.Engine
         }
     }
 
+    public partial class AspNetAccountDeleteUpdateStepType
+    {
+        public override void Accept(IUpdateStepVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+    }
+
     public partial class AspNetAccountCreateUpdateStepType
     {
         public override void Accept(IUpdateStepVisitor visitor)

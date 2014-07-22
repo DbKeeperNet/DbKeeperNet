@@ -43,6 +43,16 @@ namespace DbKeeperNet.Engine
         }
 
         /// <summary>
+        /// Delete an existing user
+        /// </summary>
+        /// <param name="userName">Existing user's name</param>
+        /// <returns><c>true</c> if user was deleted, <c>false</c> otherwise</returns>
+        public bool DeleteUser(string userName)
+        {
+            return Membership.Provider.DeleteUser(userName, true);
+        }
+
+        /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>

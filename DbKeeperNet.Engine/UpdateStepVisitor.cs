@@ -53,6 +53,25 @@ namespace DbKeeperNet.Engine
         }
 
         /// <summary>
+        /// Process upgrade step of type <see cref="AspNetAccountDeleteUpdateStepType"/>
+        /// </summary>
+        /// <param name="step">Step parameters</param>
+        public void Visit(AspNetAccountDeleteUpdateStepType step)
+        {
+            _context.Logger.TraceInformation("Going to use adapter {0}", _aspNetMembershipAdapter);
+            _context.Logger.TraceInformation("Deleting user {0}", step.UserName);
+
+            if (_aspNetMembershipAdapter.DeleteUser(step.UserName))
+            {
+                _context.Logger.TraceInformation("Deleted user {0}", step.UserName);
+            }
+            else
+            {
+                _context.Logger.TraceWarning("User {0} not deleted", step.UserName);
+            }
+        }
+
+        /// <summary>
         /// Process upgrade step of type <see cref="UpdateDbStepType"/>
         /// </summary>
         /// <param name="step">Step parameters</param>

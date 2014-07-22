@@ -5,6 +5,7 @@ namespace DbKeeperNet.Engine
     /// </summary>
     /// <see cref="UpdateDbStepType"/>
     /// <see cref="AspNetAccountCreateUpdateStepType"/>
+    /// <see cref="AspNetAccountDeleteUpdateStepType"/>
     /// <see cref="CustomUpdateStepType"/>
     /// <see cref="UpdateStepBaseType"/>
     public interface IUpdateStepVisitor
@@ -14,6 +15,12 @@ namespace DbKeeperNet.Engine
         /// </summary>
         /// <param name="step">Step parameters</param>
         void Visit(AspNetAccountCreateUpdateStepType step);
+
+        /// <summary>
+        /// Process upgrade step of type <see cref="AspNetAccountDeleteUpdateStepType"/>
+        /// </summary>
+        /// <param name="step">Step parameters</param>
+        void Visit(AspNetAccountDeleteUpdateStepType step);
 
         /// <summary>
         /// Process upgrade step of type <see cref="UpdateDbStepType"/>

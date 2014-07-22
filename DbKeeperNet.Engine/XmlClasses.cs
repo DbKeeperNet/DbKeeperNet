@@ -229,6 +229,7 @@ namespace DbKeeperNet.Engine {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AspNetAccountDeleteUpdateStepType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AspNetAccountCreateUpdateStepType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CustomUpdateStepType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(UpdateDbStepType))]
@@ -294,6 +295,28 @@ namespace DbKeeperNet.Engine {
             }
             set {
                 this.markAsExecutedField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd")]
+    public partial class AspNetAccountDeleteUpdateStepType : UpdateStepBaseType {
+        
+        private string userNameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string UserName {
+            get {
+                return this.userNameField;
+            }
+            set {
+                this.userNameField = value;
             }
         }
     }

@@ -37,5 +37,58 @@ namespace DbKeeperNet.Engine.Tests
 
             repository.VerifyAll();
         }
+
+        [Test]
+        public void AspNetAccountCreateDeleteStepTypeShouldBeProcessedCorrectly()
+        {
+            var repository = new MockRepository();
+            var loggerMock = repository.StrictMock<ILoggingService>();
+            var contextMock = repository.StrictMock<IUpdateContext>();
+            var adapter = repository.StrictMock<IAspNetMembershipAdapter>();
+
+            using (repository.Record())
+            {
+                Expect.Call(() => loggerMock.TraceInformation(Arg<string>.Is.Anything, Arg<object[]>.Is.Anything)).Repeat.Times(3);
+                SetupResult.For(contextMock.Logger).Return(loggerMock);
+                SetupResult.For(adapter.DeleteUser(UserName)).Return(true);
+            }
+
+            var createUser = new AspNetAccountDeleteUpdateStepType { UserName = UserName };
+
+            using (repository.Playback())
+            {
+                var visitor = new UpdateStepVisitor(contextMock, null, adapter);
+                createUser.Accept(visitor);
+            }
+
+            repository.VerifyAll();
+        }
+
+        [Test]
+        public void AspNetAccountCreateDeleteStepTypeShouldLogWarningIfUserWasNotDeleted()
+        {
+            var repository = new MockRepository();
+            var loggerMock = repository.StrictMock<ILoggingService>();
+            var contextMock = repository.StrictMock<IUpdateContext>();
+            var adapter = repository.StrictMock<IAspNetMembershipAdapter>();
+
+            using (repository.Record())
+            {
+                Expect.Call(() => loggerMock.TraceInformation(Arg<string>.Is.Anything, Arg<object[]>.Is.Anything)).Repeat.Times(2);
+                Expect.Call(() => loggerMock.TraceWarning(Arg<string>.Is.Anything, Arg<object[]>.Is.Anything));
+                SetupResult.For(contextMock.Logger).Return(loggerMock);
+                SetupResult.For(adapter.DeleteUser(UserName)).Return(false);
+            }
+
+            var createUser = new AspNetAccountDeleteUpdateStepType { UserName = UserName };
+
+            using (repository.Playback())
+            {
+                var visitor = new UpdateStepVisitor(contextMock, null, adapter);
+                createUser.Accept(visitor);
+            }
+
+            repository.VerifyAll();
+        }
     }
 }
