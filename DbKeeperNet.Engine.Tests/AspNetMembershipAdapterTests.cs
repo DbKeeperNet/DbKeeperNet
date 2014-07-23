@@ -88,5 +88,24 @@ namespace DbKeeperNet.Engine.Tests
             Assert.IsTrue(Roles.Provider.IsUserInRole(UserName, Role2));
             Assert.IsFalse(Roles.Provider.IsUserInRole(UserName, NonExistingRole));
         }
+
+        [Test]
+        public void UserExistsShouldReturnTrueForExistingUser()
+        {
+            MembershipCreateStatus status;
+            Membership.Provider.CreateUser(UserName, Password, null, null, null, true, null, out status);
+
+            Assert.AreEqual(MembershipCreateStatus.Success, status);
+
+            var adapter = new AspNetMembershipAdapter();
+            Assert.IsTrue(adapter.UserExists(UserName));
+        }
+
+        [Test]
+        public void UserExistsShouldReturnFalseForNonExistingUser()
+        {
+            var adapter = new AspNetMembershipAdapter();
+            Assert.IsFalse(adapter.UserExists("NonExistingUser"));
+        }
     }
 }

@@ -77,6 +77,7 @@
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseService.cs" />
     <Compile Include="Extensions\Preconditions\DbTriggerNotFound.cs" />
     <Compile Include="Extensions\Preconditions\OraDbSequenceNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\UserNotFound.cs" />
     <Compile Include="IAspNetMembershipAdapter.cs" />
     <Compile Include="ISqlScriptSplitter.cs" />
     <Compile Include="IUpdateStepVisitor.cs" />

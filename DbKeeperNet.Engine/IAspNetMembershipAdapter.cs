@@ -26,5 +26,12 @@ namespace DbKeeperNet.Engine
         /// <param name="userName">Existing user's name</param>
         /// <returns><c>true</c> if user was deleted, <c>false</c> otherwise</returns>
         bool DeleteUser(string userName);
+
+        /// <summary>
+        /// Checks whether the <paramref name="userName"/> exists.
+        /// </summary>
+        /// <param name="userName">Login name of the user to be checked</param>
+        /// <returns><c>true</c> if user exists, <c>false</c> otherwise</returns>
+        bool UserExists(string userName);
     }
 }

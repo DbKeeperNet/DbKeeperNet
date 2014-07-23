@@ -138,6 +138,7 @@
     <Compile Include="Extensions\Preconditions\DbTableNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbTypeTests.cs" />
     <Compile Include="Extensions\Preconditions\DbViewNotFoundTest.cs" />
+    <Compile Include="Extensions\Preconditions\UserNotFoundTests.cs" />
     <Compile Include="MsSqlScriptSplitterTests.cs" />
     <Compile Include="NonSplittingSqlScriptSplitter.cs" />
     <Compile Include="Extensions\Preconditions\StepNotExecutedTests.cs" />
@@ -204,6 +205,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DbKeeperNetNUnit.mdf</DependentUpon>
     </Content>
+    <EmbeddedResource Include="Extensions\Preconditions\UserNotFoundTests.xml" />
     <Content Include="Update.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

@@ -53,6 +53,18 @@ namespace DbKeeperNet.Engine
         }
 
         /// <summary>
+        /// Checks whether the <paramref name="userName"/> exists.
+        /// </summary>
+        /// <param name="userName">Login name of the user to be checked</param>
+        /// <returns><c>true</c> if user exists, <c>false</c> otherwise</returns>
+        public bool UserExists(string userName)
+        {
+            var user = Membership.Provider.GetUser(userName, false);
+
+            return (user != null);
+        }
+
+        /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>
