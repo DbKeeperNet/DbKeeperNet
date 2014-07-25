@@ -84,6 +84,16 @@ namespace DbKeeperNet.Engine
         }
 
         /// <summary>
+        /// Checkes whether the <paramref name="roleName"/> exists.
+        /// </summary>
+        /// <param name="roleName">Role name which presence needs to be checked</param>
+        /// <returns><c>true</c> if role exists, <c>false</c> if it does not exist.</returns>
+        public bool RoleExists(string roleName)
+        {
+            return Roles.Provider.RoleExists(roleName);
+        }
+
+        /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>

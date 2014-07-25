@@ -122,6 +122,22 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
+        public void RoleExistsShouldReturnTrueForExistingRole()
+        {
+            Roles.Provider.CreateRole(Role1);
+
+            var adapter = new AspNetMembershipAdapter();
+            Assert.IsTrue(adapter.RoleExists(Role1));
+        }
+
+        [Test]
+        public void RoleExistsShouldReturnFalseForNonExistingRole()
+        {
+            var adapter = new AspNetMembershipAdapter();
+            Assert.IsFalse(adapter.RoleExists(Role1));
+        }
+
+        [Test]
         public void UserExistsShouldReturnFalseForNonExistingUser()
         {
             var adapter = new AspNetMembershipAdapter();

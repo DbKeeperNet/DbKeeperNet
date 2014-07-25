@@ -3,7 +3,7 @@
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
     /// <summary>
-    /// Condition verifies that user index with given login name doesn't exist.
+    /// Condition verifies that user with given login name doesn't exist.
     /// </summary>
     /// <remarks>
     /// Condition reference name is <c>UserNotFound</c>.
@@ -39,7 +39,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="membershipAdapter"></param>
+        /// <param name="membershipAdapter">Membership adapter</param>
         public UserNotFound(IAspNetMembershipAdapter membershipAdapter)
         {
             _membershipAdapter = membershipAdapter;

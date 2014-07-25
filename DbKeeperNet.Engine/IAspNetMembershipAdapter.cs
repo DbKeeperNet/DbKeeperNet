@@ -46,5 +46,12 @@ namespace DbKeeperNet.Engine
         /// <remarks>The role is deleted regardless possibly existing assignments</remarks>
         /// <param name="roleName">Role name to be deleted</param>
         void DeleteRole(string roleName);
+
+        /// <summary>
+        /// Checkes whether the <paramref name="roleName"/> exists.
+        /// </summary>
+        /// <param name="roleName">Role name which presence needs to be checked</param>
+        /// <returns><c>true</c> if role exists, <c>false</c> if it does not exist.</returns>
+        bool RoleExists(string roleName);
     }
 }

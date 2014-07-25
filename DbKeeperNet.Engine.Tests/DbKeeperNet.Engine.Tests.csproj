@@ -137,7 +137,8 @@
     <Compile Include="Extensions\Preconditions\DbProcedureNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbTableNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbTypeTests.cs" />
-    <Compile Include="Extensions\Preconditions\DbViewNotFoundTest.cs" />
+    <Compile Include="Extensions\Preconditions\DbViewNotFoundTests.cs" />
+    <Compile Include="Extensions\Preconditions\RoleNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\UserNotFoundTests.cs" />
     <Compile Include="MsSqlScriptSplitterTests.cs" />
     <Compile Include="NonSplittingSqlScriptSplitter.cs" />
@@ -208,6 +209,7 @@
     <EmbeddedResource Include="Extensions\Preconditions\UserNotFoundTests.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Extensions\Preconditions\RoleNotFoundTests.xml" />
     <Content Include="Update.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
