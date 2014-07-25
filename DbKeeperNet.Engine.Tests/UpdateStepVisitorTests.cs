@@ -90,6 +90,31 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
+        public void AspNetDeleteRoleStepTypeShouldBeProcessedCorrectly()
+        {
+            var repository = new MockRepository();
+            var loggerMock = repository.Stub<ILoggingService>();
+            var contextMock = repository.StrictMock<IUpdateContext>();
+            var adapter = repository.StrictMock<IAspNetMembershipAdapter>();
+
+            using (repository.Record())
+            {
+                SetupResult.For(contextMock.Logger).Return(loggerMock);
+                Expect.Call(() => adapter.DeleteRole(Role1));
+            }
+
+            var createUser = new AspNetRoleDeleteUpdateStepType { RoleName = Role1 };
+
+            using (repository.Playback())
+            {
+                var visitor = new UpdateStepVisitor(contextMock, null, adapter);
+                createUser.Accept(visitor);
+            }
+
+            repository.VerifyAll();
+        }
+
+        [Test]
         public void AspNetAccountCreateDeleteStepTypeShouldLogWarningIfUserWasNotDeleted()
         {
             var repository = new MockRepository();

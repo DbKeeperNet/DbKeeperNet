@@ -50,4 +50,12 @@ namespace DbKeeperNet.Engine
             visitor.Visit(this);
         }
     }
+
+    public partial class AspNetRoleDeleteUpdateStepType
+    {
+        public override void Accept(IUpdateStepVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+    }
 }

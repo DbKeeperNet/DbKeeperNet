@@ -111,6 +111,17 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
+        public void DeleteRoleShouldWorkCorrectly()
+        {
+            Roles.Provider.CreateRole(Role1);
+
+            var adapter = new AspNetMembershipAdapter();
+            adapter.DeleteRole(Role1);
+
+            Assert.IsFalse(Roles.Provider.RoleExists(Role1));
+        }
+
+        [Test]
         public void UserExistsShouldReturnFalseForNonExistingUser()
         {
             var adapter = new AspNetMembershipAdapter();

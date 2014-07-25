@@ -85,6 +85,13 @@ Each element is intended to be used as a database schema version.</xs:documentat
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="AspNetRoleDeleteUpdateStepType">
+    <xs:complexContent>
+      <xs:extension base="UpdateStepBaseType">
+        <xs:attribute name="RoleName" type="RoleNameParamType" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="AspNetAccountDeleteUpdateStepType">
     <xs:complexContent>
       <xs:extension base="UpdateStepBaseType">

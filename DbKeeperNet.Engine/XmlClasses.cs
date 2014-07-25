@@ -230,6 +230,7 @@ namespace DbKeeperNet.Engine {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AspNetAccountDeleteUpdateStepType))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(AspNetRoleDeleteUpdateStepType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AspNetRoleCreateUpdateStepType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(AspNetAccountCreateUpdateStepType))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(CustomUpdateStepType))]
@@ -318,6 +319,28 @@ namespace DbKeeperNet.Engine {
             }
             set {
                 this.userNameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "2.0.50727.3038")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd")]
+    public partial class AspNetRoleDeleteUpdateStepType : UpdateStepBaseType {
+        
+        private string roleNameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string RoleName {
+            get {
+                return this.roleNameField;
+            }
+            set {
+                this.roleNameField = value;
             }
         }
     }

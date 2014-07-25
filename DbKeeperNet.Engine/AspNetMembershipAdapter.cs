@@ -74,6 +74,16 @@ namespace DbKeeperNet.Engine
         }
 
         /// <summary>
+        /// Creates an existing role
+        /// </summary>
+        /// <remarks>The role is deleted regardless possibly existing assignments</remarks>
+        /// <param name="roleName">Role name to be deleted</param>
+        public void DeleteRole(string roleName)
+        {
+            Roles.Provider.DeleteRole(roleName, false);
+        }
+
+        /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>

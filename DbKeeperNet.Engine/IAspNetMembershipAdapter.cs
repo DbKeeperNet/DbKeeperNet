@@ -39,5 +39,12 @@ namespace DbKeeperNet.Engine
         /// </summary>
         /// <param name="roleName">Role name to be created</param>
         void CreateRole(string roleName);
+
+        /// <summary>
+        /// Creates an existing role
+        /// </summary>
+        /// <remarks>The role is deleted regardless possibly existing assignments</remarks>
+        /// <param name="roleName">Role name to be deleted</param>
+        void DeleteRole(string roleName);
     }
 }
