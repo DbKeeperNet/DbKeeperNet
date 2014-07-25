@@ -39,7 +39,7 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
-        public void AspNetAccountCreateDeleteStepTypeShouldBeProcessedCorrectly()
+        public void AspNetAccountDeleteStepTypeShouldBeProcessedCorrectly()
         {
             var repository = new MockRepository();
             var loggerMock = repository.StrictMock<ILoggingService>();
@@ -54,6 +54,31 @@ namespace DbKeeperNet.Engine.Tests
             }
 
             var createUser = new AspNetAccountDeleteUpdateStepType { UserName = UserName };
+
+            using (repository.Playback())
+            {
+                var visitor = new UpdateStepVisitor(contextMock, null, adapter);
+                createUser.Accept(visitor);
+            }
+
+            repository.VerifyAll();
+        }
+
+        [Test]
+        public void AspNetCreateRoleStepTypeShouldBeProcessedCorrectly()
+        {
+            var repository = new MockRepository();
+            var loggerMock = repository.Stub<ILoggingService>();
+            var contextMock = repository.StrictMock<IUpdateContext>();
+            var adapter = repository.StrictMock<IAspNetMembershipAdapter>();
+
+            using (repository.Record())
+            {
+                SetupResult.For(contextMock.Logger).Return(loggerMock);
+                Expect.Call(() => adapter.CreateRole(Role1));
+            }
+
+            var createUser = new AspNetRoleCreateUpdateStepType { RoleName = Role1 };
 
             using (repository.Playback())
             {

@@ -42,4 +42,12 @@ namespace DbKeeperNet.Engine
             visitor.Visit(this);
         }
     }
+
+    public partial class AspNetRoleCreateUpdateStepType
+    {
+        public override void Accept(IUpdateStepVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
+    }
 }

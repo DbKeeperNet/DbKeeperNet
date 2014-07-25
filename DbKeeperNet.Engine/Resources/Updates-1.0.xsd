@@ -78,6 +78,13 @@ Each element is intended to be used as a database schema version.</xs:documentat
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="AspNetRoleCreateUpdateStepType">
+    <xs:complexContent>
+      <xs:extension base="UpdateStepBaseType">
+        <xs:attribute name="RoleName" type="RoleNameParamType" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="AspNetAccountDeleteUpdateStepType">
     <xs:complexContent>
       <xs:extension base="UpdateStepBaseType">
@@ -147,6 +154,11 @@ Each element is intended to be used as a database schema version.</xs:documentat
 		</xs:restriction>
 	</xs:simpleType>
   <xs:simpleType name="UserNameParamType">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="RoleNameParamType">
     <xs:restriction base="xs:string">
       <xs:minLength value="1"/>
     </xs:restriction>

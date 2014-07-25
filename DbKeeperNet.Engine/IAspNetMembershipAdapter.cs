@@ -33,5 +33,11 @@ namespace DbKeeperNet.Engine
         /// <param name="userName">Login name of the user to be checked</param>
         /// <returns><c>true</c> if user exists, <c>false</c> otherwise</returns>
         bool UserExists(string userName);
+
+        /// <summary>
+        /// Creates a new role
+        /// </summary>
+        /// <param name="roleName">Role name to be created</param>
+        void CreateRole(string roleName);
     }
 }

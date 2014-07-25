@@ -65,6 +65,15 @@ namespace DbKeeperNet.Engine
         }
 
         /// <summary>
+        /// Creates a new role
+        /// </summary>
+        /// <param name="roleName">Role name to be created</param>
+        public void CreateRole(string roleName)
+        {
+            Roles.Provider.CreateRole(roleName);
+        }
+
+        /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>

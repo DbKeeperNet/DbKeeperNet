@@ -53,6 +53,18 @@ namespace DbKeeperNet.Engine
         }
 
         /// <summary>
+        /// Process upgrade step of type <see cref="AspNetRoleCreateUpdateStepType"/>
+        /// </summary>
+        /// <param name="step">Step parameters</param>
+        public void Visit(AspNetRoleCreateUpdateStepType step)
+        {
+            _context.Logger.TraceInformation("Going to use adapter {0}", _aspNetMembershipAdapter);
+            _context.Logger.TraceInformation("Adding role {0}", step.RoleName);
+            _aspNetMembershipAdapter.CreateRole(step.RoleName);
+            _context.Logger.TraceInformation("Added role {0}", step.RoleName);
+        }
+
+        /// <summary>
         /// Process upgrade step of type <see cref="AspNetAccountDeleteUpdateStepType"/>
         /// </summary>
         /// <param name="step">Step parameters</param>
