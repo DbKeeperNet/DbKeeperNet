@@ -11,5 +11,6 @@
     <XsdTool Condition="'$(XsdTool)' == ''" >xsd.exe</XsdTool>
     <NDocTool Condition="'$(NDocTool)' == ''" >ndoc3console.exe</NDocTool>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build\</MSBuildCommunityTasksPath>
+    <NugetTool Condition="'$(NugetTool)' == ''">.nuget\nuget.exe</NugetTool>
   </PropertyGroup>
 </Project>

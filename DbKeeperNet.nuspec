@@ -2,11 +2,11 @@
 <package >
   <metadata>
     <id>DbKeeperNet</id>
-    <version>1.5.1.3</version>
+    <version>$Version$</version>
     <authors>Vladimir Kloz</authors>
     <owners>Vladimir Kloz</owners>
-    <licenseUrl>http://code.google.com/p/dbkeepernet/wiki/LICENSE</licenseUrl>
-    <projectUrl>http://code.google.com/p/dbkeepernet</projectUrl>
+    <licenseUrl>https://github.com/voloda/DbKeeperNet/wiki/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/voloda/DbKeeperNet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>DbKeeperNet is a handy component simplifying deployment of database schema changes working with various RDBMS systems.</description>
     <releaseNotes>

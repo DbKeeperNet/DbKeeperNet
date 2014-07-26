@@ -17,6 +17,11 @@
     <BinZipPath>$(DestinationDir)\$(Name)-$(BuildNumber).zip</BinZipPath>
     <SrcZipPath>$(DestinationDir)\$(Name)-$(BuildNumber)-src.zip</SrcZipPath>
     <DocZipPath>$(DestinationDir)\$(Name)-$(BuildNumber)-doc.zip</DocZipPath>
+
+    <NugetSrcDirectory>$(TmpDir)\nuget</NugetSrcDirectory>
+    <NugetEngineSrcDirectory>$(NugetSrcDirectory)\DbKeeperNet.Engine</NugetEngineSrcDirectory>
+    <NugetLog4NetSrcDirectory>$(NugetSrcDirectory)\DbKeeperNet.Extensions.Log4Net</NugetLog4NetSrcDirectory>
+    <NugetMsSqlMemberShipNugetSrcDirectory>$(NugetSrcDirectory)\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup</NugetMsSqlMemberShipNugetSrcDirectory>
   </PropertyGroup>
 
   <Target Name="Doc" DependsOnTargets="Build">
@@ -27,25 +32,25 @@
   </Target>
   
   <Target Name="Test" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /labels "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestMsSql" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /labels /include=mssql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=mssql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestMySql" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /labels /include=mysql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=mysql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestPgSql" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /labels /include=pgsql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=pgsql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestSQLite" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /labels /include=sqlite "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=sqlite "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestOracle" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestFirebird" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /labels /include=firebird "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=firebird "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="RebuildXsd">
     <Delete Files="DbKeeperNet.Engine\XmlClasses.cs"/>
@@ -106,6 +111,27 @@
     <Message Text="New source package: $(SrcZipPath)" Importance="high" />
     <Message Text="New binary package: $(BinZipPath)" Importance="high" />
     <Message Text="New binary package: $(DocZipPath)" Importance="high" />
+  </Target>
+
+  <Target Name="NugetPackages" DependsOnTargets="Build">
+    <RemoveDir Directories="$(NugetSrcDirectory)" />
+    <ItemGroup>
+      <EngineNugetSourceFiles Include="DbKeeperNet.Engine\bin\$(Configuration)\**\*.dll" />
+    </ItemGroup>
+    <ItemGroup>
+      <Log4NetNugetSourceFiles Include="DbkeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\*.dll" />
+    </ItemGroup>
+    <ItemGroup>
+      <MsSqlMembershipAndRolesSetupNugetSourceFiles Include="DbkeeperNet.Extensions.MsSqlMembershipAndRolesSetup\bin\$(Configuration)\**\*.dll" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(EngineNugetSourceFiles)" DestinationFiles="@(EngineNugetSourceFiles->'$(NugetEngineSrcDirectory)\lib\net20\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(Log4NetNugetSourceFiles)" DestinationFiles="@(Log4NetNugetSourceFiles->'$(NugetLog4NetSrcDirectory)\lib\net20\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(MsSqlMembershipAndRolesSetupNugetSourceFiles)" DestinationFiles="@(MsSqlMembershipAndRolesSetupNugetSourceFiles->'$(NugetMsSqlMemberShipNugetSrcDirectory)\lib\net20\%(RecursiveDir)%(Filename)%(Extension)')" />
+    
+    <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetEngineSrcDirectory) DbKeeperNet.nuspec" />
+    <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetLog4NetSrcDirectory) DbKeeperNet.Extensions.Log4Net.nuspec" />
+    <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetMsSqlMemberShipNugetSrcDirectory) DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec" />
   </Target>
   
   <Target Name="Tests">
