@@ -15,37 +15,37 @@ namespace DbKeeperNet.Engine
         /// <summary>
         /// Process upgrade step of type <see cref="AspNetAccountCreateUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        void Visit(AspNetAccountCreateUpdateStepType step);
+        /// <param name="updateStep">Step parameters</param>
+        void Visit(AspNetAccountCreateUpdateStepType updateStep);
 
         /// <summary>
         /// Process upgrade step of type <see cref="AspNetAccountDeleteUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        void Visit(AspNetAccountDeleteUpdateStepType step);
+        /// <param name="updateStep">Step parameters</param>
+        void Visit(AspNetAccountDeleteUpdateStepType updateStep);
 
         /// <summary>
         /// Process upgrade step of type <see cref="UpdateDbStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        void Visit(UpdateDbStepType step);
+        /// <param name="updateStep">Step parameters</param>
+        void Visit(UpdateDbStepType updateStep);
 
         /// <summary>
         /// Process upgrade step of type <see cref="CustomUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        void Visit(CustomUpdateStepType step);
+        /// <param name="updateStep">Step parameters</param>
+        void Visit(CustomUpdateStepType updateStep);
 
         /// <summary>
         /// Process upgrade step of type <see cref="AspNetRoleCreateUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        void Visit(AspNetRoleCreateUpdateStepType step);
+        /// <param name="updateStep">Step parameters</param>
+        void Visit(AspNetRoleCreateUpdateStepType updateStep);
 
         /// <summary>
         /// Process upgrade step of type <see cref="AspNetRoleDeleteUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        void Visit(AspNetRoleDeleteUpdateStepType step);
+        /// <param name="updateStep">Step parameters</param>
+        void Visit(AspNetRoleDeleteUpdateStepType updateStep);
     }
 }

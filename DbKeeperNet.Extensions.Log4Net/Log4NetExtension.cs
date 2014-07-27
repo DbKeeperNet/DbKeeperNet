@@ -1,3 +1,4 @@
+using System;
 using DbKeeperNet.Engine;
 
 namespace DbKeeperNet.Extensions.Log4Net
@@ -13,6 +14,8 @@ namespace DbKeeperNet.Extensions.Log4Net
 
         public void Initialize(IUpdateContext context)
         {
+            if (context == null) throw new ArgumentNullException(@"context");
+
             context.RegisterLoggingService(new Log4NetLoggingService());
         }
 

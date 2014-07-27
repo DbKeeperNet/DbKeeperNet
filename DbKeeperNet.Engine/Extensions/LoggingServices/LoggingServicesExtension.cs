@@ -1,3 +1,5 @@
+using System;
+
 namespace DbKeeperNet.Engine.Extensions.LoggingServices
 {
     /// <summary>
@@ -19,6 +21,8 @@ namespace DbKeeperNet.Engine.Extensions.LoggingServices
 
         public void Initialize(IUpdateContext context)
         {
+            if (context == null) throw new ArgumentNullException(@"context");
+
             context.RegisterLoggingService(new FxLogger());
             context.RegisterLoggingService(new FxTSLogger());
             context.RegisterLoggingService(new DummyLogger());

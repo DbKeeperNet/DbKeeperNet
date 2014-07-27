@@ -1,3 +1,4 @@
+using System.Globalization;
 using DbKeeperNet.Engine;
 using log4net;
 
@@ -20,17 +21,17 @@ namespace DbKeeperNet.Extensions.Log4Net
 
         public void TraceInformation(string format, params object[] p)
         {
-            _logger.InfoFormat(format, p);
+            _logger.InfoFormat(CultureInfo.CurrentCulture, format, p);
         }
 
         public void TraceError(string format, params object[] p)
         {
-            _logger.ErrorFormat(format, p);
+            _logger.ErrorFormat(CultureInfo.CurrentCulture, format, p);
         }
 
         public void TraceWarning(string format, params object[] p)
         {
-            _logger.WarnFormat(format, p);
+            _logger.WarnFormat(CultureInfo.CurrentCulture, format, p);
         }
 
         #endregion

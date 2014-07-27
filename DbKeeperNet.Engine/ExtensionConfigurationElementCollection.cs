@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace DbKeeperNet.Engine
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1010:CollectionsShouldImplementGenericInterface")]
     public sealed class ExtensionConfigurationElementCollection : ConfigurationElementCollection
     {
         public ExtensionConfigurationElementCollection()

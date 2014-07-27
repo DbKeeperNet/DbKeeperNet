@@ -29,6 +29,9 @@ namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
     /// </example>
     public class EmbeddedResourceProviderService : IScriptProviderService
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public EmbeddedResourceProviderService(IUpdateContext context)
         {
             _context = context;
@@ -36,14 +39,25 @@ namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
 
         #region IScriptExecutionService Members
 
+        /// <summary>
+        /// Service registration name
+        /// </summary>
         public string Name
         {
             get { return @"asm"; }
         }
 
+        /// <summary>
+        /// Method should open script based
+        /// on the given location
+        /// </summary>
+        /// <param name="location">Location of this script. Location format depends
+        /// on the used provider</param>
         public Stream GetScriptStreamFromLocation(string location)
         {
-            string[] parameters = location.Split(new char[] { ',' });
+            if (string.IsNullOrEmpty(location)) throw new ArgumentNullException(@"location");
+
+            string[] parameters = location.Split(new[] { ',' });
 
             if (parameters.Length != 2)
                 throw new InvalidOperationException();

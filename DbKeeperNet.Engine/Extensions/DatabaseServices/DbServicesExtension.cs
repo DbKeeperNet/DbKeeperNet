@@ -22,6 +22,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
     {
         #region IExtension Members
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         public void Initialize(IUpdateContext context)
         {
             if (context == null)

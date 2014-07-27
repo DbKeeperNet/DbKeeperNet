@@ -278,6 +278,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public void ExecuteSql(string sql)
         {
             DbCommand cmd = Connection.CreateCommand();
@@ -339,11 +340,14 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         {
             bool status = false;
 
-            switch (dbTypeName.ToUpperInvariant())
+            if (dbTypeName != null)
             {
-                case @"SQLITE":
-                    status = true;
-                    break;
+                switch (dbTypeName.ToUpperInvariant())
+                {
+                    case @"SQLITE":
+                        status = true;
+                        break;
+                }
             }
 
             return status;

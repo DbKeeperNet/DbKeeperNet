@@ -1,3 +1,5 @@
+using System;
+using System.Globalization;
 using System.Web.Security;
 using DbKeeperNet.Engine.Resources;
 
@@ -21,7 +23,7 @@ namespace DbKeeperNet.Engine
 
             if (status != MembershipCreateStatus.Success)
             {
-                throw new DbKeeperNetException(string.Format(AspNetMembershipAdapterMessages.CreatingUserFailed, userName, status));
+                throw new DbKeeperNetException(string.Format(CultureInfo.CurrentCulture, AspNetMembershipAdapterMessages.CreatingUserFailed, userName, status));
             }
         }
 
@@ -32,6 +34,9 @@ namespace DbKeeperNet.Engine
         /// <param name="roles">Collection of roles to which user should belong</param>
         public void AddUserToRoles(string userName, string[] roles)
         {
+            if (string.IsNullOrEmpty(userName)) throw new ArgumentNullException(@"userName");
+            if (roles == null) throw new ArgumentNullException(@"roles");
+
             var roleProvider = Roles.Provider;
 
             foreach (var role in roles)
@@ -103,7 +108,7 @@ namespace DbKeeperNet.Engine
         /// <filterpriority>2</filterpriority>
         public override string ToString()
         {
-            return string.Format(AspNetMembershipAdapterMessages.ToStringMessage, Membership.Provider.Name, Roles.Provider.Name);
+            return string.Format(CultureInfo.CurrentCulture, AspNetMembershipAdapterMessages.ToStringMessage, Membership.Provider.Name, Roles.Provider.Name);
         }
     }
 }

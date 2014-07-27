@@ -38,6 +38,8 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
 
         public bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param)
         {
+            if (context == null) throw new ArgumentNullException(@"context");
+
             OracleDatabaseService service = context.DatabaseService as OracleDatabaseService;
             
             if (service == null)

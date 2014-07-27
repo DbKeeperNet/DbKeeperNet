@@ -35,76 +35,86 @@ namespace DbKeeperNet.Engine
         /// <summary>
         /// Process upgrade step of type <see cref="AspNetAccountCreateUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        public void Visit(AspNetAccountCreateUpdateStepType step)
+        /// <param name="updateStep">Step parameters</param>
+        public void Visit(AspNetAccountCreateUpdateStepType updateStep)
         {
+            if (updateStep == null) throw new ArgumentNullException(@"updateStep");
+
             _context.Logger.TraceInformation(UpdateStepVisitorMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
 
-            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddingUser, step.UserName);
-            _aspNetMembershipAdapter.CreateUser(step.UserName, step.Password, step.Mail);
-            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddedUser, step.UserName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddingUser, updateStep.UserName);
+            _aspNetMembershipAdapter.CreateUser(updateStep.UserName, updateStep.Password, updateStep.Mail);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddedUser, updateStep.UserName);
 
-            if (step.Role != null && step.Role.Length != 0)
+            if (updateStep.Role != null && updateStep.Role.Length != 0)
             {
-                _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddingUserToRoles, step.UserName, string.Join(@",", step.Role));
-                _aspNetMembershipAdapter.AddUserToRoles(step.UserName, step.Role);
-                _context.Logger.TraceInformation(UpdateStepVisitorMessages.UserAddedToRoles, step.UserName);
+                _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddingUserToRoles, updateStep.UserName, string.Join(@",", updateStep.Role));
+                _aspNetMembershipAdapter.AddUserToRoles(updateStep.UserName, updateStep.Role);
+                _context.Logger.TraceInformation(UpdateStepVisitorMessages.UserAddedToRoles, updateStep.UserName);
             }
         }
 
         /// <summary>
         /// Process upgrade step of type <see cref="AspNetRoleCreateUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        public void Visit(AspNetRoleCreateUpdateStepType step)
+        /// <param name="updateStep">Step parameters</param>
+        public void Visit(AspNetRoleCreateUpdateStepType updateStep)
         {
+            if (updateStep == null) throw new ArgumentNullException(@"updateStep");
+
             _context.Logger.TraceInformation(UpdateStepVisitorMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
-            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddingRole, step.RoleName);
-            _aspNetMembershipAdapter.CreateRole(step.RoleName);
-            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddedRole, step.RoleName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddingRole, updateStep.RoleName);
+            _aspNetMembershipAdapter.CreateRole(updateStep.RoleName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddedRole, updateStep.RoleName);
         }
 
         /// <summary>
         /// Process upgrade step of type <see cref="AspNetRoleDeleteUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        public void Visit(AspNetRoleDeleteUpdateStepType step)
+        /// <param name="updateStep">Step parameters</param>
+        public void Visit(AspNetRoleDeleteUpdateStepType updateStep)
         {
+            if (updateStep == null) throw new ArgumentNullException(@"updateStep");
+
             _context.Logger.TraceInformation(UpdateStepVisitorMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
-            _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletingRole, step.RoleName);
-            _aspNetMembershipAdapter.DeleteRole(step.RoleName);
-            _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletedRole, step.RoleName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletingRole, updateStep.RoleName);
+            _aspNetMembershipAdapter.DeleteRole(updateStep.RoleName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletedRole, updateStep.RoleName);
         }
 
         /// <summary>
         /// Process upgrade step of type <see cref="AspNetAccountDeleteUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        public void Visit(AspNetAccountDeleteUpdateStepType step)
+        /// <param name="updateStep">Step parameters</param>
+        public void Visit(AspNetAccountDeleteUpdateStepType updateStep)
         {
-            _context.Logger.TraceInformation(UpdateStepVisitorMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
-            _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletingUser, step.UserName);
+            if (updateStep == null) throw new ArgumentNullException(@"updateStep");
 
-            if (_aspNetMembershipAdapter.DeleteUser(step.UserName))
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletingUser, updateStep.UserName);
+
+            if (_aspNetMembershipAdapter.DeleteUser(updateStep.UserName))
             {
-                _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletedUser, step.UserName);
+                _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletedUser, updateStep.UserName);
             }
             else
             {
-                _context.Logger.TraceWarning(UpdateStepVisitorMessages.UserNotDeleted, step.UserName);
+                _context.Logger.TraceWarning(UpdateStepVisitorMessages.UserNotDeleted, updateStep.UserName);
             }
         }
 
         /// <summary>
         /// Process upgrade step of type <see cref="UpdateDbStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        public void Visit(UpdateDbStepType step)
+        /// <param name="updateStep">Step parameters</param>
+        public void Visit(UpdateDbStepType updateStep)
         {
+            if (updateStep == null) throw new ArgumentNullException(@"updateStep");
+
             UpdateDbAlternativeStatementType usableStatement = null;
             UpdateDbAlternativeStatementType commonStatement = null;
 
-            foreach (UpdateDbAlternativeStatementType statement in step.AlternativeStatement)
+            foreach (UpdateDbAlternativeStatementType statement in updateStep.AlternativeStatement)
             {
                 if (statement.DbType.Equals(@"all", StringComparison.Ordinal))
                     commonStatement = statement;
@@ -139,16 +149,18 @@ namespace DbKeeperNet.Engine
         /// <summary>
         /// Process upgrade step of type <see cref="CustomUpdateStepType"/>
         /// </summary>
-        /// <param name="step">Step parameters</param>
-        public void Visit(CustomUpdateStepType step)
+        /// <param name="updateStep">Step parameters</param>
+        public void Visit(CustomUpdateStepType updateStep)
         {
-            Type type = Type.GetType(step.Type);
+            if (updateStep == null) throw new ArgumentNullException(@"updateStep");
+
+            Type type = Type.GetType(updateStep.Type);
 
             if (type == null)
-                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, UpdateStepVisitorMessages.CustomStepTypeNotFound, step.Type));
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, UpdateStepVisitorMessages.CustomStepTypeNotFound, updateStep.Type));
 
             ICustomUpdateStep customStep = (ICustomUpdateStep)Activator.CreateInstance(type);
-            customStep.ExecuteUpdate(_context, step.Param);
+            customStep.ExecuteUpdate(_context, updateStep.Param);
         }
     }
 }

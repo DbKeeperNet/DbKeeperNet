@@ -88,6 +88,8 @@
         <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Engine\bin\$(Configuration)\**\*.pdb" />
         <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\*.dll" />
         <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\*.pdb" />
+        <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup\bin\$(Configuration)\**\*.dll" />
+        <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup\bin\$(Configuration)\**\*.pdb" />
     </ItemGroup>
 
     <Copy DestinationFiles="@(BinFiles->'$(BinaryDirectory)\%(RecursiveDir)%(Filename)%(Extension)')" SourceFiles="@(BinFiles)" />

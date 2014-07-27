@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
+using DbKeeperNet.Engine.Resources;
 
 namespace DbKeeperNet.Engine.CustomUpdateSteps
 {
@@ -21,10 +22,11 @@ namespace DbKeeperNet.Engine.CustomUpdateSteps
         /// </summary>
         /// <param name="context">Current update context</param>
         /// <param name="param">Optional parameters (with optional name) which can be passed thru the installation XML</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public void ExecuteUpdate(IUpdateContext context, CustomUpdateStepParamType[] param)
         {
-            if (!context.DatabaseService.IsDbType("MSSQL")) throw new InvalidOperationException("Only Microsoft SQL database server is supported");
-            if (param.Length != 2) throw new ArgumentException("Custom step should have exactly two parameters: name of the assembly with SQL script to be executed and name of the SQL script resource");
+            if (context == null || !context.DatabaseService.IsDbType(@"MSSQL")) throw new InvalidOperationException(MsSqlStepWithoutExplicitTransactionMessages.OnlyMsSqlSupported);
+            if (param == null || param.Length != 2) throw new ArgumentException(MsSqlStepWithoutExplicitTransactionMessages.CustomStepHasInvalidParameters);
 
             var connectionString = context.DatabaseService.Connection.ConnectionString;
 
@@ -33,18 +35,21 @@ namespace DbKeeperNet.Engine.CustomUpdateSteps
                 connection.Open();
 
                 using (var command = connection.CreateCommand())
-                using (var stream = Assembly.Load(param[0].Value).GetManifestResourceStream(param[1].Value))
-                using (var script = new StreamReader(stream))
                 {
-                    var scriptText = script.ReadToEnd();
-                    var sqlScriptSplitter = new MsSqlScriptSplitter();
+                    var stream = Assembly.Load(param[0].Value).GetManifestResourceStream(param[1].Value); // disposed as a part of stream reader below
 
-                    foreach (var scriptPart in sqlScriptSplitter.SplitScript(scriptText))
+                    using (var script = new StreamReader(stream))
                     {
-                        context.Logger.TraceInformation(scriptPart);
-                        command.CommandText = scriptPart;
-                        command.Transaction = null;
-                        command.ExecuteNonQuery();
+                        var scriptText = script.ReadToEnd();
+                        var sqlScriptSplitter = new MsSqlScriptSplitter();
+
+                        foreach (var scriptPart in sqlScriptSplitter.SplitScript(scriptText))
+                        {
+                            context.Logger.TraceInformation(scriptPart);
+                            command.CommandText = scriptPart;
+                            command.Transaction = null;
+                            command.ExecuteNonQuery();
+                        }
                     }
                 }
             }

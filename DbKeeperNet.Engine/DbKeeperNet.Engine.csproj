@@ -90,6 +90,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AspNetMembershipAdapterMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MsSqlStepWithoutExplicitTransactionMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UpdateStepVisitorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -167,6 +172,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AspNetMembershipAdapterMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.cs-CZ.resx" />
+    <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MsSqlStepWithoutExplicitTransactionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Updates-1.0.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -175,6 +185,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UpdateStepVisitorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\DbKeeperNet.snk">
+      <Link>DbKeeperNet.snk</Link>
+    </None>
     <None Include="Resources\Updates-1.0.xsx">
       <DependentUpon>Updates-1.0.xsd</DependentUpon>
     </None>

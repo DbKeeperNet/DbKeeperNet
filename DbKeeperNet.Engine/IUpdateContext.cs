@@ -116,6 +116,7 @@ namespace DbKeeperNet.Engine
         /// in the case that no step specific preconditions
         /// are declared.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays")]
         PreconditionType[] DefaultPreconditions { get; set; }
         
         /// <summary>

@@ -8,6 +8,7 @@ using System.Reflection;
 using DbKeeperNet.Engine.Extensions.Preconditions;
 using DbKeeperNet.Engine.Resources;
 using System.Globalization;
+using DbType = System.Data.DbType;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
@@ -166,22 +167,31 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             return exists;
         }
+
         public bool PrimaryKeyExists(string primaryKeyName, string table)
         {
             return IndexExists(primaryKeyName, table);
         }
+
         public bool TriggerExists(string triggerName)
         {
             if (String.IsNullOrEmpty(triggerName))
                 throw new ArgumentNullException(@"triggerName");
 
             DbCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = String.Format(CultureInfo.InvariantCulture, @"select count(*) from sysobjects A where A.xtype='TR' and A.name = '{0}'", triggerName);
+            cmd.CommandText = @"select count(*) from sysobjects A where A.xtype='TR' and A.name = @triggerName";
+            
+            var parameter = cmd.CreateParameter();
+            parameter.DbType = DbType.String;
+            parameter.ParameterName = @"@triggerName";
+            parameter.Value = triggerName;
+            cmd.Parameters.Add(parameter);
 
             bool exists = (Convert.ToInt64(cmd.ExecuteScalar(), CultureInfo.InvariantCulture) != 0);
 
             return exists;
         }
+
         public string Name
         {
             get { return @"MsSql"; }
@@ -242,6 +252,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public void ExecuteSql(string sql)
         {
             DbCommand cmd = Connection.CreateCommand();
@@ -323,11 +334,14 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         {
             bool status = false;
 
-            switch (dbTypeName.ToUpperInvariant())
+            if (dbTypeName != null)
             {
-                case @"MSSQL":
-                    status = true;
-                    break;
+                switch (dbTypeName.ToUpperInvariant())
+                {
+                    case @"MSSQL":
+                        status = true;
+                        break;
+                }
             }
 
             return status;

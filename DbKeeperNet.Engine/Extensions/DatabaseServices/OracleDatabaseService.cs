@@ -145,7 +145,13 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
                 throw new ArgumentNullException(@"triggerName");
 
             DbCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = String.Format(CultureInfo.InvariantCulture, @"select count(*) from all_triggers where trigger_name = '{0}'", triggerName);
+            cmd.CommandText = @"select count(*) from all_triggers where trigger_name = :triggerName";
+
+            var parameter = cmd.CreateParameter();
+            parameter.DbType = DbType.String;
+            parameter.ParameterName = @":triggerName";
+            parameter.Value = triggerName;
+            cmd.Parameters.Add(parameter);
 
             bool exists = (Convert.ToInt64(cmd.ExecuteScalar(), CultureInfo.InvariantCulture) != 0);
             return exists;
@@ -267,6 +273,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
         public void ExecuteSql(string sql)
         {
             DbCommand cmd = Connection.CreateCommand();
@@ -345,11 +352,14 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         {
             bool status = false;
 
-            switch (dbTypeName.ToUpperInvariant())
+            if (dbTypeName != null)
             {
-                case @"ORACLE":
-                    status = true;
-                    break;
+                switch (dbTypeName.ToUpperInvariant())
+                {
+                    case @"ORACLE":
+                        status = true;
+                        break;
+                }
             }
 
             return status;
