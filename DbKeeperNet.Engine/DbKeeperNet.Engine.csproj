@@ -84,6 +84,16 @@
     <Compile Include="IUpdateStepVisitor.cs" />
     <Compile Include="IVisitableUpdateStep.cs" />
     <Compile Include="MsSqlScriptSplitter.cs" />
+    <Compile Include="Resources\AspNetMembershipAdapterMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AspNetMembershipAdapterMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UpdateStepVisitorMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdateStepVisitorMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="SqlScriptSplitter.cs" />
     <Compile Include="UpdateScriptConfigurationElement.cs" />
     <Compile Include="UpdateScriptConfigurationElementCollection.cs" />
@@ -151,8 +161,18 @@
     <Compile Include="XmlClasses.Partial.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\AspNetMembershipAdapterMessages.cs-CZ.resx" />
+    <EmbeddedResource Include="Resources\AspNetMembershipAdapterMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AspNetMembershipAdapterMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Updates-1.0.xsd">
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UpdateStepVisitorMessages.cs-CZ.resx" />
+    <EmbeddedResource Include="Resources\UpdateStepVisitorMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdateStepVisitorMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Resources\Updates-1.0.xsx">
       <DependentUpon>Updates-1.0.xsd</DependentUpon>

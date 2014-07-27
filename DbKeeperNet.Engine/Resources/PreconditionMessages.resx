@@ -157,4 +157,12 @@
     <value>View name for condition {0} must be specified</value>
     <comment>View name for condition {0} must be specified</comment>
   </data>
+  <data name="RoleNameNotSpecified">
+    <value xml:space="preserve">Role name must be specified as a parameter for condition {0}</value>
+    <comment>Role name must be specified as a parameter for condition {0}</comment>
+  </data>
+  <data name="UserNotFoundUserNotSpecified">
+    <value xml:space="preserve">User name must be specified as a parameter for condition {0}</value>
+    <comment>User name must be specified as a parameter for precondition</comment>
+  </data>
 </root>

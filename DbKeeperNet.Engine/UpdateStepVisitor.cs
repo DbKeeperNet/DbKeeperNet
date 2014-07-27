@@ -38,17 +38,17 @@ namespace DbKeeperNet.Engine
         /// <param name="step">Step parameters</param>
         public void Visit(AspNetAccountCreateUpdateStepType step)
         {
-            _context.Logger.TraceInformation("Going to use adapter {0}", _aspNetMembershipAdapter);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
 
-            _context.Logger.TraceInformation("Adding user {0}", step.UserName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddingUser, step.UserName);
             _aspNetMembershipAdapter.CreateUser(step.UserName, step.Password, step.Mail);
-            _context.Logger.TraceInformation("Added user {0}", step.UserName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddedUser, step.UserName);
 
             if (step.Role != null && step.Role.Length != 0)
             {
-                _context.Logger.TraceInformation("Adding user {0} to roles {1}", step.UserName, string.Join(@",", step.Role));
+                _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddingUserToRoles, step.UserName, string.Join(@",", step.Role));
                 _aspNetMembershipAdapter.AddUserToRoles(step.UserName, step.Role);
-                _context.Logger.TraceInformation("User {0} added to requested roles", step.UserName);
+                _context.Logger.TraceInformation(UpdateStepVisitorMessages.UserAddedToRoles, step.UserName);
             }
         }
 
@@ -58,10 +58,10 @@ namespace DbKeeperNet.Engine
         /// <param name="step">Step parameters</param>
         public void Visit(AspNetRoleCreateUpdateStepType step)
         {
-            _context.Logger.TraceInformation("Going to use adapter {0}", _aspNetMembershipAdapter);
-            _context.Logger.TraceInformation("Adding role {0}", step.RoleName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddingRole, step.RoleName);
             _aspNetMembershipAdapter.CreateRole(step.RoleName);
-            _context.Logger.TraceInformation("Added role {0}", step.RoleName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.AddedRole, step.RoleName);
         }
 
         /// <summary>
@@ -70,10 +70,10 @@ namespace DbKeeperNet.Engine
         /// <param name="step">Step parameters</param>
         public void Visit(AspNetRoleDeleteUpdateStepType step)
         {
-            _context.Logger.TraceInformation("Going to use adapter {0}", _aspNetMembershipAdapter);
-            _context.Logger.TraceInformation("Adding role {0}", step.RoleName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletingRole, step.RoleName);
             _aspNetMembershipAdapter.DeleteRole(step.RoleName);
-            _context.Logger.TraceInformation("Added role {0}", step.RoleName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletedRole, step.RoleName);
         }
 
         /// <summary>
@@ -82,16 +82,16 @@ namespace DbKeeperNet.Engine
         /// <param name="step">Step parameters</param>
         public void Visit(AspNetAccountDeleteUpdateStepType step)
         {
-            _context.Logger.TraceInformation("Going to use adapter {0}", _aspNetMembershipAdapter);
-            _context.Logger.TraceInformation("Deleting user {0}", step.UserName);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
+            _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletingUser, step.UserName);
 
             if (_aspNetMembershipAdapter.DeleteUser(step.UserName))
             {
-                _context.Logger.TraceInformation("Deleted user {0}", step.UserName);
+                _context.Logger.TraceInformation(UpdateStepVisitorMessages.DeletedUser, step.UserName);
             }
             else
             {
-                _context.Logger.TraceWarning("User {0} not deleted", step.UserName);
+                _context.Logger.TraceWarning(UpdateStepVisitorMessages.UserNotDeleted, step.UserName);
             }
         }
 
@@ -125,14 +125,14 @@ namespace DbKeeperNet.Engine
 
                 foreach (var statement in _scriptSplitter.SplitScript(usableStatement.Value))
                 {
-                    _context.Logger.TraceInformation(UpdaterMessages.ExecutingCommandPart, ++stepCount);
+                    _context.Logger.TraceInformation(UpdateStepVisitorMessages.ExecutingCommandPart, ++stepCount);
                     _context.DatabaseService.ExecuteSql(statement);
-                    _context.Logger.TraceInformation(UpdaterMessages.FinishedCommandPart, stepCount);
+                    _context.Logger.TraceInformation(UpdateStepVisitorMessages.FinishedCommandPart, stepCount);
                 }
             }
             else
             {
-                _context.Logger.TraceWarning(UpdaterMessages.AlternativeSqlStatementNotFound, _context.DatabaseService.Name);
+                _context.Logger.TraceWarning(UpdateStepVisitorMessages.AlternativeSqlStatementNotFound, _context.DatabaseService.Name);
             }
         }
 
@@ -145,7 +145,7 @@ namespace DbKeeperNet.Engine
             Type type = Type.GetType(step.Type);
 
             if (type == null)
-                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, UpdaterMessages.CustomStepTypeNotFound, step.Type));
+                throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, UpdateStepVisitorMessages.CustomStepTypeNotFound, step.Type));
 
             ICustomUpdateStep customStep = (ICustomUpdateStep)Activator.CreateInstance(type);
             customStep.ExecuteUpdate(_context, step.Param);

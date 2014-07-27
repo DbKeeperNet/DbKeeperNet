@@ -1,4 +1,5 @@
 using System.Web.Security;
+using DbKeeperNet.Engine.Resources;
 
 namespace DbKeeperNet.Engine
 {
@@ -20,7 +21,7 @@ namespace DbKeeperNet.Engine
 
             if (status != MembershipCreateStatus.Success)
             {
-                throw new DbKeeperNetException(string.Format("Creating user {0} failed with error code {1}", userName, status));
+                throw new DbKeeperNetException(string.Format(AspNetMembershipAdapterMessages.CreatingUserFailed, userName, status));
             }
         }
 
@@ -102,7 +103,7 @@ namespace DbKeeperNet.Engine
         /// <filterpriority>2</filterpriority>
         public override string ToString()
         {
-            return string.Format("AspNetMembershipAdapter[membership={0}, roles={1}]", Membership.Provider.Name, Roles.Provider.Name);
+            return string.Format(AspNetMembershipAdapterMessages.ToStringMessage, Membership.Provider.Name, Roles.Provider.Name);
         }
     }
 }

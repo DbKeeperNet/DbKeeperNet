@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using DbKeeperNet.Engine.Resources;
 
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
@@ -69,7 +71,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         public bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param)
         {
             if ((param == null) || (param.Length != 1) || (string.IsNullOrEmpty(param[0].Value)))
-                throw new ArgumentNullException("Role name must be specified as a parameter for precondition");
+                throw new ArgumentNullException(string.Format(CultureInfo.CurrentCulture, PreconditionMessages.RoleNameNotSpecified, Name));
 
             return !_membershipAdapter.RoleExists(param[0].Value);
         }

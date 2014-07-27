@@ -157,4 +157,10 @@
     <value>Název pohledu pro podmínku {0} musí být definován</value>
     <comment>View name for condition {0} must be specified</comment>
   </data>
+  <data name="RoleNameNotSpecified">
+    <value xml:space="preserve">Název role musí být pro podmínku {0} specifikován jako parametr</value>
+  </data>
+  <data name="UserNotFoundUserNotSpecified">
+    <value xml:space="preserve">Uživatelské jméno pro podmínku {0} musí být zadáno jako parametr</value>
+  </data>
 </root>

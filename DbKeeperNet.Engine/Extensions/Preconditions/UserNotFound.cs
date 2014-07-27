@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using DbKeeperNet.Engine.Resources;
 
 namespace DbKeeperNet.Engine.Extensions.Preconditions
 {
@@ -68,7 +70,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         public bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param)
         {
             if ((param == null) || (param.Length != 1) || (string.IsNullOrEmpty(param[0].Value)))  
-                throw new ArgumentNullException("User name must be specified as a parameter for precondition");
+                throw new ArgumentNullException(string.Format(CultureInfo.CurrentCulture, PreconditionMessages.UserNotFoundUserNotSpecified, Name));
 
             return !_membershipAdapter.UserExists(param[0].Value);
         }

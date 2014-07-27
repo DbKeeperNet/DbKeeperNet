@@ -117,10 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlternativeSqlStatementNotFound" xml:space="preserve">
-    <value>No relevant SQL statement found for driver: {0}</value>
-    <comment>No relevant SQL statement found for driver: {0}</comment>
-  </data>
   <data name="CaughtCommonException" xml:space="preserve">
     <value>A common exception caught during update, will rethrow: {0}</value>
     <comment>A common exception caught during update, will rethrow: {0}</comment>
@@ -153,10 +149,6 @@
     <value>An error detected during updates execution</value>
     <comment>An error detected during updates execution</comment>
   </data>
-  <data name="CustomStepTypeNotFound" xml:space="preserve">
-    <value>Custom step type '{0}' not found</value>
-    <comment>Custom step type '{0}' not found</comment>
-  </data>
   <data name="DatabaseSetupCheck" xml:space="preserve">
     <value>Going to check database setup</value>
     <comment>Going to check database setup</comment>
@@ -173,10 +165,6 @@
     <value>Database setup script will be executed</value>
     <comment>Database setup script will be executed</comment>
   </data>
-  <data name="ExecutingCommandPart" xml:space="preserve">
-    <value>Running part {0} of the command</value>
-    <comment>Running part {0} of the command</comment>
-  </data>
   <data name="ExecutingUpdatesForAssembly" xml:space="preserve">
     <value>Executing updates for assembly: {0}</value>
     <comment>Executing updates for assembly: {0}</comment>
@@ -188,10 +176,6 @@
   <data name="FileUpdateNotFound" xml:space="preserve">
     <value>Update file '{0}' not found on disk</value>
     <comment>Update file '{0}' not found on disk</comment>
-  </data>
-  <data name="FinishedCommandPart" xml:space="preserve">
-    <value>Finished part {0} of the command</value>
-    <comment>Finished part {0} of the command</comment>
   </data>
   <data name="FinishedConfiguredFileUpdate" xml:space="preserve">
     <value>Successfully executed configured disk file update '{0}'</value>
