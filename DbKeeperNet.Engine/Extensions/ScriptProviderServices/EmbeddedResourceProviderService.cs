@@ -27,9 +27,9 @@ namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
     /// ]]>
     /// </code>
     /// </example>
-    public class EmbededResourceProviderService : IScriptProviderService
+    public class EmbeddedResourceProviderService : IScriptProviderService
     {
-        public EmbededResourceProviderService(IUpdateContext context)
+        public EmbeddedResourceProviderService(IUpdateContext context)
         {
             _context = context;
         }

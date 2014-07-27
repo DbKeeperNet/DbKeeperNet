@@ -55,7 +55,8 @@
     <DocumentationFile>bin\Release\DbKeeperNet.Engine.XML</DocumentationFile>
     <NoWarn>1591</NoWarn>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\DbKeeperNet.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -118,7 +119,7 @@
     <Compile Include="Extensions\Preconditions\PreconditionsExtension.cs" />
     <Compile Include="Extensions\Preconditions\StepNotExecuted.cs" />
     <Compile Include="Extensions\ScriptProviderServices\DiskFileProviderService.cs" />
-    <Compile Include="Extensions\ScriptProviderServices\EmbededResourceProviderService.cs" />
+    <Compile Include="Extensions\ScriptProviderServices\EmbeddedResourceProviderService.cs" />
     <Compile Include="Extensions\ScriptProviderServices\ScriptProviderServicesExtension.cs" />
     <Compile Include="ICustomUpdateStep.cs" />
     <Compile Include="IDatabaseService.cs" />
