@@ -3,7 +3,8 @@
 
 #NuGet
 packages
-.build
+# removing since the package cannot be properly restored
+# .build
 !packages/repositories.config
 
 #Build
