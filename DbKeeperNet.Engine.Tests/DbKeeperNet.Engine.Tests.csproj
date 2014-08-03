@@ -97,14 +97,6 @@
     <Compile Include="Extensions\DatabaseServices\DatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\DatabaseServiceTriggerTests.cs" />
     <Compile Include="Extensions\DatabaseServices\DatabaseServiceViewTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceIndexTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceStoredProcedureTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceTableTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceTriggerTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceViewTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceIndexTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceLiveTests.cs" />
     <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServicePrimaryKeyTests.cs" />
