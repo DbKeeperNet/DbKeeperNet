@@ -6,7 +6,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherFiles", "OtherFiles", 
 		Changelog.txt = Changelog.txt
 		DbKeeperNet.Extensions.Log4Net.nuspec = DbKeeperNet.Extensions.Log4Net.nuspec
 		DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec = DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec
-		DbKeeperNet.FxCop = DbKeeperNet.FxCop
 		DbKeeperNet.msbuild = DbKeeperNet.msbuild
 		DbKeeperNet.ndoc = DbKeeperNet.ndoc
 		DbKeeperNet.nuspec = DbKeeperNet.nuspec

@@ -53,6 +53,15 @@
     <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceTests.cs" />
     <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceTriggerTests.cs" />
     <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceViewTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceForeignKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceIndexTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceLiveTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServicePrimaryKeyTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceStoredProcedureTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTableTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTriggerTests.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceViewTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

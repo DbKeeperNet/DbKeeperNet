@@ -399,17 +399,23 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
             if (_stepExecutedQuery == null)
             {
                 _stepExecutedQuery = Connection.CreateCommand();
-                _stepExecutedQuery.CommandText = @"select count(version)  from dbkeepernet_assembly asm
+                _stepExecutedQuery.CommandText = @"select count(*)  from dbkeepernet_assembly asm
                     , dbkeepernet_version ver , dbkeepernet_step step 
-		            where asm.id = ver.dbkeepernet_assembly_id and ver.id = step.dbkeepernet_version_id and step.step = :step 
-                    and ver.version = :version and 
-                    asm.assembly = :assembly";
+		            where asm.id = ver.dbkeepernet_assembly_id and ver.id = step.dbkeepernet_version_id
+                    and asm.assembly = :assembly                    
+                    and ver.version = :version 
+                    and step.step = :step";
 
                 DbParameter assembly = _stepExecutedQuery.CreateParameter();
+                assembly.DbType = DbType.String;
                 assembly.ParameterName = ":assembly";
+
                 DbParameter version = _stepExecutedQuery.CreateParameter();
+                version.DbType = DbType.String;
                 version.ParameterName = ":version";
+
                 DbParameter step = _stepExecutedQuery.CreateParameter();
+                step.DbType = DbType.Int32;
                 step.ParameterName = ":step";
 
                 _stepExecutedQuery.Parameters.Add(assembly);

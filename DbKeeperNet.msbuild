@@ -47,7 +47,7 @@
     <Exec Command='"$(NUnitTool)" /noxml /labels /include=sqlite "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestOracle" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests.NET40\bin\$(Configuration)\DbKeeperNet.Engine.Tests.NET40.dll"' />
   </Target>
   <Target Name="TestFirebird" DependsOnTargets="Build">
     <Exec Command='"$(NUnitTool)" /noxml /labels /include=firebird "$(SrcRootDir)\DbKeeperNet.Engine.Tests.NET40\bin\$(Configuration)\DbKeeperNet.Engine.Tests.NET40.dll"' />
