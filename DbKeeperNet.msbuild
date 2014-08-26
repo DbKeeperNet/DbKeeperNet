@@ -104,8 +104,14 @@
     
     <RemoveDir Directories="$(BinaryDirectory)" Condition="Exists('$(BinaryDirectory)')" />
   </Target>
-  
+  <Target Name="SetAssemblyVersion">
+    <ItemGroup>
+      <AssemblyInfoFiles Include=".\**\AssemblyInfo.cs" />
+    </ItemGroup>
+    <FileUpdate Files="AssemblyInfo.cs" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$(BuildNumber)" />
+  </Target>
   <Target Name="Packages">
+    <CallTarget Targets="SetAssemblyVersion" />
     <CallTarget Targets="SrcZip" />
     <CallTarget Targets="BinZip" />
     <CallTarget Targets="DocZip" />
