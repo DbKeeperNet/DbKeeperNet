@@ -1,3 +1,21 @@
+Version 1.6.1.1
+ - Fixed OracleDatabaseService.IsUpdateStepExecuted throws an exception
+ - Corrected spelling of EmbededResourceProviderService
+ - Added support for AspNetMemberShip role existence precondition enhancement
+ - Added support for AspNetMembership role creation enhancement
+ - Added support for AspNetMembership role deletion enhancement
+ - Added support for AspNetMembership account deletion enhancement
+ - Added support for AspNetMemberShip account existence precondition  enhancement
+ - Added support for AspNetMemberShip account seeding enhancement
+ - MSSQL Membership/Role provider setup script available as a nuget package
+ - Tested with databases:
+   - Oracle XE 11g + Oracle.ManagedDataAccess.Client
+   - Microsoft SQL Server Express 2008 R2, 2012
+   - MySQL 5.5.27 + MySQL Connector/NET 6.8.3
+   - PostgreSQL 9.2 + Npgsql 2.1.3.0
+   - SQLite for .NET 1.0.93.0
+   - Firebird 2.5 + Firebird ADO.NET Data Provider 4.5
+
 Version 1.5.1.3
  - Log4Net referenced as Nuget package 2.0.0
  - Log4Net nuget package has Log4Net as a dependency

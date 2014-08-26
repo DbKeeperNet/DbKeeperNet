@@ -10,30 +10,23 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>DbKeeperNet is a handy component simplifying deployment of database schema changes working with various RDBMS systems.</description>
     <releaseNotes>
-Version 1.5.1.3
- - Log4Net referenced as Nuget package 2.0.0
- - Log4Net nuget package has Log4Net as a dependency
-
-Version 1.5.1.2
-- NuGet package update
-
-Version 1.5.1.1
-
-- Unit tests cleanup
-- Solution migration to VS 2010
-- Added support for manual database connection initialization
-- Added support for Firebird database
-- Extended support of PostgreSQL
-- Small fixes in international support
-- Several small code improvements
-- Log4Net plugin .PDB file is part of distribution .ZIP file
-- Tested with databases:
-  - Oracle XE 11g
-  - Microsoft SQL Server Express 2008 R2
-  - MySQL 5.5.27 + MySQL Connector/NET 6.5.4
-  - PostgreSQL 9.2 + Npgsql 2.0.12.0
-  - SQLite 3 for .NET 1.0.66.0
-  - Firebird 2.5 + Firebird ADO.NET Data Provider 2.7.7
+Version 1.6.1.1
+ - Fixed OracleDatabaseService.IsUpdateStepExecuted throws an exception
+ - Corrected spelling of EmbededResourceProviderService
+ - Added support for AspNetMemberShip role existence precondition enhancement
+ - Added support for AspNetMembership role creation enhancement
+ - Added support for AspNetMembership role deletion enhancement
+ - Added support for AspNetMembership account deletion enhancement
+ - Added support for AspNetMemberShip account existence precondition  enhancement
+ - Added support for AspNetMemberShip account seeding enhancement
+ - MSSQL Membership/Role provider setup script available as a nuget package
+ - Tested with databases:
+   - Oracle XE 11g + Oracle.ManagedDataAccess.Client
+   - Microsoft SQL Server Express 2008 R2, 2012
+   - MySQL 5.5.27 + MySQL Connector/NET 6.8.3
+   - PostgreSQL 9.2 + Npgsql 2.1.3.0
+   - SQLite for .NET 1.0.93.0
+   - Firebird 2.5 + Firebird ADO.NET Data Provider 4.5
     </releaseNotes>
     <copyright>Copyright 2013 Vladimir Kloz</copyright>
     <tags>Oracle MSSQL MYSQL FireBird PostgreSQL SQLite Database Deployment</tags>
