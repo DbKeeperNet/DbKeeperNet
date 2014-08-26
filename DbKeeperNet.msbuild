@@ -108,7 +108,7 @@
     <ItemGroup>
       <AssemblyInfoFiles Include=".\**\AssemblyInfo.cs" />
     </ItemGroup>
-    <FileUpdate Files="AssemblyInfo.cs" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$(BuildNumber)" />
+    <FileUpdate Files="@(AssemblyInfoFiles)" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$(BuildNumber)" />
   </Target>
   <Target Name="Packages">
     <CallTarget Targets="SetAssemblyVersion" />
