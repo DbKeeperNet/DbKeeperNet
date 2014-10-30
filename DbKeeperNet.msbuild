@@ -124,13 +124,13 @@
   <Target Name="NugetPackages" DependsOnTargets="Build">
     <RemoveDir Directories="$(NugetSrcDirectory)" />
     <ItemGroup>
-      <EngineNugetSourceFiles Include="DbKeeperNet.Engine\bin\$(Configuration)\**\*.dll" />
+      <EngineNugetSourceFiles Include="DbKeeperNet.Engine\bin\$(Configuration)\**\DbKeeperNet.Engine*.dll" />
     </ItemGroup>
     <ItemGroup>
-      <Log4NetNugetSourceFiles Include="DbkeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\*.dll" />
+      <Log4NetNugetSourceFiles Include="DbkeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\DbKeeperNet.Extensions.Log4Net.dll" />
     </ItemGroup>
     <ItemGroup>
-      <MsSqlMembershipAndRolesSetupNugetSourceFiles Include="DbkeeperNet.Extensions.MsSqlMembershipAndRolesSetup\bin\$(Configuration)\**\*.dll" />
+      <MsSqlMembershipAndRolesSetupNugetSourceFiles Include="DbkeeperNet.Extensions.MsSqlMembershipAndRolesSetup\bin\$(Configuration)\**\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.dll" />
     </ItemGroup>
 
     <Copy SourceFiles="@(EngineNugetSourceFiles)" DestinationFiles="@(EngineNugetSourceFiles->'$(NugetEngineSrcDirectory)\lib\net20\%(RecursiveDir)%(Filename)%(Extension)')" />
