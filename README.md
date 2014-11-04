@@ -18,4 +18,5 @@ You can use it freely in both commercial and non-commercial applications as you 
 * Deep and extensible logging (existing support for built-in .NET facility and log4net extension)
 * Allows .NET custom steps to be executed during the upgrade
 * Database upgrade described in a XML validated via a schema
+* You have your database upgrade fully under your control
 * Support for Asp.NET membership and role management
