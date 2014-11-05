@@ -5,8 +5,8 @@
     <version>$Version$</version>
     <authors>Vladimir Kloz</authors>
     <owners>Vladimir Kloz</owners>
-    <licenseUrl>https://github.com/voloda/DbKeeperNet/wiki/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/voloda/DbKeeperNet</projectUrl>
+    <licenseUrl>https://github.com/DbKeeperNet/DbKeeperNet/wiki/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/DbKeeperNet/DbKeeperNet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This is an extension for DbKeeperNet allowing usage of log4net 1.2.11+ with new public token as a logger</description>
     <releaseNotes>
