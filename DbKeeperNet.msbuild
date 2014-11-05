@@ -1,6 +1,6 @@
 <Project ToolsVersion="2.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="Properties.xml" />
-  <Import Project=".build\MSBuild.Community.Tasks.Targets"/>  
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
 
   <PropertyGroup>
     <Name>DbKeeperNet</Name>
@@ -23,6 +23,16 @@
     <NugetLog4NetSrcDirectory>$(NugetSrcDirectory)\DbKeeperNet.Extensions.Log4Net</NugetLog4NetSrcDirectory>
     <NugetMsSqlMemberShipNugetSrcDirectory>$(NugetSrcDirectory)\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup</NugetMsSqlMemberShipNugetSrcDirectory>
   </PropertyGroup>
+
+  <Target Name="CI" DependsOnTargets="SetAssemblyVersion;Build">
+    <Exec Command='"$(NUnitTool)" /noxml /labels "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=sqlite,mssql,mysql,pgsql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
+
+
+    <CallTarget Targets="SrcZip" Condition="'$(CreateBinaries)' == 'true'" />
+    <CallTarget Targets="BinZip" Condition="'$(CreateBinaries)' == 'true'" />
+    <CallTarget Targets="NugetPackages" Condition="'$(CreateBinaries)' == 'true'" />
+  </Target>
 
   <Target Name="Doc" DependsOnTargets="Build">
     <RemoveDir Directories="$(DocDirectory)" />
@@ -63,8 +73,8 @@
     <Delete Files="$(SrcZipPath)" />
     <RemoveDir Directories="$(SrcDirectory)"/>
     
-    <Exec Command='$(GitTool) clone $(GitRepository) $(SrcDirectory)'/>
-    <Exec Command='$(GitTool) archive -9 -o "..\..\$(SrcZipPath)" --prefix="DbKeeperNet-$(BuildNumber)-src/" build-$(BuildNumber)' WorkingDirectory='$(SrcDirectory)'/>
+    <Exec Command='$(GitTool) clone --depth 1 $(GitRepository) $(SrcDirectory)'/>
+    <Exec Command='$(GitTool) archive -9 -o "..\..\$(SrcZipPath)" --prefix="DbKeeperNet-$(BuildNumber)-src/" $(GitBranch)' WorkingDirectory='$(SrcDirectory)'/>
     <RemoveDir Directories="$(SrcDirectory)"/>
   </Target>
 
@@ -153,6 +163,7 @@
   </Target>
 
   <Target Name="Build" DependsOnTargets="RebuildXsd">
+    <Message Text="Build: $(BuildNumber)" />
     <MSBuild Projects="$(SrcRootDir)\DbKeeperNet.sln" Properties='Configuration=$(Configuration);Platform=$(Platform)'/>
   </Target>
 </Project>

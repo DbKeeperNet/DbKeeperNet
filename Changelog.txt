@@ -1,4 +1,7 @@
 Version 1.6.1.1
+ - CI support
+
+Version 1.6.1.1
  - Fixed OracleDatabaseService.IsUpdateStepExecuted throws an exception
  - Corrected spelling of EmbededResourceProviderService
  - Added support for AspNetMemberShip role existence precondition enhancement
