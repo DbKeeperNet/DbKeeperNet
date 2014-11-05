@@ -8,8 +8,8 @@ services:
   - postgresql
 
 install:
-  - ECHO Install:
-  - IF "%APPVEYOR_PULL_REQUEST_NUMBER%" == "" IF %APPVEYOR_REPO_BRANCH% == "master" SET CreateBinaries=true
+  - 'ECHO Install: %APPVEYOR_PULL_REQUEST_NUMBER%,%APPVEYOR_REPO_BRANCH%,'
+  - IF "%APPVEYOR_PULL_REQUEST_NUMBER%" == "" IF "%APPVEYOR_REPO_BRANCH%" == "master" SET CreateBinaries=true
 
 configuration: Release
 
