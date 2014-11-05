@@ -3,14 +3,16 @@
   <PropertyGroup>
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <GitTool Condition="'$(GitTool)' == ''">git</GitTool>
-    <GitRepository Condition="'$(GitRepository)' == ''">https://github.com/voloda/DbKeeperNet.git</GitRepository>
-    <TmpDir Condition="'$(TmpDir)' == ''">$(TMP)</TmpDir>
+    <GitRepository Condition="'$(GitRepository)' == ''">https://github.com/DbKeeperNet/DbKeeperNet.git</GitRepository>
+    <GitBranch Condition="'$(GitBranch)' == ''">master</GitBranch>
+    <TmpDir Condition="'$(TmpDir)' == ''">TMP</TmpDir>
     <DestinationDir Condition="'$(DestinationDir)' == ''">.</DestinationDir>
     <SrcRootDir Condition="'$(SrcRootDir)' == ''">.</SrcRootDir>
-    <NUnitTool Condition="'$(NUnitTool)' == ''">packages\NUnit.Runners.2.6.3\tools\nunit-console.exe</NUnitTool>
-    <XsdTool Condition="'$(XsdTool)' == ''" >xsd.exe</XsdTool>
+    <NUnitTool Condition="'$(NUnitTool)' == ''">nunit-console.exe</NUnitTool>
+    <XsdTool Condition="'$(XsdTool)' == ''" >C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\xsd.exe</XsdTool>
     <NDocTool Condition="'$(NDocTool)' == ''" >ndoc3console.exe</NDocTool>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build\</MSBuildCommunityTasksPath>
     <NugetTool Condition="'$(NugetTool)' == ''">.nuget\nuget.exe</NugetTool>
+    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build</MSBuildCommunityTasksPath>
   </PropertyGroup>
 </Project>

@@ -3,6 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherFiles", "OtherFiles", "{D523A38F-333A-4257-A25C-1637414AFC72}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
 		Changelog.txt = Changelog.txt
 		DbKeeperNet.Extensions.Log4Net.nuspec = DbKeeperNet.Extensions.Log4Net.nuspec
 		DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec = DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec
@@ -40,12 +41,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Log4NetSimpleDe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ED3B00B1-4CD2-486D-BAAD-10AB589B7C8E}"
 	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup", "DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.csproj", "{CF414579-2BB6-48D1-BDDD-BA586373C881}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Engine.Tests.NET40", "DbKeeperNet.Engine.Tests.NET40\DbKeeperNet.Engine.Tests.NET40.csproj", "{6FDC013D-924A-414C-BF44-AAA69362ED22}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{8CFFFE65-80F1-46F5-93C8-6BC212D149DC}"
+	ProjectSection(SolutionItems) = preProject
+		.build\MSBuild.Community.Tasks.dll = .build\MSBuild.Community.Tasks.dll
+		.build\MSBuild.Community.Tasks.targets = .build\MSBuild.Community.Tasks.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,5 +7,6 @@
     <XsdTool>C:\Program Files (x86)\Microsoft Visual Studio 8\SDK\v2.0\Bin\xsd.exe</XsdTool>
     <NDocTool>C:\Program Files (x86)\NDoc3\bin\ndoc3console.exe</NDocTool>
     <NugetTool>.nuget\nuget.exe</NugetTool>
+    <GitBranch>build-$(BuildNumber)</GitBranch>
   </PropertyGroup>
 </Project>
