@@ -7,7 +7,7 @@ You can use it freely in both commercial and non-commercial applications as you 
 
 # Support for different database engines:
 
-* MSSQL 2000, MSSQL 2005, MSSQL 2008 and SQL EXPRESS.
+* MSSQL 2000, MSSQL 2005, MSSQL 2008, MSSQL 2012 (including SQL EXPRESS).
 * MySql Connector .NET support
 * PostgreSQL (Npgsql connector)
 * SQLite ADO.NET 2.0
