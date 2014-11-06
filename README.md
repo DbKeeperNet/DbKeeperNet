@@ -20,3 +20,6 @@ You can use it freely in both commercial and non-commercial applications as you 
 * Database upgrade described in a XML validated via a schema
 * You have your database upgrade fully under your control
 * Support for Asp.NET membership and role management
+
+# Build status:
+[![Build status](https://ci.appveyor.com/api/projects/status/eee73ecr9nqr8i16/branch/master?svg=true)](https://ci.appveyor.com/project/voloda/dbkeepernet/branch/master)
