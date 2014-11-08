@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/eee73ecr9nqr8i16/branch/master?svg=true)](https://ci.appveyor.com/project/voloda/dbkeepernet/branch/master)
+
 # DbKeeperNet
 
 DbKeeperNet is a handy component designed to offer users a simple, easy to use ADO.NET platform for distribution 
@@ -21,5 +23,3 @@ You can use it freely in both commercial and non-commercial applications as you 
 * You have your database upgrade fully under your control
 * Support for Asp.NET membership and role management
 
-# Build status:
-[![Build status](https://ci.appveyor.com/api/projects/status/eee73ecr9nqr8i16/branch/master?svg=true)](https://ci.appveyor.com/project/voloda/dbkeepernet/branch/master)
