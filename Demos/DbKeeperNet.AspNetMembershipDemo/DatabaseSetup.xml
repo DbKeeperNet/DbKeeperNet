@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<upd:Updates xmlns:upd="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" AssemblyName="DbKeeperNet.SimpleDemo" xsi:schemaLocation="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd ../../DbKeeperNet.Engine/Resources/Updates-1.0.xsd">
+  <!-- Default way how to check whether to execute update step or not -->
+  <DefaultPreconditions>
+    <!-- We will use step information saving strategy -->
+    <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
+  </DefaultPreconditions>
+  <Update Version="1.00">
+    <!--
+    This update step is needed to properly inject MSSQL membership schema into the database.
+    The challenge here is that the schema setup must be executed in separated transaction.
+    
+    For other membership providers this is usually handled automatically upon the first usage
+    (like for MySql)
+    -->
+    <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="1" Type="DbKeeperNet.Engine.CustomUpdateSteps.MsSqlStepWithoutExplicitTransaction, DbKeeperNet.Engine"  FriendlyName="Setting up database schema for membership and roles">
+      <Preconditions>
+        <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
+        <Precondition FriendlyName="Database is MSSQL" Precondition="DbType">
+          <Param>MSSQL</Param>
+        </Precondition>
+      </Preconditions>
+      <Param>DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup</Param>
+      <Param>DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.MsSqlMembershipAndRolesSetup.sql</Param>
+    </UpdateStep>
+    <!-- Create some seeded roles -->
+    <UpdateStep xsi:type="upd:AspNetRoleCreateUpdateStepType" FriendlyName="Create role TestRole1" Id="2" RoleName="TestRole1"/>
+    <UpdateStep xsi:type="upd:AspNetRoleCreateUpdateStepType" Id="3" RoleName="TestRole2"/>
+    <!-- Seed an account and associate it with roles -->
+    <UpdateStep xsi:type="upd:AspNetAccountCreateUpdateStepType" Id="4" UserName="TestUser1" Mail="testuser1@domain.com" Password="SeededPassword">
+      <Role>TestRole1</Role>
+      <Role>TestRole2</Role>
+    </UpdateStep>
+  </Update>
+  <Update Version="1.01">
+    <UpdateStep xsi:type="upd:AspNetAccountCreateUpdateStepType" Id="1" UserName="TestUser2" Mail="testuser2@domain.com" Password="SeededPassword2">
+      <Role>TestRole1</Role>
+    </UpdateStep>
+    <!-- Delete the seeded role -->
+    <UpdateStep xsi:type="upd:AspNetRoleDeleteUpdateStepType" Id="2" RoleName="TestRole2"/>
+    <!-- Delete one of the seeded accounts -->
+    <UpdateStep xsi:type="upd:AspNetAccountDeleteUpdateStepType" Id="3" UserName="TestUser1"/>
+  </Update>
+</upd:Updates>

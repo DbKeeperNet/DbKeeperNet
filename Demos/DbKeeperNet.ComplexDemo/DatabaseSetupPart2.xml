@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<upd:Updates xmlns:upd="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd"
+                	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	              xsi:schemaLocation="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd ../../DbKeeperNet.Engine/Resources/Updates-1.0.xsd"
+                AssemblyName="DbKeeperNet.ComplexDemo">
+  <!-- Default way how to check whether to execute update step or not -->
+  <DefaultPreconditions>
+    <!-- We will use step information saving strategy -->
+    <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
+  </DefaultPreconditions>
+
+  <Update Version="3.00">
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="1">
+      <AlternativeStatement DbType="MsSql">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value MS SQL');
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="MySql">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value MySQL');
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="PgSql">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value PostgreSQL');
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="SQLite">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value SQLite');
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Fourth value Oracle')
+        ]]>
+      </AlternativeStatement>
+
+    </UpdateStep>
+  </Update>
+</upd:Updates>
+

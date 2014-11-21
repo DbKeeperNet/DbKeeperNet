@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<upd:Updates xmlns:upd="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd"
+                	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	              xsi:schemaLocation="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd ../../DbKeeperNet.Engine/Resources/Updates-1.0.xsd"
+                AssemblyName="DbKeeperNet.ComplexDemo">
+  <!-- Default way how to check whether to execute update step or not -->
+  <DefaultPreconditions>
+    <!-- We will use step information saving strategy -->
+    <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
+  </DefaultPreconditions>
+
+  <Update Version="1.00">
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table DbKeeperNet_SimpleDemo" Id="1">
+      <AlternativeStatement DbType="MsSql">
+        <![CDATA[
+          CREATE TABLE DbKeeperNet_SimpleDemo
+          (
+          id int identity(1, 1) not null,
+          name nvarchar(32),
+          constraint PK_DbKeeperNet_SimpleDemo primary key clustered (id)
+          )
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="MySql">
+        <![CDATA[
+          CREATE TABLE DbKeeperNet_SimpleDemo
+          (
+          id int not null auto_increment,
+          name nvarchar(32),
+          constraint PK_DbKeeperNet_SimpleDemo primary key (id)
+          )
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="PgSql">
+        <![CDATA[
+          CREATE TABLE DbKeeperNet_SimpleDemo
+          (
+          id serial not null,
+          name varchar(32),
+          constraint PK_DbKeeperNet_SimpleDemo primary key (id)
+          )
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="SQLite">
+        <![CDATA[
+          CREATE TABLE DbKeeperNet_SimpleDemo
+          (
+          id integer not null,
+          name text,
+          constraint PK_DbKeeperNet_SimpleDemo primary key (id)
+          )
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[
+        CREATE TABLE "DBKEEPERNET_SIMPLEDEMO"
+        (
+        "ID"         NUMBER(10,0) NOT NULL,
+        "NAME"       VARCHAR2(32),
+        CONSTRAINT "PK_DBKEEPERNET_SIMPLEDEMO" PRIMARY KEY ("ID")
+        )
+        ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" Id="2" FriendlyName="Create sequence generator DBKEEPERNET_SIMPLEDEMO_SEQ">
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[CREATE sequence "DBKEEPERNET_SIMPLEDEMO_SEQ" ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" Id="3" FriendlyName="Create identity trigger BI_DBKEEPERNET_SIMPLEDEMO">
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[CREATE trigger "BI_DBKEEPERNET_SIMPLEDEMO" 
+		      before insert on "DBKEEPERNET_SIMPLEDEMO"
+		      for each row 
+			    begin  
+				    select "DBKEEPERNET_SIMPLEDEMO_SEQ".nextval into :NEW.ID from dual;
+			    end;]]>
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="4" Type="DbKeeperNet.ComplexDemo.ComplexDemoCustomStep,DbKeeperNet.ComplexDemo">
+      <Param>Hellow world</Param>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="5">
+      <AlternativeStatement DbType="MsSql">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('First value MS SQL');
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value MS SQL');
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="MySql">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('First value MySQL');
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value MySQL');
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="PgSql">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('First value PostgreSQL');
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value PostgreSQL');
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="SQLite">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('First value SQLite');
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value SQLite');
+        ]]>
+      </AlternativeStatement>
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('First value Oracle')
+        ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" Id="6">
+      <AlternativeStatement DbType="Oracle">
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Second value Oracle')
+        ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+  </Update>
+  <Update Version="2.00">
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Fill table DbKeeperNet_SimpleDemo" Id="1">
+      <AlternativeStatement>
+        <![CDATA[
+          insert into DbKeeperNet_SimpleDemo(name) values('Third value')
+        ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+  </Update>
+</upd:Updates>
+
