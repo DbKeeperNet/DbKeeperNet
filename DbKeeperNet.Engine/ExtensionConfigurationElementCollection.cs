@@ -9,7 +9,7 @@ namespace DbKeeperNet.Engine
         public ExtensionConfigurationElementCollection()
         {
             ExtensionConfigurationElement e = new ExtensionConfigurationElement();
-            e.Assembly = Assembly.GetExecutingAssembly().FullName;
+            e.Assembly = typeof(ExtensionConfigurationElementCollection).GetTypeInfo().Assembly.FullName;
 
             BaseAdd(e);
         }

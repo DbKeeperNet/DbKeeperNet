@@ -398,7 +398,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public Stream DatabaseSetupXml
         {
-            get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.FirebirdDatabaseServiceInstall.xml"); }
+            get { return typeof(FirebirdDatabaseService).GetTypeInfo().Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.FirebirdDatabaseServiceInstall.xml"); }
         }
 
         public void BeginTransaction()

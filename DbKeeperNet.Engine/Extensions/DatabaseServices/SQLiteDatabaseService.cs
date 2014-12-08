@@ -2,9 +2,9 @@ using System;
 using System.Configuration;
 using System.Data.Common;
 using System.Globalization;
+using System.Reflection;
 using DbKeeperNet.Engine.Extensions.Preconditions;
 using DbKeeperNet.Engine.Resources;
-using System.Reflection;
 using System.Data;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
@@ -292,7 +292,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public System.IO.Stream DatabaseSetupXml
         {
-            get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.SQLiteDatabaseServiceInstall.xml"); }
+            get { return typeof(SQLiteDatabaseService).GetTypeInfo().Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.SQLiteDatabaseServiceInstall.xml"); }
         }
 
         public void BeginTransaction()

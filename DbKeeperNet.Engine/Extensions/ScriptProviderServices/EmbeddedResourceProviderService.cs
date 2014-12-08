@@ -67,7 +67,7 @@ namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
 
             _context.Logger.TraceInformation(UpdaterMessages.StartingConfiguredUpdate, resource, assemblyName);
 
-            Assembly assembly = Assembly.Load(assemblyName);
+            Assembly assembly = Assembly.Load(new AssemblyName(assemblyName));
             Stream updates = assembly.GetManifestResourceStream(resource);
 
             if (updates == null)

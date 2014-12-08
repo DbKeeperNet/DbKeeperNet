@@ -36,7 +36,7 @@ namespace DbKeeperNet.Engine.CustomUpdateSteps
 
                 using (var command = connection.CreateCommand())
                 {
-                    var stream = Assembly.Load(param[0].Value).GetManifestResourceStream(param[1].Value); // disposed as a part of stream reader below
+                    var stream = Assembly.Load(new AssemblyName(param[0].Value)).GetManifestResourceStream(param[1].Value); // disposed as a part of stream reader below
 
                     using (var script = new StreamReader(stream))
                     {

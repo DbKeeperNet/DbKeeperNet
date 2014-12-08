@@ -3,9 +3,9 @@ using System.Data.Common;
 using System.IO;
 using System.Configuration;
 using System.Globalization;
+using System.Reflection;
 using DbKeeperNet.Engine.Resources;
 using System.Data;
-using System.Reflection;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
@@ -306,7 +306,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public Stream DatabaseSetupXml
         {
-            get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.OracleDatabaseServiceInstall.xml"); }
+            get { return typeof(OracleDatabaseService).GetTypeInfo().Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.OracleDatabaseServiceInstall.xml"); }
         }
         public void BeginTransaction()
         {

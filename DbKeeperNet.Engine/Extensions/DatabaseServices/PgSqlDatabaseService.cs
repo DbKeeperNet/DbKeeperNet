@@ -2,11 +2,11 @@ using System;
 using System.Configuration;
 using System.Data.Common;
 using System.Globalization;
+using System.Reflection;
 using DbKeeperNet.Engine.Extensions.Preconditions;
 using DbKeeperNet.Engine.Resources;
 using System.IO;
 using System.Data;
-using System.Reflection;
 
 namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 {
@@ -252,7 +252,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public Stream DatabaseSetupXml
         {
-            get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.PgSqlDatabaseServiceInstall.xml"); }
+            get { return typeof(PgSqlDatabaseService).GetTypeInfo().Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.PgSqlDatabaseServiceInstall.xml"); }
         }
 
         public void BeginTransaction()
