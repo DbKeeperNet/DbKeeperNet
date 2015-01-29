@@ -22,4 +22,5 @@ You can use it freely in both commercial and non-commercial applications as you 
 * Database upgrade described in a XML validated via a schema
 * You have your database upgrade fully under your control
 * Support for Asp.NET membership and role management
+* Fully compatible with MONO 4.5, .NET 2.0+
 
