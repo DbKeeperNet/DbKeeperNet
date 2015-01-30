@@ -4,7 +4,6 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
-using System.Reflection;
 using DbKeeperNet.Engine.Resources;
 
 namespace DbKeeperNet.Engine
@@ -225,7 +224,7 @@ namespace DbKeeperNet.Engine
         private void ExecuteXmlInternal(Stream inputXml)
         {
             XmlReaderSettings settings = new XmlReaderSettings();
-            settings.Schemas.Add(@"http://code.google.com/p/dbkeepernet/Updates-1.0.xsd", XmlReader.Create(Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd")));
+            settings.Schemas.Add(@"http://code.google.com/p/dbkeepernet/Updates-1.0.xsd", XmlReader.Create(typeof(Updater).Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd")));
             settings.IgnoreWhitespace = true;
             settings.ValidationType = ValidationType.Schema;
 

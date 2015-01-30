@@ -309,7 +309,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public Stream DatabaseSetupXml
         {
-            get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.MySqlNetConnectorDatabaseServiceInstall.xml"); }
+            get { return typeof(MySqlNetConnectorDatabaseService).GetTypeInfo().Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.MySqlNetConnectorDatabaseServiceInstall.xml"); }
         }
         public void BeginTransaction()
         {

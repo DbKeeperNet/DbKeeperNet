@@ -288,7 +288,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
         public Stream DatabaseSetupXml
         {
-            get { return Assembly.GetExecutingAssembly().GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.MsSqlDatabaseServiceInstall.xml"); }
+            get { return typeof(MsSqlDatabaseService).GetTypeInfo().Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Extensions.DatabaseServices.MsSqlDatabaseServiceInstall.xml"); }
         }
         public void BeginTransaction()
         {

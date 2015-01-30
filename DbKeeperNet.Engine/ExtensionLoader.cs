@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace DbKeeperNet.Engine
@@ -32,8 +33,9 @@ namespace DbKeeperNet.Engine
 
         private static void LoadExtensionsFromAssembly(IUpdateContext context, string assemblyName)
         {
-            Assembly assembly = Assembly.Load(assemblyName);
-            Type[] assemblyTypes = assembly.GetExportedTypes();
+            Assembly assembly = Assembly.Load(new AssemblyName(assemblyName));
+            IEnumerable<Type> assemblyTypes = assembly.DefinedTypes;
+
             Type interfaceType = typeof(IExtension);
 
             foreach (Type type in assemblyTypes)

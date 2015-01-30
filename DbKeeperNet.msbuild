@@ -5,7 +5,7 @@
   <PropertyGroup>
     <Name>DbKeeperNet</Name>
     <Platform>Any CPU</Platform>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetDirectoryBase>$(Name)-$(BuildNumber)</TargetDirectoryBase>
     
     <BinaryDirectory>$(TmpDir)\$(TargetDirectoryBase)</BinaryDirectory>
@@ -57,10 +57,10 @@
     <Exec Command='"$(NUnitTool)" /noxml /labels /include=sqlite "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestOracle" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests.NET40\bin\$(Configuration)\DbKeeperNet.Engine.Tests.NET40.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="TestFirebird" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=firebird "$(SrcRootDir)\DbKeeperNet.Engine.Tests.NET40\bin\$(Configuration)\DbKeeperNet.Engine.Tests.NET40.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=firebird "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll"' />
   </Target>
   <Target Name="RebuildXsd">
     <Delete Files="DbKeeperNet.Engine\XmlClasses.cs"/>
@@ -143,9 +143,9 @@
       <MsSqlMembershipAndRolesSetupNugetSourceFiles Include="DbkeeperNet.Extensions.MsSqlMembershipAndRolesSetup\bin\$(Configuration)\**\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.dll" />
     </ItemGroup>
 
-    <Copy SourceFiles="@(EngineNugetSourceFiles)" DestinationFiles="@(EngineNugetSourceFiles->'$(NugetEngineSrcDirectory)\lib\net20\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(Log4NetNugetSourceFiles)" DestinationFiles="@(Log4NetNugetSourceFiles->'$(NugetLog4NetSrcDirectory)\lib\net20\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(MsSqlMembershipAndRolesSetupNugetSourceFiles)" DestinationFiles="@(MsSqlMembershipAndRolesSetupNugetSourceFiles->'$(NugetMsSqlMemberShipNugetSrcDirectory)\lib\net20\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(EngineNugetSourceFiles)" DestinationFiles="@(EngineNugetSourceFiles->'$(NugetEngineSrcDirectory)\lib\net45\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(Log4NetNugetSourceFiles)" DestinationFiles="@(Log4NetNugetSourceFiles->'$(NugetLog4NetSrcDirectory)\lib\net45\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(MsSqlMembershipAndRolesSetupNugetSourceFiles)" DestinationFiles="@(MsSqlMembershipAndRolesSetupNugetSourceFiles->'$(NugetMsSqlMemberShipNugetSrcDirectory)\lib\net45\%(RecursiveDir)%(Filename)%(Extension)')" />
     
     <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetEngineSrcDirectory) DbKeeperNet.nuspec" />
     <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetLog4NetSrcDirectory) DbKeeperNet.Extensions.Log4Net.nuspec" />
