@@ -4,4 +4,4 @@ before_install:
   - sudo apt-get install mono-devel -qq -y
 
 script: 
-  - xbuild DbKeeperNet.msbuild /p:BuildNumber=99.9.9.1 /t:CI
+  - xbuild DbKeeperNet.msbuild /p:BuildNumber=99.99.99.999 /t:CI
