@@ -1,4 +1,6 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/eee73ecr9nqr8i16/branch/master?svg=true)](https://ci.appveyor.com/project/voloda/dbkeepernet/branch/master)
+AppVeyor: [![Build status](https://ci.appveyor.com/api/projects/status/eee73ecr9nqr8i16/branch/master?svg=true)](https://ci.appveyor.com/project/voloda/dbkeepernet/branch/master)
+
+Travis: [![Build Status](https://travis-ci.org/DbKeeperNet/DbKeeperNet.svg?branch=master)](https://travis-ci.org/DbKeeperNet/DbKeeperNet)
 
 # DbKeeperNet
 

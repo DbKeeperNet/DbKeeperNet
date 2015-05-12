@@ -75,7 +75,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             ConnectionStringSettings connectString = ConfigurationManager.ConnectionStrings[connectionString];
 
-            if (connectionString == null)
+            if (connectString == null)
                 throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionStringNotFound, connectionString));
 
             _connection = DbProviderFactories.GetFactory(connectString.ProviderName).CreateConnection();

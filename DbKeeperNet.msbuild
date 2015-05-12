@@ -162,7 +162,7 @@
     <CallTarget Targets="TestFirebird" />
   </Target>
 
-  <Target Name="Build" DependsOnTargets="RebuildXsd">
+  <Target Name="Build">
     <Message Text="Build: $(BuildNumber)" />
     <MSBuild Projects="$(SrcRootDir)\DbKeeperNet.sln" Properties='Configuration=$(Configuration);Platform=$(Platform)'/>
   </Target>

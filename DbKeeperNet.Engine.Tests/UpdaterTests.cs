@@ -78,7 +78,7 @@ namespace DbKeeperNet.Engine.Tests
                     SetupResult.For(precondition1.CheckPrecondition(Arg<IUpdateContext>.Is.Anything, Arg<PreconditionParamType[]>.Is.Anything)).Return(true);
                     SetupResult.For(precondition2.CheckPrecondition(Arg<IUpdateContext>.Is.Anything, Arg<PreconditionParamType[]>.Is.Anything)).Return(true);
                     
-                    Expect.Call(() => driverMock.ExecuteSql("query_to_be_executed_on_mock"));
+                    Expect.Call(delegate { driverMock.ExecuteSql(null); }).Constraints(Rhino.Mocks.Constraints.Text.Contains("query_to_be_executed_on_mock"));
                     Expect.Call(() => driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1));
                     Expect.Call(delegate { driverMock.CommitTransaction(); });
                 }
@@ -201,7 +201,7 @@ namespace DbKeeperNet.Engine.Tests
         public void TestDiskUpdateRelative()
         {
             ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap();
-            fileMap.ExeConfigFilename = "DiskUpdateTest.config";
+            fileMap.ExeConfigFilename = "DiskUpdateTest.Config";
             Configuration config = ConfigurationManager.OpenMappedExeConfiguration(fileMap,
                                     ConfigurationUserLevel.None);
             DbKeeperNetConfigurationSection section = (DbKeeperNetConfigurationSection)config.GetSection("dbkeeper.net");
