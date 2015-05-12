@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using DbKeeperNet.Engine.Extensions.Preconditions;
 using System.Reflection;
+using Text = Rhino.Mocks.Constraints.Text;
 
 namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 {
@@ -31,7 +32,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
                     Expect.Call(driverMock.StoredProcedureExists("test_proc")).Return(false);
                     Expect.Call(delegate { driverMock.BeginTransaction(); });
-                    Expect.Call(delegate { driverMock.ExecuteSql("query_to_be_executed_on_mock"); });
+                    Expect.Call(delegate { driverMock.ExecuteSql(null); }).Constraints(Text.Contains("query_to_be_executed_on_mock"));
                     Expect.Call(delegate { driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1); });
                     Expect.Call(delegate { driverMock.CommitTransaction(); });
                 }

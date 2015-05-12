@@ -25,7 +25,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             IUpdateContext context = new UpdateContext();
             context.LoadExtensions();
-            context.InitializeDatabaseService(CONNECTION_STRING);
+            context.InitializeDatabaseService(ConnectionString);
 
             Updater updater = new Updater(context);
             updater.ExecuteXml(typeof(DbServicesExtension).Assembly.GetManifestResourceStream("DbKeeperNet.Engine.Extensions.DatabaseServices.SQLiteDatabaseServiceInstall.xml"));
@@ -42,7 +42,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             SQLiteDatabaseService service = new SQLiteDatabaseService();
 
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = service.CloneForConnectionString(ConnectionString))
             {
                 Assert.That(connectedService.IsUpdateStepExecuted("MyTestingAssembly", "x.x99", 222), Is.False);
             }
@@ -53,7 +53,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             SQLiteDatabaseService service = new SQLiteDatabaseService();
 
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = service.CloneForConnectionString(ConnectionString))
             {
                 connectedService.SetUpdateStepExecuted("MyTestingAssembly.TestSetUpdateStepExecuted", "1.00", 1);
                 Assert.That(connectedService.IsUpdateStepExecuted("MyTestingAssembly.TestSetUpdateStepExecuted", "1.00", 1), Is.True);

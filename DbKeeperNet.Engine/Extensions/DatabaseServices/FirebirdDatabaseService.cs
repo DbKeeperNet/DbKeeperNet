@@ -79,7 +79,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
         /// </summary>
         /// <remarks>Database connection must be opened and is released automatically</remarks>
         /// <param name="databaseConnection"></param>
-        public FirebirdDatabaseService(SqlConnection databaseConnection)
+        public FirebirdDatabaseService(DbConnection databaseConnection)
         {
             if (databaseConnection == null)
                 throw new ArgumentNullException(@"databaseConnection");
@@ -97,7 +97,7 @@ namespace DbKeeperNet.Engine.Extensions.DatabaseServices
 
             ConnectionStringSettings connectString = ConfigurationManager.ConnectionStrings[connectionString];
 
-            if (connectionString == null)
+            if (connectString == null)
                 throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, DatabaseServiceMessages.ConnectionStringNotFound, connectionString));
 
             _connection = DbProviderFactories.GetFactory(connectString.ProviderName).CreateConnection();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Engine.Tests
@@ -23,7 +24,8 @@ namespace DbKeeperNet.Engine.Tests
             var scripts = new List<string>(splitter.SplitScript(ScriptWithoutDelimiter));
 
             Assert.That(scripts.Count, Is.EqualTo(1));
-            Assert.That(scripts[0], Is.EqualTo(ScriptWithoutDelimiter));
+            
+            AssertThatValueMatches(scripts[0], ScriptWithoutDelimiter);
         }
 
         [Test]
@@ -34,8 +36,8 @@ namespace DbKeeperNet.Engine.Tests
             var scripts = new List<string>(splitter.SplitScript(ScriptWithTwoDelimiters));
 
             Assert.That(scripts.Count, Is.EqualTo(2));
-            Assert.That(scripts[0], Is.EqualTo(FirstScript));
-            Assert.That(scripts[1], Is.EqualTo(SecondScript));
+            AssertThatValueMatches(scripts[0], FirstScript);
+            AssertThatValueMatches(scripts[1], SecondScript);
         }
 
         [Test]
@@ -46,7 +48,13 @@ namespace DbKeeperNet.Engine.Tests
             var scripts = new List<string>(splitter.SplitScript(ScriptWithDelimiterOnCommandLine));
 
             Assert.That(scripts.Count, Is.EqualTo(1));
-            Assert.That(scripts[0], Is.EqualTo(ScriptWithDelimiterOnCommandLine));
+            AssertThatValueMatches(scripts[0], ScriptWithDelimiterOnCommandLine);
         }
+
+        private static void AssertThatValueMatches(string actual, string expectedValue)
+        {
+            Assert.That(actual, Is.EqualTo(expectedValue.Replace("\r\n", Environment.NewLine)));
+        }
+
     }
 }

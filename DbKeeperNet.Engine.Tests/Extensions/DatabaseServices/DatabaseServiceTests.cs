@@ -13,6 +13,19 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
             Assert.That(connectString, Is.Not.Empty);
 
             _connectionString = connectString;
+
+            if (IsRunningOnMono())
+                _connectionString = ConnectionString + "_mono";
+        }
+
+        public string ConnectionString
+        {
+            get { return _connectionString; }
+        }
+
+        public static bool IsRunningOnMono()
+        {
+            return Type.GetType("Mono.Runtime") != null;
         }
 
         private readonly string _connectionString;
@@ -21,7 +34,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             T service = new T();
 
-            return (T)service.CloneForConnectionString(_connectionString);
+            return (T)service.CloneForConnectionString(ConnectionString);
         }
 
         protected static void ExecuteSqlAndIgnoreException(IDatabaseService service, string sql, params object[] args)

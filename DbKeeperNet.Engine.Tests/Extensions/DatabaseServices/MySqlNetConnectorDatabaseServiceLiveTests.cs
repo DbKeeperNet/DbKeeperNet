@@ -38,7 +38,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
 
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = service.CloneForConnectionString(ConnectionString))
             {
                 Assert.That(connectedService.IsUpdateStepExecuted("MyTestingAssembly", "x.x99", 222), Is.False);
             }
@@ -49,7 +49,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
             MySqlNetConnectorDatabaseService service = new MySqlNetConnectorDatabaseService();
 
-            using (IDatabaseService connectedService = service.CloneForConnectionString(CONNECTION_STRING))
+            using (IDatabaseService connectedService = service.CloneForConnectionString(ConnectionString))
             {
                 connectedService.SetUpdateStepExecuted("MyTestingAssembly.TestSetUpdateStepExecuted", "1.00", 1);
                 Assert.That(connectedService.IsUpdateStepExecuted("MyTestingAssembly.TestSetUpdateStepExecuted", "1.00", 1), Is.True);
