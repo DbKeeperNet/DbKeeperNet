@@ -69,7 +69,36 @@ namespace DbKeeperNet.Engine
         /// </summary>
         /// <param name="service">Instance of the logging service</param>
         void RegisterLoggingService(ILoggingService service);
-        
+
+        /// <summary>
+        /// Method called by extension to register an update step handler
+        /// </summary>
+        /// <param name="handler">The update step handler</param>
+        void RegisterUpdateStepHandler(IUpdateStepHandlerService handler);
+
+        /// <summary>
+        /// Gets the update step handler for the given XML parsed step type
+        /// </summary>
+        /// <param name="updateStep">Step to find an execution handler for</param>
+        IUpdateStepHandlerService GetUpdateStepHandlerFor(UpdateStepBaseType updateStep);
+
+        /// <summary>
+        /// Calls the <paramref name="callback"/> for each registered
+        /// XML schema and its extension.
+        /// </summary>
+        /// <param name="callback">Callback method, first argument is schema URI, second is XSD schema definition.</param>
+        void IterateAllSchemas(Action<string, string> callback);
+
+        /// <summary>
+        /// Register an XML schema extension
+        /// </summary>
+        /// <remarks>
+        /// Should be used together with <see cref="RegisterUpdateStepHandler"/>
+        /// </remarks>
+        /// <param name="schemaNamespace">XML schema namespace</param>
+        /// <param name="schema">XSD schema definition</param>
+        void RegisterSchema(string schemaNamespace, string schema);
+
         /// <summary>
         /// Method called by extension to register a script providing service
         /// plugin.
@@ -81,7 +110,7 @@ namespace DbKeeperNet.Engine
         /// Initialize context database service based on given
         /// connection string name from App.Config.
         /// 
-        /// Given connection string name must mu correctly mapped in App.Config section:
+        /// Given connection string name must be correctly mapped in App.Config section:
         /// <code>
         /// <![CDATA[
         /// <dbkeeper.net loggingService="fx">

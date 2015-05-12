@@ -1,4 +1,4 @@
-namespace DbKeeperNet.Engine
+﻿namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
 {
     /// <summary>
     /// An interface for adapter to ASP.NET membership providers

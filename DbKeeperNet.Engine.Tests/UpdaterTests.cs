@@ -9,8 +9,8 @@ namespace DbKeeperNet.Engine.Tests
     [TestFixture]
     public class UpdaterTests
     {
-        const string CONNECTION_STRING = "mock";
-        const string LOGGER_NAME = "none";
+        private const string CONNECTION_STRING = "mock";
+        private const string LOGGER_NAME = "none";
 
         [Test]
         public void TestCustomStep()
@@ -42,9 +42,12 @@ namespace DbKeeperNet.Engine.Tests
 
                 context.RegisterDatabaseService(driverMock);
                 context.InitializeDatabaseService(CONNECTION_STRING);
+                context.LoadExtensions();
 
                 Updater update = new Updater(context);
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.CustomUpdateStep.xml"));
+                update.ExecuteXml(
+                    Assembly.GetExecutingAssembly()
+                        .GetManifestResourceStream("DbKeeperNet.Engine.Tests.CustomUpdateStep.xml"));
                 Assert.That(CustomUpdateStep.Executed, Is.True);
             }
 
@@ -75,8 +78,10 @@ namespace DbKeeperNet.Engine.Tests
 
                     Expect.Call(delegate { driverMock.BeginTransaction(); });
                     
-                    SetupResult.For(precondition1.CheckPrecondition(Arg<IUpdateContext>.Is.Anything, Arg<PreconditionParamType[]>.Is.Anything)).Return(true);
-                    SetupResult.For(precondition2.CheckPrecondition(Arg<IUpdateContext>.Is.Anything, Arg<PreconditionParamType[]>.Is.Anything)).Return(true);
+                    SetupResult.For(precondition1.CheckPrecondition(Arg<IUpdateContext>.Is.Anything,
+                        Arg<PreconditionParamType[]>.Is.Anything)).Return(true);
+                    SetupResult.For(precondition2.CheckPrecondition(Arg<IUpdateContext>.Is.Anything,
+                        Arg<PreconditionParamType[]>.Is.Anything)).Return(true);
                     
                     Expect.Call(delegate { driverMock.ExecuteSql(null); }).Constraints(Rhino.Mocks.Constraints.Text.Contains("query_to_be_executed_on_mock"));
                     Expect.Call(() => driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1));
@@ -96,9 +101,12 @@ namespace DbKeeperNet.Engine.Tests
                 
                 context.RegisterPrecondition(precondition1);
                 context.RegisterPrecondition(precondition2);
+                context.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.MultiConditions.xml"));
+                Updater update = new Updater(context);
+                update.ExecuteXml(
+                    Assembly.GetExecutingAssembly()
+                        .GetManifestResourceStream("DbKeeperNet.Engine.Tests.MultiConditions.xml"));
             }
 
             repository.VerifyAll();
@@ -126,8 +134,10 @@ namespace DbKeeperNet.Engine.Tests
                     SetupResult.For(precondition1.Name).Return("precondition1");
                     SetupResult.For(precondition2.Name).Return("precondition2");
 
-                    SetupResult.For(precondition1.CheckPrecondition(Arg<IUpdateContext>.Is.Anything, Arg<PreconditionParamType[]>.Is.Anything)).Return(true);
-                    SetupResult.For(precondition2.CheckPrecondition(Arg<IUpdateContext>.Is.Anything, Arg<PreconditionParamType[]>.Is.Anything)).Return(false);
+                    SetupResult.For(precondition1.CheckPrecondition(Arg<IUpdateContext>.Is.Anything,
+                        Arg<PreconditionParamType[]>.Is.Anything)).Return(true);
+                    SetupResult.For(precondition2.CheckPrecondition(Arg<IUpdateContext>.Is.Anything,
+                        Arg<PreconditionParamType[]>.Is.Anything)).Return(false);
                 }
             }
 
@@ -143,9 +153,12 @@ namespace DbKeeperNet.Engine.Tests
                 
                 context.RegisterPrecondition(precondition1);
                 context.RegisterPrecondition(precondition2);
+                context.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.MultiConditions.xml"));
+                Updater update = new Updater(context);
+                update.ExecuteXml(
+                    Assembly.GetExecutingAssembly()
+                        .GetManifestResourceStream("DbKeeperNet.Engine.Tests.MultiConditions.xml"));
             }
 
             repository.VerifyAll();
@@ -173,7 +186,8 @@ namespace DbKeeperNet.Engine.Tests
                     SetupResult.For(precondition1.Name).Return("precondition1");
                     SetupResult.For(precondition2.Name).Return("precondition2");
 
-                    SetupResult.For(precondition1.CheckPrecondition(Arg<IUpdateContext>.Is.Anything, Arg<PreconditionParamType[]>.Is.Anything)).Return(false);
+                    SetupResult.For(precondition1.CheckPrecondition(Arg<IUpdateContext>.Is.Anything,
+                        Arg<PreconditionParamType[]>.Is.Anything)).Return(false);
                 }
             }
 
@@ -189,9 +203,12 @@ namespace DbKeeperNet.Engine.Tests
                 
                 context.RegisterPrecondition(precondition1);
                 context.RegisterPrecondition(precondition2);
+                context.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.MultiConditions.xml"));
+                Updater update = new Updater(context);
+                update.ExecuteXml(
+                    Assembly.GetExecutingAssembly()
+                        .GetManifestResourceStream("DbKeeperNet.Engine.Tests.MultiConditions.xml"));
             }
 
             repository.VerifyAll();
@@ -204,7 +221,8 @@ namespace DbKeeperNet.Engine.Tests
             fileMap.ExeConfigFilename = "DiskUpdateTest.Config";
             Configuration config = ConfigurationManager.OpenMappedExeConfiguration(fileMap,
                                     ConfigurationUserLevel.None);
-            DbKeeperNetConfigurationSection section = (DbKeeperNetConfigurationSection)config.GetSection("dbkeeper.net");
+            DbKeeperNetConfigurationSection section =
+                (DbKeeperNetConfigurationSection) config.GetSection("dbkeeper.net");
 
             MockRepository repository = new MockRepository();
             IDatabaseService driverMock = repository.StrictMock<IDatabaseService>();
@@ -235,6 +253,7 @@ namespace DbKeeperNet.Engine.Tests
                 context.InitializeDatabaseService(CONNECTION_STRING);
 
                 context.RegisterScriptProviderService(new DiskFileProviderService(context));
+                context.LoadExtensions();
 
                 Updater update = new Updater(context);
                 update.ExecuteXmlFromConfig();

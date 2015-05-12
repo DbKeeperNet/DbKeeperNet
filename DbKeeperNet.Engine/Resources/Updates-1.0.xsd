@@ -66,39 +66,6 @@ Each element is intended to be used as a database schema version.</xs:documentat
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-  <xs:complexType name="AspNetAccountCreateUpdateStepType">
-    <xs:complexContent>
-      <xs:extension base="UpdateStepBaseType">
-        <xs:sequence>
-          <xs:element name="Role" type="RoleParamType" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-        <xs:attribute name="UserName" type="UserNameParamType" use="required" />
-        <xs:attribute name="Password" type="PasswordParamType" use="required" />
-        <xs:attribute name="Mail" type="MailParamType" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="AspNetRoleCreateUpdateStepType">
-    <xs:complexContent>
-      <xs:extension base="UpdateStepBaseType">
-        <xs:attribute name="RoleName" type="RoleNameParamType" use="required" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="AspNetRoleDeleteUpdateStepType">
-    <xs:complexContent>
-      <xs:extension base="UpdateStepBaseType">
-        <xs:attribute name="RoleName" type="RoleNameParamType" use="required" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="AspNetAccountDeleteUpdateStepType">
-    <xs:complexContent>
-      <xs:extension base="UpdateStepBaseType">
-        <xs:attribute name="UserName" type="UserNameParamType" use="required" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
 	<xs:complexType name="UpdateStepBaseType" abstract="true">
 		<xs:sequence>
 			<xs:element name="Preconditions" type="UpdatePreconditionCollectionType" minOccurs="0"/>
@@ -160,31 +127,6 @@ Each element is intended to be used as a database schema version.</xs:documentat
 			<xs:minLength value="1"/>
 		</xs:restriction>
 	</xs:simpleType>
-  <xs:simpleType name="UserNameParamType">
-    <xs:restriction base="xs:string">
-      <xs:minLength value="1"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="RoleNameParamType">
-    <xs:restriction base="xs:string">
-      <xs:minLength value="1"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="PasswordParamType">
-    <xs:restriction base="xs:string">
-      <xs:minLength value="1"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="MailParamType">
-    <xs:restriction base="xs:string">
-      <xs:minLength value="1"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="RoleParamType">
-    <xs:restriction base="xs:string">
-      <xs:minLength value="1"/>
-    </xs:restriction>
-  </xs:simpleType>
 	<xs:complexType name="UpdatePreconditionCollectionType">
 		<xs:sequence>
 			<xs:element name="Precondition" type="PreconditionType" minOccurs="0" maxOccurs="unbounded"/>

@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Globalization;
-using DbKeeperNet.Engine.Resources;
+using DbKeeperNet.Engine;
+using DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources;
 
-namespace DbKeeperNet.Engine.Extensions.Preconditions
+namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Preconditions
 {
     /// <summary>
-    /// Condition verifies that user with given login name doesn't exist.
+    /// Condition verifies that role with given name doesn't exist.
     /// </summary>
     /// <remarks>
-    /// Condition reference name is <c>UserNotFound</c>.
-    /// It has single parameter which should contain user's login name.
+    /// Condition reference name is <c>RoleNotFound</c>.
+    /// It has single parameter which should contain role name.
     /// </remarks>
     /// <example>
     /// Following example shows how to reference this condition in the
     /// update script XML.
     /// <code>
     /// <![CDATA[
-    /// <Precondition FriendlyName="User test not found" Precondition="UserNotFound">
+    /// <Precondition FriendlyName="Role test not found" Precondition="RoleNotFound">
     ///   <Param>test</Param>
     /// </Precondition>
     /// ]]>
     /// </code>
     /// </example>
-    public class UserNotFound : IPrecondition
+    public class RoleNotFound : IPrecondition
     {
         #region Private fields
 
@@ -34,7 +35,8 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         /// <summary>
         /// Constructor
         /// </summary>
-        public UserNotFound() : this(new AspNetMembershipAdapter())
+        public RoleNotFound()
+            : this(new AspNetMembershipAdapter())
         {
         }
 
@@ -42,7 +44,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         /// Constructor
         /// </summary>
         /// <param name="membershipAdapter">Membership adapter</param>
-        public UserNotFound(IAspNetMembershipAdapter membershipAdapter)
+        public RoleNotFound(IAspNetMembershipAdapter membershipAdapter)
         {
             _membershipAdapter = membershipAdapter;
         }
@@ -51,7 +53,7 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         /// Precondition name as it's available and used in
         /// installation XML document.
         /// </summary>
-        public string Name { get { return @"UserNotFound"; } }
+        public string Name { get { return @"RoleNotFound"; } }
 
         /// <summary>
         /// Method called for precondition evaluation. All specified
@@ -69,10 +71,10 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
         /// </returns>
         public bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param)
         {
-            if ((param == null) || (param.Length != 1) || (string.IsNullOrEmpty(param[0].Value)))  
-                throw new ArgumentNullException(string.Format(CultureInfo.CurrentCulture, PreconditionMessages.UserNotFoundUserNotSpecified, Name));
+            if ((param == null) || (param.Length != 1) || (string.IsNullOrEmpty(param[0].Value)))
+                throw new ArgumentNullException(string.Format(CultureInfo.CurrentCulture, AspNetMembershipAdapterMessages.RoleNameNotSpecified, Name));
 
-            return !_membershipAdapter.UserExists(param[0].Value);
+            return !_membershipAdapter.RoleExists(param[0].Value);
         }
     }
 }

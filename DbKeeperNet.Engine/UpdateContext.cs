@@ -11,22 +11,24 @@ namespace DbKeeperNet.Engine
     /// </summary>
     public class UpdateContext : DisposableObject, IUpdateContext
     {
-        IDatabaseService _databaseService;
-        ILoggingService _loggingService;
-        readonly DbKeeperNetConfigurationSection _configurationSection;
+        private IDatabaseService _databaseService;
+        private ILoggingService _loggingService;
+        private readonly DbKeeperNetConfigurationSection _configurationSection;
 
-        readonly Dictionary<string, ILoggingService> _loggingServices = new Dictionary<string, ILoggingService>(StringComparer.Ordinal);
-		readonly Dictionary<string, IPrecondition> _preconditions = new Dictionary<string, IPrecondition>(StringComparer.Ordinal);
-		readonly Dictionary<string, IDatabaseService> _databaseServices = new Dictionary<string, IDatabaseService>(StringComparer.Ordinal);
-		readonly Dictionary<string, IScriptProviderService> _scriptProviderServices = new Dictionary<string, IScriptProviderService>(StringComparer.Ordinal);
+        private readonly Dictionary<string, ILoggingService> _loggingServices = new Dictionary<string, ILoggingService>(StringComparer.Ordinal);
+        private readonly Dictionary<string, IPrecondition> _preconditions = new Dictionary<string, IPrecondition>(StringComparer.Ordinal);
+        private readonly Dictionary<string, IDatabaseService> _databaseServices = new Dictionary<string, IDatabaseService>(StringComparer.Ordinal);
+        private readonly Dictionary<string, IScriptProviderService> _scriptProviderServices = new Dictionary<string, IScriptProviderService>(StringComparer.Ordinal);
+        private readonly IDictionary<Type, IUpdateStepHandlerService> _updateStepHandlerServices = new Dictionary<Type, IUpdateStepHandlerService>();
 
-        string _friendlyName;
-        string _currentAssemblyName;
-        string _currentVersion;
-        int _currentStep;
+        private string _friendlyName;
+        private string _currentAssemblyName;
+        private string _currentVersion;
+        private int _currentStep;
 
-        PreconditionType[] _defaultPreconditions = { };
+        private PreconditionType[] _defaultPreconditions = { };
         private bool _databaseServiceOwner;
+        private readonly IDictionary<string, string> _schemas = new Dictionary<string, string>();
 
         public UpdateContext()
             : this(DbKeeperNetConfigurationSection.Current)
@@ -55,6 +57,7 @@ namespace DbKeeperNet.Engine
                 return _loggingService;
             }
         }
+
         public IDatabaseService DatabaseService
         {
             get
@@ -126,6 +129,36 @@ namespace DbKeeperNet.Engine
                 throw new InvalidOperationException(String.Format(CultureInfo.CurrentCulture, UpdateContextMessages.LoggingServiceAlreadyRegistered, provider.Name));
 
             _scriptProviderServices[provider.Name] = provider;
+        }
+
+        public void RegisterUpdateStepHandler(IUpdateStepHandlerService handler)
+        {
+            if (handler == null) throw new ArgumentNullException("handler");
+
+            _updateStepHandlerServices[handler.HandledType] = handler;
+        }
+
+        public void RegisterSchema(string schemaNamespace, string schema)
+        {
+            if (string.IsNullOrEmpty(schemaNamespace)) throw new ArgumentNullException("schemaNamespace");
+            if (string.IsNullOrEmpty(schema)) throw new ArgumentNullException("schema");
+
+            // do not support re-registration
+            _schemas.Add(schemaNamespace, schema);
+        }
+
+        public void IterateAllSchemas(Action<string, string> callback)
+        {
+            if (callback == null) throw new ArgumentNullException("callback");
+
+            foreach (var schemaInfo in _schemas) callback(schemaInfo.Key, schemaInfo.Value);
+        }
+
+        public IUpdateStepHandlerService GetUpdateStepHandlerFor(UpdateStepBaseType updateStep)
+        {
+            if (updateStep == null) throw new ArgumentNullException("updateStep");
+
+            return _updateStepHandlerServices[updateStep.GetType()];
         }
 
         public string CurrentVersion

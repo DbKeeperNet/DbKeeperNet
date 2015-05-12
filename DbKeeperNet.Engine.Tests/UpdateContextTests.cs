@@ -52,6 +52,39 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
+        public void SchemaRegistration()
+        {
+            var context = new UpdateContext();
+            context.RegisterSchema("someUri", "schema");
+
+            string uri = null;
+            string schema = null;
+
+            context.IterateAllSchemas((registeredUri, registereSchema) =>
+                                      {
+                                          uri = registeredUri;
+                                          schema = registereSchema;
+            });
+
+            Assert.That(uri, Is.EqualTo("someUri"));
+            Assert.That(schema, Is.EqualTo("schema"));
+        }
+
+        [Test]
+        public void RegisterSchemaNullUri()
+        {
+            var context = new UpdateContext();
+            Assert.Throws<ArgumentNullException>(() => context.RegisterSchema(null, "schema"));
+        }
+
+        [Test]
+        public void RegisterSchemaNullSchema()
+        {
+            var context = new UpdateContext();
+            Assert.Throws<ArgumentNullException>(() => context.RegisterSchema("someUri", null));
+        }
+
+        [Test]
         public void RegisterPrecondition()
         {
             MockRepository repository = new MockRepository();
@@ -190,6 +223,59 @@ namespace DbKeeperNet.Engine.Tests
                 IUpdateContext context = new UpdateContext();
                 Assert.Throws<InvalidOperationException>(() => context.RegisterLoggingService(mockService));
             }
+        }
+
+        [Test]
+        public void RegisterUpdateStepHandlerServiceNull()
+        {
+            var context = new UpdateContext();
+            Assert.Throws<ArgumentNullException>(() =>context.RegisterUpdateStepHandler(null));
+        }
+
+        [Test]
+        public void RegisterUpdateStepHandlerService()
+        {
+            var repository = new MockRepository();
+            var service = repository.DynamicMock<IUpdateStepHandlerService>();
+
+            using (repository.Record())
+            {
+                SetupResult.For(service.HandledType).Return(typeof(UpdateStepBaseType));
+            }
+
+            using (repository.Playback())
+            {
+                var context = new UpdateContext();
+                context.RegisterUpdateStepHandler(service);
+            }
+        }
+
+        [Test]
+        public void GetUpdateStepHandler()
+        {
+            var repository = new MockRepository();
+            var service = repository.DynamicMock<IUpdateStepHandlerService>();
+
+            using (repository.Record())
+            {
+                SetupResult.For(service.HandledType).Return(typeof(UpdateDbStepType));
+            }
+
+            using (repository.Playback())
+            {
+                var context = new UpdateContext();
+                context.RegisterUpdateStepHandler(service);
+
+                Assert.That(context.GetUpdateStepHandlerFor(new UpdateDbStepType()), Is.EqualTo(service));
+            }
+        }
+
+        [Test]
+        public void GetUpdateStepHandlerNullStep()
+        {
+            var context = new UpdateContext();
+
+            Assert.Throws<ArgumentNullException>(() => context.GetUpdateStepHandlerFor(null));
         }
 
         [Test]

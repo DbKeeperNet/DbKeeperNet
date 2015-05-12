@@ -17,5 +17,5 @@ before_script:
 
 script: 
   - xbuild DbKeeperNet.sln /p:Configuration=Release
-  - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels -include=pgsql,mysql,sqlite,firebird ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll
-  - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll
+  - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels -include=pgsql,mysql,sqlite,firebird ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll ./DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests/bin/Release/DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll
+  - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll ./DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests/bin/Release/DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll
