@@ -43,17 +43,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestTableExistsNullName()
         {
-            TestTableExists(null);
+            Assert.Throws<ArgumentNullException>(() => TestTableExists(null));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestTableExistsEmptyName()
         {
-            TestTableExists(String.Empty);
+            Assert.Throws<ArgumentNullException>(() => TestTableExists(String.Empty));
         }
 
 

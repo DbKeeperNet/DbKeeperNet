@@ -35,17 +35,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestTriggerNotExistsNullName()
         {
-            TestTriggerExists(null);
+            Assert.Throws<ArgumentNullException>(() => TestTriggerExists(null));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestTriggerNotExistsEmptyName()
         {
-            TestTriggerExists("");
+            Assert.Throws<ArgumentNullException>(() => TestTriggerExists(""));
         }
 
         [Test]

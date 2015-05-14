@@ -5,7 +5,6 @@ addons:
   postgresql: "9.3"
 
 before_script:
-  - sudo apt-get update -qq -y
   - sudo apt-get install -qq firebird2.5-superclassic firebird2.5-dev
   - sudo sed /ENABLE_FIREBIRD_SERVER=/s/no/yes/ -i /etc/default/firebird2.5
   - cat /etc/default/firebird2.5 | grep ENABLE_FIREBIRD_SERVER
@@ -18,5 +17,5 @@ before_script:
 
 script: 
   - xbuild DbKeeperNet.sln /p:Configuration=Release
-  - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels -include=pgsql,mysql,sqlite ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll
+  - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels -include=pgsql,mysql,sqlite,firebird ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll
   - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll

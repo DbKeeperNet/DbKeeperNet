@@ -38,10 +38,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(NotSupportedException))]
         public void TestProcedureNotExistsNullName()
         {
-            TestStoredProcedureExists(null);
+            Assert.Throws<NotSupportedException>(() => TestStoredProcedureExists(null));
         }
 
         [Test]

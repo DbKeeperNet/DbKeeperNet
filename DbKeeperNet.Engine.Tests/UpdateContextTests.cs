@@ -9,15 +9,13 @@ namespace DbKeeperNet.Engine.Tests
     public class UpdateContextTests
     {
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void RegisterPreconditionNull()
         {
             IUpdateContext context = new UpdateContext();
-            context.RegisterPrecondition(null);
+            Assert.Throws<ArgumentNullException>(() => context.RegisterPrecondition(null));
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterPreconditionNullName()
         {
             MockRepository repository = new MockRepository();
@@ -31,12 +29,11 @@ namespace DbKeeperNet.Engine.Tests
             using (repository.Playback())
             {
                 IUpdateContext context = new UpdateContext();
-                context.RegisterPrecondition(mockPrec);
+                Assert.Throws<InvalidOperationException>(() => context.RegisterPrecondition(mockPrec));
             }
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterPreconditionEmptyName()
         {
             MockRepository repository = new MockRepository();
@@ -50,7 +47,7 @@ namespace DbKeeperNet.Engine.Tests
             using (repository.Playback())
             {
                 IUpdateContext context = new UpdateContext();
-                context.RegisterPrecondition(mockPrec);
+                Assert.Throws<InvalidOperationException>(() => context.RegisterPrecondition(mockPrec));
             }
         }
 
@@ -73,7 +70,6 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(KeyNotFoundException))]
         public void CheckNonExistingPrecondition()
         {
             MockRepository repository = new MockRepository();
@@ -88,7 +84,7 @@ namespace DbKeeperNet.Engine.Tests
             {
                 IUpdateContext context = new UpdateContext();
                 context.RegisterPrecondition(mockPrec);
-                context.CheckPrecondition("xxx", null);
+                Assert.Throws<KeyNotFoundException>(() => context.CheckPrecondition("xxx", null));
             }
         }
 
@@ -136,7 +132,6 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterDatabaseServiceNullName()
         {
             MockRepository repository = new MockRepository();
@@ -150,12 +145,11 @@ namespace DbKeeperNet.Engine.Tests
             using (repository.Playback())
             {
                 IUpdateContext context = new UpdateContext();
-                context.RegisterDatabaseService(mockService);
+                Assert.Throws<InvalidOperationException>(() => context.RegisterDatabaseService(mockService));
             }
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterDatabaseServiceEmptyName()
         {
             MockRepository repository = new MockRepository();
@@ -169,20 +163,18 @@ namespace DbKeeperNet.Engine.Tests
             using (repository.Playback())
             {
                 IUpdateContext context = new UpdateContext();
-                context.RegisterDatabaseService(mockService);
+                Assert.Throws<InvalidOperationException>(() => context.RegisterDatabaseService(mockService));
             }
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void RegisterDatabaseServiceNull()
         {
             IUpdateContext context = new UpdateContext();
-            context.RegisterDatabaseService(null);
+            Assert.Throws<ArgumentNullException>(() => context.RegisterDatabaseService(null));
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterLoggingServiceNullName()
         {
             MockRepository repository = new MockRepository();
@@ -196,12 +188,11 @@ namespace DbKeeperNet.Engine.Tests
             using (repository.Playback())
             {
                 IUpdateContext context = new UpdateContext();
-                context.RegisterLoggingService(mockService);
+                Assert.Throws<InvalidOperationException>(() => context.RegisterLoggingService(mockService));
             }
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterLoggingServiceEmptyName()
         {
             MockRepository repository = new MockRepository();
@@ -215,7 +206,7 @@ namespace DbKeeperNet.Engine.Tests
             using (repository.Playback())
             {
                 IUpdateContext context = new UpdateContext();
-                context.RegisterLoggingService(mockService);
+                Assert.Throws<InvalidOperationException>(() => context.RegisterLoggingService(mockService));
             }
         }
 
@@ -238,12 +229,11 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void InitializeDatabaseServiceUsingDatabaseServiceShouldThrowExceptionForNullArgument()
         {
             using(IUpdateContext context = new UpdateContext())
             {
-                context.InitializeDatabaseService((IDatabaseService)null, false);
+                Assert.Throws<ArgumentNullException>(() => context.InitializeDatabaseService((IDatabaseService)null, false));
             }
         }
 

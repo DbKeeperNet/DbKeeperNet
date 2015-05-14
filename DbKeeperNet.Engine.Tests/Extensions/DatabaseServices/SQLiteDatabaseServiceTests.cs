@@ -15,12 +15,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         {
         }
         [Test]
-        [ExpectedException(typeof(NotSupportedException))]
         public void StoredProcedureExistsShouldThrowNotSupportedException()
         {
             using (IDatabaseService connectedService = CreateConnectedDbService())
             {
-                connectedService.StoredProcedureExists(string.Empty);
+                Assert.Throws<NotSupportedException>(() => connectedService.StoredProcedureExists(string.Empty));
             }
         }
 

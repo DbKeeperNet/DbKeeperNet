@@ -39,15 +39,16 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
         protected static void ExecuteSqlAndIgnoreException(IDatabaseService service, string sql, params object[] args)
         {
+
             try
             {
                 string command = String.Format(CultureInfo.InvariantCulture, sql, args);
 
                 service.ExecuteSql(command);
             }
-            catch (DbException)
+            catch (DbException e)
             {
-                //    Debug.WriteLine("Ignored DbException: ", e.ToString());
+            //    Console.WriteLine("Ignored DbException: {0}", e);
             }
         }
 
