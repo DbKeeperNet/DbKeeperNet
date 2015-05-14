@@ -43,17 +43,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestViewExistsNullName()
         {
-            TestViewExists(null);
+            Assert.Throws<ArgumentNullException>(() => TestViewExists(null));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestViewExistsEmptyName()
         {
-            TestViewExists(String.Empty);
+            Assert.Throws<ArgumentNullException>(() => TestViewExists(String.Empty));
         }
 
 		protected abstract void CreateView(IDatabaseService connectedService, string viewName);

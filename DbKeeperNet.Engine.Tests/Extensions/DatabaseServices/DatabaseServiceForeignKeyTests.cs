@@ -36,17 +36,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestForeignKeyNotExistsNullName()
         {
-            TestForeignKeyExists(null, null);
+            Assert.Throws<ArgumentNullException>(() => TestForeignKeyExists(null, null));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestForeignKeyNotExistsEmptyName()
         {
-            TestForeignKeyExists("", "");
+            Assert.Throws<ArgumentNullException>(() => TestForeignKeyExists("", ""));
         }
 
         [Test]

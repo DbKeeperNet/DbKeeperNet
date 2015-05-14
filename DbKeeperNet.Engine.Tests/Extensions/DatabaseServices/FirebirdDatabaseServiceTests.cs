@@ -47,12 +47,11 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(NotSupportedException))]
         public void ForeignKeyExistsShouldThrowNotSupportedException()
         {
             using (var service = CreateConnectedDbService())
             {
-                service.ForeignKeyExists(null, null);
+                Assert.Throws<NotSupportedException>(() => service.ForeignKeyExists(null, null));
             }
         }
     }

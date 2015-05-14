@@ -32,17 +32,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestProcedureNotExistsNullName()
         {
-            TestStoredProcedureExists(null);
+            Assert.Throws<ArgumentNullException>(() => TestStoredProcedureExists(null));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestProcedureNotExistsEmptyName()
         {
-            TestStoredProcedureExists(String.Empty);
+            Assert.Throws<ArgumentNullException>(() => TestStoredProcedureExists(String.Empty));
         }
 
         [Test]

@@ -69,17 +69,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestSequenceNotExistsNullName()
         {
-            TestSequenceExists(null);
+            Assert.Throws<ArgumentNullException>(() => TestSequenceExists(null));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestSequenceNotExistsEmptyName()
         {
-            TestSequenceExists("");
+            Assert.Throws<ArgumentNullException>(() => TestSequenceExists(""));
         }
 
         [Test]

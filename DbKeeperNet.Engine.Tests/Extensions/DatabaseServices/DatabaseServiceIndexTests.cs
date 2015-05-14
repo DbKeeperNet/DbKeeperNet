@@ -44,17 +44,15 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestIndexNotExistsNullName()
         {
-            TestIndexExists(null, null);
+            Assert.Throws<ArgumentNullException>(() => TestIndexExists(null, null));
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestIndexNotExistsEmptyName()
         {
-            TestIndexExists("", "");
+            Assert.Throws<ArgumentNullException>(() => TestIndexExists("", ""));
         }
 
         [Test]
