@@ -18,8 +18,6 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// <item><see cref="ForceExecution">Always execute</see></item>
     /// <item><see cref="OraDbSequenceNotFound">Oracle database sequence does not exists</see></item>
     /// <item><see cref="StepNotExecuted">Upgrade step with given identifiers wasn't yet executed</see></item>
-    /// <item><see cref="UserNotFound">User identified by login name does not exist</see></item>
-    /// <item><see cref="RoleNotFound">Role identified by name does not exist</see></item>
     /// </list>
     /// 
     /// All providers implement interface <see cref="IPrecondition"/>
@@ -44,8 +42,6 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             context.RegisterPrecondition(new DbPrimaryKeyNotFound());
             context.RegisterPrecondition(new DbTriggerNotFound());
             context.RegisterPrecondition(new OraDbSequenceNotFound());
-            context.RegisterPrecondition(new UserNotFound());
-            context.RegisterPrecondition(new RoleNotFound());
         }
 
         #endregion

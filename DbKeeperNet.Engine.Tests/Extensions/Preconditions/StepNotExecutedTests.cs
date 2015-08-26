@@ -48,8 +48,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.InitializeDatabaseService(CONNECTION_STRING);
 
                 context.RegisterPrecondition(new StepNotExecuted());
+                context.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
+                Updater update = new Updater(context);
                 update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.StepNotExecutedTests.xml"));
             }
             repository.VerifyAll();
@@ -85,8 +86,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.InitializeDatabaseService(CONNECTION_STRING);
 
                 context.RegisterPrecondition(new StepNotExecuted());
+                context.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
+                Updater update = new Updater(context);
                 update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.StepNotExecutedTests.xml"));
             }
             repository.VerifyAll();

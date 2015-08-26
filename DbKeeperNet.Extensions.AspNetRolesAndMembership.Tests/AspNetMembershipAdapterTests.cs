@@ -1,8 +1,9 @@
-
-using System.Web.Security;
+﻿using System.Web.Security;
+using DbKeeperNet.Engine;
+using DbKeeperNet.Engine.Tests;
 using NUnit.Framework;
 
-namespace DbKeeperNet.Engine.Tests
+namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
 {
     [Explicit]
     [Category("mssql")]
@@ -21,14 +22,14 @@ namespace DbKeeperNet.Engine.Tests
         {
             var updateContext = new UpdateContext();
             updateContext.LoadExtensions();
+
             updateContext.InitializeLoggingService("fx");
             updateContext.InitializeDatabaseService("mssql");
+            updateContext.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
-            var updater = new Updater(updateContext,
-                                      new UpdateStepVisitor(updateContext, new NonSplittingSqlScriptSplitter(),
-                                                            new AspNetMembershipAdapter()));
+            var updater = new Updater(updateContext);
 
-            updater.ExecuteXml(typeof(AspNetMembershipAdapterTests).Assembly.GetManifestResourceStream("DbKeeperNet.Engine.Tests.AspNetMemberShipUpdate.xml"));
+            updater.ExecuteXml(typeof(AspNetMembershipAdapterTests).Assembly.GetManifestResourceStream("DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.AspNetMemberShipUpdate.xml"));
         }
 
         [SetUp]
@@ -48,7 +49,7 @@ namespace DbKeeperNet.Engine.Tests
             adapter.CreateUser(UserName, Password, Email);
 
             int recordCount;
-            
+
             Membership.Provider.FindUsersByEmail(Email, 0, 1, out recordCount);
             Assert.That(recordCount, Is.EqualTo(1));
 
@@ -83,7 +84,7 @@ namespace DbKeeperNet.Engine.Tests
             var adapter = new AspNetMembershipAdapter();
             adapter.CreateUser(UserName, Password, null);
 
-            adapter.AddUserToRoles(UserName, new[]{Role1, Role2});
+            adapter.AddUserToRoles(UserName, new[] { Role1, Role2 });
 
             Assert.IsTrue(Roles.Provider.IsUserInRole(UserName, Role1));
             Assert.IsTrue(Roles.Provider.IsUserInRole(UserName, Role2));

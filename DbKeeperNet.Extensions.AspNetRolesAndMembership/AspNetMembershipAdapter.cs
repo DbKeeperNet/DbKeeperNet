@@ -1,9 +1,10 @@
 using System;
 using System.Globalization;
 using System.Web.Security;
-using DbKeeperNet.Engine.Resources;
+using DbKeeperNet.Engine;
+using DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources;
 
-namespace DbKeeperNet.Engine
+namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
 {
     /// <summary>
     /// An implementation of ASP.NET membership providers adapter
@@ -45,7 +46,7 @@ namespace DbKeeperNet.Engine
                 roleProvider.CreateRole(role);
             }
 
-            roleProvider.AddUsersToRoles(new []{userName}, roles);
+            roleProvider.AddUsersToRoles(new[] { userName }, roles);
         }
 
         /// <summary>

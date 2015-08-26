@@ -65,7 +65,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\Castle.DynamicProxy2.dll</HintPath>
     </Reference>
-    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=4.6.2.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
+    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=4.7.0.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\FirebirdSql.Data.FirebirdClient.dll</HintPath>
     </Reference>
@@ -96,13 +96,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.93.0\lib\net45\System.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppConfigTests.cs" />
-    <Compile Include="AspNetMembershipAdapterTests.cs" />
     <Compile Include="CustomUpdateStep.cs" />
     <Compile Include="Extensions\DatabaseServices\DatabaseServiceForeignKeyTests.cs" />
     <Compile Include="Extensions\DatabaseServices\DatabaseServiceIndexTests.cs" />
@@ -165,8 +162,6 @@
     <Compile Include="Extensions\Preconditions\DbTableNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbTypeTests.cs" />
     <Compile Include="Extensions\Preconditions\DbViewNotFoundTests.cs" />
-    <Compile Include="Extensions\Preconditions\RoleNotFoundTests.cs" />
-    <Compile Include="Extensions\Preconditions\UserNotFoundTests.cs" />
     <Compile Include="MsSqlScriptSplitterTests.cs" />
     <Compile Include="NonSplittingSqlScriptSplitter.cs" />
     <Compile Include="Extensions\Preconditions\StepNotExecutedTests.cs" />
@@ -174,16 +169,11 @@
     <Compile Include="SqlScriptSplitterTests.cs" />
     <Compile Include="UpdateContextTests.cs" />
     <Compile Include="UpdaterTests.cs" />
-    <Compile Include="UpdateStepVisitorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DbKeeperNet.Engine\DbKeeperNet.Engine.csproj">
       <Project>{FFCF7DA4-C786-4999-8624-26C392D67315}</Project>
       <Name>DbKeeperNet.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.csproj">
-      <Project>{cf414579-2bb6-48d1-bddd-ba586373c881}</Project>
-      <Name>DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -247,9 +237,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="MultiConditions.xml" />
-    <EmbeddedResource Include="AspNetMemberShipUpdate.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <Content Include="..\External\FirebirdEmbedded\fbembed.dll">
       <Link>fbembed.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -285,10 +272,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>DbKeeperNetNUnit.mdf</DependentUpon>
     </Content>
-    <EmbeddedResource Include="Extensions\Preconditions\UserNotFoundTests.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Extensions\Preconditions\RoleNotFoundTests.xml" />
     <Content Include="Update.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

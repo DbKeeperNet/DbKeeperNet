@@ -14,7 +14,6 @@ namespace DbKeeperNet.Engine.CustomUpdateSteps
     /// Use this steps very carefuly. It is for example useful when trying to setup
     /// the database for MSSQL Membership and Role provider.
     /// </remarks>
-    /// <see cref="AspNetAccountCreateUpdateStepType"/>
     public class MsSqlStepWithoutExplicitTransaction : ICustomUpdateStep
     {
         /// <summary>

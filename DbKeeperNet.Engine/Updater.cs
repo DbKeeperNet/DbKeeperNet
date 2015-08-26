@@ -175,32 +175,19 @@ namespace DbKeeperNet.Engine
         #region Private fields
 
         private IUpdateContext _context;
-        private readonly IUpdateStepVisitor _updateStepVisitor;
-
+        
         #endregion
-
+        
         /// <summary>
         /// Class construction. Requires initialized update context.
         /// </summary>
         /// <param name="context">Update context instance with all required information prepared</param>
-        public Updater(IUpdateContext context) : this(context,  new UpdateStepVisitor(context, new SqlScriptSplitter(), new AspNetMembershipAdapter()))
-        {
-        }
-
-        /// <summary>
-        /// Class construction. Requires initialized update context.
-        /// </summary>
-        /// <param name="context">Update context instance with all required information prepared</param>
-        /// <param name="updateStepVisitor">Update script visitor</param>
-        public Updater(IUpdateContext context, IUpdateStepVisitor updateStepVisitor)
+        public Updater(IUpdateContext context)
         {
             if (context == null)
                 throw new ArgumentNullException(@"context");
-            if (updateStepVisitor == null)
-                throw new ArgumentNullException(@"updateStepVisitor");
 
             _context = context;
-            _updateStepVisitor = updateStepVisitor;
         }
 
         #region Private methods
@@ -221,10 +208,12 @@ namespace DbKeeperNet.Engine
                 _context.Logger.TraceInformation(UpdaterMessages.DatabaseSetupNotNecessary);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
         private void ExecuteXmlInternal(Stream inputXml)
         {
             XmlReaderSettings settings = new XmlReaderSettings();
-            settings.Schemas.Add(@"http://code.google.com/p/dbkeepernet/Updates-1.0.xsd", XmlReader.Create(typeof(Updater).Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd")));
+
+            _context.IterateAllSchemas((schemaUri, schema) => settings.Schemas.Add(schemaUri, XmlReader.Create(new StringReader(schema))));
             settings.IgnoreWhitespace = true;
             settings.ValidationType = ValidationType.Schema;
 
@@ -310,7 +299,7 @@ namespace DbKeeperNet.Engine
                     {
                         _context.DatabaseService.BeginTransaction();
 
-                        step.Accept(_updateStepVisitor);
+                        _context.GetUpdateStepHandlerFor(step).Handle(step, _context);
 
                         _context.Logger.TraceInformation(UpdaterMessages.FinishedUpdateStep, step.Id, step.FriendlyName);
 

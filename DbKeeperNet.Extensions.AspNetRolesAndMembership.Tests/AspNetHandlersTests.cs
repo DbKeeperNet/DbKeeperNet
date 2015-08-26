@@ -1,10 +1,11 @@
-﻿using NUnit.Framework;
+﻿using DbKeeperNet.Engine;
+using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace DbKeeperNet.Engine.Tests
+namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
 {
     [TestFixture]
-    public class UpdateStepVisitorTests
+    public class AspNetHandlersTests
     {
         private const string UserName = "TestUser";
         private const string Password = "TestPassword";
@@ -31,8 +32,8 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                var visitor = new UpdateStepVisitor(contextMock, null, adapter);
-                createUser.Accept(visitor);
+                var handler = new AspNetMembershipAccountCreateUpdateStepHandlerService(adapter);
+                handler.Handle(createUser, contextMock);
             }
 
             repository.VerifyAll();
@@ -53,12 +54,12 @@ namespace DbKeeperNet.Engine.Tests
                 SetupResult.For(adapter.DeleteUser(UserName)).Return(true);
             }
 
-            var createUser = new AspNetAccountDeleteUpdateStepType { UserName = UserName };
+            var deleteUser = new AspNetAccountDeleteUpdateStepType { UserName = UserName };
 
             using (repository.Playback())
             {
-                var visitor = new UpdateStepVisitor(contextMock, null, adapter);
-                createUser.Accept(visitor);
+                var handler = new AspNetMembershipAccountDeleteUpdateStepHandlerService(adapter);
+                handler.Handle(deleteUser, contextMock);
             }
 
             repository.VerifyAll();
@@ -78,12 +79,12 @@ namespace DbKeeperNet.Engine.Tests
                 Expect.Call(() => adapter.CreateRole(Role1));
             }
 
-            var createUser = new AspNetRoleCreateUpdateStepType { RoleName = Role1 };
+            var createRole = new AspNetRoleCreateUpdateStepType { RoleName = Role1 };
 
             using (repository.Playback())
             {
-                var visitor = new UpdateStepVisitor(contextMock, null, adapter);
-                createUser.Accept(visitor);
+                var handler = new AspNetMembershipRoleCreateUpdateStepHandlerService(adapter);
+                handler.Handle(createRole, contextMock);
             }
 
             repository.VerifyAll();
@@ -103,19 +104,19 @@ namespace DbKeeperNet.Engine.Tests
                 Expect.Call(() => adapter.DeleteRole(Role1));
             }
 
-            var createUser = new AspNetRoleDeleteUpdateStepType { RoleName = Role1 };
+            var deleteRole = new AspNetRoleDeleteUpdateStepType { RoleName = Role1 };
 
             using (repository.Playback())
             {
-                var visitor = new UpdateStepVisitor(contextMock, null, adapter);
-                createUser.Accept(visitor);
+                var visitor = new AspNetMembershipRoleDeleteUpdateStepHandlerService(adapter);
+                visitor.Handle(deleteRole, contextMock);
             }
 
             repository.VerifyAll();
         }
 
         [Test]
-        public void AspNetAccountCreateDeleteStepTypeShouldLogWarningIfUserWasNotDeleted()
+        public void AspNetAccountDeleteStepTypeShouldLogWarningIfUserWasNotDeleted()
         {
             var repository = new MockRepository();
             var loggerMock = repository.StrictMock<ILoggingService>();
@@ -130,12 +131,12 @@ namespace DbKeeperNet.Engine.Tests
                 SetupResult.For(adapter.DeleteUser(UserName)).Return(false);
             }
 
-            var createUser = new AspNetAccountDeleteUpdateStepType { UserName = UserName };
+            var deleteAccount = new AspNetAccountDeleteUpdateStepType { UserName = UserName };
 
             using (repository.Playback())
             {
-                var visitor = new UpdateStepVisitor(contextMock, null, adapter);
-                createUser.Accept(visitor);
+                var handler = new AspNetMembershipAccountDeleteUpdateStepHandlerService(adapter);
+                handler.Handle(deleteAccount, contextMock);
             }
 
             repository.VerifyAll();

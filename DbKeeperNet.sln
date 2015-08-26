@@ -1,12 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherFiles", "OtherFiles", "{D523A38F-333A-4257-A25C-1637414AFC72}"
 	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
 		appveyor.yml = appveyor.yml
 		Changelog.txt = Changelog.txt
+		DbKeeperNet.Extensions.AspNetRolesAndMembership.nuspec = DbKeeperNet.Extensions.AspNetRolesAndMembership.nuspec
 		DbKeeperNet.Extensions.Log4Net.nuspec = DbKeeperNet.Extensions.Log4Net.nuspec
 		DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec = DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec
 		DbKeeperNet.msbuild = DbKeeperNet.msbuild
@@ -16,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherFiles", "OtherFiles", 
 		LICENSE = LICENSE
 		packages.bat = packages.bat
 		Properties.xml = Properties.xml
+		travis-firebird.sql = travis-firebird.sql
 		UserProperties.xml.sample = UserProperties.xml.sample
 	EndProjectSection
 EndProject
@@ -47,6 +50,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{8CFFFE
 		.build\MSBuild.Community.Tasks.targets = .build\MSBuild.Community.Tasks.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Extensions.AspNetRolesAndMembership", "DbKeeperNet.Extensions.AspNetRolesAndMembership\DbKeeperNet.Extensions.AspNetRolesAndMembership.csproj", "{D7D505AE-DDFE-44CF-A8C7-B933F1C8562F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests", "DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.csproj", "{64AE95D4-F421-45A5-BCE6-E8B53CDA42D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +76,14 @@ Global
 		{CF414579-2BB6-48D1-BDDD-BA586373C881}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF414579-2BB6-48D1-BDDD-BA586373C881}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF414579-2BB6-48D1-BDDD-BA586373C881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7D505AE-DDFE-44CF-A8C7-B933F1C8562F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7D505AE-DDFE-44CF-A8C7-B933F1C8562F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7D505AE-DDFE-44CF-A8C7-B933F1C8562F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7D505AE-DDFE-44CF-A8C7-B933F1C8562F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64AE95D4-F421-45A5-BCE6-E8B53CDA42D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64AE95D4-F421-45A5-BCE6-E8B53CDA42D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64AE95D4-F421-45A5-BCE6-E8B53CDA42D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64AE95D4-F421-45A5-BCE6-E8B53CDA42D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

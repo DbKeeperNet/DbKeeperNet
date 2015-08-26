@@ -68,35 +68,25 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AspNetMembershipAdapter.cs" />
+    <Compile Include="CustomUpdateStepHandlerService.cs" />
     <Compile Include="CustomUpdateSteps\MsSqlStepWithoutExplicitTransaction.cs" />
     <Compile Include="DatabaseServiceMappingConfigurationElement.cs" />
     <Compile Include="DatabaseServiceMappingConfigurationElementCollection.cs" />
     <Compile Include="DbKeeperNetConfigurationSection.cs" />
     <Compile Include="DbKeeperNetException.cs" />
+    <Compile Include="DefaultUpdateStepsExtension.cs" />
     <Compile Include="DisposableObject.cs" />
     <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseService.cs" />
     <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseService.cs" />
     <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseService.cs" />
     <Compile Include="Extensions\Preconditions\DbTriggerNotFound.cs" />
     <Compile Include="Extensions\Preconditions\OraDbSequenceNotFound.cs" />
-    <Compile Include="Extensions\Preconditions\RoleNotFound.cs" />
-    <Compile Include="Extensions\Preconditions\UserNotFound.cs" />
-    <Compile Include="IAspNetMembershipAdapter.cs" />
     <Compile Include="ISqlScriptSplitter.cs" />
-    <Compile Include="IUpdateStepVisitor.cs" />
-    <Compile Include="IVisitableUpdateStep.cs" />
+    <Compile Include="IUpdateStepHandlerService.cs" />
     <Compile Include="MsSqlScriptSplitter.cs" />
-    <Compile Include="Resources\AspNetMembershipAdapterMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AspNetMembershipAdapterMessages.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,16 +159,11 @@
     <Compile Include="UpdateContext.cs" />
     <Compile Include="ExtensionConfigurationElement.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="UpdateStepVisitor.cs" />
+    <Compile Include="UpdateStepHandlerService.cs" />
+    <Compile Include="UpdateDbStepHandlerService.cs" />
     <Compile Include="XmlClasses.cs" />
-    <Compile Include="XmlClasses.Partial.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\AspNetMembershipAdapterMessages.cs-CZ.resx" />
-    <EmbeddedResource Include="Resources\AspNetMembershipAdapterMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AspNetMembershipAdapterMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.cs-CZ.resx" />
     <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

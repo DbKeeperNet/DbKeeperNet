@@ -1,10 +1,12 @@
 ﻿using System.Reflection;
-using DbKeeperNet.Engine.Extensions.Preconditions;
+using DbKeeperNet.Engine;
+using DbKeeperNet.Engine.Tests;
+using DbKeeperNet.Extensions.AspNetRolesAndMembership.Preconditions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Text = Rhino.Mocks.Constraints.Text;
 
-namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
+namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
 {
     [TestFixture]
     public class RoleNotFoundTests
@@ -49,9 +51,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.InitializeDatabaseService(CONNECTION_STRING);
 
                 context.RegisterPrecondition(new RoleNotFound(memberShipAdapterMock));
+                context.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.RoleNotFoundTests.xml"));
+                Updater update = new Updater(context);
+                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.RoleNotFoundTests.xml"));
             }
             repository.VerifyAll();
         }
@@ -87,9 +90,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.InitializeDatabaseService(CONNECTION_STRING);
 
                 context.RegisterPrecondition(new RoleNotFound(memberShipAdapterMock));
+                context.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
-                Updater update = new Updater(context, new UpdateStepVisitor(context, new NonSplittingSqlScriptSplitter(), new AspNetMembershipAdapter()));
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.RoleNotFoundTests.xml"));
+                Updater update = new Updater(context);
+                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.RoleNotFoundTests.xml"));
             }
             repository.VerifyAll();
         }
