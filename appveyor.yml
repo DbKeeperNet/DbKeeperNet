@@ -13,6 +13,9 @@ install:
 
 configuration: Release
 
+hosts:
+  oracle.private.com: 40.117.230.186
+
 build_script:
   - ECHO Create databases
   - set pgpassword=Password12!
