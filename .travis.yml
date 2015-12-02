@@ -1,5 +1,6 @@
 language: csharp
 solution: DbKeeperNet.sln
+sudo: required
 
 addons:
   postgresql: "9.3"
@@ -13,9 +14,10 @@ before_script:
   - psql -c "ALTER USER postgres WITH PASSWORD 'Password12!';" -U postgres
   - mysql -e 'create database mytest;' -uroot
   - mysql -e "SET PASSWORD = PASSWORD('Password12!');" -uroot
-  - isql-fb -u SYSDBA -p masterkey -q -i travis-firebird.sql
+  - isql-fb -u SYSDBA -p masterkey -q -i .travis/travis-firebird.sql
+  - .travis/oracle/install.sh
 
 script: 
   - xbuild DbKeeperNet.sln /p:Configuration=Release
-  - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels -include=pgsql,mysql,sqlite,firebird ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll ./DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests/bin/Release/DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll
+  - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels -include=pgsql,mysql,sqlite,firebird,oracle ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll ./DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests/bin/Release/DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll
   - mono ./packages/NUnit.Runners.2.6.3/tools/nunit-console.exe -labels ./DbKeeperNet.Engine.Tests/bin/Release/DbKeeperNet.Engine.Tests.dll ./DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests/bin/Release/DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll

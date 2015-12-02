@@ -1,3 +1,4 @@
+using System.Reflection;
 using NUnit.Framework;
 using DbKeeperNet.Engine.Extensions.DatabaseServices;
 
@@ -25,10 +26,10 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             IUpdateContext context = new UpdateContext();
             context.LoadExtensions();
-            context.InitializeDatabaseService(CONNECTION_STRING);
+            context.InitializeDatabaseService(ConnectionString);
 
             Updater updater = new Updater(context);
-            updater.ExecuteXml(typeof(DbServicesExtension).Assembly.GetManifestResourceStream("DbKeeperNet.Engine.Extensions.DatabaseServices.OracleDatabaseServiceInstall.xml"));
+            updater.ExecuteXml(typeof(DbServicesExtension).GetTypeInfo().Assembly.GetManifestResourceStream("DbKeeperNet.Engine.Extensions.DatabaseServices.OracleDatabaseServiceInstall.xml"));
         }
 
         [TearDown]

@@ -28,7 +28,7 @@
 
   <Target Name="CI" DependsOnTargets="SetAssemblyVersion;Build">
     <Exec Command='"$(NUnitTool)" /noxml /labels "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=sqlite,mssql,mysql,pgsql,firebird "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=sqlite,mssql,mysql,pgsql,firebird,oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
 
 
     <CallTarget Targets="SrcZip" Condition="'$(CreateBinaries)' == 'true'" />

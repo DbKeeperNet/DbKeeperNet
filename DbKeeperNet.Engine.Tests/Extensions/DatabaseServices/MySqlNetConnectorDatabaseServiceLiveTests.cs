@@ -21,7 +21,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.DatabaseServices
 
             IUpdateContext context = new UpdateContext();
             context.LoadExtensions();
-            context.InitializeDatabaseService(CONNECTION_STRING);
+            context.InitializeDatabaseService(ConnectionString);
 
             Updater updater = new Updater(context);
             updater.ExecuteXml(typeof(DbServicesExtension).Assembly.GetManifestResourceStream("DbKeeperNet.Engine.Extensions.DatabaseServices.MySqlNetConnectorDatabaseServiceInstall.xml"));
