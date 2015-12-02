@@ -12,7 +12,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DbKeeperNet")]
 [assembly: AssemblyProduct("DbKeeperNet.Engine")]
-[assembly: AssemblyCopyright("Copyright © Vladimir Kloz 2009")]
+[assembly: AssemblyCopyright("Copyright © Vladimir Kloz 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

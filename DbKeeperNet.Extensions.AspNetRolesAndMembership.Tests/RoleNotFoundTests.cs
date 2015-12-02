@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using DbKeeperNet.Engine;
 using DbKeeperNet.Engine.Tests;
+using DbKeeperNet.Engine.Windows;
 using DbKeeperNet.Extensions.AspNetRolesAndMembership.Preconditions;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -42,7 +43,7 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new WindowsUpdateContext();
 
                 context.RegisterLoggingService(loggerStub);
                 context.InitializeLoggingService(LOGGER_NAME);
@@ -81,7 +82,7 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new WindowsUpdateContext();
 
                 context.RegisterLoggingService(loggerStub);
                 context.InitializeLoggingService(LOGGER_NAME);

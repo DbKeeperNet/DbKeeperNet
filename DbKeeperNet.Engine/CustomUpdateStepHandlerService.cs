@@ -12,12 +12,12 @@ namespace DbKeeperNet.Engine
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
         protected override void Handle(CustomUpdateStepType castedStep, IUpdateContext context)
         {
-            Type type = Type.GetType(castedStep.Type);
+            var type = Type.GetType(castedStep.Type);
 
             if (type == null)
                 throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, UpdateStepVisitorMessages.CustomStepTypeNotFound, castedStep.Type));
 
-            ICustomUpdateStep customStep = (ICustomUpdateStep)Activator.CreateInstance(type);
+            var customStep = (ICustomUpdateStep)Activator.CreateInstance(type);
             customStep.ExecuteUpdate(context, castedStep.Param);
         }
     }

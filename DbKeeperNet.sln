@@ -1,19 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherFiles", "OtherFiles", "{D523A38F-333A-4257-A25C-1637414AFC72}"
 	ProjectSection(SolutionItems) = preProject
 		.travis.yml = .travis.yml
 		appveyor.yml = appveyor.yml
 		Changelog.txt = Changelog.txt
-		DbKeeperNet.Extensions.AspNetRolesAndMembership.nuspec = DbKeeperNet.Extensions.AspNetRolesAndMembership.nuspec
-		DbKeeperNet.Extensions.Log4Net.nuspec = DbKeeperNet.Extensions.Log4Net.nuspec
-		DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec = DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec
 		DbKeeperNet.msbuild = DbKeeperNet.msbuild
 		DbKeeperNet.ndoc = DbKeeperNet.ndoc
-		DbKeeperNet.nuspec = DbKeeperNet.nuspec
 		DbKeeperNet.snk = DbKeeperNet.snk
 		LICENSE = LICENSE
 		packages.bat = packages.bat
@@ -35,12 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Engine.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Extensions.Log4Net", "DbKeeperNet.Extensions.Log4Net\DbKeeperNet.Extensions.Log4Net.csproj", "{779308F4-01DC-444E-999F-42370513CA42}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ED3B00B1-4CD2-486D-BAAD-10AB589B7C8E}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup", "DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.csproj", "{CF414579-2BB6-48D1-BDDD-BA586373C881}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{8CFFFE65-80F1-46F5-93C8-6BC212D149DC}"
@@ -53,6 +43,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Extensions.AspNetRolesAndMembership", "DbKeeperNet.Extensions.AspNetRolesAndMembership\DbKeeperNet.Extensions.AspNetRolesAndMembership.csproj", "{D7D505AE-DDFE-44CF-A8C7-B933F1C8562F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests", "DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.csproj", "{64AE95D4-F421-45A5-BCE6-E8B53CDA42D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Engine.Windows", "DbKeeperNet.Engine.Windows\DbKeeperNet.Engine.Windows.csproj", "{11CB319A-DE2A-49E7-81B1-4B07C6A07E96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbKeeperNet.Engine.Windows.Tests", "DbKeeperNet.Engine.Windows.Tests\DbKeeperNet.Engine.Windows.Tests.csproj", "{1724E6E8-9B76-48AE-9633-7CE2F798C811}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NugetSpecs", "NugetSpecs", "{0CAC3AC2-219B-47A3-8BA4-6B5643B54C50}"
+	ProjectSection(SolutionItems) = preProject
+		DbKeeperNet.Extensions.AspNetRolesAndMembership.nuspec = DbKeeperNet.Extensions.AspNetRolesAndMembership.nuspec
+		DbKeeperNet.Extensions.Log4Net.nuspec = DbKeeperNet.Extensions.Log4Net.nuspec
+		DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec = DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec
+		DbKeeperNet.nuspec = DbKeeperNet.nuspec
+		DbKeeperNet.Windows.nuspec = DbKeeperNet.Windows.nuspec
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +87,14 @@ Global
 		{64AE95D4-F421-45A5-BCE6-E8B53CDA42D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64AE95D4-F421-45A5-BCE6-E8B53CDA42D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64AE95D4-F421-45A5-BCE6-E8B53CDA42D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11CB319A-DE2A-49E7-81B1-4B07C6A07E96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11CB319A-DE2A-49E7-81B1-4B07C6A07E96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11CB319A-DE2A-49E7-81B1-4B07C6A07E96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11CB319A-DE2A-49E7-81B1-4B07C6A07E96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1724E6E8-9B76-48AE-9633-7CE2F798C811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1724E6E8-9B76-48AE-9633-7CE2F798C811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1724E6E8-9B76-48AE-9633-7CE2F798C811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1724E6E8-9B76-48AE-9633-7CE2F798C811}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

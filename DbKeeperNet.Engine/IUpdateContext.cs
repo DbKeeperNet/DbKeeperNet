@@ -159,7 +159,7 @@ namespace DbKeeperNet.Engine
         /// Configuration section of the DbKeeperNet.
         /// By default should refer to the App.Config.
         /// </summary>
-        DbKeeperNetConfigurationSection ConfigurationSection { get; }
+        IDbKeeperNetConfigurationSection ConfigurationSection { get; }
 
         /// <summary>
         /// Gets all registered script execution services.

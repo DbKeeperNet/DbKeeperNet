@@ -9,8 +9,6 @@ namespace DbKeeperNet.Engine.Extensions.LoggingServices
     /// <list type="bullet">
     /// <listheader>Registers support for following loggers:</listheader>
     /// <item><see cref="DummyLogger">Dummy logger</see></item>
-    /// <item><see cref="FxLogger">.NET Framework logging via System.Diagnostics.Trace</see></item>
-    /// <item><see cref="FxTSLogger">.NET Framework logging via System.Diagnostics.TraceSource</see></item>
     /// </list>
     ///
     /// All providers implement interface <see cref="ILoggingService"/>
@@ -23,8 +21,6 @@ namespace DbKeeperNet.Engine.Extensions.LoggingServices
         {
             if (context == null) throw new ArgumentNullException(@"context");
 
-            context.RegisterLoggingService(new FxLogger());
-            context.RegisterLoggingService(new FxTSLogger());
             context.RegisterLoggingService(new DummyLogger());
         }
 

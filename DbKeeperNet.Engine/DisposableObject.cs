@@ -22,7 +22,7 @@ namespace DbKeeperNet.Engine
         }
 
         /// <summary>
-        /// Indidication whether this class has been already disposed or not.
+        /// Indication whether this class has been already disposed or not.
         /// </summary>
         public bool IsDisposed{get { return _isDisposed; }}
 

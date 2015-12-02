@@ -7,7 +7,7 @@
     <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
   </DefaultPreconditions>
   <Update Version="1.00">
-    <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="1" Type="DbKeeperNet.Engine.CustomUpdateSteps.MsSqlStepWithoutExplicitTransaction, DbKeeperNet.Engine"  FriendlyName="Setting up database schema for membership and roles">
+    <UpdateStep xsi:type="upd:CustomUpdateStepType" Id="1" Type="DbKeeperNet.Engine.Windows.CustomUpdateSteps.MsSqlStepWithoutExplicitTransaction, DbKeeperNet.Engine.Windows"  FriendlyName="Setting up database schema for membership and roles">
       <Preconditions>
         <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
         <Precondition FriendlyName="Database is MSSQL" Precondition="DbType">

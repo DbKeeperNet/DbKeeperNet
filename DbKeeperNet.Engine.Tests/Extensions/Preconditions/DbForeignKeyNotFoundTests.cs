@@ -39,7 +39,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
                 context.RegisterLoggingService(loggerStub);
                 context.InitializeLoggingService(LOGGER_NAME);
@@ -77,7 +77,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
                 context.RegisterLoggingService(loggerStub);
                 context.InitializeLoggingService(LOGGER_NAME);

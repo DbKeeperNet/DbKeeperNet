@@ -31,7 +31,7 @@ namespace DbKeeperNet.Engine
             UpdateDbAlternativeStatementType usableStatement = null;
             UpdateDbAlternativeStatementType commonStatement = null;
 
-            foreach (UpdateDbAlternativeStatementType statement in castedStep.AlternativeStatement)
+            foreach (var statement in castedStep.AlternativeStatement)
             {
                 if (statement.DbType.Equals(@"all", StringComparison.Ordinal))
                     commonStatement = statement;

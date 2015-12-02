@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DbKeeperNet")]
 [assembly: AssemblyProduct("DbKeeperNet.Extensions.Log4Net")]
-[assembly: AssemblyCopyright("Copyright © Vladimir Kloz 2009")]
+[assembly: AssemblyCopyright("Copyright © Vladimir Kloz 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

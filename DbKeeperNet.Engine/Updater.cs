@@ -14,8 +14,8 @@ namespace DbKeeperNet.Engine
     /// </summary>
     /// <remarks>
     /// <example>
-    /// Prepare App.Config file. Following example is for execution of one embeded resource script followed
-    /// by a disk fil on MSSQL server.
+    /// Prepare App.Config file. Following example is for execution of one embedded resource script followed
+    /// by a disk file on MSSQL server.
     /// <code>
     /// <![CDATA[
     /// <?xml version="1.0" encoding="utf-8" ?>
@@ -398,7 +398,7 @@ namespace DbKeeperNet.Engine
         /// <item>Each configured update in order defined in App.Config</item>
         /// </list>
         /// </remarks>
-        /// <see cref="DbKeeperNetConfigurationSection"/>
+        /// <see cref="IDbKeeperNetConfigurationSection"/>
         /// <exception cref="DbKeeperNetException"/>
         public void ExecuteXmlFromConfig()
         {
@@ -406,7 +406,7 @@ namespace DbKeeperNet.Engine
             {
                 ExecuteDatabaseSetupXml();
 
-                foreach (UpdateScriptConfigurationElement e in _context.ConfigurationSection.UpdateScripts)
+                foreach (var e in _context.ConfigurationSection.UpdateScripts)
                 {
 
                     ExecuteXmlInternal(_context.GetScriptFromStreamLocation(e.Provider, e.Location));

@@ -1,6 +1,7 @@
 ﻿using System.Web.Security;
 using DbKeeperNet.Engine;
 using DbKeeperNet.Engine.Tests;
+using DbKeeperNet.Engine.Windows;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
@@ -20,7 +21,7 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
         [TestFixtureSetUp]
         public void TestClassSetup()
         {
-            var updateContext = new UpdateContext();
+            var updateContext = new WindowsUpdateContext();
             updateContext.LoadExtensions();
 
             updateContext.InitializeLoggingService("fx");
