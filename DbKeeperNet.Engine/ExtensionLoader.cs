@@ -27,20 +27,20 @@ namespace DbKeeperNet.Engine
             if (context == null)
                 throw new ArgumentNullException("context");
 
-            foreach (ExtensionConfigurationElement e in context.ConfigurationSection.Extensions)
+            foreach (var e in context.ConfigurationSection.Extensions)
                 LoadExtensionsFromAssembly(context, e.Assembly);
         }
 
         private static void LoadExtensionsFromAssembly(IUpdateContext context, string assemblyName)
         {
-            Assembly assembly = Assembly.Load(new AssemblyName(assemblyName));
-            IEnumerable<Type> assemblyTypes = assembly.DefinedTypes;
+            var assembly = Assembly.Load(new AssemblyName(assemblyName));
+            var assemblyTypes = assembly.DefinedTypes;
 
-            Type interfaceType = typeof(IExtension);
+            var interfaceType = typeof(IExtension);
 
             foreach (Type type in assemblyTypes)
             {
-                if ((interfaceType.IsAssignableFrom(type)) && (!type.IsInterface))
+                if ((interfaceType.IsAssignableFrom(type)) && (!type.GetTypeInfo().IsInterface))
                 {
                     IExtension extension = (IExtension)Activator.CreateInstance(type);
                     extension.Initialize(context);

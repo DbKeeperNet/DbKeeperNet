@@ -16,8 +16,8 @@ namespace DbKeeperNet.Engine
         /// whether step should or should not be executed.
         /// </summary>
         /// <param name="context">Current update context</param>
-        /// <param name="param">Optional parameters which can be passed thru
-        /// installation XML document. Each parameter can be optionaly named.</param>
+        /// <param name="param">Optional parameters which can be passed through
+        /// installation XML document. Each parameter can be optionally named.</param>
         /// <returns>
         /// <list type="bullet">
         /// <item><c>true</c> - condition was met, step can be executed.</item>

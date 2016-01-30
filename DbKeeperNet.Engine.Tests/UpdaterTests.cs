@@ -2,7 +2,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using System.Reflection;
 using System.Configuration;
+using DbKeeperNet.Engine.Configuration;
 using DbKeeperNet.Engine.Extensions.ScriptProviderServices;
+using DbKeeperNet.Engine.Tests.Extensions.Preconditions;
 
 namespace DbKeeperNet.Engine.Tests
 {
@@ -35,7 +37,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
                 context.RegisterLoggingService(loggerMock);
                 context.InitializeLoggingService(LOGGER_NAME);
@@ -91,7 +93,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
                 context.RegisterLoggingService(loggerMock);
                 context.InitializeLoggingService(LOGGER_NAME);
@@ -143,7 +145,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
                 context.RegisterLoggingService(loggerMock);
                 context.InitializeLoggingService(LOGGER_NAME);
@@ -193,7 +195,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
                 context.RegisterLoggingService(loggerMock);
                 context.InitializeLoggingService(LOGGER_NAME);
@@ -217,12 +219,8 @@ namespace DbKeeperNet.Engine.Tests
         [Test]
         public void TestDiskUpdateRelative()
         {
-            ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap();
-            fileMap.ExeConfigFilename = "DiskUpdateTest.Config";
-            Configuration config = ConfigurationManager.OpenMappedExeConfiguration(fileMap,
-                                    ConfigurationUserLevel.None);
-            DbKeeperNetConfigurationSection section =
-                (DbKeeperNetConfigurationSection) config.GetSection("dbkeeper.net");
+            var section = new TestDbKeeperNetConfiguration();
+            section.UpdateScripts.Add(new UpdateScript {Location = "Update.xml", Provider = "disk"});
 
             MockRepository repository = new MockRepository();
             IDatabaseService driverMock = repository.StrictMock<IDatabaseService>();

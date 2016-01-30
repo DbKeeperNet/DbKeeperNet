@@ -8,12 +8,10 @@
     <licenseUrl>https://github.com/DbKeeperNet/DbKeeperNet/wiki/LICENSE</licenseUrl>
     <projectUrl>https://github.com/DbKeeperNet/DbKeeperNet</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Intial MSSQL membership and roles setup script for DbKeeperNet</description>
+    <description>Initial MSSQL membership and roles setup script for DbKeeperNet</description>
     <releaseNotes>
-Version 1.6.1.1
-- Initial package upload
     </releaseNotes>
-    <copyright>Copyright 2014 Vladimir Kloz</copyright>
+    <copyright>Copyright 2016 Vladimir Kloz</copyright>
     <tags>MSSQL Database Deployment</tags>
     <dependencies>
        <dependency id="DbKeeperNet" version="[$Version$]" />

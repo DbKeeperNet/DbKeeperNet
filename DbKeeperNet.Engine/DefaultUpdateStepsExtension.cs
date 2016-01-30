@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace DbKeeperNet.Engine
 {
@@ -20,9 +21,9 @@ namespace DbKeeperNet.Engine
         /// <see cref="IUpdateContext.RegisterLoggingService"/>
         public void Initialize(IUpdateContext context)
         {
-            if (context == null) throw new ArgumentNullException("context");
+            if (context == null) throw new ArgumentNullException(nameof(context));
 
-            using(var schemaReader = new StreamReader(typeof(Updater).Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd")))
+            using(var schemaReader = new StreamReader(typeof(Updater).GetManifestResourceFromTypeAssembly(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd")))
             {
                 context.RegisterSchema("http://code.google.com/p/dbkeepernet/Updates-1.0.xsd", schemaReader.ReadToEnd());    
             }

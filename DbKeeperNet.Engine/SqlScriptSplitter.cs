@@ -8,7 +8,7 @@ namespace DbKeeperNet.Engine
     /// Default implementation of <see cref="ISqlScriptSplitter"/>
     /// </summary>
     /// <remarks>
-    /// <para>Commands are splitted using <c><![CDATA[<GO>]]></c> statement on separated line.</para>
+    /// <para>Commands are split using <c><![CDATA[<GO>]]></c> statement on separated line.</para>
     /// <para>Each command is terminated by end-of-line.</para>
     /// <example>
     /// Command without delimiter:

@@ -10,13 +10,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This is an extension for DbKeeperNet allowing usage of log4net 1.2.11+ with new public token as a logger</description>
     <releaseNotes>
-Version 1.5.1.3
-- Built against Nuget log4net 2.0.0 (new public token for 1.2.11)
-
-Version 1.5.1.2
-- Initial package upload
     </releaseNotes>
-    <copyright>Copyright 2013 Vladimir Kloz</copyright>
+    <copyright>Copyright 2016 Vladimir Kloz</copyright>
     <tags>Oracle MSSQL MYSQL FireBird PostgreSQL SQLite Database Deployment Log4Net</tags>
     <dependencies>
        <dependency id="DbKeeperNet" version="[$Version$]" />

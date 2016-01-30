@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DbKeeperNet.Engine.Tests.Extensions.Preconditions;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -11,7 +12,7 @@ namespace DbKeeperNet.Engine.Tests
         [Test]
         public void RegisterPreconditionNull()
         {
-            IUpdateContext context = new UpdateContext();
+            IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
             Assert.Throws<ArgumentNullException>(() => context.RegisterPrecondition(null));
         }
 
@@ -28,7 +29,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 Assert.Throws<InvalidOperationException>(() => context.RegisterPrecondition(mockPrec));
             }
         }
@@ -46,7 +47,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 Assert.Throws<InvalidOperationException>(() => context.RegisterPrecondition(mockPrec));
             }
         }
@@ -54,7 +55,7 @@ namespace DbKeeperNet.Engine.Tests
         [Test]
         public void SchemaRegistration()
         {
-            var context = new UpdateContext();
+            var context = new UpdateContext(new TestDbKeeperNetConfiguration());
             context.RegisterSchema("someUri", "schema");
 
             string uri = null;
@@ -73,14 +74,14 @@ namespace DbKeeperNet.Engine.Tests
         [Test]
         public void RegisterSchemaNullUri()
         {
-            var context = new UpdateContext();
+            var context = new UpdateContext(new TestDbKeeperNetConfiguration());
             Assert.Throws<ArgumentNullException>(() => context.RegisterSchema(null, "schema"));
         }
 
         [Test]
         public void RegisterSchemaNullSchema()
         {
-            var context = new UpdateContext();
+            var context = new UpdateContext(new TestDbKeeperNetConfiguration());
             Assert.Throws<ArgumentNullException>(() => context.RegisterSchema("someUri", null));
         }
 
@@ -97,7 +98,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 context.RegisterPrecondition(mockPrec);
             }
         }
@@ -115,7 +116,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 context.RegisterPrecondition(mockPrec);
                 Assert.Throws<KeyNotFoundException>(() => context.CheckPrecondition("xxx", null));
             }
@@ -126,7 +127,7 @@ namespace DbKeeperNet.Engine.Tests
         {
             MockRepository repository = new MockRepository();
             IPrecondition mockPrec = repository.DynamicMock<IPrecondition>();
-            IUpdateContext context = new UpdateContext();
+            IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
             using (repository.Record())
             {
@@ -159,7 +160,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 context.RegisterDatabaseService(mockService);
             }
         }
@@ -177,7 +178,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 Assert.Throws<InvalidOperationException>(() => context.RegisterDatabaseService(mockService));
             }
         }
@@ -195,7 +196,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 Assert.Throws<InvalidOperationException>(() => context.RegisterDatabaseService(mockService));
             }
         }
@@ -203,7 +204,7 @@ namespace DbKeeperNet.Engine.Tests
         [Test]
         public void RegisterDatabaseServiceNull()
         {
-            IUpdateContext context = new UpdateContext();
+            IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
             Assert.Throws<ArgumentNullException>(() => context.RegisterDatabaseService(null));
         }
 
@@ -220,7 +221,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 Assert.Throws<InvalidOperationException>(() => context.RegisterLoggingService(mockService));
             }
         }
@@ -228,7 +229,7 @@ namespace DbKeeperNet.Engine.Tests
         [Test]
         public void RegisterUpdateStepHandlerServiceNull()
         {
-            var context = new UpdateContext();
+            var context = new UpdateContext(new TestDbKeeperNetConfiguration());
             Assert.Throws<ArgumentNullException>(() =>context.RegisterUpdateStepHandler(null));
         }
 
@@ -245,7 +246,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                var context = new UpdateContext();
+                var context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 context.RegisterUpdateStepHandler(service);
             }
         }
@@ -263,7 +264,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                var context = new UpdateContext();
+                var context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 context.RegisterUpdateStepHandler(service);
 
                 Assert.That(context.GetUpdateStepHandlerFor(new UpdateDbStepType()), Is.EqualTo(service));
@@ -273,7 +274,7 @@ namespace DbKeeperNet.Engine.Tests
         [Test]
         public void GetUpdateStepHandlerNullStep()
         {
-            var context = new UpdateContext();
+            var context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
             Assert.Throws<ArgumentNullException>(() => context.GetUpdateStepHandlerFor(null));
         }
@@ -291,7 +292,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 Assert.Throws<InvalidOperationException>(() => context.RegisterLoggingService(mockService));
             }
         }
@@ -309,7 +310,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 context.RegisterLoggingService(mockService);
             }
         }
@@ -317,7 +318,7 @@ namespace DbKeeperNet.Engine.Tests
         [Test]
         public void InitializeDatabaseServiceUsingDatabaseServiceShouldThrowExceptionForNullArgument()
         {
-            using(IUpdateContext context = new UpdateContext())
+            using(IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration()))
             {
                 Assert.Throws<ArgumentNullException>(() => context.InitializeDatabaseService((IDatabaseService)null, false));
             }
@@ -348,7 +349,7 @@ namespace DbKeeperNet.Engine.Tests
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
                 context.RegisterScriptProviderService(mockService);
             }
 
@@ -399,7 +400,7 @@ namespace DbKeeperNet.Engine.Tests
 
         private static UpdateContext CreateAContext()
         {
-            var context = new UpdateContext();
+            var context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
             context.LoadExtensions();
             context.InitializeLoggingService(@"dummy");

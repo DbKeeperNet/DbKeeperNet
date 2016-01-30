@@ -9,7 +9,7 @@ namespace DbKeeperNet.Engine
     /// functionality such as in-code data transformation etc.
     /// 
     /// Active database connection and all services (such as logging)
-    /// are available thru the passed context.
+    /// are available through the passed context.
     /// </remarks>
     public interface ICustomUpdateStep
     {

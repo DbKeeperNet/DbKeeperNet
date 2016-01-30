@@ -27,8 +27,8 @@
   </PropertyGroup>
 
   <Target Name="CI" DependsOnTargets="SetAssemblyVersion;Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=sqlite,mssql,mysql,pgsql,firebird,oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noshadow /noxml /labels "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Engine.Windows.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Windows.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noshadow /noxml /labels /include=sqlite,mssql,mysql,pgsql,firebird,oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Engine.Windows.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Windows.Tests.dll"' />
 
 
     <CallTarget Targets="SrcZip" Condition="'$(CreateBinaries)' == 'true'" />
@@ -44,25 +44,25 @@
   </Target>
 
   <Target Name="Test" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Engine.Windows.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Windows.Tests.dll"' />
   </Target>
   <Target Name="TestMsSql" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=mssql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=mssql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Engine.Windows.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Windows.Tests.dll"' />
   </Target>
   <Target Name="TestMySql" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=mysql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=mysql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Engine.Windows.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Windows.Tests.dll"' />
   </Target>
   <Target Name="TestPgSql" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=pgsql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=pgsql "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Engine.Windows.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Windows.Tests.dll"' />
   </Target>
   <Target Name="TestSQLite" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=sqlite "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=sqlite "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Engine.Windows.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Windows.Tests.dll"' />
   </Target>
   <Target Name="TestOracle" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=oracle "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Engine.Windows.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Windows.Tests.dll"' />
   </Target>
   <Target Name="TestFirebird" DependsOnTargets="Build">
-    <Exec Command='"$(NUnitTool)" /noxml /labels /include=firebird "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll"' />
+    <Exec Command='"$(NUnitTool)" /noxml /labels /include=firebird "$(SrcRootDir)\DbKeeperNet.Engine.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests\bin\$(Configuration)\DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.dll" "$(SrcRootDir)\DbKeeperNet.Engine.Windows.Tests\bin\$(Configuration)\DbKeeperNet.Engine.Windows.Tests.dll"' />
   </Target>
   <Target Name="RebuildXsd">
     <Delete Files="DbKeeperNet.Engine\XmlClasses.cs"/>
@@ -103,6 +103,8 @@
     <ItemGroup>
       <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Engine\bin\$(Configuration)\**\*.dll" />
       <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Engine\bin\$(Configuration)\**\*.pdb" />
+      <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Engine.Windows\bin\$(Configuration)\**\*.dll" />
+      <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Engine.Windows\bin\$(Configuration)\**\*.pdb" />
       <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\*.dll" />
       <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\*.pdb" />
       <BinFiles  Include="$(SrcRootDir)\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup\bin\$(Configuration)\**\*.dll" />
@@ -143,29 +145,26 @@
   <Target Name="NugetPackages" DependsOnTargets="Build">
     <RemoveDir Directories="$(NugetSrcDirectory)" />
     <ItemGroup>
-      <EngineNugetSourceFiles Include="DbKeeperNet.Engine\bin\$(Configuration)\**\DbKeeperNet.Engine*.dll" />
-    </ItemGroup>
-    <ItemGroup>
-      <Log4NetNugetSourceFiles Include="DbkeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\DbKeeperNet.Extensions.Log4Net.dll" />
-    </ItemGroup>
-    <ItemGroup>
-      <AspNetRolesAndMembershipSourceFiles Include="DbKeeperNet.Extensions.AspNetRolesAndMembership\bin\$(Configuration)\**\DbKeeperNet.Extensions.AspNetRolesAndMembership.dll" />
-    </ItemGroup>
-    <ItemGroup>
-      <MsSqlMembershipAndRolesSetupNugetSourceFiles Include="DbkeeperNet.Extensions.MsSqlMembershipAndRolesSetup\bin\$(Configuration)\**\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.dll" />
+      <Nuget Include="DbKeeperNet.Engine\bin\$(Configuration)\**\DbKeeperNet.Engine*.dll">
+        <Package>DbKeeperNet</Package>
+      </Nuget>
+      <Nuget Include="DbkeeperNet.Extensions.Log4Net\bin\$(Configuration)\**\DbKeeperNet.Extensions.Log4Net.dll">
+        <Package>DbKeeperNet.Extensions.Log4Net</Package>
+      </Nuget>
+      <Nuget Include="DbKeeperNet.Extensions.AspNetRolesAndMembership\bin\$(Configuration)\**\DbKeeperNet.Extensions.AspNetRolesAndMembership.dll">
+        <Package>DbKeeperNet.Extensions.AspNetRolesAndMembership</Package>
+      </Nuget>
+      <Nuget Include="DbkeeperNet.Extensions.MsSqlMembershipAndRolesSetup\bin\$(Configuration)\**\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.dll">
+        <Package>DbkeeperNet.Extensions.MsSqlMembershipAndRolesSetup</Package>
+      </Nuget>
+      <Nuget Include="DbKeeperNet.Engine.Windows\bin\$(Configuration)\**\DbKeeperNet.Engine.Windows*.dll">
+        <Package>DbKeeperNet.Windows</Package>
+      </Nuget>
     </ItemGroup>
 
-    <Copy SourceFiles="@(EngineNugetSourceFiles)" DestinationFiles="@(EngineNugetSourceFiles->'$(NugetEngineSrcDirectory)\lib\net45\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(Log4NetNugetSourceFiles)" DestinationFiles="@(Log4NetNugetSourceFiles->'$(NugetLog4NetSrcDirectory)\lib\net45\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(AspNetRolesAndMembershipSourceFiles)" DestinationFiles="@(AspNetRolesAndMembershipSourceFiles->'$(AspNetRolesAndMembershipSrcDirectory)\lib\net45\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(MsSqlMembershipAndRolesSetupNugetSourceFiles)" DestinationFiles="@(MsSqlMembershipAndRolesSetupNugetSourceFiles->'$(NugetMsSqlMemberShipNugetSrcDirectory)\lib\net45\%(RecursiveDir)%(Filename)%(Extension)')" />
-
-    <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetEngineSrcDirectory) DbKeeperNet.nuspec" />
-    <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetLog4NetSrcDirectory) DbKeeperNet.Extensions.Log4Net.nuspec" />
-    <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(AspNetRolesAndMembershipSrcDirectory) DbKeeperNet.Extensions.AspNetRolesAndMembership.nuspec" />
-    <Exec Command="$(NugetTool) pack -Version $(BuildNumber) -BasePath $(NugetMsSqlMemberShipNugetSrcDirectory) DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.nuspec" />
+    <Copy SourceFiles="@(Nuget)" DestinationFiles="@(Nuget->'$(NugetSrcDirectory)\%(Package)\lib\net45\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Exec Command="$(NugetTool) pack -Version $(BuildNumber)-alpha -BasePath $(NugetSrcDirectory)\%(Nuget.Package) %(Nuget.Package).nuspec" />
   </Target>
-
   <Target Name="Tests">
     <CallTarget Targets="Test" />
     <CallTarget Targets="TestMsSql" />
@@ -178,6 +177,7 @@
 
   <Target Name="Build">
     <Message Text="Build: $(BuildNumber)" />
+    <Exec Command='"$(NugetTool)" restore "$(SrcRootDir)\DbKeeperNet.sln"' />
     <MSBuild Projects="$(SrcRootDir)\DbKeeperNet.sln" Properties='Configuration=$(Configuration);Platform=$(Platform)'/>
   </Target>
 </Project>

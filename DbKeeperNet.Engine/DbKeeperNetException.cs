@@ -5,7 +5,7 @@ namespace DbKeeperNet.Engine
 {
     /// <summary>
     /// All exceptions thrown within library during update process should be
-    /// exposed only thru this class.
+    /// exposed only through this class.
     /// Optional details may be available as an inner exception.
     /// </summary>
     [Serializable]
@@ -25,8 +25,9 @@ namespace DbKeeperNet.Engine
         {
         }
 
+        // TODO: Not compatible with .NET Core
         protected DbKeeperNetException(SerializationInfo info, StreamingContext context)
-            :base(info, context)
+            : base(info, context)
         {
         }
     }

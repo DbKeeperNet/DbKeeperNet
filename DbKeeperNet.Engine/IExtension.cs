@@ -19,6 +19,8 @@ namespace DbKeeperNet.Engine
         /// <see cref="IUpdateContext.RegisterPrecondition"/>
         /// <see cref="IUpdateContext.RegisterDatabaseService"/>
         /// <see cref="IUpdateContext.RegisterLoggingService"/>
+        /// <see cref="IUpdateContext.RegisterUpdateStepHandler"/>
+        /// <see cref="IUpdateContext.RegisterSchema"/>
         void Initialize(IUpdateContext context);
     }
 }

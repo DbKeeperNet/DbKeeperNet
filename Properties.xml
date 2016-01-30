@@ -12,7 +12,7 @@
     <XsdTool Condition="'$(XsdTool)' == ''" >C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin\xsd.exe</XsdTool>
     <NDocTool Condition="'$(NDocTool)' == ''" >ndoc3console.exe</NDocTool>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build\</MSBuildCommunityTasksPath>
-    <NugetTool Condition="'$(NugetTool)' == ''">.nuget\nuget.exe</NugetTool>
+    <NugetTool Condition="'$(NugetTool)' == ''">external\nuget.exe</NugetTool>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build</MSBuildCommunityTasksPath>
   </PropertyGroup>
 </Project>

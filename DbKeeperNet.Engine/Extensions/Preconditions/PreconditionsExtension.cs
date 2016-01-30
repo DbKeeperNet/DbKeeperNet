@@ -16,7 +16,6 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
     /// <item><see cref="DbType">Database is of expected type</see></item>
     /// <item><see cref="DbViewNotFound">View does not exists</see></item>
     /// <item><see cref="ForceExecution">Always execute</see></item>
-    /// <item><see cref="OraDbSequenceNotFound">Oracle database sequence does not exists</see></item>
     /// <item><see cref="StepNotExecuted">Upgrade step with given identifiers wasn't yet executed</see></item>
     /// </list>
     /// 
@@ -41,7 +40,6 @@ namespace DbKeeperNet.Engine.Extensions.Preconditions
             context.RegisterPrecondition(new DbType());
             context.RegisterPrecondition(new DbPrimaryKeyNotFound());
             context.RegisterPrecondition(new DbTriggerNotFound());
-            context.RegisterPrecondition(new OraDbSequenceNotFound());
         }
 
         #endregion

@@ -32,7 +32,6 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>56f36d3c</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -65,22 +64,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\Castle.DynamicProxy2.dll</HintPath>
     </Reference>
-    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=4.7.0.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\FirebirdSql.Data.FirebirdClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Npgsql.2.2.5\lib\net45\Mono.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MySql.ConnectorNET.Data.6.8.3.2\lib\net45\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Npgsql, Version=2.2.5.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Npgsql.2.2.5\lib\net45\Npgsql.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -96,70 +79,10 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.93.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.93.0\lib\net45\System.Data.SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConfigTests.cs" />
     <Compile Include="CustomUpdateStep.cs" />
-    <Compile Include="Extensions\DatabaseServices\DatabaseServiceForeignKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\DatabaseServiceIndexTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\DatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\DatabaseServiceStoredProceduresTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\DatabaseServiceTableTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\DatabaseServiceTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\DatabaseServiceTriggerTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\DatabaseServiceViewTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceIndexTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceStoredProcedureTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceTableTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceTriggerTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseServiceViewTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceIndexTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceStoredProcedureTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceTableTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceTriggerTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceViewTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseServiceForeignKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceForeignKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceIndexTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceTableTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceViewTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceForeignKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceIndexTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceStoredProcedureTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTableTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceTriggerTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseServiceViewTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceForeignKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceIndexTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceTableTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseServiceViewTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceForeignKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceIndexTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceLiveTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServicePrimaryKeyTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceTableTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceTests.cs" />
-    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseServiceViewTests.cs" />
     <Compile Include="Extensions\Preconditions\DbForeignKeyNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbIndexNotFoundTests.cs" />
     <Compile Include="Extensions\Preconditions\DbProcedureNotFoundTests.cs" />
@@ -171,8 +94,10 @@
     <Compile Include="Extensions\Preconditions\StepNotExecutedTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlScriptSplitterTests.cs" />
+    <Compile Include="TestDbKeeperNetConfiguration.cs" />
     <Compile Include="UpdateContextTests.cs" />
     <Compile Include="UpdaterTests.cs" />
+    <Compile Include="UtilitiesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DbKeeperNet.Engine\DbKeeperNet.Engine.csproj">
@@ -181,35 +106,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\External\FirebirdEmbedded\firebird.conf">
-      <Link>firebird.conf</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\External\FirebirdEmbedded\firebird.msg">
-      <Link>firebird.msg</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\External\FirebirdEmbedded\Microsoft.VC80.CRT.manifest">
-      <Link>Microsoft.VC80.CRT.manifest</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DiskUpdateTest.Config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="fbtest.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="TestConfiguredValues.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestDefaultValues.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -234,48 +132,7 @@
     <EmbeddedResource Include="Extensions\Preconditions\DbForeignKeyNotFoundTests.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="x64\SQLite.Interop.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\SQLite.Interop.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <EmbeddedResource Include="MultiConditions.xml" />
-    <Content Include="..\External\FirebirdEmbedded\fbembed.dll">
-      <Link>fbembed.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\External\FirebirdEmbedded\ib_util.dll">
-      <Link>ib_util.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\External\FirebirdEmbedded\icudt30.dll">
-      <Link>icudt30.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\External\FirebirdEmbedded\icuin30.dll">
-      <Link>icuin30.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\External\FirebirdEmbedded\icuuc30.dll">
-      <Link>icuuc30.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\External\FirebirdEmbedded\msvcp80.dll">
-      <Link>msvcp80.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\External\FirebirdEmbedded\msvcr80.dll">
-      <Link>msvcr80.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DbKeeperNetNUnit.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DbKeeperNetNUnit_log.LDF">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>DbKeeperNetNUnit.mdf</DependentUpon>
-    </Content>
     <Content Include="Update.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -314,13 +171,6 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -13,7 +13,7 @@ namespace DbKeeperNet.Engine
     {
         private IDatabaseService _databaseService;
         private ILoggingService _loggingService;
-        private readonly DbKeeperNetConfigurationSection _configurationSection;
+        private readonly IDbKeeperNetConfigurationSection _configurationSection;
 
         private readonly Dictionary<string, ILoggingService> _loggingServices = new Dictionary<string, ILoggingService>(StringComparer.Ordinal);
         private readonly Dictionary<string, IPrecondition> _preconditions = new Dictionary<string, IPrecondition>(StringComparer.Ordinal);
@@ -30,12 +30,7 @@ namespace DbKeeperNet.Engine
         private bool _databaseServiceOwner;
         private readonly IDictionary<string, string> _schemas = new Dictionary<string, string>();
 
-        public UpdateContext()
-            : this(DbKeeperNetConfigurationSection.Current)
-        {
-        }
-
-        public UpdateContext(DbKeeperNetConfigurationSection section)
+        public UpdateContext(IDbKeeperNetConfigurationSection section)
         {
             if (section == null)
                 throw new ArgumentNullException("section");
@@ -254,7 +249,7 @@ namespace DbKeeperNet.Engine
 
             Logger.TraceInformation(UpdateContextMessages.SearchingDatabaseService, connectionString);
 
-            foreach (DatabaseServiceMappingConfigurationElement e in ConfigurationSection.DatabaseServiceMappings)
+            foreach (var e in ConfigurationSection.DatabaseServiceMappings)
             {
 				if (connectionString.Equals(e.ConnectString, StringComparison.Ordinal))
                 {
@@ -299,7 +294,7 @@ namespace DbKeeperNet.Engine
             ExtensionLoader.LoadExtensions(this);
         }
 
-        public DbKeeperNetConfigurationSection ConfigurationSection
+        public IDbKeeperNetConfigurationSection ConfigurationSection
         {
             get
             {

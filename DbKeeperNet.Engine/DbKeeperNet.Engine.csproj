@@ -34,7 +34,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
   </PropertyGroup>
@@ -66,31 +65,36 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\UpdateScript.cs" />
+    <Compile Include="Configuration\DatabaseServiceMappingConfigurationElement.cs" />
+    <Compile Include="Configuration\DatabaseServiceMappingConfigurationElementCollection.cs" />
+    <Compile Include="Configuration\DbKeeperNetConfiguration.cs" />
+    <Compile Include="Configuration\Extension.cs" />
+    <Compile Include="Configuration\ExtensionCollection.cs" />
+    <Compile Include="Configuration\UpdateScriptCollection.cs" />
     <Compile Include="CustomUpdateStepHandlerService.cs" />
-    <Compile Include="CustomUpdateSteps\MsSqlStepWithoutExplicitTransaction.cs" />
-    <Compile Include="DatabaseServiceMappingConfigurationElement.cs" />
-    <Compile Include="DatabaseServiceMappingConfigurationElementCollection.cs" />
-    <Compile Include="DbKeeperNetConfigurationSection.cs" />
     <Compile Include="DbKeeperNetException.cs" />
     <Compile Include="DefaultUpdateStepsExtension.cs" />
     <Compile Include="DisposableObject.cs" />
-    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseService.cs" />
-    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseService.cs" />
-    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseService.cs" />
     <Compile Include="Extensions\Preconditions\DbTriggerNotFound.cs" />
-    <Compile Include="Extensions\Preconditions\OraDbSequenceNotFound.cs" />
+    <Compile Include="IDatabaseServiceMappingConfigurationElement.cs" />
+    <Compile Include="IDatabaseServiceMappingConfigurationElementCollection.cs" />
+    <Compile Include="IDbKeeperNetConfigurationSection.cs" />
+    <Compile Include="IExtensionConfigurationElement.cs" />
+    <Compile Include="IExtensionConfigurationElementCollection.cs" />
     <Compile Include="ISqlScriptSplitter.cs" />
+    <Compile Include="IUpdateScriptConfigurationElement.cs" />
+    <Compile Include="IUpdateScriptConfigurationElementCollection.cs" />
     <Compile Include="IUpdateStepHandlerService.cs" />
     <Compile Include="MsSqlScriptSplitter.cs" />
-    <Compile Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.Designer.cs">
+    <Compile Include="Resources\CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MsSqlStepWithoutExplicitTransactionMessages.resx</DependentUpon>
+      <DependentUpon>CommonMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\UpdateStepVisitorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -98,17 +102,8 @@
       <DependentUpon>UpdateStepVisitorMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="SqlScriptSplitter.cs" />
-    <Compile Include="UpdateScriptConfigurationElement.cs" />
-    <Compile Include="UpdateScriptConfigurationElementCollection.cs" />
-    <Compile Include="ExtensionConfigurationElementCollection.cs" />
     <Compile Include="ExtensionLoader.cs" />
-    <Compile Include="Extensions\DatabaseServices\DbServicesExtension.cs" />
-    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseService.cs" />
-    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseService.cs" />
-    <Compile Include="Extensions\DatabaseServices\OracleDatabaseService.cs" />
     <Compile Include="Extensions\LoggingServices\DummyLogger.cs" />
-    <Compile Include="Extensions\LoggingServices\FxLogger.cs" />
-    <Compile Include="Extensions\LoggingServices\FxTSLogger.cs" />
     <Compile Include="Extensions\LoggingServices\LoggingServicesExtension.cs" />
     <Compile Include="Extensions\Preconditions\DbForeignKeyNotFound.cs" />
     <Compile Include="Extensions\Preconditions\DbIndexNotFound.cs" />
@@ -131,16 +126,6 @@
     <Compile Include="IScriptProviderService.cs" />
     <Compile Include="IUpdateContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\DatabaseServiceMessages.cs-CZ.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseServiceMessages.cs-CZ.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\DatabaseServiceMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DatabaseServiceMessages.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\PreconditionMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -157,17 +142,16 @@
       <DependentUpon>UpdaterMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="UpdateContext.cs" />
-    <Compile Include="ExtensionConfigurationElement.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="UpdateStepHandlerService.cs" />
     <Compile Include="UpdateDbStepHandlerService.cs" />
+    <Compile Include="UpdateStepHandlerService.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="XmlClasses.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.cs-CZ.resx" />
-    <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.resx">
+    <EmbeddedResource Include="Resources\CommonMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>MsSqlStepWithoutExplicitTransactionMessages.Designer.cs</LastGenOutput>
+      <LastGenOutput>CommonMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Updates-1.0.xsd">
       <SubType>Designer</SubType>
@@ -186,22 +170,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Extensions\DatabaseServices\MsSqlDatabaseServiceInstall.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceInstall.xml" />
-    <EmbeddedResource Include="Resources\DatabaseServiceMessages.cs-CZ.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DatabaseServiceMessages.cs-CZ.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatabaseServiceMessages.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>DatabaseServiceMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\PreconditionMessages.cs-CZ.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -228,15 +196,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Extensions\DatabaseServices\PgSqlDatabaseServiceInstall.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Extensions\DatabaseServices\SQLiteDatabaseServiceInstall.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Extensions\DatabaseServices\OracleDatabaseServiceInstall.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
@@ -253,17 +212,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Extensions\DatabaseServices\FirebirdDatabaseServiceInstall.xml" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

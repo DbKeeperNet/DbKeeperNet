@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{11CB319A-DE2A-49E7-81B1-4B07C6A07E96}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DbKeeperNet.Engine.Windows</RootNamespace>
+    <AssemblyName>DbKeeperNet.Engine.Windows</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomUpdateSteps\MsSqlStepWithoutExplicitTransaction.cs" />
+    <Compile Include="DatabaseServiceMappingConfigurationElement.cs" />
+    <Compile Include="DatabaseServiceMappingConfigurationElementCollection.cs" />
+    <Compile Include="DbKeeperNetConfigurationSection.cs" />
+    <Compile Include="ExtensionConfigurationElement.cs" />
+    <Compile Include="ExtensionConfigurationElementCollection.cs" />
+    <Compile Include="Extensions\DatabaseServices\DbServicesExtension.cs" />
+    <Compile Include="Extensions\DatabaseServices\FirebirdDatabaseService.cs" />
+    <Compile Include="Extensions\DatabaseServices\MsSqlDatabaseService.cs" />
+    <Compile Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseService.cs" />
+    <Compile Include="Extensions\DatabaseServices\OracleDatabaseService.cs" />
+    <Compile Include="Extensions\DatabaseServices\PgSqlDatabaseService.cs" />
+    <Compile Include="Extensions\DatabaseServices\SQLiteDatabaseService.cs" />
+    <Compile Include="Extensions\LoggingServices\FxLogger.cs" />
+    <Compile Include="Extensions\LoggingServices\FxTSLogger.cs" />
+    <Compile Include="Extensions\LoggingServices\LoggingServicesExtension.cs" />
+    <Compile Include="Extensions\Preconditions\OraDbSequenceNotFound.cs" />
+    <Compile Include="Extensions\Preconditions\PreconditionsExtension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\DatabaseServiceMessages.cs-CZ.Designer.cs">
+      <DependentUpon>DatabaseServiceMessages.cs-CZ.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\DatabaseServiceMessages.Designer.cs">
+      <DependentUpon>DatabaseServiceMessages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.Designer.cs">
+      <DependentUpon>MsSqlStepWithoutExplicitTransactionMessages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\PreconditionMessages.Designer.cs">
+      <DependentUpon>PreconditionMessages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="UpdateScriptConfigurationElement.cs" />
+    <Compile Include="UpdateScriptConfigurationElementCollection.cs" />
+    <Compile Include="WindowsUpdateContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DbKeeperNet.Engine\DbKeeperNet.Engine.csproj">
+      <Project>{FFCF7DA4-C786-4999-8624-26C392D67315}</Project>
+      <Name>DbKeeperNet.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\FirebirdDatabaseServiceInstall.xml" />
+    <EmbeddedResource Include="Resources\DatabaseServiceMessages.cs-CZ.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DatabaseServiceMessages.cs-CZ.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatabaseServiceMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DatabaseServiceMessages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.cs-CZ.resx" />
+    <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MsSqlStepWithoutExplicitTransactionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PreconditionMessages.cs-CZ.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PreconditionMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PreconditionMessages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\MsSqlDatabaseServiceInstall.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\MySqlNetConnectorDatabaseServiceInstall.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\OracleDatabaseServiceInstall.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\PgSqlDatabaseServiceInstall.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Extensions\DatabaseServices\SQLiteDatabaseServiceInstall.xml" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

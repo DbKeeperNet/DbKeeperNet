@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Rhino.Mocks;
 using DbKeeperNet.Engine.Extensions.Preconditions;
@@ -9,8 +11,8 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
     [TestFixture]
     public class DbTypeTests
     {
-        const string CONNECTION_STRING = "mock";
-        const string LOGGER_NAME = "none";
+        private const string CONNECTION_STRING = "mock";
+        private const string LOGGER_NAME = "none";
 
         [Test]
         public void TestDbTypePreConditionTrueOnMockDriver()
@@ -30,7 +32,8 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                     SetupResult.For(driverMock.DatabaseSetupXml).Return(null);
 
                     Expect.Call(delegate { driverMock.BeginTransaction(); });
-                    Expect.Call(delegate { driverMock.ExecuteSql(null); }).Constraints(Text.Contains("query_to_be_executed_on_mock"));
+                    Expect.Call(delegate { driverMock.ExecuteSql(null); })
+                        .Constraints(Text.Contains("query_to_be_executed_on_mock"));
                     Expect.Call(delegate { driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1); });
                     Expect.Call(delegate { driverMock.CommitTransaction(); });
                 }
@@ -38,7 +41,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
                 context.RegisterLoggingService(loggerStub);
                 context.InitializeLoggingService(LOGGER_NAME);
@@ -50,10 +53,13 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
                 Updater update = new Updater(context);
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTypeTests.xml"));
+                update.ExecuteXml(
+                    Assembly.GetExecutingAssembly()
+                        .GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTypeTests.xml"));
             }
             repository.VerifyAll();
         }
+
         [Test]
         public void TestDbTypePreConditionFalseOnMockDriver()
         {
@@ -76,7 +82,7 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
 
             using (repository.Playback())
             {
-                IUpdateContext context = new UpdateContext();
+                IUpdateContext context = new UpdateContext(new TestDbKeeperNetConfiguration());
 
                 context.RegisterLoggingService(loggerStub);
                 context.InitializeLoggingService(LOGGER_NAME);
@@ -88,7 +94,9 @@ namespace DbKeeperNet.Engine.Tests.Extensions.Preconditions
                 context.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
                 Updater update = new Updater(context);
-                update.ExecuteXml(Assembly.GetExecutingAssembly().GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTypeTests.xml"));
+                update.ExecuteXml(
+                    Assembly.GetExecutingAssembly()
+                        .GetManifestResourceStream("DbKeeperNet.Engine.Tests.Extensions.Preconditions.DbTypeTests.xml"));
             }
             repository.VerifyAll();
         }
