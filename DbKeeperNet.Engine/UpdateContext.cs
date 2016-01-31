@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DbKeeperNet.Engine.Resources;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 namespace DbKeeperNet.Engine
 {
@@ -149,6 +150,11 @@ namespace DbKeeperNet.Engine
             foreach (var schemaInfo in _schemas) callback(schemaInfo.Key, schemaInfo.Value);
         }
 
+        public Type[] GetAllHandledTypes()
+        {
+            return _updateStepHandlerServices.Keys.ToArray();
+        }
+
         public IUpdateStepHandlerService GetUpdateStepHandlerFor(UpdateStepBaseType updateStep)
         {
             if (updateStep == null) throw new ArgumentNullException("updateStep");
@@ -251,7 +257,7 @@ namespace DbKeeperNet.Engine
 
             foreach (var e in ConfigurationSection.DatabaseServiceMappings)
             {
-				if (connectionString.Equals(e.ConnectString, StringComparison.Ordinal))
+                if (connectionString.Equals(e.ConnectString, StringComparison.Ordinal))
                 {
                     databaseServiceName = e.DatabaseService;
                     break;

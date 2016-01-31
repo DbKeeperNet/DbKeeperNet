@@ -7,7 +7,7 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
     {
         public void Initialize(IUpdateContext context)
         {
-            using (var schemaReader = new StreamReader(typeof(AspNetMembershipAdapter).Assembly.GetManifestResourceStream(@"DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources.UpdatesAspNetRolesAndMembership-1.0.xsd")))
+            using (var schemaReader = new StreamReader(typeof(AspNetMembershipAdapter).GetManifestResourceFromTypeAssembly(@"DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources.UpdatesAspNetRolesAndMembership-1.0.xsd")))
             {
                 context.RegisterSchema("http://code.google.com/p/dbkeepernet/UpdatesAspNetRolesAndMembership-1.0.xsd", schemaReader.ReadToEnd());
             }

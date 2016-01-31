@@ -11,7 +11,7 @@
     <RootNamespace>DbKeeperNet.SimpleDemo</RootNamespace>
     <AssemblyName>DbKeeperNet.SimpleDemo</AssemblyName>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -32,6 +32,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,11 +53,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DbKeeperNet.Engine, Version=1.6.1.2, Culture=neutral, PublicKeyToken=5f253e7a0b5b83ba, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\DbKeeperNet.1.6.1.2\lib\net20\DbKeeperNet.Engine.dll</HintPath>
+    <Reference Include="DbKeeperNet.Engine, Version=2.0.294.1, Culture=neutral, PublicKeyToken=5f253e7a0b5b83ba, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbKeeperNet.2.0.294.1-alpha\lib\net45\DbKeeperNet.Engine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DbKeeperNet.Engine.Windows, Version=2.0.294.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbKeeperNet.Windows.2.0.294.1-alpha\lib\net45\DbKeeperNet.Engine.Windows.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

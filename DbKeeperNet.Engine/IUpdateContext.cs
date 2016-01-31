@@ -90,6 +90,12 @@ namespace DbKeeperNet.Engine
         void IterateAllSchemas(Action<string, string> callback);
 
         /// <summary>
+        /// Get all handled XML types for deserialization
+        /// </summary>
+        /// <returns>Array of handled deserialization types</returns>
+        Type[] GetAllHandledTypes();
+
+        /// <summary>
         /// Register an XML schema extension
         /// </summary>
         /// <remarks>
