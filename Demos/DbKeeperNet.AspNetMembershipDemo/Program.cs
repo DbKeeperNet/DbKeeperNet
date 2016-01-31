@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Security;
 using DbKeeperNet.Engine;
+using DbKeeperNet.Engine.Windows;
 
 namespace DbKeeperNet.AspNetMembershipDemo
 {
@@ -14,7 +15,7 @@ namespace DbKeeperNet.AspNetMembershipDemo
 
             try
             {
-                using (UpdateContext context = new UpdateContext())
+                using (UpdateContext context = new WindowsUpdateContext())
                 {
                     context.LoadExtensions();
                     context.InitializeDatabaseService(connString);

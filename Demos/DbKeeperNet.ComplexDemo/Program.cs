@@ -5,6 +5,7 @@ using DbKeeperNet.Engine;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data.Common;
+using DbKeeperNet.Engine.Windows;
 
 namespace DbKeeperNet.ComplexDemo
 {
@@ -18,7 +19,7 @@ namespace DbKeeperNet.ComplexDemo
             const string connString = "default"; // MsSql connection\
             // const string connString = "oracle"; // Oracle connection
 
-            using (UpdateContext context = new UpdateContext())
+            using (var context = new WindowsUpdateContext())
             {
                 context.LoadExtensions();
                 context.InitializeDatabaseService(connString);

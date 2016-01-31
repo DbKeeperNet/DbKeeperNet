@@ -4,6 +4,7 @@ using System.Text;
 using System.Configuration;
 using System.Data.SqlClient;
 using DbKeeperNet.Engine;
+using DbKeeperNet.Engine.Windows;
 using log4net.Config;
 using log4net;
 
@@ -17,7 +18,7 @@ namespace DbKeeperNet.Log4NetSimpleDemo
         {
             _logger.Info("------- Started --------");
 
-            using (UpdateContext context = new UpdateContext())
+            using (var context = new WindowsUpdateContext())
             {
                 context.LoadExtensions();
                 context.InitializeDatabaseService("default");

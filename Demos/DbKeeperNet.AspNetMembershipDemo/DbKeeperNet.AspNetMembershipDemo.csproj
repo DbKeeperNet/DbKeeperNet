@@ -51,11 +51,21 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DbKeeperNet.Engine">
-      <HintPath>..\packages\DbKeeperNet.1.6.1.2\lib\net20\DbKeeperNet.Engine.dll</HintPath>
+    <Reference Include="DbKeeperNet.Engine, Version=2.0.294.1, Culture=neutral, PublicKeyToken=5f253e7a0b5b83ba, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbKeeperNet.2.0.294.1-alpha\lib\net45\DbKeeperNet.Engine.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup">
-      <HintPath>..\packages\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.1.6.1.2\lib\net20\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.dll</HintPath>
+    <Reference Include="DbKeeperNet.Engine.Windows, Version=2.0.294.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbKeeperNet.Windows.2.0.294.1-alpha\lib\net45\DbKeeperNet.Engine.Windows.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DbKeeperNet.Extensions.AspNetRolesAndMembership, Version=2.0.294.1, Culture=neutral, PublicKeyToken=5f253e7a0b5b83ba, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbKeeperNet.Extensions.AspNetRolesAndMembership.2.0.294.1-alpha\lib\net45\DbKeeperNet.Extensions.AspNetRolesAndMembership.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup, Version=2.0.294.1, Culture=neutral, PublicKeyToken=5f253e7a0b5b83ba, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.2.0.294.1-alpha\lib\net45\DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -74,7 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DbKeeperNetAspNetMembershipDemo_log.ldf">

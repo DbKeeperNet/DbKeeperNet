@@ -221,7 +221,7 @@ namespace DbKeeperNet.Engine
 
             using (XmlReader xmlReader = XmlReader.Create(inputXml, settings))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Updates));
+                var serializer = new XmlSerializer(typeof(Updates), _context.GetAllHandledTypes());
 
                 updates = (Updates)serializer.Deserialize(xmlReader);
             }

@@ -272,6 +272,29 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
+        public void GetAllHandledTypes()
+        {
+            var repository = new MockRepository();
+            var service = repository.DynamicMock<IUpdateStepHandlerService>();
+
+            using (repository.Record())
+            {
+                SetupResult.For(service.HandledType).Return(typeof(UpdateDbStepType));
+            }
+
+            using (repository.Playback())
+            {
+                var context = new UpdateContext(new TestDbKeeperNetConfiguration());
+                context.RegisterUpdateStepHandler(service);
+
+                var types = context.GetAllHandledTypes();
+
+                Assert.That(types.Length, Is.EqualTo(1));
+                Assert.That(types[0], Is.EqualTo(typeof(UpdateDbStepType)));
+            }
+        }
+
+        [Test]
         public void GetUpdateStepHandlerNullStep()
         {
             var context = new UpdateContext(new TestDbKeeperNetConfiguration());
