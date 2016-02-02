@@ -60,6 +60,8 @@
     <Compile Include="Extensions\LoggingServices\LoggingServicesExtension.cs" />
     <Compile Include="Extensions\Preconditions\OraDbSequenceNotFound.cs" />
     <Compile Include="Extensions\Preconditions\PreconditionsExtension.cs" />
+    <Compile Include="Extensions\ScriptProviderServices\DiskFileProviderService.cs" />
+    <Compile Include="Extensions\ScriptProviderServices\ScriptProviderServicesExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\DatabaseServiceMessages.cs-CZ.Designer.cs">
       <DependentUpon>DatabaseServiceMessages.cs-CZ.resx</DependentUpon>
@@ -70,6 +72,16 @@
       <DependentUpon>DatabaseServiceMessages.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\DiskFileProviderServiceMessages.cs-CZ.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiskFileProviderServiceMessages.cs-CZ.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\DiskFileProviderServiceMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiskFileProviderServiceMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.Designer.cs">
       <DependentUpon>MsSqlStepWithoutExplicitTransactionMessages.resx</DependentUpon>
@@ -103,6 +115,14 @@
       <LastGenOutput>DatabaseServiceMessages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DiskFileProviderServiceMessages.cs-CZ.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DiskFileProviderServiceMessages.cs-CZ.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DiskFileProviderServiceMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DiskFileProviderServiceMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.cs-CZ.resx" />
     <EmbeddedResource Include="Resources\MsSqlStepWithoutExplicitTransactionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -134,7 +154,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Extensions\DatabaseServices\SQLiteDatabaseServiceInstall.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

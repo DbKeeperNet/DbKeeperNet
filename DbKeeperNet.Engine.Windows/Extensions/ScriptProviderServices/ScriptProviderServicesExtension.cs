@@ -1,4 +1,6 @@
-namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
+using DbKeeperNet.Engine.Extensions.ScriptProviderServices;
+
+namespace DbKeeperNet.Engine.Windows.Extensions.ScriptProviderServices
 {
     /// <summary>
     /// Registration entry point for built-in upgrade script providers
@@ -6,7 +8,7 @@ namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
     /// <remarks>
     /// <list type="bullet">
     /// <listheader>Registers support for following providers:</listheader>
-    /// <item><see cref="EmbeddedResourceProviderService">Embeded resource provider</see></item>
+    /// <item><see cref="DiskFileProviderService">Disk file provider</see></item>
     /// </list>
     /// 
     /// All providers implement interface <see cref="IScriptProviderService"/>
@@ -17,7 +19,7 @@ namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
 
         public void Initialize(IUpdateContext context)
         {
-            context.RegisterScriptProviderService(new EmbeddedResourceProviderService(context));
+            context.RegisterScriptProviderService(new DiskFileProviderService(context));
         }
 
         #endregion

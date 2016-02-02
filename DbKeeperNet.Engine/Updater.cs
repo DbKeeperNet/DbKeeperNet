@@ -212,11 +212,11 @@ namespace DbKeeperNet.Engine
         private void ExecuteXmlInternal(Stream inputXml)
         {
             XmlReaderSettings settings = new XmlReaderSettings();
-
+#if !(_PCL)
             _context.IterateAllSchemas((schemaUri, schema) => settings.Schemas.Add(schemaUri, XmlReader.Create(new StringReader(schema))));
             settings.IgnoreWhitespace = true;
             settings.ValidationType = ValidationType.Schema;
-
+#endif
             Updates updates;
 
             using (XmlReader xmlReader = XmlReader.Create(inputXml, settings))

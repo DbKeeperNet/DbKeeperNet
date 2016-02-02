@@ -173,10 +173,6 @@
     <value>Aktualizace pro sestavení {0} byly úspěšně dokončeny</value>
     <comment>Updates for assembly executed successfully: {0}</comment>
   </data>
-  <data name="FileUpdateNotFound" xml:space="preserve">
-    <value>Aktualizační soubor '{0}' nebyl na disku nalezen</value>
-    <comment>Update file '{0}' not found on disk</comment>
-  </data>
   <data name="FinishedConfiguredFileUpdate" xml:space="preserve">
     <value>Byla úspěšně dokončena nakonfigurovaná aktualizace '{0}' z disku</value>
     <comment>Successfully executed configured disk file update '{0}'</comment>

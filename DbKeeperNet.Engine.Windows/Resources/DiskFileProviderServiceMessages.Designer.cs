@@ -8,9 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DbKeeperNet.Engine.Resources {
+namespace DbKeeperNet.Engine.Windows.Resources {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -23,14 +22,14 @@ namespace DbKeeperNet.Engine.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CommonMessages {
+    internal class DiskFileProviderServiceMessages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CommonMessages() {
+        internal DiskFileProviderServiceMessages() {
         }
         
         /// <summary>
@@ -40,7 +39,7 @@ namespace DbKeeperNet.Engine.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DbKeeperNet.Engine.Resources.CommonMessages", typeof(CommonMessages).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DbKeeperNet.Engine.Windows.Resources.DiskFileProviderServiceMessages", typeof(DiskFileProviderServiceMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,11 +61,11 @@ namespace DbKeeperNet.Engine.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resource {0} not found in assembly {1}..
+        ///   Looks up a localized string similar to Update file &apos;{0}&apos; not found on disk.
         /// </summary>
-        internal static string ResourceNotFound {
+        internal static string FileUpdateNotFound {
             get {
-                return ResourceManager.GetString("ResourceNotFound", resourceCulture);
+                return ResourceManager.GetString("FileUpdateNotFound", resourceCulture);
             }
         }
     }

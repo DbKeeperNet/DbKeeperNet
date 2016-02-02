@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace DbKeeperNet.Engine
@@ -38,11 +39,11 @@ namespace DbKeeperNet.Engine
 
             var interfaceType = typeof(IExtension);
 
-            foreach (Type type in assemblyTypes)
+            foreach (var type in assemblyTypes)
             {
-                if ((interfaceType.IsAssignableFrom(type)) && (!type.GetTypeInfo().IsInterface))
+                if ((type.ImplementedInterfaces.Contains(interfaceType)) && (!type.IsInterface))
                 {
-                    IExtension extension = (IExtension)Activator.CreateInstance(type);
+                    IExtension extension = (IExtension)Activator.CreateInstance(type.GetElementType());
                     extension.Initialize(context);
                 }
             }

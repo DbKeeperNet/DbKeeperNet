@@ -215,50 +215,5 @@ namespace DbKeeperNet.Engine.Tests
 
             repository.VerifyAll();
         }
-
-        [Test]
-        public void TestDiskUpdateRelative()
-        {
-            var section = new TestDbKeeperNetConfiguration();
-            section.UpdateScripts.Add(new UpdateScript {Location = "Update.xml", Provider = "disk"});
-
-            MockRepository repository = new MockRepository();
-            IDatabaseService driverMock = repository.StrictMock<IDatabaseService>();
-            ILoggingService loggerMock = repository.Stub<ILoggingService>();
-
-            using (repository.Record())
-            {
-                using (repository.Ordered())
-                {
-                    SetupResult.For(loggerMock.Name).Return(LOGGER_NAME);
-                    SetupResult.For(driverMock.Name).Return("MockDriver");
-                    SetupResult.For(driverMock.CloneForConnectionString(CONNECTION_STRING)).Return(driverMock);
-                    SetupResult.For(driverMock.DatabaseSetupXml).Return(null);
-                    Expect.Call(delegate { driverMock.BeginTransaction(); });
-                    Expect.Call(delegate { driverMock.SetUpdateStepExecuted("DbUpdater.Engine", "1.00", 1); });
-                    Expect.Call(delegate { driverMock.CommitTransaction(); });
-                }
-            }
-
-            using (repository.Playback())
-            {
-                IUpdateContext context = new UpdateContext(section);
-
-                context.RegisterLoggingService(loggerMock);
-                context.InitializeLoggingService(LOGGER_NAME);
-
-                context.RegisterDatabaseService(driverMock);
-                context.InitializeDatabaseService(CONNECTION_STRING);
-
-                context.RegisterScriptProviderService(new DiskFileProviderService(context));
-                context.LoadExtensions();
-
-                Updater update = new Updater(context);
-                update.ExecuteXmlFromConfig();
-                Assert.That(CustomUpdateStep.Executed, Is.True);
-            }
-
-            repository.VerifyAll();
-        }
     }
 }

@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net45+win+wpa81+MonoAndroid10+Xamarin.iOS10+MonoTouch10": {
+      "wrappedProject": "../../DbKeeperNet.Engine.PCL/DbKeeperNet.Engine.PCL.csproj",
+      "bin": {
+        "assembly": "../../DbKeeperNet.Engine.PCL/obj/{configuration}/DbKeeperNet.Engine.dll",
+        "pdb": "../../DbKeeperNet.Engine.PCL/obj/{configuration}/DbKeeperNet.Engine.pdb"
+      }
+    }
+  }
+}

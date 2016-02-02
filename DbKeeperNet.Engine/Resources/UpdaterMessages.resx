@@ -173,10 +173,6 @@
     <value>Updates for assembly executed successfully: {0}</value>
     <comment>Updates for assembly executed successfully: {0}</comment>
   </data>
-  <data name="FileUpdateNotFound" xml:space="preserve">
-    <value>Update file '{0}' not found on disk</value>
-    <comment>Update file '{0}' not found on disk</comment>
-  </data>
   <data name="FinishedConfiguredFileUpdate" xml:space="preserve">
     <value>Successfully executed configured disk file update '{0}'</value>
     <comment>Successfully executed configured disk file update '{0}'</comment>
