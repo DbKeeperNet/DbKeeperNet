@@ -251,7 +251,7 @@ namespace DbKeeperNet.Engine
 
             foreach (var e in ConfigurationSection.DatabaseServiceMappings)
             {
-				if (connectionString.Equals(e.ConnectString, StringComparison.Ordinal))
+                if (connectionString.Equals(e.ConnectString, StringComparison.Ordinal))
                 {
                     databaseServiceName = e.DatabaseService;
                     break;
