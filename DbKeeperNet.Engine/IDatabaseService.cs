@@ -1,5 +1,10 @@
 using System;
+
+#if !_PCL
+using System.Data;
 using System.Data.Common;
+#endif
+
 using System.IO;
 
 namespace DbKeeperNet.Engine
@@ -17,7 +22,12 @@ namespace DbKeeperNet.Engine
         /// Connection should be closed when this service
         /// instance is disposed.
         /// </summary>
+#if _PCL
+        object Connection { get; }
+#else
         DbConnection Connection { get; }
+#endif
+
         /// <summary>
         /// Verify whether given table name already exists
         /// in database

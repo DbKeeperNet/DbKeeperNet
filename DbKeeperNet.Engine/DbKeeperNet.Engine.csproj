@@ -91,6 +91,7 @@
     <Compile Include="IUpdateScriptConfigurationElementCollection.cs" />
     <Compile Include="IUpdateStepHandlerService.cs" />
     <Compile Include="MsSqlScriptSplitter.cs" />
+    <Compile Include="PCL\SerializableAttribute.cs" />
     <Compile Include="Resources\CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -115,7 +116,6 @@
     <Compile Include="Extensions\Preconditions\ForceExecution.cs" />
     <Compile Include="Extensions\Preconditions\PreconditionsExtension.cs" />
     <Compile Include="Extensions\Preconditions\StepNotExecuted.cs" />
-    <Compile Include="Extensions\ScriptProviderServices\DiskFileProviderService.cs" />
     <Compile Include="Extensions\ScriptProviderServices\EmbeddedResourceProviderService.cs" />
     <Compile Include="Extensions\ScriptProviderServices\ScriptProviderServicesExtension.cs" />
     <Compile Include="ICustomUpdateStep.cs" />

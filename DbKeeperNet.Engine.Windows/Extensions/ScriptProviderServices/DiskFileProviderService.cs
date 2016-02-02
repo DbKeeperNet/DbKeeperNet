@@ -1,9 +1,9 @@
 using System;
-using System.IO;
-using DbKeeperNet.Engine.Resources;
 using System.Globalization;
+using System.IO;
+using DbKeeperNet.Engine.Windows.Resources;
 
-namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
+namespace DbKeeperNet.Engine.Windows.Extensions.ScriptProviderServices
 {
     /// <summary>
     /// Script provider allows to load scripts from disk.
@@ -53,24 +53,24 @@ namespace DbKeeperNet.Engine.Extensions.ScriptProviderServices
 
             if (!File.Exists(filePath))
             {
-                _context.Logger.TraceError(UpdaterMessages.FileUpdateNotFound, location);
-                throw new DbKeeperNetException(String.Format(CultureInfo.CurrentCulture, UpdaterMessages.FileUpdateNotFound, filePath));
+                _context.Logger.TraceError(DiskFileProviderServiceMessages.FileUpdateNotFound, location);
+                throw new DbKeeperNetException(String.Format(CultureInfo.CurrentCulture, DiskFileProviderServiceMessages.FileUpdateNotFound, filePath));
             }
 
             Stream stream = File.OpenRead(filePath);
 
             if (stream == null)
             {
-                _context.Logger.TraceError(UpdaterMessages.FileUpdateNotFound, filePath);
+                _context.Logger.TraceError(DiskFileProviderServiceMessages.FileUpdateNotFound, filePath);
             }
 
             return stream;
         }
 
-        #endregion
+#endregion
 
-        #region Private members
+#region Private members
         private IUpdateContext _context;
-        #endregion
+#endregion
     }
 }

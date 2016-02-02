@@ -25,10 +25,11 @@ namespace DbKeeperNet.Engine
         {
         }
 
-        // TODO: Not compatible with .NET Core
+#if (!_PCL)
         protected DbKeeperNetException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
+#endif
     }
 }
