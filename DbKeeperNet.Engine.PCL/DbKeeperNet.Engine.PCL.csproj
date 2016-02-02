@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DD944AD5-5467-41B7-8FB1-1F07C149B2A7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DbKeeperNet.Engine</RootNamespace>
+    <AssemblyName>DbKeeperNet.Engine</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;_PCL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;_PCL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="..\DbKeeperNet.Engine\Configuration\DatabaseServiceMappingConfigurationElement.cs">
+      <Link>Configuration\DatabaseServiceMappingConfigurationElement.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Configuration\DatabaseServiceMappingConfigurationElementCollection.cs">
+      <Link>Configuration\DatabaseServiceMappingConfigurationElementCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Configuration\DbKeeperNetConfiguration.cs">
+      <Link>Configuration\DbKeeperNetConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Configuration\Extension.cs">
+      <Link>Configuration\Extension.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Configuration\ExtensionCollection.cs">
+      <Link>Configuration\ExtensionCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Configuration\UpdateScript.cs">
+      <Link>Configuration\UpdateScript.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Configuration\UpdateScriptCollection.cs">
+      <Link>Configuration\UpdateScriptCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\CustomUpdateStepHandlerService.cs">
+      <Link>CustomUpdateStepHandlerService.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\DbKeeperNetException.cs">
+      <Link>DbKeeperNetException.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\DefaultUpdateStepsExtension.cs">
+      <Link>DefaultUpdateStepsExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\DisposableObject.cs">
+      <Link>DisposableObject.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\ExtensionLoader.cs">
+      <Link>ExtensionLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\ICustomUpdateStep.cs">
+      <Link>ICustomUpdateStep.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IDatabaseService.cs">
+      <Link>IDatabaseService.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IDatabaseServiceMappingConfigurationElement.cs">
+      <Link>IDatabaseServiceMappingConfigurationElement.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IDatabaseServiceMappingConfigurationElementCollection.cs">
+      <Link>IDatabaseServiceMappingConfigurationElementCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IDbKeeperNetConfigurationSection.cs">
+      <Link>IDbKeeperNetConfigurationSection.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IExtension.cs">
+      <Link>IExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IExtensionConfigurationElement.cs">
+      <Link>IExtensionConfigurationElement.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IExtensionConfigurationElementCollection.cs">
+      <Link>IExtensionConfigurationElementCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\ILoggingService.cs">
+      <Link>ILoggingService.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IPrecondition.cs">
+      <Link>IPrecondition.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IScriptProviderService.cs">
+      <Link>IScriptProviderService.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\ISqlScriptSplitter.cs">
+      <Link>ISqlScriptSplitter.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IUpdateContext.cs">
+      <Link>IUpdateContext.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IUpdateScriptConfigurationElement.cs">
+      <Link>IUpdateScriptConfigurationElement.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IUpdateScriptConfigurationElementCollection.cs">
+      <Link>IUpdateScriptConfigurationElementCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\IUpdateStepHandlerService.cs">
+      <Link>IUpdateStepHandlerService.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\MsSqlScriptSplitter.cs">
+      <Link>MsSqlScriptSplitter.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\PCL\SerializableAttribute.cs">
+      <Link>PCL\SerializableAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Resources\CommonMessages.Designer.cs">
+      <Link>Resources\CommonMessages.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommonMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Resources\PreconditionMessages.cs-CZ.Designer.cs">
+      <Link>Resources\PreconditionMessages.cs-CZ.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreconditionMessages.cs-CZ.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Resources\PreconditionMessages.Designer.cs">
+      <Link>Resources\PreconditionMessages.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreconditionMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Resources\UpdateContextMessages.cs-CZ.Designer.cs">
+      <Link>Resources\UpdateContextMessages.cs-CZ.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdateContextMessages.cs-CZ.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Resources\UpdateContextMessages.Designer.cs">
+      <Link>Resources\UpdateContextMessages.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdateContextMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Resources\UpdaterMessages.cs-CZ.Designer.cs">
+      <Link>Resources\UpdaterMessages.cs-CZ.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdaterMessages.cs-CZ.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Resources\UpdaterMessages.Designer.cs">
+      <Link>Resources\UpdaterMessages.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdaterMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Resources\UpdateStepVisitorMessages.cs-CZ.Designer.cs">
+      <Link>Resources\UpdateStepVisitorMessages.cs-CZ.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdateStepVisitorMessages.cs-CZ.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Resources\UpdateStepVisitorMessages.Designer.cs">
+      <Link>Resources\UpdateStepVisitorMessages.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UpdateStepVisitorMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\SqlScriptSplitter.cs">
+      <Link>SqlScriptSplitter.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\UpdateContext.cs">
+      <Link>UpdateContext.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\UpdateDbStepHandlerService.cs">
+      <Link>UpdateDbStepHandlerService.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Updater.cs">
+      <Link>Updater.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\UpdateStepHandlerService.cs">
+      <Link>UpdateStepHandlerService.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\Utilities.cs">
+      <Link>Utilities.cs</Link>
+    </Compile>
+    <Compile Include="..\DbKeeperNet.Engine\XmlClasses.cs">
+      <Link>XmlClasses.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DbKeeperNet.Engine\packages.config">
+      <Link>packages.config</Link>
+    </None>
+    <None Include="..\DbKeeperNet.Engine\Resources\Updates-1.0.xsd">
+      <Link>Resources\Updates-1.0.xsd</Link>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\DbKeeperNet.Engine\Resources\Updates-1.0.xsx">
+      <Link>Resources\Updates-1.0.xsx</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\DbKeeperNet.Engine\Resources\CommonMessages.resx">
+      <Link>Resources\CommonMessages.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommonMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DbKeeperNet.Engine\Resources\PreconditionMessages.cs-CZ.resx">
+      <Link>Resources\PreconditionMessages.cs-CZ.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PreconditionMessages.cs-CZ.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DbKeeperNet.Engine\Resources\PreconditionMessages.resx">
+      <Link>Resources\PreconditionMessages.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PreconditionMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DbKeeperNet.Engine\Resources\UpdateContextMessages.cs-CZ.resx">
+      <Link>Resources\UpdateContextMessages.cs-CZ.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdateContextMessages.cs-CZ.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DbKeeperNet.Engine\Resources\UpdateContextMessages.resx">
+      <Link>Resources\UpdateContextMessages.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdateContextMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DbKeeperNet.Engine\Resources\UpdaterMessages.cs-CZ.resx">
+      <Link>Resources\UpdaterMessages.cs-CZ.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdaterMessages.cs-CZ.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DbKeeperNet.Engine\Resources\UpdaterMessages.resx">
+      <Link>Resources\UpdaterMessages.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdaterMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DbKeeperNet.Engine\Resources\UpdateStepVisitorMessages.cs-CZ.resx">
+      <Link>Resources\UpdateStepVisitorMessages.cs-CZ.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdateStepVisitorMessages.cs-CZ.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\DbKeeperNet.Engine\Resources\UpdateStepVisitorMessages.resx">
+      <Link>Resources\UpdateStepVisitorMessages.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdateStepVisitorMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
