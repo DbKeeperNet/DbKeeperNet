@@ -130,20 +130,13 @@ pipeline {
         }
       }
     }
-//    stage('Tagging') {
-//      steps {
-//        withCredentials([usernamePassword(credentialsId: 'cdd06d32-f11d-446c-8687-3debc9dba901', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-//          bat "git tag 'build-${VERSION_NUMBER}'"
-//          bat "git push http://${GIT_USERNAME}:${GIT_PASSWORD}@git.bazilisek.net/UnityInitializer.git --tags"
-//        }
-//      }
-//    }
     stage('Artifacts') {
         agent { label 'vs2017' }
 
+        when { !env.CHANGE_ID }
         steps {
             dir ('bin') {
-              unstash 'build'
+            unstash 'build'
             }
 
             archiveArtifacts artifacts: 'bin\\**.nupkg', onlyIfSuccessful: true
