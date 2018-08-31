@@ -130,16 +130,21 @@ pipeline {
         }
       }
     }
+
     stage('Artifacts') {
         agent { label 'vs2017' }
 
         when { expression { env.CHANGE_ID == null } }
         steps {
-            dir ('bin') {
+          withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+            bat "git tag 'build-${VERSION_NUMBER}'"
+            bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/DbKeeperNet/DbKeeperNet.git --tags"
+          }
+          dir ('bin') {
             unstash 'build'
-            }
+          }
 
-            archiveArtifacts artifacts: 'bin\\**.nupkg', onlyIfSuccessful: true
+          archiveArtifacts artifacts: 'bin\\**.nupkg', onlyIfSuccessful: true
         }
     }
   }
