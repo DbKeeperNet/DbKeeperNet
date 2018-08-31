@@ -1,0 +1,21 @@
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>.</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+
+  <Import Project=".build\MSBuild.Community.Tasks.Targets" />
+  
+  <Target Name="SetAssemblyVersion">
+    <ItemGroup>
+      <AssemblyInfoFiles Include=".\**\AssemblyInfo.cs" />
+      <AssemblyProjectFiles Include=".\**\*.csproj" />
+    </ItemGroup>
+    <FileUpdate Files="@(AssemblyInfoFiles)" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$(BuildNumber).0" />
+    <FileUpdate Files="@(AssemblyProjectFiles)" Regex="(\d+)\.(\d+)\.(\d+)-alpha" ReplacementText="$(BuildNumber)-alpha" />
+  </Target>
+
+  <Target Name="Build" DependsOnTargets="SetAssemblyVersion">
+    <Exec Command="nuget restore DbKeeperNet.sln" />
+    <MSBuild Projects="DbKeeperNet.sln" Properties='Configuration=Release;Platform=Any CPU' />
+  </Target>
+</Project>

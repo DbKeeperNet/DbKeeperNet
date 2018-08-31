@@ -27,9 +27,10 @@ namespace DbKeeperNet.Engine
     /// </code>
     /// </example>
     /// </remarks>
-    public class SqlScriptSplitter:ISqlScriptSplitter
+    public class SqlScriptSplitter : ISqlScriptSplitter
     {
-        private const string _commandSeparator = @"<GO>";
+        private ISqlScriptSplitter _nextScriptSplitter;
+        private const string CommandSeparator = @"<GO>";
 
         /// <summary>
         /// Split the given SQL script possibly containing multiple commands
@@ -45,25 +46,24 @@ namespace DbKeeperNet.Engine
         /// <returns>Collection of string representing single commands</returns>
         public IEnumerable<string> SplitScript(string script)
         {
-            using(var reader = new StringReader(script))
+            using (var reader = new StringReader(script))
             {
                 var command = new StringBuilder();
                 var terminationFound = false;
 
-                while(true)
+                while (true)
                 {
                     var line = reader.ReadLine();
 
                     if (line == null) break;
 
-                    if (line.Trim().Equals(_commandSeparator))
+                    if (line.Trim().Equals(CommandSeparator))
                     {
                         terminationFound = true;
 
-                        var commandToRun = command.ToString();
+                        foreach (var p in FinalizeProcessing(command)) yield return p;
+                        
                         command = new StringBuilder();
-
-                        yield return commandToRun;
                     }
                     else
                     {
@@ -71,8 +71,56 @@ namespace DbKeeperNet.Engine
                     }
                 }
 
-                if (!terminationFound) yield return command.ToString();
+                if (!terminationFound)
+                {
+                    foreach (var p in FinalizeProcessing(command)) yield return p;
+                }
             }
+        }
+
+        private IEnumerable<string> FinalizeProcessing(StringBuilder command)
+        {
+            if (_nextScriptSplitter == null)
+            {
+                yield return command.ToString();
+            }
+            else
+            {
+                foreach (var result in _nextScriptSplitter.SplitScript(command.ToString()))
+                {
+                    yield return result;
+                }
+            }
+        }
+
+        public void SetNext(ISqlScriptSplitter nextScriptSplitter)
+        {
+            _nextScriptSplitter = nextScriptSplitter;
+        }
+    }
+
+    public class ScriptSplitterDoingNothing : ISqlScriptSplitter
+    {
+        private ISqlScriptSplitter _nextScriptSplitter;
+
+        public IEnumerable<string> SplitScript(string script)
+        {
+            if (_nextScriptSplitter == null)
+            {
+                yield return script;
+            }
+            else
+            {
+                foreach (var result in _nextScriptSplitter.SplitScript(script))
+                {
+                    yield return result;
+                }
+            }
+        }
+
+        public void SetNext(ISqlScriptSplitter nextScriptSplitter)
+        {
+            _nextScriptSplitter = nextScriptSplitter;
         }
     }
 }
