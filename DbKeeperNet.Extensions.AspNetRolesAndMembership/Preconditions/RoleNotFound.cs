@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using DbKeeperNet.Engine;
-using DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources;
 
 namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Preconditions
 {
@@ -23,22 +21,13 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Preconditions
     /// ]]>
     /// </code>
     /// </example>
-    public class RoleNotFound : IPrecondition
+    public class RoleNotFound : IPreconditionHandler
     {
         #region Private fields
 
         private readonly IAspNetMembershipAdapter _membershipAdapter;
 
         #endregion
-
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public RoleNotFound()
-            : this(new AspNetMembershipAdapter())
-        {
-        }
 
         /// <summary>
         /// Constructor
@@ -49,30 +38,17 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Preconditions
             _membershipAdapter = membershipAdapter;
         }
 
-        /// <summary>
-        /// Precondition name as it's available and used in
-        /// installation XML document.
-        /// </summary>
-        public string Name { get { return @"RoleNotFound"; } }
-
-        /// <summary>
-        /// Method called for precondition evaluation. All specified
-        /// preconditions must be met (return true) when checking
-        /// whether step should or should not be executed.
-        /// </summary>
-        /// <param name="context">Current update context</param>
-        /// <param name="param">Optional parameters which can be passed thru
-        /// installation XML document. Each parameter can be optionaly named.</param>
-        /// <returns>
-        /// <list type="bullet">
-        /// <item><c>true</c> - condition was met, step can be executed.</item>
-        /// <item><c>false</c> - prevent step from execution.</item>
-        /// </list>
-        /// </returns>
-        public bool CheckPrecondition(IUpdateContext context, PreconditionParamType[] param)
+        public bool CanHandle(UpdateStepContextPrecondition context)
         {
+            return @"RoleNotFound" == context.Precondition.Precondition;
+        }
+
+        public bool IsMet(UpdateStepContextPrecondition context)
+        {
+            var param = context.Precondition.Param;
+
             if ((param == null) || (param.Length != 1) || (string.IsNullOrEmpty(param[0].Value)))
-                throw new ArgumentNullException(string.Format(CultureInfo.CurrentCulture, AspNetMembershipAdapterMessages.RoleNameNotSpecified, Name));
+                throw new ArgumentNullException("Role name must be specified as a parameter for condition RoleNotFound");
 
             return !_membershipAdapter.RoleExists(param[0].Value);
         }

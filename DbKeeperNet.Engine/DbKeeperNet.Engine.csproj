@@ -1,223 +1,47 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FFCF7DA4-C786-4999-8624-26C392D67315}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DbKeeperNet.Engine</RootNamespace>
-    <AssemblyName>DbKeeperNet.Engine</AssemblyName>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\DbKeeperNet.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DbKeeperNet/DbKeeperNet</RepositoryUrl>
+    <PackageLicenseUrl>https://github.com/DbKeeperNet/DbKeeperNet/wiki/LICENSE</PackageLicenseUrl>
+    <Copyright>Copyright (c) 2009-2018, Vladimir Kloz &lt;vladimir.kloz@gmail.com&gt;</Copyright>
+    <Version>3.0.0-alpha</Version>
+    <Description>DbKeeperNet is a handy component simplifying deployment of database schema changes (database migrations) working with various RDBMS systems.</Description>
+    <Authors>Vladimir Kloz</Authors>
+    <Company />
+    <Product>DbKeeperNet</Product>
+    <PackageId>DbKeeperNet</PackageId>
+    <PackageTags>Oracle MSSQL MYSQL FireBird PostgreSQL SQLite Database Deployment Migrations</PackageTags>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>../bin</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\DbKeeperNet.Engine.XML</DocumentationFile>
-    <NoWarn>1591</NoWarn>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>..\DbKeeperNet.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <Prefer32Bit>false</Prefer32Bit>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../bin</OutputPath>
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <None Remove="Resources\Updates-1.0.xsd" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Configuration\UpdateScript.cs" />
-    <Compile Include="Configuration\DatabaseServiceMappingConfigurationElement.cs" />
-    <Compile Include="Configuration\DatabaseServiceMappingConfigurationElementCollection.cs" />
-    <Compile Include="Configuration\DbKeeperNetConfiguration.cs" />
-    <Compile Include="Configuration\Extension.cs" />
-    <Compile Include="Configuration\ExtensionCollection.cs" />
-    <Compile Include="Configuration\UpdateScriptCollection.cs" />
-    <Compile Include="CustomUpdateStepHandlerService.cs" />
-    <Compile Include="DbKeeperNetException.cs" />
-    <Compile Include="DefaultUpdateStepsExtension.cs" />
-    <Compile Include="DisposableObject.cs" />
-    <Compile Include="Extensions\Preconditions\DbTriggerNotFound.cs" />
-    <Compile Include="IDatabaseServiceMappingConfigurationElement.cs" />
-    <Compile Include="IDatabaseServiceMappingConfigurationElementCollection.cs" />
-    <Compile Include="IDbKeeperNetConfigurationSection.cs" />
-    <Compile Include="IExtensionConfigurationElement.cs" />
-    <Compile Include="IExtensionConfigurationElementCollection.cs" />
-    <Compile Include="ISqlScriptSplitter.cs" />
-    <Compile Include="IUpdateScriptConfigurationElement.cs" />
-    <Compile Include="IUpdateScriptConfigurationElementCollection.cs" />
-    <Compile Include="IUpdateStepHandlerService.cs" />
-    <Compile Include="MsSqlScriptSplitter.cs" />
-    <Compile Include="Resources\CommonMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CommonMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UpdateStepVisitorMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UpdateStepVisitorMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SqlScriptSplitter.cs" />
-    <Compile Include="ExtensionLoader.cs" />
-    <Compile Include="Extensions\LoggingServices\DummyLogger.cs" />
-    <Compile Include="Extensions\LoggingServices\LoggingServicesExtension.cs" />
-    <Compile Include="Extensions\Preconditions\DbForeignKeyNotFound.cs" />
-    <Compile Include="Extensions\Preconditions\DbIndexNotFound.cs" />
-    <Compile Include="Extensions\Preconditions\DbPrimaryKeyNotFound.cs" />
-    <Compile Include="Extensions\Preconditions\DbProcedureNotFound.cs" />
-    <Compile Include="Extensions\Preconditions\DbTableNotFound.cs" />
-    <Compile Include="Extensions\Preconditions\DbType.cs" />
-    <Compile Include="Extensions\Preconditions\DbViewNotFound.cs" />
-    <Compile Include="Extensions\Preconditions\ForceExecution.cs" />
-    <Compile Include="Extensions\Preconditions\PreconditionsExtension.cs" />
-    <Compile Include="Extensions\Preconditions\StepNotExecuted.cs" />
-    <Compile Include="Extensions\ScriptProviderServices\DiskFileProviderService.cs" />
-    <Compile Include="Extensions\ScriptProviderServices\EmbeddedResourceProviderService.cs" />
-    <Compile Include="Extensions\ScriptProviderServices\ScriptProviderServicesExtension.cs" />
-    <Compile Include="ICustomUpdateStep.cs" />
-    <Compile Include="IDatabaseService.cs" />
-    <Compile Include="IExtension.cs" />
-    <Compile Include="ILoggingService.cs" />
-    <Compile Include="IPrecondition.cs" />
-    <Compile Include="IScriptProviderService.cs" />
-    <Compile Include="IUpdateContext.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\PreconditionMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PreconditionMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UpdateContextMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UpdateContextMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UpdaterMessages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UpdaterMessages.resx</DependentUpon>
-    </Compile>
-    <Compile Include="UpdateContext.cs" />
-    <Compile Include="Updater.cs" />
-    <Compile Include="UpdateDbStepHandlerService.cs" />
-    <Compile Include="UpdateStepHandlerService.cs" />
-    <Compile Include="Utilities.cs" />
-    <Compile Include="XmlClasses.cs" />
+    <EmbeddedResource Include="Resources\Updates-1.0.xsd" />
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="Resources\CommonMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>CommonMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Updates-1.0.xsd">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\UpdateStepVisitorMessages.cs-CZ.resx" />
-    <EmbeddedResource Include="Resources\UpdateStepVisitorMessages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>UpdateStepVisitorMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="..\DbKeeperNet.snk">
-      <Link>DbKeeperNet.snk</Link>
-    </None>
-    <None Include="packages.config" />
-    <None Include="Resources\Updates-1.0.xsx">
-      <DependentUpon>Updates-1.0.xsd</DependentUpon>
-    </None>
+    <None Include="..\DbKeeperNet.snk" Link="DbKeeperNet.snk" />
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="Resources\PreconditionMessages.cs-CZ.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\PreconditionMessages.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>PreconditionMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\UpdateContextMessages.cs-CZ.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\UpdateContextMessages.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>UpdateContextMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\UpdaterMessages.cs-CZ.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\UpdaterMessages.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>UpdaterMessages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

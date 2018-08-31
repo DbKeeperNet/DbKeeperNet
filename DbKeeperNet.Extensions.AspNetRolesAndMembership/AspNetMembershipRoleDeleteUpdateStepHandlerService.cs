@@ -1,9 +1,9 @@
 using DbKeeperNet.Engine;
-using DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources;
+using DbKeeperNet.Engine.UpdateStepHandlers;
 
 namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
 {
-    public class AspNetMembershipRoleDeleteUpdateStepHandlerService : UpdateStepHandlerService<AspNetRoleDeleteUpdateStepType>
+    public class AspNetMembershipRoleDeleteUpdateStepHandlerService : UpdateStepHandlerBase<AspNetRoleDeleteUpdateStepType>
     {
         private readonly IAspNetMembershipAdapter _aspNetMembershipAdapter;
 
@@ -12,12 +12,14 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
             _aspNetMembershipAdapter = aspNetMembershipAdapter;
         }
 
-        protected override void Handle(AspNetRoleDeleteUpdateStepType castedStep, IUpdateContext context)
+        protected override void Execute(UpdateStepContextWithPreconditions<AspNetRoleDeleteUpdateStepType> context)
         {
-            context.Logger.TraceInformation(AspNetMembershipAdapterMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
-            context.Logger.TraceInformation(AspNetMembershipAdapterMessages.DeletingRole, castedStep.RoleName);
+            var castedStep = context.Step;
+
+        // context.Logger.TraceInformation(AspNetMembershipAdapterMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
+        //    context.Logger.TraceInformation(AspNetMembershipAdapterMessages.DeletingRole, castedStep.RoleName);
             _aspNetMembershipAdapter.DeleteRole(castedStep.RoleName);
-            context.Logger.TraceInformation(AspNetMembershipAdapterMessages.DeletedRole, castedStep.RoleName);
+        //    context.Logger.TraceInformation(AspNetMembershipAdapterMessages.DeletedRole, castedStep.RoleName);
         }
     }
 }

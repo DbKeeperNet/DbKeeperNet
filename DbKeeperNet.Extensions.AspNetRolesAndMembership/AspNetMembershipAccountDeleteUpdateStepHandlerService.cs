@@ -1,9 +1,9 @@
 using DbKeeperNet.Engine;
-using DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources;
+using DbKeeperNet.Engine.UpdateStepHandlers;
 
 namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
 {
-    public class AspNetMembershipAccountDeleteUpdateStepHandlerService : UpdateStepHandlerService<AspNetAccountDeleteUpdateStepType>
+    public class AspNetMembershipAccountDeleteUpdateStepHandlerService : UpdateStepHandlerBase<AspNetAccountDeleteUpdateStepType>
     {
         private readonly IAspNetMembershipAdapter _aspNetMembershipAdapter;
 
@@ -12,18 +12,20 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
             _aspNetMembershipAdapter = aspNetMembershipAdapter;
         }
 
-        protected override void Handle(AspNetAccountDeleteUpdateStepType castedStep, IUpdateContext context)
+        protected override void Execute(UpdateStepContextWithPreconditions<AspNetAccountDeleteUpdateStepType> context)
         {
-            context.Logger.TraceInformation(AspNetMembershipAdapterMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
-            context.Logger.TraceInformation(AspNetMembershipAdapterMessages.DeletingUser, castedStep.UserName);
+            var castedStep = context.Step;
+
+            //context.Logger.TraceInformation(AspNetMembershipAdapterMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
+            //context.Logger.TraceInformation(AspNetMembershipAdapterMessages.DeletingUser, castedStep.UserName);
 
             if (_aspNetMembershipAdapter.DeleteUser(castedStep.UserName))
             {
-                context.Logger.TraceInformation(AspNetMembershipAdapterMessages.DeletedUser, castedStep.UserName);
+            //    context.Logger.TraceInformation(AspNetMembershipAdapterMessages.DeletedUser, castedStep.UserName);
             }
             else
             {
-                context.Logger.TraceWarning(AspNetMembershipAdapterMessages.UserNotDeleted, castedStep.UserName);
+            //    context.Logger.TraceWarning(AspNetMembershipAdapterMessages.UserNotDeleted, castedStep.UserName);
             }
         }
     }

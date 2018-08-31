@@ -1,9 +1,9 @@
 using DbKeeperNet.Engine;
-using DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources;
+using DbKeeperNet.Engine.UpdateStepHandlers;
 
 namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
 {
-    public class AspNetMembershipRoleCreateUpdateStepHandlerService : UpdateStepHandlerService<AspNetRoleCreateUpdateStepType>
+    public class AspNetMembershipRoleCreateUpdateStepHandlerService : UpdateStepHandlerBase<AspNetRoleCreateUpdateStepType>
     {
         private readonly IAspNetMembershipAdapter _aspNetMembershipAdapter;
 
@@ -12,12 +12,14 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
             _aspNetMembershipAdapter = aspNetMembershipAdapter;
         }
 
-        protected override void Handle(AspNetRoleCreateUpdateStepType castedStep, IUpdateContext context)
+        protected override void Execute(UpdateStepContextWithPreconditions<AspNetRoleCreateUpdateStepType> context)
         {
-            context.Logger.TraceInformation(AspNetMembershipAdapterMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
-            context.Logger.TraceInformation(AspNetMembershipAdapterMessages.AddingRole, castedStep.RoleName);
+            var castedStep = context.Step;
+
+            // context.Logger.TraceInformation(AspNetMembershipAdapterMessages.GoingToUseAdapter, _aspNetMembershipAdapter);
+            // context.Logger.TraceInformation(AspNetMembershipAdapterMessages.AddingRole, castedStep.RoleName);
             _aspNetMembershipAdapter.CreateRole(castedStep.RoleName);
-            context.Logger.TraceInformation(AspNetMembershipAdapterMessages.AddedRole, castedStep.RoleName);
+            // context.Logger.TraceInformation(AspNetMembershipAdapterMessages.AddedRole, castedStep.RoleName);
         }
     }
 }

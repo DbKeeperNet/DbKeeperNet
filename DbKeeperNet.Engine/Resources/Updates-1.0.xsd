@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd" xmlns:mstns="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd" elementFormDefault="unqualified" version="1.0">
 	<xs:element name="Updates">
 		<xs:annotation>
@@ -13,8 +13,10 @@
 				</xs:element>
 				<xs:element name="Update" type="UpdateType" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation>Set of updates which should be applicated on the database.
-Each element is intended to be used as a database schema version.</xs:documentation>
+						<xs:documentation>
+							Set of updates which should be applicated on the database.
+							Each element is intended to be used as a database schema version.
+						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
@@ -109,7 +111,7 @@ Each element is intended to be used as a database schema version.</xs:documentat
 			<xs:enumeration value="PgSql"/>
 			<xs:enumeration value="SQLite"/>
 			<xs:enumeration value="Oracle"/>
-      <xs:enumeration value="FB"/>
+			<xs:enumeration value="FB"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="UpdateStepIdType">

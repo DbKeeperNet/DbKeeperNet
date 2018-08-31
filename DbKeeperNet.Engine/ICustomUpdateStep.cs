@@ -18,6 +18,6 @@ namespace DbKeeperNet.Engine
         /// </summary>
         /// <param name="context">Current update context</param>
         /// <param name="param">Optional parameters (with optional name) which can be passed thru the installation XML</param>
-        void ExecuteUpdate(IUpdateContext context, CustomUpdateStepParamType[] param);
+        void ExecuteUpdate(UpdateStepContextWithPreconditions<CustomUpdateStepType> context, CustomUpdateStepParamType[] param);
     }
 }

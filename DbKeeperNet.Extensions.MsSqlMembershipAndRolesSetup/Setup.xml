@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<upd:Updates xmlns:upd="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd"
+             xmlns:asp="http://code.google.com/p/dbkeepernet/MsSqlMembershipAndRolesSetup-1.0.xsd"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="
+                http://code.google.com/p/dbkeepernet/Updates-1.0.xsd ../DbKeeperNet.Engine/Resources/Updates-1.0.xsd
+                http://code.google.com/p/dbkeepernet/MsSqlMembershipAndRolesSetup-1.0.xsd ./Resources/MsSqlMembershipAndRolesSetup-1.0.xsd"
+                AssemblyName="DbUpdater.Engine.Membership">
+  <DefaultPreconditions>
+    <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
+  </DefaultPreconditions>
+  <Update Version="1.00">
+    <UpdateStep xsi:type="asp:MsSqlMembershipAndRolesSetupType" Id="1" FriendlyName="Setting up database schema for membership and roles">
+      <Preconditions>
+        <Precondition FriendlyName="Update step executed" Precondition="StepNotExecuted"/>
+        <Precondition FriendlyName="Database is MSSQL" Precondition="DbType">
+          <Param>MSSQL</Param>
+        </Precondition>
+      </Preconditions>
+    </UpdateStep>
+  </Update>
+</upd:Updates>
+

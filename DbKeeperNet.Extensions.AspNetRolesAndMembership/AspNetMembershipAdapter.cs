@@ -1,8 +1,6 @@
 using System;
 using System.Globalization;
 using System.Web.Security;
-using DbKeeperNet.Engine;
-using DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources;
 
 namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
 {
@@ -24,7 +22,8 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
 
             if (status != MembershipCreateStatus.Success)
             {
-                throw new DbKeeperNetException(string.Format(CultureInfo.CurrentCulture, AspNetMembershipAdapterMessages.CreatingUserFailed, userName, status));
+               //TODO: throw new DbKeeperNetException(string.Format(CultureInfo.CurrentCulture, AspNetMembershipAdapterMessages.CreatingUserFailed, userName, status));
+               throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Creating user {0} failed with error code {1}", userName, status));
             }
         }
 
@@ -109,7 +108,7 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
         /// <filterpriority>2</filterpriority>
         public override string ToString()
         {
-            return string.Format(CultureInfo.CurrentCulture, AspNetMembershipAdapterMessages.ToStringMessage, Membership.Provider.Name, Roles.Provider.Name);
+            return string.Format(CultureInfo.InvariantCulture, "Asp.Net membership adapter[membership={0}, roles={1}]", Membership.Provider.Name, Roles.Provider.Name);
         }
     }
 }

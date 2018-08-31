@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://code.google.com/p/dbkeepernet/MsSqlMembershipAndRolesSetup-1.0.xsd" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns:b="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd"
+           targetNamespace="http://code.google.com/p/dbkeepernet/MsSqlMembershipAndRolesSetup-1.0.xsd" elementFormDefault="unqualified" version="1.0">
+  
+  <xs:import namespace="http://code.google.com/p/dbkeepernet/Updates-1.0.xsd" />
+  
+  <xs:complexType name="MsSqlMembershipAndRolesSetupType">
+    <xs:complexContent>
+      <xs:extension base="b:UpdateStepBaseType">
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>  
+</xs:schema>

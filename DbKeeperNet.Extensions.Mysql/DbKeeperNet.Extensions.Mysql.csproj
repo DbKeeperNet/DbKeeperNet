@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\DbKeeperNet.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <Version>3.0.0-alpha</Version>
+    <Authors>Vladimir Kloz</Authors>
+    <Product>DbKeeperNet</Product>
+    <Description>MySql support extension for DbKeeperNet database migrations</Description>
+    <Copyright>Copyright (c) 2009-2018, Vladimir Kloz &lt;vladimir.kloz@gmail.com&gt;</Copyright>
+    <PackageLicenseUrl>https://github.com/DbKeeperNet/DbKeeperNet/wiki/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/DbKeeperNet/DbKeeperNet</RepositoryUrl>
+    <PackageTags>MySql Database Upgrade Migrations</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>../bin</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../bin</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="MysqlDatabaseServiceInstall.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="MysqlDatabaseServiceInstall.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\DbKeeperNet.snk" Link="DbKeeperNet.snk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
+    <PackageReference Include="MySql.Data" Version="8.0.11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DbKeeperNet.Engine\DbKeeperNet.Engine.csproj" />
+  </ItemGroup>
+
+</Project>

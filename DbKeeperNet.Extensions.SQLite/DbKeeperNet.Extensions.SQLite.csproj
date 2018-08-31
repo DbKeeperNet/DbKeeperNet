@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\DbKeeperNet.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <Authors>Vladimir Kloz</Authors>
+    <Product>DbKeeperNet</Product>
+    <Description>SQLite support extension for DbKeeperNet database migrations</Description>
+    <Copyright>Copyright (c) 2009-2018, Vladimir Kloz &lt;vladimir.kloz@gmail.com&gt;</Copyright>
+    <PackageLicenseUrl>https://github.com/DbKeeperNet/DbKeeperNet/wiki/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/DbKeeperNet/DbKeeperNet</RepositoryUrl>
+    <PackageTags>SQLite Database Upgrade Migrations</PackageTags>
+    <Version>3.0.0-alpha</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>../bin</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../bin</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="SQLiteDatabaseServiceInstall.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SQLiteDatabaseServiceInstall.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\DbKeeperNet.snk" Link="DbKeeperNet.snk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DbKeeperNet.Engine\DbKeeperNet.Engine.csproj" />
+  </ItemGroup>
+</Project>

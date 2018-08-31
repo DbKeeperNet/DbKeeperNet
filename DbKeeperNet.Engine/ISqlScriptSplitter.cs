@@ -25,5 +25,11 @@ namespace DbKeeperNet.Engine
         /// </param>
         /// <returns>Collection of string representing single commands</returns>
         IEnumerable<string> SplitScript(string script);
+
+        /// <summary>
+        /// Registers next splitter in chain which can be possibly applied.
+        /// </summary>
+        /// <param name="nextScriptSplitter">Next splitter in chain</param>
+        void SetNext(ISqlScriptSplitter nextScriptSplitter);
     }
 }

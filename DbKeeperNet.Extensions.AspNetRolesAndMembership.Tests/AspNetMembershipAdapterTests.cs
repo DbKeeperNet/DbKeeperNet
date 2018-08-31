@@ -1,15 +1,16 @@
 ﻿using System.Web.Security;
 using DbKeeperNet.Engine;
+using DbKeeperNet.Engine.Configuration;
 using DbKeeperNet.Engine.Tests;
-using DbKeeperNet.Engine.Windows;
+using DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup;
+using DbKeeperNet.Extensions.SqlServer;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
 {
-    [Explicit]
-    [Category("mssql")]
     [TestFixture]
-    public class AspNetMembershipAdapterTests
+    public class AspNetMembershipAdapterTests : TestBase
     {
         private const string UserName = "TestUser";
         private const string Password = "Some#StrongPassw0rd";
@@ -18,24 +19,26 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
         private const string Role2 = "Role2";
         private const string NonExistingRole = "Role3";
 
-        [TestFixtureSetUp]
-        public void TestClassSetup()
+        protected override void Configure(IDbKeeperNetBuilder configurationBuilder)
         {
-            var updateContext = new WindowsUpdateContext();
-            updateContext.LoadExtensions();
+            configurationBuilder
+                .UseSqlServer(ConnectionStrings.TestDatabase)
+                .UseAspNetRolesAndMembership()
+                .UseSqlServerMembershipAndRoleSetup()
+                .UseSqlServerMembershipAndRoleSetupScript()
+                ;
 
-            updateContext.InitializeLoggingService("fx");
-            updateContext.InitializeDatabaseService("mssql");
-            updateContext.RegisterUpdateStepHandler(new UpdateDbStepHandlerService(new NonSplittingSqlScriptSplitter()));
 
-            var updater = new Updater(updateContext);
-
-            updater.ExecuteXml(typeof(AspNetMembershipAdapterTests).Assembly.GetManifestResourceStream("DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests.AspNetMemberShipUpdate.xml"));
+            configurationBuilder.Services.AddLogging();
         }
 
         [SetUp]
-        public void Setup()
+        public override void Setup()
         {
+            base.Setup();
+
+            GetService<IDatabaseUpdater>().ExecuteUpgrade();
+
             Membership.Provider.DeleteUser(UserName, true);
 
             Roles.Provider.DeleteRole(Role1, false);
