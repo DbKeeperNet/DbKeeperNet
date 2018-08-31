@@ -133,7 +133,7 @@ pipeline {
     stage('Artifacts') {
         agent { label 'vs2017' }
 
-        when { !env.CHANGE_ID }
+        when { expression { env.CHANGE_ID == null } }
         steps {
             dir ('bin') {
             unstash 'build'
