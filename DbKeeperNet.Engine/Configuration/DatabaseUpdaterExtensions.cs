@@ -15,7 +15,7 @@ namespace DbKeeperNet.Engine.Configuration
         /// <param name="serviceCollection">Service collection</param>
         /// <param name="configurationCallback">Additional configuration delegate</param>
         /// <returns></returns>
-        public static IServiceCollection UseDbKeeperNet(this IServiceCollection serviceCollection, Action<IDbKeeperNetBuilder> configurationCallback)
+        public static IServiceCollection AddDbKeeperNet(this IServiceCollection serviceCollection, Action<IDbKeeperNetBuilder> configurationCallback)
         {
             var configuration = new DbKeeperNetBuilder(serviceCollection);
 

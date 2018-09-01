@@ -40,7 +40,7 @@ You can use it freely in both commercial and non-commercial applications as you 
 const string connectionString = "Data Source=fullframeworkdemo.db3";
 
 var serviceCollection = new ServiceCollection();
-serviceCollection.UseDbKeeperNet(c =>
+serviceCollection.AddDbKeeperNet(c =>
 {
     c
     .UseSQLite(connectionString)

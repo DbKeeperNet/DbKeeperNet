@@ -17,7 +17,7 @@ namespace DbKeeperNet.Engine.Tests
         public virtual void Setup()
         {
             var serviceCollection = new ServiceCollection();
-            serviceCollection.UseDbKeeperNet(Configure);
+            serviceCollection.AddDbKeeperNet(Configure);
             
             ServiceProvider = serviceCollection.BuildServiceProvider(true);
 
