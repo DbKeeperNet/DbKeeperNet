@@ -20,7 +20,7 @@ namespace CoreConsoleApp
             {
                 c
                     .UseSQLite(connectionString)
-                    .AddEmbeddedResourceScript("FullFrameworkConsoleApp.DatabaseUpgrade.xml,FullFrameworkConsoleApp");
+                    .AddEmbeddedResourceScript("CoreConsoleApp.DatabaseUpgrade.xml,CoreConsoleApp");
             });
             serviceCollection.AddLogging(c => { c.AddConsole(); });
 
