@@ -1,0 +1,8 @@
+﻿@model IEnumerable<ASPNet.Models.DemoModel>
+
+Data from database <br/>
+
+@foreach (var item in Model)
+{
+    <div>@item.Id: @item.Name </div>
+}
