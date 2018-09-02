@@ -146,7 +146,7 @@ pipeline {
 
           archiveArtifacts artifacts: 'bin\\**.nupkg', onlyIfSuccessful: true
 
-          withCredentials(string(credentialsId: 'nuget', variable: 'NUGET_API_KEY')) {
+          withCredentials([string(credentialsId: 'nuget', variable: 'NUGET_API_KEY')]) {
             bat "nuget push bin\\**.nupkg ${NUGET_API_KEY}"
           }
         }
