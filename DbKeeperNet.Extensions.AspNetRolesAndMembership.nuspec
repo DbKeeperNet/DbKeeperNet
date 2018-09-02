@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DbKeeperNet.Extensions.AspNetRolesAndMembership</id>
+    <version>$Version$</version>
+    <authors>Vladimir Kloz</authors>
+    <owners>Vladimir Kloz</owners>
+    <licenseUrl>https://github.com/DbKeeperNet/DbKeeperNet/wiki/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/DbKeeperNet/DbKeeperNet</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Initial MSSQL membership and roles setup script for DbKeeperNet</description>
+    <releaseNotes>
+    </releaseNotes>
+    <copyright>Copyright 2018 Vladimir Kloz</copyright>
+    <tags>ASP.NET,Database,Upgrade</tags>
+    
+    <dependencies>
+       <dependency id="DbKeeperNet" version="[$Version$]" />
+       <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="2.1.1" />
+       <dependency id="Microsoft.Extensions.Logging.Abstractions" version="2.1.1" />
+    </dependencies>
+  </metadata>
+</package>
