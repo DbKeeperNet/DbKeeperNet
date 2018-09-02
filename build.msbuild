@@ -20,7 +20,7 @@
     <MSBuild Projects="DbKeeperNet.sln" Properties='Configuration=Release;Platform=Any CPU' />
   </Target>
 
-  <Target Name="Build" DependsOnTargets="Compile">
+  <Target Name="Build" >
     <RemoveDir Directories="$(NugetSrcDirectory)" />
     <ItemGroup>
       <Nuget Include="bin\**\DbKeeperNet.Extensions.AspNetRolesAndMembership.dll">
@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <Copy SourceFiles="@(Nuget)" DestinationFiles="@(Nuget->'$(NugetSrcDirectory)\%(Package)\lib\net461\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Exec Command="$(NugetTool) pack -Version $(BuildNumber)-alpha -BasePath $(NugetSrcDirectory)\%(Nuget.Package) %(Nuget.Package).nuspec" />
+    <Exec WorkingDirectory="bin" Command="nuget pack -Version $(BuildNumber)-alpha -BasePath ..\$(NugetSrcDirectory)\%(Nuget.Package) ..\%(Nuget.Package).nuspec" />
   </Target>
 
 </Project>
