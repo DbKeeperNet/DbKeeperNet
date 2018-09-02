@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DbKeeperNet.Extensions.SQLite" Version="3.0.2-alpha" />
+    <PackageReference Include="DbKeeperNet.Extensions.SQLite" Version="3.0.24-alpha" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="2.1.0" />
   </ItemGroup>

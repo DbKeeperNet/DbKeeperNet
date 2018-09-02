@@ -34,11 +34,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DbKeeperNet.Engine, Version=3.0.2.0, Culture=neutral, PublicKeyToken=5f253e7a0b5b83ba, processorArchitecture=MSIL">
-      <HintPath>..\packages\DbKeeperNet.3.0.2-alpha\lib\netstandard2.0\DbKeeperNet.Engine.dll</HintPath>
+    <Reference Include="DbKeeperNet.Engine, Version=3.0.24.0, Culture=neutral, PublicKeyToken=5f253e7a0b5b83ba, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbKeeperNet.3.0.24-alpha\lib\netstandard2.0\DbKeeperNet.Engine.dll</HintPath>
     </Reference>
-    <Reference Include="DbKeeperNet.Extensions.SQLite, Version=3.0.2.0, Culture=neutral, PublicKeyToken=5f253e7a0b5b83ba, processorArchitecture=MSIL">
-      <HintPath>..\packages\DbKeeperNet.Extensions.SQLite.3.0.2-alpha\lib\netstandard2.0\DbKeeperNet.Extensions.SQLite.dll</HintPath>
+    <Reference Include="DbKeeperNet.Extensions.SQLite, Version=3.0.24.0, Culture=neutral, PublicKeyToken=5f253e7a0b5b83ba, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbKeeperNet.Extensions.SQLite.3.0.24-alpha\lib\netstandard2.0\DbKeeperNet.Extensions.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Data.Sqlite, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Sqlite.Core.2.1.0\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>

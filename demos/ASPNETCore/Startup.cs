@@ -35,7 +35,7 @@ namespace ASPNETCore
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.UseDbKeeperNet(c =>
+            services.AddDbKeeperNet(c =>
             {
                 c
                     .UseSQLite(ConnectionString)

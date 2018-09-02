@@ -30,7 +30,7 @@ namespace ASPNet
         {
             
             var serviceCollection = new ServiceCollection();
-            serviceCollection.UseDbKeeperNet(c =>
+            serviceCollection.AddDbKeeperNet(c =>
             {
                 c
                     .UseSQLite(ConnectionString)
