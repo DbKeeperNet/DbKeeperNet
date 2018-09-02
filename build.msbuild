@@ -20,7 +20,7 @@
     <MSBuild Projects="DbKeeperNet.sln" Properties='Configuration=Release;Platform=Any CPU' />
   </Target>
 
-  <Target Name="Build" >
+  <Target Name="Build" DependsOnTargets="Compile">
     <RemoveDir Directories="$(NugetSrcDirectory)" />
     <ItemGroup>
       <Nuget Include="bin\**\DbKeeperNet.Extensions.AspNetRolesAndMembership.dll">
