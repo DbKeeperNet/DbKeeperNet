@@ -1,5 +1,7 @@
 [![Gitter char](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/dbkeepernet/Lobby)
 
+![Build Status](http://jenkinks-srv.northeurope.cloudapp.azure.com:8080/buildStatus/icon?job=DbKeeperNet/master&x=a.png)
+
 # DbKeeperNet
 
 DbKeeperNet is a handy .Net Standard 2.0 (.NET 4.6.1+ and .NET Core 2.0+) component designed to offer users a simple, 
