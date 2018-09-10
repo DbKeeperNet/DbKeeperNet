@@ -12,7 +12,7 @@
       <AssemblyProjectFiles Include=".\**\*.csproj" />
     </ItemGroup>
     <FileUpdate Files="@(AssemblyInfoFiles)" Regex="(\d+)\.(\d+)\.(\d+)\.(\d+)" ReplacementText="$(BuildNumber).0" />
-    <FileUpdate Files="@(AssemblyProjectFiles)" Regex="(\d+)\.(\d+)\.(\d+)-alpha" ReplacementText="$(BuildNumber)-alpha" />
+    <FileUpdate Files="@(AssemblyProjectFiles)" Regex="(\d+)\.(\d+)\.(\d+)-alpha" ReplacementText="$(BuildNumber)" />
   </Target>
 
   <Target Name="Compile" DependsOnTargets="SetAssemblyVersion">
@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <Copy SourceFiles="@(Nuget)" DestinationFiles="@(Nuget->'$(NugetSrcDirectory)\%(Package)\lib\net461\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <Exec WorkingDirectory="bin" Command="nuget pack -Version $(BuildNumber)-alpha -BasePath ..\$(NugetSrcDirectory)\%(Nuget.Package) ..\%(Nuget.Package).nuspec" />
+    <Exec WorkingDirectory="bin" Command="nuget pack -Version $(BuildNumber) -BasePath ..\$(NugetSrcDirectory)\%(Nuget.Package) ..\%(Nuget.Package).nuspec" />
   </Target>
 
 </Project>

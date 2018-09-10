@@ -22,7 +22,12 @@
 
         public override string ToString()
         {
-            return $"Updates[{AssemblyName},version={UpdateVersion},step={StepNumber}]";
+            if (string.IsNullOrEmpty(Step.FriendlyName))
+            {
+                return $"Update step[{AssemblyName},version={UpdateVersion},step={StepNumber}]";
+            }
+
+            return $"Update step '{Step.FriendlyName}' [{AssemblyName},version={UpdateVersion},step={StepNumber}]";
         }
     }
 }
