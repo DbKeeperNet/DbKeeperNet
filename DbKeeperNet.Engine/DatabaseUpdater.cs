@@ -37,7 +37,14 @@ namespace DbKeeperNet.Engine
 
                 foreach (var script in _updateScriptManager.Scripts)
                 {
-                    RunScript(script);
+                    try
+                    {
+                        RunScript(script);
+                    }
+                    finally
+                    {
+                        script.Dispose();
+                    }
                 }
             }
             catch (Exception ex)
@@ -80,6 +87,7 @@ namespace DbKeeperNet.Engine
                     var context = new UpdateStepContextWithPreconditions(stepContext, preconditions);
                     if (!_preconditionService.IsMet(context))
                     {
+                        _logger.LogInformation($"{context} precondition resulted in skipping the step");
                         continue;
                     }
 
@@ -96,7 +104,7 @@ namespace DbKeeperNet.Engine
 
             if (preconditions == null || preconditions.Length == 0)
             {
-                _logger.LogInformation("Update step {0} doesn't have precondition - using script defaults", stepContext);
+                _logger.LogInformation("{0} doesn't have precondition - using script defaults", stepContext);
                 preconditions = script.DefaultPreconditions;
             }
 
