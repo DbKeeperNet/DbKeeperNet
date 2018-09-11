@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace DbKeeperNet.Engine
 {
@@ -19,8 +20,12 @@ namespace DbKeeperNet.Engine
 
             if (context.Preconditions == null) throw new InvalidOperationException();
 
-            // TODO: context?
-            return context.Preconditions.All(p => IsMet(new UpdateStepContextPrecondition(context, p)));
+            return context.Preconditions.All(p =>
+            {
+                var updateStepContextPrecondition = new UpdateStepContextPrecondition(context, p);
+                var result = IsMet(updateStepContextPrecondition);
+                return result;
+            });
         }
 
         private bool IsMet(UpdateStepContextPrecondition precondition)
