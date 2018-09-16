@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace DbKeeperNet.Engine
 {
     public class UpdateStepService : IUpdateStepService
     {
+        private readonly ILogger<UpdateStepService> _logger;
         private readonly IEnumerable<IUpdateStepHandler> _updateStepHandlers;
         private readonly IUpdateStepExecutedMarker _updateStepExecutedMarker;
         private readonly IDatabaseServiceTransactionProvider _transactionProvider;
 
-        public UpdateStepService(IEnumerable<IUpdateStepHandler> updateStepHandlers, IUpdateStepExecutedMarker updateStepExecutedMarker, IDatabaseServiceTransactionProvider transactionProvider)
+        public UpdateStepService(
+            ILogger<UpdateStepService> logger,
+            IEnumerable<IUpdateStepHandler> updateStepHandlers, 
+            IUpdateStepExecutedMarker updateStepExecutedMarker, 
+            IDatabaseServiceTransactionProvider transactionProvider)
         {
+            _logger = logger;
             _updateStepHandlers = updateStepHandlers;
             _updateStepExecutedMarker = updateStepExecutedMarker;
             _transactionProvider = transactionProvider;
@@ -25,7 +32,11 @@ namespace DbKeeperNet.Engine
                     continue;
                 }
 
+                _logger.LogInformation($"Going to execute {context}");
+
                 updateStepHandler.Execute(context);
+
+                _logger.LogInformation($"{context} was executed");
 
                 if (context.Step.MarkAsExecuted)
                 {
@@ -35,6 +46,8 @@ namespace DbKeeperNet.Engine
 
                         _updateStepExecutedMarker.MarkAsExecuted(context.AssemblyName, context.UpdateVersion,
                             context.StepNumber);
+
+                        _logger.LogInformation($"{context} was marked as executed");
 
                         _transactionProvider.CommitTransaction();
                     }
