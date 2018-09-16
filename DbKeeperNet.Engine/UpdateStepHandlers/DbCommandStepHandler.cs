@@ -29,7 +29,7 @@ namespace DbKeeperNet.Engine.UpdateStepHandlers
         {
             foreach (var statement in context.Step.AlternativeStatement)
             {
-                _logger.LogInformation("Going to check whether statement for DbType={0} cannot be handled by this database", statement.DbType);
+                _logger.LogInformation("Going to check whether statement for DbType={0} can be handled by this database", statement.DbType);
 
                 if (!_databaseService.CanHandle(statement.DbType) && statement.DbType != "all")
                 {
