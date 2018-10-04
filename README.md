@@ -1,5 +1,5 @@
 [![Gitter char](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/dbkeepernet/Lobby)
-![Build Status](http://jenkinks-srv.northeurope.cloudapp.azure.com:8080/buildStatus/icon?job=Real projects/DbKeeperNet/master)
+![Build Status](http://jenkinks-srv.northeurope.cloudapp.azure.com:8080/buildStatus/icon?job=Real%20projects/DbKeeperNet/master)
 
 # DbKeeperNet
 
