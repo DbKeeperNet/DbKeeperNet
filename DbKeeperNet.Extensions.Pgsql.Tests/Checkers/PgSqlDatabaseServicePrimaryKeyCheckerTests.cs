@@ -1,6 +1,7 @@
 using DbKeeperNet.Engine.Configuration;
 using DbKeeperNet.Engine.Tests.Checkers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.Pgsql.Tests.Checkers
@@ -13,8 +14,8 @@ namespace DbKeeperNet.Extensions.Pgsql.Tests.Checkers
             configurationBuilder
                 .UsePgsql(ConnectionStrings.TestDatabase)
                 ;
-
-            configurationBuilder.Services.AddLogging();
+            
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
 
         protected override void CreateNamedPrimaryKey(string tableName, string primaryKeyName)

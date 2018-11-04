@@ -22,6 +22,8 @@ namespace DbKeeperNet.Extensions.SQLite
                 .AddTransient<IUpdateStepExecutedMarker, SQLiteUpdateStepExecutedMarker>()
                 .AddTransient<IUpdateStepExecutedChecker, SQLiteUpdateStepExecutedChecker>()
 
+                .AddTransient<IDatabaseLock, SQLiteDatabaseLock>()
+
                 .AddTransient<IDatabaseServiceCommandHandler, GenericDatabaseServiceCommandHandler>()
 
                 .AddTransient<IDatabaseServiceForeignKeyChecker, SQLiteForeignKeyChecker>()

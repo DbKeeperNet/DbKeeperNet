@@ -18,6 +18,8 @@ namespace DbKeeperNet.Extensions.Pgsql
                 .AddScoped<IDatabaseServiceTransactionProvider, DatabaseServiceTransactionProvider<NpgsqlTransaction>>()
                 .AddTransient(c => (IDatabaseServiceTransactionProvider<NpgsqlTransaction>)c.GetService<IDatabaseServiceTransactionProvider>())
 
+                .AddTransient<IDatabaseLock, PgSqlDatabaseLock>()
+
                 .AddTransient<IUpdateStepExecutedChecker, PgsqlUpdateStepExecutedChecker>()
                 .AddTransient<IUpdateStepExecutedMarker, PgsqlUpdateStepExecutedMarker>()
 

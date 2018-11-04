@@ -1,6 +1,7 @@
 ﻿using DbKeeperNet.Engine.Configuration;
 using DbKeeperNet.Engine.Tests;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.Firebird.Tests
@@ -14,7 +15,7 @@ namespace DbKeeperNet.Extensions.Firebird.Tests
                 .UseFirebird(ConnectionStrings.TestDatabase)
                 ;
 
-            configurationBuilder.Services.AddLogging();
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
     }
 }

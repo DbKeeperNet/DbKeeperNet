@@ -5,6 +5,7 @@ using DbKeeperNet.Engine.Tests;
 using DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup;
 using DbKeeperNet.Extensions.SqlServer;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
@@ -29,7 +30,7 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership.Tests
                 ;
 
 
-            configurationBuilder.Services.AddLogging();
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
 
         [SetUp]

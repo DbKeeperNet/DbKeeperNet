@@ -13,13 +13,15 @@ namespace DbKeeperNet.Engine
         private readonly IPreconditionService _preconditionService;
         private readonly IUpdateStepService _updateStepService;
         private readonly IScriptDeserializer _scriptDeserializer;
-        
+        private readonly IDatabaseLockService _databaseLockService;
+
         public DatabaseUpdater(ILogger<DatabaseUpdater> logger,
             IDatabaseServiceInstaller databaseServiceInstaller,
             IUpdateScriptManager updateScriptManager,
             IPreconditionService preconditionService,
             IUpdateStepService updateStepService,
-            IScriptDeserializer scriptDeserializer)
+            IScriptDeserializer scriptDeserializer,
+            IDatabaseLockService databaseLockService)
         {
             _logger = logger;
             _databaseServiceInstaller = databaseServiceInstaller;
@@ -27,23 +29,29 @@ namespace DbKeeperNet.Engine
             _preconditionService = preconditionService;
             _updateStepService = updateStepService;
             _scriptDeserializer = scriptDeserializer;
+            _databaseLockService = databaseLockService;
         }
 
         public void ExecuteUpgrade()
         {
             try
             {
-                SetupDatabase();
+                const int lockId = 5362;
 
-                foreach (var script in _updateScriptManager.Scripts)
+                using (_databaseLockService.AcquireLock(lockId))
                 {
-                    try
+                    SetupDatabase();
+                    
+                    foreach (var script in _updateScriptManager.Scripts)
                     {
-                        RunScript(script);
-                    }
-                    finally
-                    {
-                        script.Dispose();
+                        try
+                        {
+                            RunScript(script);
+                        }
+                        finally
+                        {
+                            script.Dispose();
+                        }
                     }
                 }
             }

@@ -142,5 +142,61 @@
       </AlternativeStatement>
     </UpdateStep>
   </Update>
+  <Update Version="2.00">
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table dbkeepernet_lock" Id="1">
+      <AlternativeStatement DbType="MsSql">
+        CREATE TABLE dbkeepernet_lock
+        (
+        id int NOT NULL,
+        description nvarchar(32) NOT NULL,
+        expiration datetime2 NOT NULL,
+        ownerDescription nvarchar(128),
+        CONSTRAINT PK_dbkeepernet_lock PRIMARY KEY (id)
+        )
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create lock record for database upgrade" Id="2">
+      <AlternativeStatement DbType="MsSql">
+        INSERT INTO dbkeepernet_lock(id, description, expiration) VALUES(5362, 'Database upgrade mutex', DATEADD(mi, -1, GETUTCDATE()) )
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create procedure DbKeeperNetReleaseLock" Id="3">
+      <AlternativeStatement DbType="MsSql">
+        <![CDATA[
+        CREATE PROCEDURE DbKeeperNetReleaseLock
+        @id int
+        AS
+        BEGIN
+        UPDATE dbkeepernet_lock SET expiration = DATEADD(mi, -1, GETUTCDATE()), ownerDescription = null WHERE id = @id
+        END
+        ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create procedure DbKeeperNetAcquireLock" Id="4">
+      <AlternativeStatement DbType="MsSql">
+        <![CDATA[
+        CREATE PROCEDURE DbKeeperNetAcquireLock
+        @id int,
+        @ownerDescription nvarchar(128),
+        @expiration int
+        AS
+        BEGIN
+        BEGIN TRANSACTION
+
+        UPDATE dbkeepernet_lock SET expiration = DATEADD(mi, @expiration, GETUTCDATE()), ownerDescription = @ownerDescription 
+          WHERE id = @id AND expiration < GETUTCDATE()
+
+        IF @@ROWCOUNT = 0
+        BEGIN
+          SELECT id, description, ownerDescription, expiration FROM dbkeepernet_lock WHERE id = @id
+        END
+        
+        COMMIT
+
+        END
+        ]]>
+      </AlternativeStatement>
+    </UpdateStep>
+  </Update>
 </upd:Updates>
 

@@ -21,6 +21,8 @@ namespace DbKeeperNet.Extensions.SqlServer
                 .AddScoped<IDatabaseServiceTransactionProvider, DatabaseServiceTransactionProvider<SqlTransaction>>()
                 .AddTransient(c => (IDatabaseServiceTransactionProvider<SqlTransaction>)c.GetService<IDatabaseServiceTransactionProvider>())
 
+                .AddTransient<IDatabaseLock, MicrosoftSqlDatabaseLock>()
+
                 .AddTransient<IDatabaseServiceCommandHandler, GenericDatabaseServiceCommandHandler>()
 
                 .AddTransient<IDatabaseServiceForeignKeyChecker, MicrosoftSqlDatabaseServiceForeignKeyChecker>()

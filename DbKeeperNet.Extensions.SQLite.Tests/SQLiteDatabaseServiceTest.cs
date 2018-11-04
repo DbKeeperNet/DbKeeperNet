@@ -2,6 +2,7 @@
 using DbKeeperNet.Engine.Tests;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.SQLite.Tests
@@ -17,7 +18,7 @@ namespace DbKeeperNet.Extensions.SQLite.Tests
                 .UseSQLite(ConnectionString)
                 ;
 
-            configurationBuilder.Services.AddLogging();
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
     }
 }
