@@ -34,6 +34,8 @@ namespace DbKeeperNet.Extensions.Firebird
                 .AddTransient<IDatabaseServiceTableChecker, FirebirdDatabaseServiceTableChecker>()
                 .AddTransient<IDatabaseServiceViewChecker, FirebirdDatabaseServiceViewChecker>()
 
+                .AddTransient<IDatabaseLock, FirebirdDatabaseLock>()
+
                 .AddTransient<IDatabaseServiceTriggerChecker, FirebirdDatabaseServiceTriggerChecker>()
 
                 ;

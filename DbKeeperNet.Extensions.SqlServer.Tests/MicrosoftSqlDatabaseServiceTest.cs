@@ -3,6 +3,7 @@ using DbKeeperNet.Engine;
 using DbKeeperNet.Engine.Configuration;
 using DbKeeperNet.Engine.Tests;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.SqlServer.Tests
@@ -16,7 +17,7 @@ namespace DbKeeperNet.Extensions.SqlServer.Tests
                 .UseSqlServer(ConnectionStrings.TestDatabase)
                 ;
 
-            configurationBuilder.Services.AddLogging();
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
     }
 
@@ -30,7 +31,7 @@ namespace DbKeeperNet.Extensions.SqlServer.Tests
                 .UseSqlServer(ConnectionStrings.TestDatabase)
                 ;
 
-            configurationBuilder.Services.AddLogging();
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
 
     }

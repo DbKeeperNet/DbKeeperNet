@@ -18,6 +18,8 @@ namespace DbKeeperNet.Extensions.Mysql
                 .AddScoped<IDatabaseServiceTransactionProvider, DatabaseServiceTransactionProvider<MySqlTransaction>>()
                 .AddTransient(c => (IDatabaseServiceTransactionProvider<MySqlTransaction>)c.GetService<IDatabaseServiceTransactionProvider>())
 
+                .AddTransient<IDatabaseLock, MySqlDatabaseLock>()
+
                 .AddTransient<IDatabaseServiceInstaller, MysqlDatabaseServiceInstaller>()
 
                 .AddTransient<IDatabaseServiceIndexChecker, MySqlDatabaseServiceIndexChecker>()

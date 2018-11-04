@@ -18,7 +18,7 @@ namespace DbKeeperNet.Engine.Tests
         {
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddDbKeeperNet(Configure);
-            
+
             ServiceProvider = serviceCollection.BuildServiceProvider(true);
 
             DefaultScope = ServiceProvider.CreateScope();
@@ -46,12 +46,14 @@ namespace DbKeeperNet.Engine.Tests
 
                 Console.WriteLine("Going to run {0}", command);
                 var connection = service.GetOpenConnection();
-
+                using (var transaction = connection.BeginTransaction())
                 using (var cmd = connection.CreateCommand())
                 {
+                    cmd.Transaction = transaction;
                     cmd.CommandText = command;
                     cmd.CommandType = CommandType.Text;
                     cmd.ExecuteNonQuery();
+                    transaction.Commit();
                 }
             }
             catch (DbException e)

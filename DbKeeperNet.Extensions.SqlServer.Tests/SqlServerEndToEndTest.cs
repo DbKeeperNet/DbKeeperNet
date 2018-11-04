@@ -2,6 +2,7 @@
 using DbKeeperNet.Engine.Tests;
 using DbKeeperNet.Engine.Tests.Checkers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.SqlServer.Tests
@@ -17,7 +18,7 @@ namespace DbKeeperNet.Extensions.SqlServer.Tests
                     "DbKeeperNet.Extensions.SqlServer.Tests.SqlServerEndToEndTest.xml,DbKeeperNet.Extensions.SqlServer.Tests")
                 ;
 
-            configurationBuilder.Services.AddLogging();
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
 
     }

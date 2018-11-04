@@ -50,28 +50,30 @@ namespace DbKeeperNet.Extensions.Pgsql
             _stepSelect.Connection = connection;
 
             _assemblySelect.Parameters[0].Value = assemblyName;
-            long? assemblyId = (long?)_assemblySelect.ExecuteScalar();
+            var assemblyId = (int?)_assemblySelect.ExecuteScalar();
 
             if (!assemblyId.HasValue)
             {
                 _assemblyInsert.Parameters[0].Value = assemblyName;
-                assemblyId = Convert.ToInt64(_assemblyInsert.ExecuteScalar(), CultureInfo.InvariantCulture);
+                assemblyId = Convert.ToInt32(_assemblyInsert.ExecuteScalar(), CultureInfo.InvariantCulture);
             }
 
             _versionSelect.Parameters[0].Value = assemblyId.Value;
             _versionSelect.Parameters[1].Value = version;
-            long? versionId = (long?)_versionSelect.ExecuteScalar();
+            var versionId = (int?)_versionSelect.ExecuteScalar();
 
             if (!versionId.HasValue)
             {
                 _versionInsert.Parameters[0].Value = assemblyId.Value;
                 _versionInsert.Parameters[1].Value = version;
-                versionId = Convert.ToInt64(_versionInsert.ExecuteScalar(), CultureInfo.InvariantCulture);
+                versionId = Convert.ToInt32(_versionInsert.ExecuteScalar(), CultureInfo.InvariantCulture);
             }
+
+            // TODO: should throw exception?
 
             _stepSelect.Parameters[0].Value = versionId.Value;
             _stepSelect.Parameters[1].Value = stepNumber;
-            long? stepId = (long?)_stepSelect.ExecuteScalar();
+            var stepId = (int?)_stepSelect.ExecuteScalar();
 
             if (!stepId.HasValue)
             {

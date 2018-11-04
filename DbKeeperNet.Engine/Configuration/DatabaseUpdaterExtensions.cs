@@ -39,6 +39,8 @@ namespace DbKeeperNet.Engine.Configuration
                 .AddTransient<IDatabaseUpdater, DatabaseUpdater>()
                 .AddTransient<IPreconditionService, PreconditionService>()
                 .AddTransient<IScriptDeserializer, ScriptDeserializer>()
+                .AddTransient<IDatabaseLockService, DatabaseLockService>()
+
                 .AddScoped<IUpdateScriptManager, UpdateScriptManager>()
                 ;
 

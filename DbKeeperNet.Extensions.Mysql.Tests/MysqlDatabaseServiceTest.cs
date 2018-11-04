@@ -1,6 +1,7 @@
 ﻿using DbKeeperNet.Engine.Configuration;
 using DbKeeperNet.Engine.Tests;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using NUnit.Framework;
 
@@ -15,7 +16,7 @@ namespace DbKeeperNet.Extensions.Mysql.Tests
                 .UseMysql(ConnectionStrings.TestDatabase)
                 ;
 
-            configurationBuilder.Services.AddLogging();
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
     }
 }

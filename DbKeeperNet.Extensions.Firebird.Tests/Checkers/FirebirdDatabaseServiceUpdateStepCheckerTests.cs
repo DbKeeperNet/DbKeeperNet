@@ -1,6 +1,8 @@
+using System.Threading;
 using DbKeeperNet.Engine.Configuration;
 using DbKeeperNet.Engine.Tests.Checkers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.Firebird.Tests.Checkers
@@ -14,11 +16,13 @@ namespace DbKeeperNet.Extensions.Firebird.Tests.Checkers
                 .UseFirebird(ConnectionStrings.TestDatabase)
                 ;
 
-            configurationBuilder.Services.AddLogging();
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
 
         protected override void Cleanup()
         {
+   //         Thread.Sleep(2000);
+
             // TODO: Doesn't work due to open connection
             //ExecuteSqlAndIgnoreException(@"DROP TRIGGER ""TR_dbkeepernet_step""");
             //ExecuteSqlAndIgnoreException(@"DROP TRIGGER ""TR_dbkeepernet_version""");
@@ -34,6 +38,9 @@ namespace DbKeeperNet.Extensions.Firebird.Tests.Checkers
             //ExecuteSqlAndIgnoreException(@"DROP TABLE ""dbkeepernet_step""");
             //ExecuteSqlAndIgnoreException(@"DROP TABLE ""dbkeepernet_version""");
             //ExecuteSqlAndIgnoreException(@"DROP TABLE ""dbkeepernet_assembly""");
+            //ExecuteSqlAndIgnoreException(@"DROP TABLE ""dbkeepernet_lock""");
+
+            //Thread.Sleep(2000);
         }
     }
 }

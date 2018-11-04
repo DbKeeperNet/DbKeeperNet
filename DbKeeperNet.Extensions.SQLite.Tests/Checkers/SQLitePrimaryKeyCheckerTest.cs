@@ -2,6 +2,7 @@
 using DbKeeperNet.Engine.Configuration;
 using DbKeeperNet.Engine.Tests.Checkers;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
 namespace DbKeeperNet.Extensions.SQLite.Tests.Checkers
@@ -15,7 +16,7 @@ namespace DbKeeperNet.Extensions.SQLite.Tests.Checkers
                 .UseSQLite("Data Source=endtoend.db3")
                 ;
 
-            configurationBuilder.Services.AddLogging();
+            configurationBuilder.Services.AddLogging(c => { c.AddConsole(); });
         }
 
         [Test]

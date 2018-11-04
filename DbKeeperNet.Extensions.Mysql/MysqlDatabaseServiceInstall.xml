@@ -66,5 +66,24 @@
       </AlternativeStatement>
     </UpdateStep>
   </Update>
+  <Update Version="2.00">
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create table dbkeepernet_lock" Id="1">
+      <AlternativeStatement DbType="mysql">
+        CREATE TABLE dbkeepernet_lock
+        (
+        id int NOT NULL,
+        description varchar(32) NOT NULL,
+        expiration datetime NOT NULL,
+        ownerDescription varchar(128),
+        CONSTRAINT PK_dbkeepernet_lock PRIMARY KEY (id)
+        )
+      </AlternativeStatement>
+    </UpdateStep>
+    <UpdateStep xsi:type="upd:UpdateDbStepType" FriendlyName="Create lock record for database upgrade" Id="2">
+      <AlternativeStatement DbType="mysql">
+        INSERT INTO dbkeepernet_lock(id, description, expiration) VALUES(5362, 'Database upgrade mutex', DATE_ADD(UTC_TIMESTAMP(), INTERVAL -1 MINUTE))
+      </AlternativeStatement>
+    </UpdateStep>
+  </Update>
 </upd:Updates>
 

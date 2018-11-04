@@ -34,7 +34,7 @@ namespace DbKeeperNet.Extensions.Pgsql.Checkers
                 stepExecutedQuery.Parameters.Add(versionParameter);
                 stepExecutedQuery.Parameters.Add(stepParameter);
 
-                long? count = (long?)stepExecutedQuery.ExecuteScalar();
+                var count = (long?)stepExecutedQuery.ExecuteScalar();
 
                 if ((count.HasValue) && (count.Value > 0))
                     result = true;
