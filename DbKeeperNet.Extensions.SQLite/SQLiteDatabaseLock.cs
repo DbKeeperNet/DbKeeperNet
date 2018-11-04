@@ -35,7 +35,10 @@ namespace DbKeeperNet.Extensions.SQLite
                 cmd.Parameters.Add(id);
                 cmd.Transaction = transaction;
 
-                if (cmd.ExecuteNonQuery() == 0)
+                var result = cmd.ExecuteNonQuery() == 0;
+                transaction.Commit();
+
+                if (result)
                 {
                     return false;
                 }
@@ -46,12 +49,16 @@ namespace DbKeeperNet.Extensions.SQLite
 
         public void Release(int lockId)
         {
-            using (var cmd = new SqliteCommand(@"UPDATE dbkeepernet_lock SET expiration = datetime('now', 'utc', '-1 minutes') WHERE id = @id", _databaseService.GetOpenConnection()))
+            var connection = _databaseService.GetOpenConnection();
+            using (var transaction = connection.BeginTransaction())
+            using (var cmd = new SqliteCommand(@"UPDATE dbkeepernet_lock SET expiration = datetime('now', 'utc', '-1 minutes') WHERE id = @id", connection))
             {
                 var id = new SqliteParameter("@id", SqliteType.Integer) {Value = lockId};
                 cmd.Parameters.Add(id);
 
                 cmd.ExecuteNonQuery();
+
+                transaction.Commit();
             }
         }
     }
