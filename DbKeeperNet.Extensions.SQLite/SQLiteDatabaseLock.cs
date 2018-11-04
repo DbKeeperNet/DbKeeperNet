@@ -55,6 +55,7 @@ namespace DbKeeperNet.Extensions.SQLite
             {
                 var id = new SqliteParameter("@id", SqliteType.Integer) {Value = lockId};
                 cmd.Parameters.Add(id);
+                cmd.Transaction = transaction;
 
                 cmd.ExecuteNonQuery();
 
