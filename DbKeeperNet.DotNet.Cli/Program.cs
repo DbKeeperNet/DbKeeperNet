@@ -31,6 +31,8 @@ namespace DbKeeperNet.DotNet.Cli
             {
                 c.Description = "Creates new DbKeeperNet upgrade script";
                 c.HelpOption(HelpOption);
+
+                var file = c.Argument("filename", "Output file name");
                 var assemblyOption = c.Option("-a | --assembly", "Define assembly attribute value", CommandOptionType.SingleValue);
                 var versionOption = c.Option("-v | --version", "Sets the update version", CommandOptionType.SingleValue);
                 var driverOption = c.Option(DriverOption, DriverDescription, CommandOptionType.SingleValue);
@@ -41,14 +43,14 @@ namespace DbKeeperNet.DotNet.Cli
                     var version = versionOption.Value() ?? "1.00";
                     var driver = driverOption.Value() ?? "all";
 
-                    WriteUpdateScript(assembly, version, driver);
+                    WriteUpdateScript(file.Value, assembly, version, driver);
                 });
             });
 
             return app.Execute(args);
         }
 
-        private static void WriteUpdateScript(string assembly, string version, string driver)
+        private static void WriteUpdateScript(string file, string assembly, string version, string driver)
         {
             var updates = new Updates
             {
@@ -87,7 +89,7 @@ namespace DbKeeperNet.DotNet.Cli
                 }
             };
             var serializer = new XmlSerializer(updates.GetType());
-            using (var writer = File.CreateText("out.xml"))
+            using (var writer = File.CreateText(file))
             {
                 serializer.Serialize(
                     writer,
