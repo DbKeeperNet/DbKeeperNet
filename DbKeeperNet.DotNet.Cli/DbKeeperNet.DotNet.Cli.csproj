@@ -18,6 +18,7 @@
     <PackageLicenseUrl>https://github.com/DbKeeperNet/DbKeeperNet/wiki/LICENSE</PackageLicenseUrl>
     <PackageTags>dotnet dbkeepernet cli database migrations</PackageTags>
     <Copyright>Copyright (c) 2009-2018, Vladimir Kloz &lt;;vladimir.kloz@gmail.com&gt;</Copyright>
+    <Version>3.0.0-alpha</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
