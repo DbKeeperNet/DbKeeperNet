@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>dotnet-dbkeepernet</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>dotnet-dbkeepernet</PackageId>
+    <PackAsTool>true</PackAsTool>
+    <IsPackable>true</IsPackable>
+    <LangVersion>latest</LangVersion>
+    <Authors>Vladimir Kloz</Authors>
+    <Product>DbKeeperNet</Product>
+    <Description>dotnet cli for DbKeeperNet</Description>
+    <RepositoryUrl>https://github.com/DbKeeperNet/DbKeeperNet.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/DbKeeperNet/DbKeeperNet</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/DbKeeperNet/DbKeeperNet/wiki/LICENSE</PackageLicenseUrl>
+    <PackageTags>dotnet dbkeepernet cli database migrations</PackageTags>
+    <Copyright>Copyright (c) 2009-2018, Vladimir Kloz &lt;;vladimir.kloz@gmail.com&gt;</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>../bin</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>../bin</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DbKeeperNet.Engine\DbKeeperNet.Engine.csproj" />
+  </ItemGroup>
+  <!--
+    <ItemGroup>
+        <Content Include="dotnet-dbkeepernet.cmd"> 
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="dotnet-dbkeepernet.sh">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup> -->
+</Project>

@@ -68,3 +68,17 @@ using (var c = new SqliteConnection(connectionString))
         Console.WriteLine("{0}: {1}", reader[0], reader[1]);
 }
 ```
+
+# Using dotnet CLI to manage database upgrades
+
+* Installing dotnet cli
+
+```powershell
+dotnet tool install -g dotnet-dbkeepernet
+```
+
+* Adding new XML script
+
+```powershell
+dotnet dbkeepernet new -v 3.1 -a Test.xx Script.xml
+```
