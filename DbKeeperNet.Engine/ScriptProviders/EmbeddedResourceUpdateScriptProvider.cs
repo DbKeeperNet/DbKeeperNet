@@ -18,7 +18,7 @@ namespace DbKeeperNet.Engine.ScriptProviders
             var parameters = _resourceName.Split(',');
 
             if (parameters.Length != 2)
-                throw new InvalidOperationException();
+                throw new InvalidOperationException($"Expecting embedded resource '{_resourceName}' to consist of two comma separated values");
 
             var assemblyName = parameters[1];
             var resource = parameters[0];
@@ -28,7 +28,7 @@ namespace DbKeeperNet.Engine.ScriptProviders
 
             if (updates == null)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException($"Embedded resource '{_resourceName}' wasn't found");
             }
 
             return updates;
