@@ -12,17 +12,16 @@ pipeline {
   environment {
     RELEASE_NUMBER = '3.0'
     VERSION_NUMBER = VersionNumber(versionNumberString: '3.0.${BUILDS_ALL_TIME}')
-    TAG_VERSION_NUMBER = '${TAG_NAME}'.replace('build-', '')
     SOLUTION = 'UnityInitializer.sln'
   }
 
   stages {
     stage('Compile release'){
       agent { label 'vs2017' }
-      when { expression { env.TAG_VERSION_NUMBER != null } }
+      when { expression { env.TAG_NAME != null } }
       steps {
         script {
-          currentBuild.displayName = "#${TAG_VERSION_NUMBER}"
+          currentBuild.displayName = "#" + "${env.TAG_NAME}".replace('build-', '')
         }
         
         echo 'Checkout'
@@ -44,7 +43,7 @@ pipeline {
     stage('Compile dev'){
       agent { label 'vs2017' }
 
-      when { expression { env.TAG_VERSION_NUMBER == null } }
+      when { expression { env.TAG_NAME == null } }
       steps {
         script {
           currentBuild.displayName = "#${VERSION_NUMBER}"
