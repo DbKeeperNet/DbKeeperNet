@@ -12,13 +12,39 @@ pipeline {
   environment {
     RELEASE_NUMBER = '3.0'
     VERSION_NUMBER = VersionNumber(versionNumberString: '3.0.${BUILDS_ALL_TIME}')
+    TAG_VERSION_NUMBER = '${TAG_NAME}'.replace('build-', '')
     SOLUTION = 'UnityInitializer.sln'
   }
 
   stages {
-    stage('Compile'){
+    stage('Compile release'){
+      agent { label 'vs2017' }
+      when { expression { env.TAG_VERSION_NUMBER != null } }
+      steps {
+        script {
+          currentBuild.displayName = "#${TAG_VERSION_NUMBER}"
+        }
+        
+        echo 'Checkout'
+            
+        checkout scm
+
+        echo 'Compiling'
+
+        bat "\"${tool name: 'Default', type: 'msbuild'}\\msbuild.exe\" \"build.msbuild\" /p:BuildNumber=${TAG_VERSION_NUMBER}"
+
+        dir ('bin') {
+              stash 'build'
+        }
+        dir ('packages\\NUnit.ConsoleRunner.3.9.0\\tools') {
+              stash 'nunit'
+        }
+      }
+    }
+    stage('Compile dev'){
       agent { label 'vs2017' }
 
+      when { expression { env.TAG_VERSION_NUMBER == null } }
       steps {
         script {
           currentBuild.displayName = "#${VERSION_NUMBER}"
@@ -130,17 +156,11 @@ pipeline {
       }
     }
 
-    stage('Artifacts') {
+    stage('Publish nugets') {
         agent { label 'vs2017' }
 
-        when { expression { env.CHANGE_ID == null } }
+        when { tag 'build-*' }
         steps {
-          checkout scm
-          
-          withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-            bat "git tag build-${VERSION_NUMBER}"
-            bat "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/DbKeeperNet/DbKeeperNet.git --tags"
-          }
           dir ('bin') {
             unstash 'build'
           }
@@ -148,7 +168,7 @@ pipeline {
           archiveArtifacts artifacts: 'bin\\*.nupkg', onlyIfSuccessful: true
 
           withCredentials([string(credentialsId: 'nuget', variable: 'NUGET_API_KEY')]) {
-            bat "nuget push bin\\**.nupkg ${NUGET_API_KEY} -source https://api.nuget.org/v3/index.json"
+//            bat "nuget push bin\\**.nupkg ${NUGET_API_KEY} -source https://api.nuget.org/v3/index.json"
           }
         }
     }
