@@ -21,8 +21,7 @@ pipeline {
       when { expression { env.TAG_NAME != null } }
       steps {
         script {
-          env.VERSION_NUMBER = "${env.TAG_NAME}".replace('build-', '')
-          currentBuild.displayName = "#" + env.VERSION_NUMBER 
+          env.TAG_VERSION_NUMBER = "${env.TAG_NAME}".replace('build-', '')
         }
         
         echo 'Checkout'
@@ -31,7 +30,7 @@ pipeline {
 
         echo 'Compiling'
 
-        bat "\"${tool name: 'Default', type: 'msbuild'}\\msbuild.exe\" \"build.msbuild\" /p:BuildNumber=${VERSION_NUMBER}"
+        bat "\"${tool name: 'Default', type: 'msbuild'}\\msbuild.exe\" \"build.msbuild\" /p:BuildNumber=${env.TAG_VERSION_NUMBER}"
 
         dir ('bin') {
               stash 'build'
