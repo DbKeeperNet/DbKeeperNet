@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 
@@ -14,6 +15,19 @@ namespace DbKeeperNet.Engine.Tests
                 var updater = s.ServiceProvider.GetService<IDatabaseUpdater>();
                 updater.ExecuteUpgrade();
                 updater.ExecuteUpgrade();
+
+                AssertThatTableExists(s.ServiceProvider.GetService<IDatabaseService>());
+            }
+        }
+
+        [Test]
+        public void TestEndToEndSetupThruLazyResolution()
+        {
+            using (var s = ServiceProvider.CreateScope())
+            {
+                var updater = s.ServiceProvider.GetService<Lazy<IDatabaseUpdater>>();
+                updater.Value.ExecuteUpgrade();
+                updater.Value.ExecuteUpgrade();
 
                 AssertThatTableExists(s.ServiceProvider.GetService<IDatabaseService>());
             }
