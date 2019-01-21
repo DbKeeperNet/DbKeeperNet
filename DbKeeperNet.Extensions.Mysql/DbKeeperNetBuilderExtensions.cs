@@ -11,8 +11,15 @@ namespace DbKeeperNet.Extensions.Mysql
     {
         public static IDbKeeperNetBuilder UseMysql(this IDbKeeperNetBuilder configuration, string connectionString)
         {
+            return UseMysql(configuration, connectionString);
+        }
+
+        public static IDbKeeperNetBuilder UseMysql(this IDbKeeperNetBuilder configuration, IConnectionStringProvider connectionStringProvider)
+        {
             configuration.Services
-                .AddScoped<IDatabaseService>(c => new MysqlDatabaseService(connectionString))
+                .AddTransient(c => connectionStringProvider)
+
+                .AddScoped<IDatabaseService, MysqlDatabaseService>()
                 .AddTransient(c => (IDatabaseService<MySqlConnection>)c.GetService<IDatabaseService>())
 
                 .AddScoped<IDatabaseServiceTransactionProvider, DatabaseServiceTransactionProvider<MySqlTransaction>>()

@@ -9,9 +9,9 @@ namespace DbKeeperNet.Extensions.Pgsql
     {
         private readonly NpgsqlConnection _connection;
 
-        public PgsqlDatabaseService(string connectionString)
+        public PgsqlDatabaseService(IConnectionStringProvider connectionStringProvider)
         {
-            _connection = new NpgsqlConnection(connectionString);
+            _connection = new NpgsqlConnection(connectionStringProvider.ConnectionString);
         }
 
         public void Dispose()

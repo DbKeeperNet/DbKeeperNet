@@ -75,6 +75,7 @@
     <Compile Include="PreconditionServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScriptDeserializerTest.cs" />
+    <Compile Include="StaticConnectionStringProviderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

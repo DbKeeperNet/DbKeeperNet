@@ -11,8 +11,15 @@ namespace DbKeeperNet.Extensions.SQLite
     {
         public static IDbKeeperNetBuilder UseSQLite(this IDbKeeperNetBuilder configuration, string connectionString)
         {
+            return UseSQLite(configuration, new StaticConnectionStringProvider(connectionString));
+        }
+
+        public static IDbKeeperNetBuilder UseSQLite(this IDbKeeperNetBuilder configuration, IConnectionStringProvider connectionStringProvider)
+        {
             configuration.Services
-                .AddScoped<IDatabaseService>(c => new SQLiteDatabaseService(connectionString))
+                .AddTransient(c => connectionStringProvider)
+
+                .AddScoped<IDatabaseService, SQLiteDatabaseService>()
                 .AddTransient(c => (IDatabaseService<SqliteConnection>)c.GetService<IDatabaseService>())
                 .AddScoped<IDatabaseServiceTransactionProvider, DatabaseServiceTransactionProvider<SqliteTransaction>>()
                 .AddTransient(c => (IDatabaseServiceTransactionProvider<SqliteTransaction>)c.GetService<IDatabaseServiceTransactionProvider>())

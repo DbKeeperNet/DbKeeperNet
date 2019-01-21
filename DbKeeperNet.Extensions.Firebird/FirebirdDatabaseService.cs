@@ -9,9 +9,9 @@ namespace DbKeeperNet.Extensions.Firebird
     {
         private readonly FbConnection _connection;
 
-        public FirebirdDatabaseService(string connectionString)
+        public FirebirdDatabaseService(IConnectionStringProvider connectionStringProvider)
         {
-            _connection = new FbConnection(connectionString);
+            _connection = new FbConnection(connectionStringProvider.ConnectionString);
         }
 
         public void Dispose()
