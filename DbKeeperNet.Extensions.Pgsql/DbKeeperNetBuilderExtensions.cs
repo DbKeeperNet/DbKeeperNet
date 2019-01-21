@@ -11,8 +11,15 @@ namespace DbKeeperNet.Extensions.Pgsql
     {
         public static IDbKeeperNetBuilder UsePgsql(this IDbKeeperNetBuilder configuration, string connectionString)
         {
+            return UsePgsql(configuration, new StaticConnectionStringProvider(connectionString));
+        }
+
+        public static IDbKeeperNetBuilder UsePgsql(this IDbKeeperNetBuilder configuration, IConnectionStringProvider connectionStringProvider)
+        {
             configuration.Services
-                .AddScoped<IDatabaseService>(c => new PgsqlDatabaseService(connectionString))
+                .AddTransient(c => connectionStringProvider)
+
+                .AddScoped<IDatabaseService, PgsqlDatabaseService>()
                 .AddTransient(c => (IDatabaseService<NpgsqlConnection>)c.GetService<IDatabaseService>())
 
                 .AddScoped<IDatabaseServiceTransactionProvider, DatabaseServiceTransactionProvider<NpgsqlTransaction>>()

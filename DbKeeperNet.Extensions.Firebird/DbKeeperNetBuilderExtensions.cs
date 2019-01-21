@@ -9,10 +9,16 @@ namespace DbKeeperNet.Extensions.Firebird
 {
     public static class DbKeeperNetBuilderExtensions
     {
-        public static IDbKeeperNetBuilder UseFirebird(this IDbKeeperNetBuilder configuration, string connectionString)
+        public static IDbKeeperNetBuilder UseFirebird(this IDbKeeperNetBuilder configuration, string connectionStringProvider)
+        {
+            return UseFirebird(configuration, new StaticConnectionStringProvider(connectionStringProvider));
+        }
+
+        public static IDbKeeperNetBuilder UseFirebird(this IDbKeeperNetBuilder configuration, IConnectionStringProvider connectionStringProvider)
         {
             configuration.Services
-                .AddScoped<IDatabaseService>(c => new FirebirdDatabaseService(connectionString))
+                .AddTransient(c => connectionStringProvider)
+                .AddScoped<IDatabaseService, FirebirdDatabaseService>()
                 .AddTransient(c => (IDatabaseService<FbConnection>)c.GetService<IDatabaseService>())
 
                 .AddScoped<IDatabaseServiceTransactionProvider, DatabaseServiceTransactionProvider<FbTransaction>>()

@@ -9,9 +9,9 @@ namespace DbKeeperNet.Extensions.Mysql
     {
         private readonly MySqlConnection _connection;
 
-        public MysqlDatabaseService(string connectionString)
+        public MysqlDatabaseService(IConnectionStringProvider connectionStringProvider)
         {
-            _connection = new MySqlConnection(connectionString);
+            _connection = new MySqlConnection(connectionStringProvider.ConnectionString);
         }
 
         public void Dispose()

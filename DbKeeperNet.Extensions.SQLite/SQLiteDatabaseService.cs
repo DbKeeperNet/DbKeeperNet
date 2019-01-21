@@ -9,9 +9,9 @@ namespace DbKeeperNet.Extensions.SQLite
     {
         private readonly SqliteConnection _connection;
 
-        public SQLiteDatabaseService(string connectionString)
+        public SQLiteDatabaseService(IConnectionStringProvider connectionStringProvider)
         {
-            _connection = new SqliteConnection(connectionString);
+            _connection = new SqliteConnection(connectionStringProvider.ConnectionString);
         }
 
         public void Dispose()
