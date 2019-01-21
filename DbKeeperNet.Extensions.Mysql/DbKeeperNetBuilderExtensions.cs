@@ -11,7 +11,7 @@ namespace DbKeeperNet.Extensions.Mysql
     {
         public static IDbKeeperNetBuilder UseMysql(this IDbKeeperNetBuilder configuration, string connectionString)
         {
-            return UseMysql(configuration, connectionString);
+            return UseMysql(configuration, new StaticConnectionStringProvider(connectionString));
         }
 
         public static IDbKeeperNetBuilder UseMysql(this IDbKeeperNetBuilder configuration, IConnectionStringProvider connectionStringProvider)
