@@ -61,6 +61,7 @@ namespace DbKeeperNet.Engine.Configuration
             }
 
             serviceCollection
+                .AddTransient<Lazy<IDatabaseUpdater>>(f => new Lazy<IDatabaseUpdater>(() => f.GetService<IDatabaseUpdater>()))
                 .AddTransient<IScriptSchemaProvider>(f => new ScriptSchemaProvider(configuration.Schemas))
                 .AddTransient<IUpdateScriptManager>(f =>
                 {
