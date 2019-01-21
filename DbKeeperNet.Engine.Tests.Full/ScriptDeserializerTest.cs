@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using NUnit.Framework;
 
@@ -40,7 +41,7 @@ namespace DbKeeperNet.Engine.Tests.Full
 
         private ScriptDeserializer CreateDeserializer()
         {
-            return new ScriptDeserializer(new Mock<IScriptSchemaProvider>().Object);
+            return new ScriptDeserializer(NullLogger<ScriptDeserializer>.Instance, new Mock<IScriptSchemaProvider>().Object);
         }
     }
 }
