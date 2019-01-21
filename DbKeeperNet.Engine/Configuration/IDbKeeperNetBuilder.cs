@@ -20,9 +20,9 @@ namespace DbKeeperNet.Engine.Configuration
         /// <remarks>
         /// Scripts are executed in the order of their registrations
         /// </remarks>
-        /// <param name="script">Script provider instance</param>
+        /// <param name="scriptCreator">Function which initializes script provider</param>
         /// <returns>The builder for fluent syntax</returns>
-        IDbKeeperNetBuilder AddScript(IScriptProviderService script);
+        IDbKeeperNetBuilder AddScript(Func<IServiceProvider, IScriptProviderService> scriptCreator);
 
         /// <summary>
         /// Registers a new script splitter service

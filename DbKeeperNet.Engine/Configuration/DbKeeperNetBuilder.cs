@@ -10,16 +10,21 @@ namespace DbKeeperNet.Engine.Configuration
         public DbKeeperNetBuilder(IServiceCollection services)
         {
             Services = services;
-            Scripts = new List<IScriptProviderService>();
+            Scripts = new List<Func<IServiceProvider, IScriptProviderService>>();
             Schemas = new List<SchemaReference>();
         }
 
         public IServiceCollection Services { get; }
-        
+
+        public IDbKeeperNetBuilder AddScript(Func<IServiceProvider, IScriptProviderService> scriptCreator)
+        {
+            Scripts.Add(scriptCreator);
+
+            return this;
+        }
+
         public IDbKeeperNetBuilder AddScript(IScriptProviderService script)
         {
-            Scripts.Add(script);
-
             return this;
         }
 
@@ -46,7 +51,7 @@ namespace DbKeeperNet.Engine.Configuration
             return this;
         }
 
-        public IList<IScriptProviderService> Scripts { get; }
+        public IList<Func<IServiceProvider, IScriptProviderService>> Scripts { get; }
 
         public IList<SchemaReference> Schemas { get; }
 
