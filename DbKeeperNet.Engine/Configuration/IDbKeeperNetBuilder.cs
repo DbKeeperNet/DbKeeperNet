@@ -38,6 +38,6 @@ namespace DbKeeperNet.Engine.Configuration
         /// <param name="schema">XML schema</param>
         /// <param name="types">List of C# types used for serialization of <paramref name="schema"/></param>
         /// <returns>The builder for fluent syntax</returns>
-        IDbKeeperNetBuilder AddSchema(string schemaNamespace, XmlReader schema, params Type[] types);
+        IDbKeeperNetBuilder AddSchema(string schemaNamespace, Func<XmlReader> schema, params Type[] types);
     }
 }

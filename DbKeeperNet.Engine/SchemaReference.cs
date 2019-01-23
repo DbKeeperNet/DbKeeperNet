@@ -5,7 +5,7 @@ namespace DbKeeperNet.Engine
 {
     public class SchemaReference
     {
-        public SchemaReference(string schemaNamespace, XmlReader schema, params Type[] types)
+        public SchemaReference(string schemaNamespace, Func<XmlReader> schema, params Type[] types)
         {
             SchemaNamespace = schemaNamespace;
             Schema = schema;
@@ -14,7 +14,7 @@ namespace DbKeeperNet.Engine
 
         public string SchemaNamespace { get; }
 
-        public XmlReader Schema { get; }
+        public Func<XmlReader> Schema { get; }
         public Type[] Types { get; }
     }
 }

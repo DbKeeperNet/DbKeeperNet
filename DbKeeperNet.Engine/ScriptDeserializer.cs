@@ -25,7 +25,11 @@ namespace DbKeeperNet.Engine
             {
                 _logger.LogInformation("Adding schema namespace {0} with support for types {1}", schema.SchemaNamespace, string.Join(";", schema.Types.Select(t => t.Name)));
 
-                schemaSet.Add(schema.SchemaNamespace, schema.Schema);
+                using (var schemaContent = schema.Schema())
+                {
+                    schemaSet.Add(schema.SchemaNamespace, schemaContent);
+                }
+
                 types.AddRange(schema.Types);
             }
 

@@ -28,7 +28,7 @@ namespace DbKeeperNet.Engine.Configuration
             return this;
         }
 
-        public IDbKeeperNetBuilder AddSchema(string schemaNamespace, XmlReader schema, params Type[] types)
+        public IDbKeeperNetBuilder AddSchema(string schemaNamespace, Func<XmlReader> schema, params Type[] types)
         {
             Schemas.Add(new SchemaReference(schemaNamespace, schema, types));
 
