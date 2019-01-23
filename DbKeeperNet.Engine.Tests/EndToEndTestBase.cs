@@ -21,6 +21,21 @@ namespace DbKeeperNet.Engine.Tests
         }
 
         [Test]
+        public void TestEndToEndSetupMultiResolve()
+        {
+            using (var s = ServiceProvider.CreateScope())
+            {
+                var updater = s.ServiceProvider.GetService<IDatabaseUpdater>();
+                updater.ExecuteUpgrade();
+
+                var updater2 = s.ServiceProvider.GetService<IDatabaseUpdater>();
+                updater2.ExecuteUpgrade();
+
+                AssertThatTableExists(s.ServiceProvider.GetService<IDatabaseService>());
+            }
+        }
+
+        [Test]
         public void TestEndToEndSetupThruLazyResolution()
         {
             using (var s = ServiceProvider.CreateScope())
