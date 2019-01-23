@@ -23,7 +23,7 @@ namespace DbKeeperNet.Extensions.AspNetRolesAndMembership
                 ;
 
             configuration.AddSchema("http://code.google.com/p/dbkeepernet/UpdatesAspNetRolesAndMembership-1.0.xsd",
-                XmlReader.Create(typeof(AspNetMembershipAdapter).Assembly.GetManifestResourceStream(@"DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources.UpdatesAspNetRolesAndMembership-1.0.xsd")),
+                () => XmlReader.Create(typeof(AspNetMembershipAdapter).Assembly.GetManifestResourceStream(@"DbKeeperNet.Extensions.AspNetRolesAndMembership.Resources.UpdatesAspNetRolesAndMembership-1.0.xsd")),
                 typeof(AspNetAccountCreateUpdateStepType), 
                 typeof(AspNetAccountDeleteUpdateStepType), 
                 typeof(AspNetRoleCreateUpdateStepType), 

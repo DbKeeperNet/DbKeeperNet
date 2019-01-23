@@ -23,7 +23,7 @@ namespace DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup
         {
             configuration
                 .AddSchema(@"http://code.google.com/p/dbkeepernet/MsSqlMembershipAndRolesSetup-1.0.xsd",
-                    XmlReader.Create(typeof(DbKeeperNetBuilderExtensions).Assembly.GetManifestResourceStream(
+                    () => XmlReader.Create(typeof(DbKeeperNetBuilderExtensions).Assembly.GetManifestResourceStream(
                         @"DbKeeperNet.Extensions.MsSqlMembershipAndRolesSetup.Resources.MsSqlMembershipAndRolesSetup-1.0.xsd")),
                     typeof(MsSqlMembershipAndRolesSetupType))
 

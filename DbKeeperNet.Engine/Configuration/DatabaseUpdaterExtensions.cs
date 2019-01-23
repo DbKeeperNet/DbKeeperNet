@@ -50,10 +50,14 @@ namespace DbKeeperNet.Engine.Configuration
 
             configurationCallback(configuration);
 
-            var schemaResource = typeof(DbKeeperNetBuilderExtensions).Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd");
-            
             configuration
-                .AddSchema(@"http://code.google.com/p/dbkeepernet/Updates-1.0.xsd", XmlReader.Create(schemaResource) /*, typeof(Updates) */);
+                .AddSchema(@"http://code.google.com/p/dbkeepernet/Updates-1.0.xsd", () =>
+                {
+                    var schemaResource = typeof(DbKeeperNetBuilderExtensions).Assembly.GetManifestResourceStream(@"DbKeeperNet.Engine.Resources.Updates-1.0.xsd");
+
+                    return XmlReader.Create(schemaResource);
+                }
+/*, typeof(Updates) */);
 
             foreach (var script in configuration.Scripts)
             {
